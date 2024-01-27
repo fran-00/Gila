@@ -14,7 +14,8 @@ class Model(QObject):
     model_signal_to_controller = Signal(str)
     player_status_signal = Signal(tuple)
 
-    def __init__(self):
+    def __init__(self, chat):
+        self.chat = chat
         super().__init__()
 
     def run(self):
