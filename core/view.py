@@ -49,7 +49,7 @@ class View(QMainWindow):
         self.view_signal_to_controller.emit(prompt)
         # Append user prompt to log view window
         self.chat_view.append(
-            f"<p style='color:#ffdc7d; font-weight:600'>>>> {prompt}</p>")
+            f"<p><b>Tu</b>: {prompt}</p>")
         # Resets the prompt box
         self.prompt_box.clear()
         self.prompt_box.setFocus()
@@ -62,4 +62,4 @@ class View(QMainWindow):
     def handle_ai_response(self, response):
         """ Slot that receives a string from controller as a signal """
         # Append output to chat view window
-        self.chat_view.append(f"{response}")
+        self.chat_view.append(f"<b>Assistente</b>: {response}")
