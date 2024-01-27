@@ -26,12 +26,12 @@ class Model(QObject):
 
     def process_main_loop(self):
         self.event_loop.exec()
-        ai_response = "TEST"
+        ai_response = self.chat.submit_prompt(self.prompt)
         self.model_signal_to_controller.emit(ai_response)
 
     @Slot(str)
     def handle_inbound_signal(self, prompt):
-        self.action = prompt.lower()
+        self.prompt = prompt.lower()
         self.event_loop.exit()
 
     def handle_outbound_signal(self, ai_response):
