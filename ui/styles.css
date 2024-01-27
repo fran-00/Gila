@@ -1,0 +1,39 @@
+/* Main Widget */
+QWidget {
+    background-color: #00578b;
+    color: #ffffff;
+    font-family: 'Garamond', serif;
+    font-size: 18px;
+    border-radius: 4px;
+}
+
+/* Chat Log */
+QTextEdit {
+    padding: 10px 20px;
+    border: 1px solid #ffffff;
+}
+
+/* Input Line */
+QLineEdit {
+    border: 1px solid #fff;
+    background-color: #003757;
+    color: #FFF;
+}
+
+QLineEdit:hover {
+    border: 1px solid #cccccc;
+}
+
+/* Generic Button */
+QPushButton {
+    background-color: #003757;
+    color: #fff;
+    border: 1px solid #FFF;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+QPushButton:hover {
+    background-color: #fff;
+    color: #003757; 
+}
