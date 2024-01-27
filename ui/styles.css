@@ -3,13 +3,13 @@ QWidget {
     background-color: #00578b;
     color: #ffffff;
     font-family: 'Garamond', serif;
-    font-size: 18px;
+    font-size: 22px;
     border-radius: 4px;
 }
 
 /* Chat Log */
 QTextEdit {
-    padding: 10px 20px;
+    padding: 10px 10px;
     border: 1px solid #ffffff;
 }
 
