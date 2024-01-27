@@ -23,3 +23,14 @@ Now you need an OpenAI API Key and a Google API Key. Once you got them, store th
 Put this file inside ai folder and you're ready! Run the program:
 
         py main.py
+
+## Notes
+
+APIs do have rate limits. To know more:
+
+- [OpenAI](https://platform.openai.com/docs/guides/rate-limits/rate-limits)
+- [Gemini Models](https://ai.google.dev/models/gemini)
+
+## TODO List
+
+- [ ] Add a Pop Up Menu on the left side of screen to adjust settings
