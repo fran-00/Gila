@@ -6,13 +6,14 @@ from core.model import Model, MainThread
 from core.view import View
 from core.controller import Controller
 from ai.openai import OpenAIClient
+from ai.google import GoogleClient
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     view = View()
-    chat = OpenAIClient()
-    model = Model(chat)
+    client = GoogleClient()
+    model = Model(client)
     thread = MainThread(model)
     controller = Controller(view, model, thread)
     view.show()

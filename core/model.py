@@ -14,8 +14,8 @@ class Model(QObject):
     model_signal_to_controller = Signal(str)
     player_status_signal = Signal(tuple)
 
-    def __init__(self, chat):
-        self.chat = chat
+    def __init__(self, client):
+        self.client = client
         super().__init__()
 
     def run(self):
@@ -26,7 +26,7 @@ class Model(QObject):
 
     def process_main_loop(self):
         self.event_loop.exec()
-        ai_response = self.chat.submit_prompt(self.prompt)
+        ai_response = self.client.submit_prompt(self.prompt)
         self.model_signal_to_controller.emit(ai_response)
 
     @Slot(str)
