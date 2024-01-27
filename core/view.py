@@ -11,6 +11,7 @@ class View(QMainWindow):
         super().__init__()
         self.setWindowTitle("Metis")
         self.resize(1024, 768)
+        self.setStyleSheet(self.load_css_file())
         self.create_layout()
 
     def create_layout(self):
@@ -52,6 +53,10 @@ class View(QMainWindow):
         # Resets the prompt box
         self.prompt_box.clear()
         self.prompt_box.setFocus()
+
+    def load_css_file(self):
+        with open("ui/styles.css", "r") as file:
+            return file.read()
 
     @Slot(str)
     def handle_ai_response(self, response):
