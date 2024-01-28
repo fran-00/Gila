@@ -38,3 +38,5 @@ APIs do have rate limits. To know more:
 - [ ] Conversations must be saved on every chat iteration on an archive folder.
 - [ ] If user wants to export the current conversation, they must be able to choose file format between .txt, .docx and .pdf.
 - [ ] User must be able to choose response max length (very short, short, medium, long).
+- [ ] Current settings must be saved to an external file for future use, like the current llm.
+- [ ] User must not be able to send another prompt if the program is waiting for API response.
