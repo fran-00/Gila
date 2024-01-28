@@ -33,4 +33,8 @@ APIs do have rate limits. To know more:
 
 ## TODO List
 
-- [ ] Add a Pop Up Menu on the left side of screen to adjust settings
+- [ ] Add a Pop Up Menu on the left side of screen to adjust settings (model and temperature) and start a new chat
+- [ ] Chat log must use markdown instead of html to parse styled responses.
+- [ ] Conversations must be saved on every chat iteration on an archive folder.
+- [ ] If user wants to export the current conversation, they must be able to choose file format between .txt, .docx and .pdf.
+- [ ] User must be able to choose response max length (very short, short, medium, long).
