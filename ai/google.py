@@ -5,7 +5,8 @@ from .api_client import APIClient
 
 class GoogleClient(APIClient):
 
-    def __init__(self):
+    def __init__(self, llm):
+        super().__init__(llm)
         generation_config = {
             "temperature": 0.7,
             "top_p": 1,
@@ -18,7 +19,7 @@ class GoogleClient(APIClient):
             "HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_NONE",
             "HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_NONE",
         }
-        self.model = genai.GenerativeModel('gemini-pro',
+        self.model = genai.GenerativeModel(self.llm,
                                            generation_config=generation_config,
                                            safety_settings=safety_settings)
         self.chat = self.model.start_chat(history=[])

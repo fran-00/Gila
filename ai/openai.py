@@ -5,7 +5,8 @@ from .api_client import APIClient
 
 class OpenAIClient(APIClient):
 
-    def __init__(self):
+    def __init__(self, llm):
+        super().__init__(llm)
         self.prompts = [{"role": "system", "content": "You are a helpful assistant."}]
         openai.api_key = self.load_api_key("OPENAI")
 
@@ -14,7 +15,7 @@ class OpenAIClient(APIClient):
 
         # Request gpt-3.5-turbo for chat completion
         response = openai.OpenAI().chat.completions.create(
-            model="gpt-3.5-turbo",
+            model=self.llm,
             messages=self.prompts
         )
 
