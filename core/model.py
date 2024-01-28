@@ -14,8 +14,8 @@ class Model(QObject):
     model_signal_to_controller = Signal(str)
     player_status_signal = Signal(tuple)
 
-    def __init__(self, client):
-        self.client = client
+    def __init__(self):
+        self.client = None
         super().__init__()
 
     def run(self):
@@ -28,6 +28,9 @@ class Model(QObject):
         self.event_loop.exec()
         ai_response = self.client.submit_prompt(self.prompt)
         self.model_signal_to_controller.emit(ai_response)
+
+    def set_client(self, client):
+        self.client = client
 
     @Slot(str)
     def handle_inbound_signal(self, prompt):
