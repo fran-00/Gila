@@ -1,18 +1,13 @@
-import os
-
 import cohere
-from dotenv import load_dotenv
+
+from .api_client import APIClient
 
 
-class CohereClient:
+class CohereClient(APIClient):
 
     def __init__(self):
-        self.load_api_key()
         self.chat_history = []
-
-    def load_api_key(self):
-        load_dotenv()
-        self.co = cohere.Client(os.getenv("COHERE_API_KEY"))
+        self.co = cohere.Client(self.load_api_key("COHERE"))       
 
     def submit_prompt(self, prompt):
         # generate a response with the current chat history
