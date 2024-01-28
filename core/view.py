@@ -37,9 +37,6 @@ class View(QMainWindow):
         # Append user prompt to log view window
         self.chat_view.append(
             f"<p><b>Tu</b>: {prompt}</p>")
-        # Resets the prompt box FIXME:
-        self.prompt_box.clear()
-        self.prompt_box.setFocus()
 
     @Slot(str)
     def handle_ai_response(self, response):

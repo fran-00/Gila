@@ -24,6 +24,7 @@ class UserPrompt:
 
     def handle_user_prompt(self, user_prompt):
         prompt = self.prompt_box.text().strip() if user_prompt == "none" else user_prompt
+        self.clear_prompt_box()
         return self.window.process_prompt(prompt)
 
     def clear_prompt_box(self):
