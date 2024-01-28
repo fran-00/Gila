@@ -1,9 +1,20 @@
-from PySide6.QtWidgets import QHBoxLayout, QLineEdit, QTextEdit, QPushButton
+from PySide6.QtWidgets import QVBoxLayout, QHBoxLayout, QLineEdit, QTextEdit, QPushButton
 
+
+class ChatLog:
+    def __init__(self, window):
+        self.window = window
+        self.chat_view = ChatWidget(self.window).on_chat_widget()
+        self.prompt_layout = PromptLayout(self.window).on_prompt_layout()
+
+    def on_chat_layout(self):
+        chat_layout = QVBoxLayout(objectName="chat_layout")
+        chat_layout.addWidget(self.chat_view)
+        chat_layout.addLayout(self.prompt_layout)
+        return chat_layout
 
 class ChatWidget:
     def __init__(self, window):
-        self.window = window
         self.chat_widget = QTextEdit()
 
     def on_chat_widget(self):
