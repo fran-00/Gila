@@ -7,7 +7,7 @@ class CohereClient(APIClient):
 
     def __init__(self):
         self.chat_history = []
-        self.co = cohere.Client(self.load_api_key("COHERE"))       
+        self.co = cohere.Client(self.load_api_key("COHERE"))
 
     def submit_prompt(self, prompt):
         # generate a response with the current chat history
@@ -21,7 +21,7 @@ class CohereClient(APIClient):
         # add message and answer to the chat history
         user_message = {"user_name": "User", "text": prompt}
         bot_message = {"user_name": "Chatbot", "text": answer}
-        
+
         self.chat_history.append(user_message)
         self.chat_history.append(bot_message)
         return answer
