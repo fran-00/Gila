@@ -4,15 +4,15 @@ import openai
 from dotenv import load_dotenv
 
 
-load_dotenv()
-
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
-
 class OpenAIClient:
 
     def __init__(self):
+        self.load_api_key()
         self.prompts = [{"role": "system", "content": "You are a helpful assistant."}]
+
+    def load_api_key(self):
+        load_dotenv()
+        openai.api_key = os.getenv("OPENAI_API_KEY")
 
     def submit_prompt(self, prompt):
         self.prompts.append({"role": "user", "content": prompt})
