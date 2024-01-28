@@ -4,8 +4,8 @@ from PySide6.QtWidgets import QVBoxLayout, QHBoxLayout, QLineEdit, QTextEdit, QP
 class ChatLog:
     def __init__(self, window):
         self.window = window
-        self.chat_view = ChatWidget(self.window).on_chat_widget()
-        self.prompt_layout = PromptLayout(self.window).on_prompt_layout()
+        self.chat_view = ChatWidget().on_chat_widget()
+        self.prompt_layout = PromptLayout().on_prompt_layout(self.window)
 
     def on_chat_layout(self):
         chat_layout = QVBoxLayout(objectName="chat_layout")
@@ -14,7 +14,7 @@ class ChatLog:
         return chat_layout
 
 class ChatWidget:
-    def __init__(self, window):
+    def __init__(self):
         self.chat_widget = QTextEdit()
 
     def on_chat_widget(self):
@@ -27,13 +27,12 @@ class ChatWidget:
 
 
 class PromptLayout:
-    def __init__(self, window):
-        self.window = window
+    def __init__(self):
         self.prompt_box = QLineEdit()
 
-    def on_prompt_layout(self):
+    def on_prompt_layout(self, window):
         self.prompt_box.returnPressed.connect(
-            lambda: self.handle_user_prompt("none"))
+            lambda: self.handle_user_prompt(window, "none"))
         self.prompt_box.setFocus()
 
         # Horizontal layout for input box and button
@@ -42,15 +41,15 @@ class PromptLayout:
 
         send_button = QPushButton("Enter", objectName="enter_button")
         send_button.clicked.connect(
-            lambda: self.handle_user_prompt("none"))
+            lambda: self.handle_user_prompt(window, "none"))
 
         prompt_layout.addWidget(send_button)
         return prompt_layout
 
-    def handle_user_prompt(self, user_prompt):
+    def handle_user_prompt(self, window, user_prompt):
         prompt = self.prompt_box.text().strip() if user_prompt == "none" else user_prompt
         self.clear_prompt_box()
-        return self.window.process_prompt(prompt)
+        return window.process_prompt(prompt)
 
     def clear_prompt_box(self):
         self.prompt_box.clear()
