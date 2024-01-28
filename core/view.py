@@ -1,8 +1,7 @@
 from PySide6.QtWidgets import QMainWindow, QWidget, QVBoxLayout
 from PySide6.QtCore import Signal, Slot
 
-from ui.user_prompt import UserPrompt
-from ui.chat_log import ChatLog
+from ui.chat_log import ChatWidget, PromptLayout
 
 
 class View(QMainWindow):
@@ -20,8 +19,8 @@ class View(QMainWindow):
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
 
-        self.chat_view = ChatLog(self).on_chat_widget()
-        self.prompt_layout = UserPrompt(self).on_prompt_layout()
+        self.chat_view = ChatWidget(self).on_chat_widget()
+        self.prompt_layout = PromptLayout(self).on_prompt_layout()
 
         main_layout = QVBoxLayout(central_widget)
         main_layout.addWidget(self.chat_view)
