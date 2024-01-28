@@ -13,6 +13,7 @@ class ChatLog:
         chat_layout.addLayout(self.prompt_layout)
         return chat_layout
 
+
 class ChatWidget:
     def __init__(self):
         self.chat_widget = QTextEdit()
