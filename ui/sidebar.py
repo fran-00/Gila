@@ -1,5 +1,7 @@
 from PySide6.QtWidgets import QVBoxLayout, QPushButton, QComboBox
 
+from ai.manager import LLMsManager
+
 
 class Sidebar:
 
@@ -16,8 +18,11 @@ class Sidebar:
 class LLMChanger:
 
     def __init__(self):
+        self.clients_manager = LLMsManager()
         self.sidebar_widget = QComboBox()
 
     def on_sidebar_widget(self):
-        self.sidebar_widget.addItem("test")
+        llms_list = self.clients_manager.available_models()
+        for llm in llms_list:
+            self.sidebar_widget.addItem(llm)
         return self.sidebar_widget
