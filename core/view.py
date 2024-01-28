@@ -1,7 +1,8 @@
-from PySide6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QTextEdit
+from PySide6.QtWidgets import QMainWindow, QWidget, QVBoxLayout
 from PySide6.QtCore import Signal, Slot
 
-from ui.widgets import UserPrompt
+from ui.user_prompt import UserPrompt
+from ui.chat_log import ChatLog
 
 
 class View(QMainWindow):
@@ -19,30 +20,16 @@ class View(QMainWindow):
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
 
-        chat_view = self.on_chat_view()
-        prompt_layout = UserPrompt(self).on_prompt_layout()
+        self.chat_view = ChatLog(self).on_chat_widget()
+        self.prompt_layout = UserPrompt(self).on_prompt_layout()
 
         main_layout = QVBoxLayout(central_widget)
-        main_layout.addWidget(chat_view)
-        main_layout.addLayout(prompt_layout)
+        main_layout.addWidget(self.chat_view)
+        main_layout.addLayout(self.prompt_layout)
 
-        # Set focus on user prompt box
-        self.prompt_box.setFocus()
-
-    def on_chat_view(self):
-        """Add widget for displaying chat log"""
-        self.chat_view = QTextEdit()
-        self.chat_view.setReadOnly(True)
-        self.chat_view.ensureCursorVisible()
-
-        return self.chat_view
-
-    def get_chat_log(self):
-        return self.chat_view.toPlainText()
-
-    def handle_user_prompt(self, user_prompt):
-        prompt = self.prompt_box.text().strip() if user_prompt == "none" else user_prompt
-        return self.process_prompt(prompt)
+    def load_css_file(self):
+        with open("ui/styles.css", "r") as file:
+            return file.read()
 
     def process_prompt(self, prompt):
         # Emits the signal that contains user prompt
@@ -50,13 +37,9 @@ class View(QMainWindow):
         # Append user prompt to log view window
         self.chat_view.append(
             f"<p><b>Tu</b>: {prompt}</p>")
-        # Resets the prompt box
+        # Resets the prompt box FIXME:
         self.prompt_box.clear()
         self.prompt_box.setFocus()
-
-    def load_css_file(self):
-        with open("ui/styles.css", "r") as file:
-            return file.read()
 
     @Slot(str)
     def handle_ai_response(self, response):
