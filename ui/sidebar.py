@@ -2,26 +2,26 @@ from PySide6.QtWidgets import QVBoxLayout, QPushButton, QComboBox
 from PySide6.QtCore import QObject, Signal, Slot
 
 
-
 class Sidebar(QObject):
     sidebar_signal_to_controller = Signal(tuple)
 
     def __init__(self, window):
         super().__init__()
         self.window = window
-        self.llms = None
         self.llms_combobox = QComboBox()
+        self.llms = [
+            "GPT-4",
+            "GPT-4 Turbo",
+            "GPT-3.5 Turbo",
+            "Gemini Pro",
+            "Cohere Chat"
+        ]
 
     def on_sidebar_layout(self):
         sidebar_layout = QVBoxLayout(objectName="sidebar_layout")
-        # sidebar_layout.addWidget(self.on_llms_combobox())
+        sidebar_layout.addWidget(self.on_llms_combobox())
         # sidebar_layout.addWidget(self.on_confirm_button())
         return sidebar_layout
-
-    @Slot(tuple)
-    def handle_inbound_signal(self, data):
-        print(data)
-        self.llms = data
 
     def on_combobox_changed(self):
         pass
