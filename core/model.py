@@ -12,10 +12,10 @@ class MainThread(QThread):
 
 class Model(QObject):
     model_signal_to_controller = Signal(str)
-    player_status_signal = Signal(tuple)
 
-    def __init__(self):
-        self.client = None
+    def __init__(self, manager):
+        self.manager = manager
+        self.client = self.manager.client
         super().__init__()
 
     def run(self):
@@ -29,13 +29,7 @@ class Model(QObject):
         ai_response = self.client.submit_prompt(self.prompt)
         self.model_signal_to_controller.emit(ai_response)
 
-    def set_client(self, client):
-        self.client = client
-
     @Slot(str)
     def handle_inbound_signal(self, prompt):
         self.prompt = prompt.lower()
         self.event_loop.exit()
-
-    def handle_outbound_signal(self, ai_response):
-        self.model_signal_to_controller.emit(ai_response)
