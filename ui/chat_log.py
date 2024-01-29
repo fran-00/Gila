@@ -9,47 +9,40 @@ class ChatLog(QObject):
         super().__init__()
 
         self.window = window
-        self.chat_view = ChatWidget().on_chat_widget()
-        self.prompt_layout = PromptLayout().on_prompt_layout(self.window)
+        self.chat_widget = QTextEdit()
+        self.chat_widget.setReadOnly(True)
+        self.chat_widget.ensureCursorVisible()
+        self.prompt_layout = PromptLayout(self)
 
     def on_chat_layout(self):
         chat_layout = QVBoxLayout(objectName="chat_layout")
-        chat_layout.addWidget(self.chat_view)
-        chat_layout.addLayout(self.prompt_layout)
+        chat_layout.addWidget(self.chat_widget)
+        chat_layout.addLayout(self.prompt_layout.on_prompt_layout())
         return chat_layout
 
     def process_prompt(self, prompt):
         # Emits the signal that contains user prompt
-        self.view_signal_to_controller.emit(prompt)
+        self.chatlog_signal_to_controller.emit(prompt)
         # Append user prompt to log view window
-        self.chat_view.append(
+        self.chat_widget.append(
             f"<p><b>Tu</b>: {prompt}</p>")
 
     @Slot(str)
     def handle_inbound_signal(self, response):
         """ Slot that receives a string from controller as a signal """
         # Append output to chat view window
-        self.chat_view.append(f"<b>Assistente</b>: {response}")
-
-
-class ChatWidget:
-    def __init__(self):
-        self.chat_widget = QTextEdit()
-
-    def on_chat_widget(self):
-        self.chat_widget.setReadOnly(True)
-        self.chat_widget.ensureCursorVisible()
-        return self.chat_widget
+        self.chat_widget.append(f"<b>Assistente</b>: {response}")
 
     def get_chat_log(self):
         return self.chat_widget.toPlainText()
 
 
 class PromptLayout:
-    def __init__(self):
+    def __init__(self, chatlog):
+        self.chatlog = chatlog
         self.prompt_box = QLineEdit()
 
-    def on_prompt_layout(self, window):
+    def on_prompt_layout(self):
         self.prompt_box.returnPressed.connect(
             lambda: self.handle_user_prompt("none"))
         self.prompt_box.setFocus()
@@ -68,7 +61,7 @@ class PromptLayout:
     def handle_user_prompt(self, user_prompt):
         prompt = self.prompt_box.text().strip() if user_prompt == "none" else user_prompt
         self.clear_prompt_box()
-        return self.process_prompt(prompt)
+        return self.chatlog.process_prompt(prompt)
 
     def clear_prompt_box(self):
         self.prompt_box.clear()
