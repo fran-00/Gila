@@ -43,7 +43,9 @@ class Sidebar(QObject):
 
     @Slot(tuple)
     def handle_inbound_signal(self, data):
-        print(data)
+        """ Get current llm and temperature """
+        self.current_llm = data[0]
+        self.current_temperature = data[1]
 
     def handle_outbound_signal(self, data):
         self.sidebar_signal_to_controller.emit("llm and temp")
