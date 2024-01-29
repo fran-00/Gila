@@ -1,10 +1,10 @@
 from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout
 
-from ui.chat_log import ChatLog
-from ui.sidebar import Sidebar
+from .chat_log import ChatLog
+from .sidebar import Sidebar
 
 
-class View(QMainWindow):
+class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
