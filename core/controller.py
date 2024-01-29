@@ -25,7 +25,7 @@ class Controller(QObject):
     @Slot(str)
     def on_model_signal(self, data):
         """Process data received from the MODEL and send it to VIEW"""
-        self.controller_signal_to_view.emit(data)
+        self.controller_signal_to_chatlog.emit(data)
 
     @Slot(tuple)
     def on_manager_signal(self, data):
