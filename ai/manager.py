@@ -27,5 +27,10 @@ class AIManager(QObject):
         self.client = client
 
     @Slot(tuple)
-    def handle_inbound_signal(self):
-        self.manager_signal_to_controller.emit(list(self.llms.keys()))
+    def handle_inbound_signal(self, data):
+        llm = data[0]
+        temperature = data[1]
+
+    def handle_outbound_signal(self):
+        manager_data = self.client, self.client.temperature
+        self.manager_signal_to_controller.emit(manager_data)

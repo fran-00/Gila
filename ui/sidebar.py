@@ -40,3 +40,10 @@ class Sidebar(QObject):
         confirm_button = QPushButton("Conferma", self)
         confirm_button.clicked.connect(self.set_client)
         return confirm_button
+
+    @Slot(tuple)
+    def handle_inbound_signal(self, data):
+        print(data)
+
+    def handle_outbound_signal(self, data):
+        self.sidebar_signal_to_controller.emit("llm and temp")
