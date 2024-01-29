@@ -3,10 +3,10 @@ from .google import GoogleClient
 from .cohere import CohereClient
 
 
-class LLMsManager:
+class AIManager:
 
     def __init__(self):
-        self.current_client = "GPT-3.5 Turbo"
+        self.client = "GPT-3.5 Turbo"
         self.llms = {
             "GPT-4": OpenAIClient("gpt-4"),
             "GPT-4 Turbo": OpenAIClient("gpt-4-turbo-preview"),
@@ -18,8 +18,5 @@ class LLMsManager:
     def available_models(self):
         return list(self.llms.keys())
 
-    def set_default_client(self):
-        pass
-
-    def set_client(self):
-        pass
+    def set_client(self, client):
+        self.client = client
