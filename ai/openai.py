@@ -7,6 +7,7 @@ class OpenAIClient(APIClient):
 
     def __init__(self, llm):
         super().__init__(llm)
+        self.temperature = 0.7
         self.prompts = [{"role": "system", "content": "You are a helpful assistant."}]
         openai.api_key = self.load_api_key("OPENAI")
 

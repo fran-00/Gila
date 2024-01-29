@@ -7,8 +7,9 @@ class GoogleClient(APIClient):
 
     def __init__(self, llm):
         super().__init__(llm)
+        self.temperature = 0.7
         generation_config = {
-            "temperature": 0.7,
+            "temperature": self.temperature,
             "top_p": 1,
             "top_k": 1,
             "max_output_tokens": 2048,
