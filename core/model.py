@@ -20,6 +20,7 @@ class Model(QObject):
 
     def run(self):
         self.event_loop = QEventLoop()
+        self.manager.handle_received_signal()
 
         while True:
             self.process_main_loop()
