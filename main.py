@@ -12,9 +12,10 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     manager = AIManager()
     view = View()
+    sidebar = view.sidebar
     model = Model(manager)
     thread = MainThread(model)
-    controller = Controller(view, model, thread)
+    controller = Controller(view, model, manager, sidebar, thread)
     view.show()
 
     sys.exit(app.exec())
