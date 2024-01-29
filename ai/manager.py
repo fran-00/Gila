@@ -27,5 +27,5 @@ class AIManager(QObject):
         self.client = client
 
     @Slot(tuple)
-    def handle_received_signal(self):
+    def handle_inbound_signal(self):
         self.manager_signal_to_controller.emit(list(self.llms.keys()))

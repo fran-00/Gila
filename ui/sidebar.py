@@ -19,7 +19,7 @@ class Sidebar(QObject):
         return sidebar_layout
 
     @Slot(tuple)
-    def handle_received_signal(self, data):
+    def handle_inbound_signal(self, data):
         print(data)
         self.llms = data
 
