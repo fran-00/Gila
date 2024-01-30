@@ -19,8 +19,9 @@ class AIManager(QObject):
         }
         self.current_llm = OpenAIClient("gpt-3.5-turbo-1106")
 
-    # def available_models(self):
-    #     return list(self.llms.keys())
+    def available_models(self):
+        """ TODO: must check API keys """
+        pass
 
     def set_llm(self, current_llm):
         self.current_llm = current_llm
