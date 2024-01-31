@@ -3,7 +3,7 @@ import sys
 from PySide6.QtWidgets import QApplication
 
 from core.model import Model, MainThread
-from ui.main_window import View
+from ui.view import View
 from core.controller import Controller
 from ai.manager import AIManager
 
