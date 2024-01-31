@@ -11,17 +11,16 @@ class Controller(QObject):
     def __init__(self, model, manager, chatlog, sidebar, thread):
         super().__init__()
 
-        model.model_signal_to_controller.connect(self.on_model_signal)
-        chatlog.chatlog_signal_to_controller.connect(self.on_chatlog_signal)
-        manager.manager_signal_to_controller_llm.connect(self.on_manager_signal_llm)
-        sidebar.sidebar_signal_to_controller_llm.connect(self.on_sidebar_signal_llm)
+    def connect_signals_and_slots(self):
+        self.model.model_signal_to_controller.connect(self.on_model_signal)
+        self.chatlog.chatlog_signal_to_controller.connect(self.on_chatlog_signal)
+        self.manager.manager_signal_to_controller_llm.connect(self.on_manager_signal_llm)
+        self.sidebar.sidebar_signal_to_controller_llm.connect(self.on_sidebar_signal_llm)
 
-        self.controller_signal_to_model.connect(model.handle_inbound_signal)
-        self.controller_signal_to_chatlog.connect(chatlog.handle_inbound_signal)
-        self.controller_signal_to_manager_llm.connect(manager.handle_inbound_llm_signal)
-        self.controller_signal_to_sidebar_llm.connect(sidebar.handle_inbound_llm_signal)
-
-        thread.start()
+        self.controller_signal_to_model.connect(self.model.handle_inbound_signal)
+        self.controller_signal_to_chatlog.connect(self.chatlog.handle_inbound_signal)
+        self.controller_signal_to_manager_llm.connect(self.manager.handle_inbound_llm_signal)
+        self.controller_signal_to_sidebar_llm.connect(self.sidebar.handle_inbound_llm_signal)
 
     @Slot(str)
     def on_model_signal(self, data):
