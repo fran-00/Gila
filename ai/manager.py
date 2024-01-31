@@ -6,7 +6,7 @@ from .cohere import CohereClient
 
 
 class AIManager(QObject):
-    manager_signal_to_controller = Signal(tuple)
+    manager_signal_to_controller_llm = Signal(tuple)
 
     def __init__(self):
         super().__init__()
@@ -27,12 +27,11 @@ class AIManager(QObject):
         selected_llm = self.llms.get(new_llm)
         self.client = selected_llm
 
-    @Slot(tuple)
-    def handle_inbound_signal(self, data):
-        new_llm = data[0]
-        new_temperature = data[1]
+    @Slot(str)
+    def handle_inbound_llm_signal(self, llm):
+        new_llm = llm
         self.set_client(new_llm)
 
-    def handle_outbound_signal(self):
+    def handle_outbound_llm_signal(self):
         manager_data = self.client, self.client.temperature
         self.manager_signal_to_controller.emit(manager_data)
