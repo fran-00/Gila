@@ -11,12 +11,10 @@ from ai.manager import AIManager
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     manager = AIManager()
-    window = MainWindow()
-    chatlog = window.chat
-    sidebar = window.sidebar
+    view = MainWindow()
     model = Model(manager)
     thread = MainThread(model)
-    controller = Controller(model, chatlog, sidebar, thread)
-    window.show()
+    controller = Controller(model, view, thread)
+    view.show()
 
     sys.exit(app.exec())
