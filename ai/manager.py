@@ -18,6 +18,7 @@ class AIManager(QObject):
             "Cohere Chat": CohereClient(),
         }
         self.client = OpenAIClient("gpt-3.5-turbo-1106")
+        self.client.llm_name = "GPT-3.5 Turbo"
 
     def available_models(self):
         """ TODO: must check API keys """
@@ -26,12 +27,12 @@ class AIManager(QObject):
     def set_client(self, new_llm):
         selected_llm = self.llms.get(new_llm)
         self.client = selected_llm
+        self.client.llm_name = new_llm
 
     @Slot(str)
-    def handle_inbound_llm_signal(self, llm):
-        new_llm = llm
+    def handle_inbound_llm_signal(self, new_llm):
         self.set_client(new_llm)
 
     def handle_outbound_llm_signal(self):
-        manager_data = self.client, self.client.temperature
-        self.manager_signal_to_controller.emit(manager_data)
+        """ """
+        self.manager_signal_to_controller_llm.emit(self.client.llm_name)
