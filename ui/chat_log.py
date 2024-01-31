@@ -3,7 +3,7 @@ from PySide6.QtCore import QObject, Signal, Slot
 
 
 class ChatLog(QObject):
-    chatlog_signal_to_controller = Signal(str)
+    user_prompt_signal_to_controller = Signal(str)
 
     def __init__(self, window):
         super().__init__()
@@ -22,13 +22,13 @@ class ChatLog(QObject):
 
     def process_prompt(self, prompt):
         # Emits the signal that contains user prompt
-        self.chatlog_signal_to_controller.emit(prompt)
+        self.user_prompt_signal_to_controller.emit(prompt)
         # Append user prompt to log view window
         self.chat_widget.append(
             f"<p><b>Tu</b>: {prompt}</p>")
 
     @Slot(str)
-    def handle_inbound_signal(self, response):
+    def handle_ai_response(self, response):
         """ Slot that receives a string from controller as a signal """
         # Append output to chat view window
         self.chat_widget.append(f"<b>Assistente</b>: {response}")

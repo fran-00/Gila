@@ -16,25 +16,27 @@ class Controller(QObject):
         thread.start()
 
     def connect_signals_and_slots(self):
-        self.model.model_signal_to_controller.connect(self.on_model_signal)
+        self.model.ai_response_signal_to_controller.connect(self.on_ai_response_signal)
+        self.view.chat.user_prompt_signal_to_controller.connect(self.on_user_prompt_signal)
+
         self.model.manager.manager_signal_to_controller_llm.connect(self.on_manager_signal_llm)
-        self.view.chat.chatlog_signal_to_controller.connect(self.on_chatlog_signal)
         self.view.sidebar.sidebar_signal_to_controller_llm.connect(self.on_sidebar_signal_llm)
 
-        self.controller_signal_to_model.connect(self.model.handle_inbound_signal)
+        self.controller_signal_to_model.connect(self.model.handle_user_prompt)
+        self.controller_signal_to_chatlog.connect(self.view.chat.handle_ai_response)
+
         self.controller_signal_to_manager_llm.connect(self.model.manager.handle_inbound_llm_signal)
-        self.controller_signal_to_chatlog.connect(self.view.chat.handle_inbound_signal)
         self.controller_signal_to_sidebar_llm.connect(self.view.sidebar.handle_inbound_llm_signal)
 
     @Slot(str)
-    def on_model_signal(self, data):
+    def on_ai_response_signal(self, ai_response):
         """Process AI response received from the MODEL and send it to CHATLOG"""
-        self.controller_signal_to_chatlog.emit(data)
+        self.controller_signal_to_chatlog.emit(ai_response)
 
     @Slot(str)
-    def on_chatlog_signal(self, data):
+    def on_user_prompt_signal(self, user_prompt):
         """ Process user prompt received from the CHATLOG and send it to MODEL"""
-        self.controller_signal_to_model.emit(data)
+        self.controller_signal_to_model.emit(user_prompt)
 
     @Slot(str)
     def on_manager_signal_llm(self, llm):
