@@ -8,8 +8,14 @@ class Controller(QObject):
     controller_signal_to_manager_llm = Signal(str)
     controller_signal_to_sidebar_llm = Signal(str)
 
-    def __init__(self, model, manager, chatlog, sidebar, thread):
+    def __init__(self, model, chatlog, sidebar, thread):
         super().__init__()
+        self.model = model
+        self.manager = model.manager
+        self.chatlog = chatlog
+        self.sidebar = sidebar
+        self.connect_signals_and_slots()
+        thread.start()
 
     def connect_signals_and_slots(self):
         self.model.model_signal_to_controller.connect(self.on_model_signal)

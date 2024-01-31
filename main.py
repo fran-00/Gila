@@ -16,7 +16,7 @@ if __name__ == '__main__':
     sidebar = window.sidebar
     model = Model(manager)
     thread = MainThread(model)
-    controller = Controller(model, manager, chatlog, sidebar, thread)
+    controller = Controller(model, chatlog, sidebar, thread)
     window.show()
 
     sys.exit(app.exec())
