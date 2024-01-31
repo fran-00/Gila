@@ -4,7 +4,7 @@ from .chat_log import ChatLog
 from .sidebar import Sidebar
 
 
-class MainWindow(QMainWindow):
+class View(QMainWindow):
 
     def __init__(self):
         super().__init__()
