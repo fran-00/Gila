@@ -20,8 +20,7 @@ class Model(QObject):
 
     def run(self):
         self.event_loop = QEventLoop()
-        client_settings = self.client.llm, self.client.temperature
-        self.manager.handle_inbound_llm_signal(client_settings)
+        self.manager.handle_outbound_llm_signal()
 
         while True:
             self.process_main_loop()
