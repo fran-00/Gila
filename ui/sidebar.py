@@ -8,7 +8,6 @@ class Sidebar(QObject):
     def __init__(self, window):
         super().__init__()
         self.window = window
-        self.llms_combobox = QComboBox()
         self.llms = [
             "GPT-4",
             "GPT-4 Turbo",
@@ -24,6 +23,7 @@ class Sidebar(QObject):
         return sidebar_layout
 
     def on_llms_combobox(self):
+        self.llms_combobox = QComboBox()
         for llm in self.llms:
             self.llms_combobox.addItem(llm)
         self.llms_combobox.currentIndexChanged.connect(self.on_combobox_changed)
