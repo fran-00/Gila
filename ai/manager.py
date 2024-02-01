@@ -24,15 +24,15 @@ class AIManager(QObject):
         """ TODO: must check API keys """
         pass
 
-    def set_client(self, new_llm):
+    def set_new_client(self, new_llm):
         selected_llm = self.llms.get(new_llm)
         self.client = selected_llm
         self.client.llm_name = new_llm
 
     @Slot(str)
-    def handle_inbound_llm_signal(self, new_llm):
-        self.set_client(new_llm)
+    def get_new_client_from_controller(self, new_llm):
+        self.set_new_client(new_llm)
 
-    def handle_outbound_llm_signal(self):
+    def send_current_client_to_controller(self):
         """ """
         self.manager_signal_to_controller_llm.emit(self.client.llm_name)

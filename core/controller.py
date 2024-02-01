@@ -23,7 +23,7 @@ class Controller(QObject):
 
         self.user_prompt_to_model.connect(self.model.handle_user_prompt)
         self.ai_response_to_chatlog.connect(self.view.chat.handle_ai_response)
-        self.selected_client_to_manager.connect(self.model.manager.handle_inbound_llm_signal)
+        self.selected_client_to_manager.connect(self.model.manager.get_new_client_from_controller)
         self.current_client_to_sidebar.connect(self.view.sidebar.get_current_client_from_controller)
 
     @Slot(str)

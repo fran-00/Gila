@@ -20,7 +20,7 @@ class Model(QObject):
 
     def run(self):
         self.event_loop = QEventLoop()
-        self.manager.handle_outbound_llm_signal()
+        self.manager.send_current_client_to_controller()
 
         while True:
             self.process_main_loop()
