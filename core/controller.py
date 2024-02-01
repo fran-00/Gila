@@ -5,8 +5,8 @@ class Controller(QObject):
     user_prompt_to_model = Signal(str)
     ai_response_to_chatlog = Signal(str)
 
-    controller_signal_to_manager_llm = Signal(str)
-    controller_signal_to_sidebar_llm = Signal(str)
+    selected_client_to_manager = Signal(str)
+    current_client_to_sidebar = Signal(str)
 
     def __init__(self, model, view, thread):
         super().__init__()
@@ -23,8 +23,8 @@ class Controller(QObject):
 
         self.user_prompt_to_model.connect(self.model.handle_user_prompt)
         self.ai_response_to_chatlog.connect(self.view.chat.handle_ai_response)
-        self.controller_signal_to_manager_llm.connect(self.model.manager.handle_inbound_llm_signal)
-        self.controller_signal_to_sidebar_llm.connect(self.view.sidebar.handle_inbound_llm_signal)
+        self.selected_client_to_manager.connect(self.model.manager.handle_inbound_llm_signal)
+        self.current_client_to_sidebar.connect(self.view.sidebar.handle_inbound_llm_signal)
 
     @Slot(str)
     def on_ai_response_signal(self, ai_response):
@@ -37,11 +37,11 @@ class Controller(QObject):
         self.user_prompt_to_model.emit(user_prompt)
 
     @Slot(str)
-    def on_client_from_manager_signal(self, llm):
+    def on_client_from_manager_signal(self, current_client):
         """Process data received from the MANAGER and send it to SIDEBAR"""
-        self.controller_signal_to_sidebar_llm.emit(llm)
+        self.current_client_to_sidebar.emit(current_client)
 
     @Slot(str)
-    def on_change_client_from_sidebar_signal(self, llm):
+    def on_change_client_from_sidebar_signal(self, new_client):
         """Process data received from the SIDEBAR and send it to MANAGER"""
-        self.controller_signal_to_manager_llm.emit(llm)
+        self.selected_client_to_manager.emit(new_client)
