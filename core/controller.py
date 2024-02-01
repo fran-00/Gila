@@ -6,6 +6,7 @@ class Controller(QObject):
     ai_response_to_chatlog = Signal(str)
     selected_client_to_manager = Signal(str)
     current_client_to_sidebar = Signal(str)
+    new_chat_started_to_model = Signal()
 
     def __init__(self, model, view, thread):
         super().__init__()
@@ -25,6 +26,7 @@ class Controller(QObject):
         self.ai_response_to_chatlog.connect(self.view.chat.get_ai_response_from_controller)
         self.selected_client_to_manager.connect(self.model.manager.get_new_client_from_controller)
         self.current_client_to_sidebar.connect(self.view.sidebar.get_current_client_from_controller)
+        self.new_chat_started_to_model.connect(self.model.new_chat_started_from_controller)
 
     @Slot(str)
     def on_ai_response_signal(self, ai_response):
@@ -49,4 +51,5 @@ class Controller(QObject):
     @Slot()
     def on_start_new_chat_from_sidebar_signal(self):
         self.view.chat.chat_widget.clear()
+        self.model.client.stream_stopped = True
         print("> ChatLog cleared.")

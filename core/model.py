@@ -23,14 +23,24 @@ class Model(QObject):
         self.manager.send_current_client_to_controller()
 
         while True:
+            if self.manager.stream_stopped is True:
+                break
             self.process_main_loop()
 
     def process_main_loop(self):
         self.event_loop.exec()
         ai_response = self.client.submit_prompt(self.prompt)
+        print("> API response received!")
         self.ai_response_signal_to_controller.emit(ai_response)
 
     @Slot(str)
     def get_user_prompt_from_controller(self, prompt):
         self.prompt = prompt.lower()
+        print("> Processing user prompt and waiting for API Response...")
         self.event_loop.exit()
+
+    @Slot()
+    def new_chat_started_from_controller(self):
+        print("> Chat Restarted.")
+        self.manager.stream_stopped = False
+        self.run()
