@@ -3,7 +3,7 @@ from PySide6.QtCore import QObject, Signal, Slot
 
 
 class Sidebar(QObject):
-    sidebar_signal_to_controller_llm = Signal(tuple)
+    selected_client_to_controller = Signal(tuple)
 
     def __init__(self, window):
         super().__init__()
@@ -41,13 +41,13 @@ class Sidebar(QObject):
         """ Trigger signal sending when Confirm Button is pressed"""
         selected_llm = self.llms_combobox.currentText()
         print(selected_llm)
-        return self.handle_outbound_llm_signal(selected_llm)
+        return self.send_selected_client_to_controller(selected_llm)
 
     @Slot(str)
-    def handle_inbound_llm_signal(self, llm):
+    def get_current_client_from_controller(self, llm):
         """ Get current llm """
         self.current_llm = llm
 
-    def handle_outbound_llm_signal(self, llm):
-        """ Send a signal to controller (a tuple) """
-        self.sidebar_signal_to_controller_llm.emit(llm)
+    def send_selected_client_to_controller(self, llm):
+        """ Send a signal to controller """
+        self.selected_client_to_controller.emit(llm)

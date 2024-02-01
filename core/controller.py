@@ -19,12 +19,12 @@ class Controller(QObject):
         self.model.ai_response_signal_to_controller.connect(self.on_ai_response_signal)
         self.view.chat.user_prompt_signal_to_controller.connect(self.on_user_prompt_signal)
         self.model.manager.manager_signal_to_controller_llm.connect(self.on_client_from_manager_signal)
-        self.view.sidebar.sidebar_signal_to_controller_llm.connect(self.on_change_client_from_sidebar_signal)
+        self.view.sidebar.selected_client_to_controller.connect(self.on_change_client_from_sidebar_signal)
 
         self.user_prompt_to_model.connect(self.model.handle_user_prompt)
         self.ai_response_to_chatlog.connect(self.view.chat.handle_ai_response)
         self.selected_client_to_manager.connect(self.model.manager.handle_inbound_llm_signal)
-        self.current_client_to_sidebar.connect(self.view.sidebar.handle_inbound_llm_signal)
+        self.current_client_to_sidebar.connect(self.view.sidebar.get_current_client_from_controller)
 
     @Slot(str)
     def on_ai_response_signal(self, ai_response):
