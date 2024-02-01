@@ -35,4 +35,5 @@ class AIManager(QObject):
 
     def send_current_client_to_controller(self):
         """ """
+        print(f"Manager: Current client is {self.client.llm_name}")
         self.manager_signal_to_controller_llm.emit(self.client.llm_name)
