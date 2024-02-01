@@ -31,6 +31,6 @@ class Model(QObject):
         self.ai_response_signal_to_controller.emit(ai_response)
 
     @Slot(str)
-    def handle_user_prompt(self, prompt):
+    def get_user_prompt_from_controller(self, prompt):
         self.prompt = prompt.lower()
         self.event_loop.exit()
