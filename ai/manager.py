@@ -19,6 +19,7 @@ class AIManager(QObject):
         }
         self.client = OpenAIClient("gpt-3.5-turbo-1106")
         self.client.llm_name = "GPT-3.5 Turbo"
+        self.stream_stopped = False
 
     def available_models(self):
         """ TODO: must check API keys """
