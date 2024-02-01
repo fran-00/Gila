@@ -28,7 +28,7 @@ class ChatLog(QObject):
             f"<p><b>Tu</b>: {prompt}</p>")
 
     @Slot(str)
-    def handle_ai_response(self, response):
+    def get_ai_response_from_controller(self, response):
         """ Slot that receives a string from controller as a signal """
         # Append output to chat view window
         self.chat_widget.append(f"<b>Assistente</b>: {response}")
