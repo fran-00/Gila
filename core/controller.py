@@ -19,6 +19,7 @@ class Controller(QObject):
         self.view.chat.user_prompt_signal_to_controller.connect(self.on_user_prompt_signal)
         self.model.manager.manager_signal_to_controller_llm.connect(self.on_client_from_manager_signal)
         self.view.sidebar.selected_client_to_controller.connect(self.on_change_client_from_sidebar_signal)
+        self.view.sidebar.start_new_chat_to_controller.connect(self.on_start_new_chat_from_sidebar_signal)
 
         self.user_prompt_to_model.connect(self.model.get_user_prompt_from_controller)
         self.ai_response_to_chatlog.connect(self.view.chat.get_ai_response_from_controller)
@@ -44,3 +45,8 @@ class Controller(QObject):
     def on_change_client_from_sidebar_signal(self, new_client):
         """Process data received from the SIDEBAR and send it to MANAGER"""
         self.selected_client_to_manager.emit(new_client)
+
+    @Slot()
+    def on_start_new_chat_from_sidebar_signal(self):
+        self.view.chat.chat_widget.clear()
+        print("> ChatLog cleared.")
