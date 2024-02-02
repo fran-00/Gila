@@ -5,6 +5,7 @@ from PySide6.QtCore import QObject, Signal, Slot
 class ChatLog(QObject):
     user_prompt_signal_to_controller = Signal(str)
     update_status_bar_from_chatlog = Signal(str)
+    start_new_chat_to_controller = Signal()
 
     def __init__(self, window):
         super().__init__()
