@@ -11,14 +11,21 @@ class ChatLog(QObject):
         super().__init__()
 
         self.window = window
+
         self.chat_widget = QTextEdit()
         self.chat_widget.setReadOnly(True)
         self.chat_widget.ensureCursorVisible()
+    
+        self.start_chat_button = QPushButton("Nuova Conversazione")
+        self.start_chat_button.clicked.connect(
+            lambda: self.on_starting_a_new_chat())
+
         self.prompt_layout = PromptLayout(self)
 
     def on_chat_layout(self):
         chat_layout = QVBoxLayout(objectName="chat_layout")
         chat_layout.addWidget(self.chat_widget)
+        chat_layout.addWidget(self.start_chat_button)
         chat_layout.addLayout(self.prompt_layout.on_prompt_layout())
         return chat_layout
 
@@ -33,9 +40,11 @@ class ChatLog(QObject):
 
     def on_show_chatlog(self):
         self.chat_widget.show()
+        self.start_chat_button.hide()
 
     def on_hide_chatlog(self):
         self.chat_widget.hide()
+        self.start_chat_button.show()
 
     @Slot(str)
     def get_ai_response_slot(self, response):
@@ -45,6 +54,9 @@ class ChatLog(QObject):
 
     def get_chat_log(self):
         return self.chat_widget.toPlainText()
+
+    def on_starting_a_new_chat(self):
+        self.start_new_chat_to_controller.emit()
 
 
 class PromptLayout:
@@ -61,11 +73,11 @@ class PromptLayout:
         prompt_layout = QHBoxLayout(objectName="prompt_layout")
         prompt_layout.addWidget(self.prompt_box)
 
-        send_button = QPushButton("Enter", objectName="enter_button")
-        send_button.clicked.connect(
+        self.send_button = QPushButton("Enter", objectName="enter_button")
+        self.send_button.clicked.connect(
             lambda: self.handle_user_prompt("none"))
 
-        prompt_layout.addWidget(send_button)
+        prompt_layout.addWidget(self.send_button)
         return prompt_layout
 
     def handle_user_prompt(self, user_prompt):
@@ -79,6 +91,8 @@ class PromptLayout:
 
     def on_show_prompt_layout(self):
         self.prompt_box.show()
+        self.send_button.show()
 
     def on_hide_prompt_layout(self):
         self.prompt_box.hide()
+        self.send_button.hide()
