@@ -47,13 +47,13 @@ class Controller(QObject):
 
     @Slot(str)
     def ai_response_slot(self, ai_response):
-        """Receive AI response received from the MODEL and send it to CHATLOG"""
+        """Receive AI response from the MODEL and send it to CHATLOG"""
         self.ai_response_to_chatlog.emit(ai_response)
         self.update_status_bar.emit("Risposta ricevuta. In attesa di un nuovo messaggio...")
 
     @Slot(str)
     def user_prompt_slot(self, user_prompt):
-        """ Receive user prompt received from the CHATLOG and send it to MODEL"""
+        """ Receive user prompt from the CHATLOG and send it to MODEL"""
         self.user_prompt_to_model.emit(user_prompt)
         self.update_status_bar.emit("Sto inviando il messaggio...")
 
