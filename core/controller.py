@@ -15,24 +15,33 @@ class Controller(QObject):
         self.model = model
         self.view = view
         self.main_thread = thread
-        self.connect_signals_and_slots()
+        self.connect_model()
+        self.connect_view()
         self.main_thread.start()
 
-    def connect_signals_and_slots(self):
+    def connect_model(self):
+        # Connect CONTROLLER's signals to MODEL's slots
+        self.user_prompt_to_model.connect(self.model.get_user_prompt_from_controller)
+        self.chat_stopped_to_model.connect(self.model.chat_stopped_from_controller)
+        self.selected_client_to_manager.connect(self.model.manager.get_new_client_from_controller)
+
+        # Connect MODEL's signals to CONTROLLER's slots
         self.model.ai_response_signal_to_controller.connect(self.on_ai_response_signal)
-        self.view.chat.user_prompt_signal_to_controller.connect(self.on_user_prompt_signal)
-        self.model.manager.manager_signal_to_controller_llm.connect(self.on_client_from_manager_signal)
         self.model.start_new_chat_to_controller.connect(self.on_start_new_chat_from_model_signal)
+        self.model.manager.manager_signal_to_controller_llm.connect(self.on_client_from_manager_signal)
+
+    def connect_view(self):
+        # Connect CONTROLLER's signals to VIEW's slots
+        self.ai_response_to_chatlog.connect(self.view.chat.get_ai_response_from_controller)
+        self.current_client_to_sidebar.connect(self.view.sidebar.get_current_client_from_controller)
+        self.update_status_bar_from_controller.connect(self.view.status_bar.on_status_update)
+
+        # Connect VIEW's signals to CONTROLLER's slots
         self.view.sidebar.selected_client_to_controller.connect(self.on_change_client_from_sidebar_signal)
         self.view.sidebar.stop_chat_to_controller.connect(self.on_stop_chat_from_sidebar_signal)
-
-        self.user_prompt_to_model.connect(self.model.get_user_prompt_from_controller)
-        self.ai_response_to_chatlog.connect(self.view.chat.get_ai_response_from_controller)
-        self.selected_client_to_manager.connect(self.model.manager.get_new_client_from_controller)
-        self.current_client_to_sidebar.connect(self.view.sidebar.get_current_client_from_controller)
-        self.chat_stopped_to_model.connect(self.model.chat_stopped_from_controller)
-        self.update_status_bar_from_controller.connect(self.view.status_bar.on_status_update)
+        self.view.chat.user_prompt_signal_to_controller.connect(self.on_user_prompt_signal)
         self.view.chat.update_status_bar_from_chatlog.connect(self.view.status_bar.on_status_update)
+
 
     @Slot(str)
     def on_ai_response_signal(self, ai_response):
