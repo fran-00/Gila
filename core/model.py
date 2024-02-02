@@ -12,6 +12,7 @@ class MainThread(QThread):
 
 class Model(QObject):
     ai_response_signal_to_controller = Signal(str)
+    start_new_chat_to_controller = Signal()
 
     def __init__(self, manager):
         self.manager = manager
@@ -25,6 +26,7 @@ class Model(QObject):
         while True:
             self.event_loop.exec()
             if self.manager.stream_stopped is True:
+                self.start_new_chat_to_controller.emit()
                 break
             ai_response = self.client.submit_prompt(self.prompt)
             print("> API response received!")
@@ -40,7 +42,3 @@ class Model(QObject):
     def chat_stopped_from_controller(self):
         print("> Main loop was stopped.")
         self.event_loop.exit()
-
-    @Slot()
-    def new_chat_started_from_controller(self):
-        pass
