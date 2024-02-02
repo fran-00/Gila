@@ -17,7 +17,6 @@ class Controller(QObject):
         self.main_thread = thread
         self.connect_model()
         self.connect_view()
-        self.main_thread.start()
 
     def connect_model(self):
         # Connect CONTROLLER's signals to MODEL's slots
