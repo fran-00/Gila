@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout
 
+from .status_bar import StatusBar
 from .chat_log import ChatLog
 from .sidebar import Sidebar
 
