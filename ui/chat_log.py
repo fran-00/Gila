@@ -9,25 +9,28 @@ class ChatLog(QObject):
 
     def __init__(self, window):
         super().__init__()
-
         self.window = window
-
         self.chat_widget = QTextEdit()
         self.chat_widget.setReadOnly(True)
         self.chat_widget.ensureCursorVisible()
-    
-        self.start_chat_button = QPushButton("Nuova Conversazione")
-        self.start_chat_button.clicked.connect(
-            lambda: self.on_starting_a_new_chat())
-
         self.prompt_layout = PromptLayout(self)
 
     def on_chat_layout(self):
         chat_layout = QVBoxLayout(objectName="chat_layout")
         chat_layout.addWidget(self.chat_widget)
-        chat_layout.addWidget(self.start_chat_button)
+        chat_layout.addLayout(self.on_start_layout())
         chat_layout.addLayout(self.prompt_layout.on_prompt_layout())
         return chat_layout
+
+    def on_start_layout(self):
+        start_layout = QVBoxLayout(objectName="start_layout")
+        self.start_chat_button = QPushButton("Nuova Conversazione")
+        self.start_chat_button.clicked.connect(
+            lambda: self.on_starting_a_new_chat())
+        start_layout.addWidget(self.start_chat_button)
+        start_layout.setStretch(0, 1)
+        start_layout.setStretch(1, 1)
+        return start_layout
 
     def process_prompt(self, prompt):
         if prompt != "":
