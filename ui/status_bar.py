@@ -11,6 +11,6 @@ class StatusBar(QObject):
         self.messages_history = []
 
     @Slot(str)
-    def on_status_update(self, status):
+    def on_status_update_slot(self, status):
         self.messages_history.append(status)
         self.status_bar.showMessage(status)

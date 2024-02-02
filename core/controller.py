@@ -34,13 +34,15 @@ class Controller(QObject):
         # Connect CONTROLLER's signals to VIEW's slots
         self.ai_response_to_chatlog.connect(self.view.chat.get_ai_response_slot)
         self.current_client_to_sidebar.connect(self.view.sidebar.get_current_client_slot)
-        self.update_status_bar.connect(self.view.status_bar.on_status_update)
+        self.update_status_bar.connect(self.view.status_bar.on_status_update_slot)
 
         # Connect VIEW's signals to CONTROLLER's slots
         self.view.sidebar.selected_client_to_controller.connect(self.client_changed_from_sidebar_slot)
         self.view.sidebar.stop_chat_to_controller.connect(self.chat_stopped_from_sidebar_slot)
         self.view.chat.user_prompt_signal_to_controller.connect(self.user_prompt_slot)
-        self.view.chat.update_status_bar_from_chatlog.connect(self.view.status_bar.on_status_update)
+        
+        # Connect ChatLog to Status Bar
+        self.view.chat.update_status_bar_from_chatlog.connect(self.view.status_bar.on_status_update_slot)
 
 
     @Slot(str)
