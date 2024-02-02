@@ -23,12 +23,12 @@ class GoogleClient(APIClient):
         self.model = genai.GenerativeModel(self.llm,
                                            generation_config=generation_config,
                                            safety_settings=safety_settings)
-        self.chat = self.model.start_chat(history=[])
+        self.chat_messages = self.model.start_chat(history=[])
 
         genai.configure(api_key=self.load_api_key("GOOGLE"))
 
     def submit_prompt(self, prompt):
-        response = self.chat.send_message(prompt, stream=True)
+        response = self.chat_messages.send_message(prompt, stream=True)
         response_text = ""
         for chunk in response:
             response_text += chunk.text
