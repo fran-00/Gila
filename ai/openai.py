@@ -24,3 +24,6 @@ class OpenAIClient(APIClient):
         ai_response = response.choices[0].message.content
         self.chat_messages.append({"role": "assistant", "content": ai_response})
         return ai_response
+
+    def on_chat_reset(self):
+        self.chat_messages = [{"role": "system", "content": "You are a helpful assistant."}]

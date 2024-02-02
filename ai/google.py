@@ -33,3 +33,6 @@ class GoogleClient(APIClient):
         for chunk in response:
             response_text += chunk.text
         return response_text
+
+    def on_chat_reset(self):
+        self.chat_messages = self.model.start_chat(history=[])

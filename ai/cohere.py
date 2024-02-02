@@ -26,3 +26,6 @@ class CohereClient(APIClient):
         self.chat_messages.append(user_message)
         self.chat_messages.append(bot_message)
         return answer
+
+    def on_chat_reset(self):
+        self.chat_messages = []
