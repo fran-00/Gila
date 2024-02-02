@@ -10,6 +10,7 @@ class Sidebar(QObject):
         super().__init__()
         self.window = window
         self.current_llm = None
+        self.current_temperature = None
         self.llms = [
             "GPT-4",
             "GPT-4 Turbo",
@@ -20,6 +21,7 @@ class Sidebar(QObject):
 
     def on_sidebar_layout(self):
         sidebar_layout = QVBoxLayout(objectName="sidebar_layout")
+        sidebar_layout.addWidget(self.on_settings_label())
         sidebar_layout.addWidget(self.on_llms_combobox())
         sidebar_layout.addWidget(self.on_confirm_button())
         sidebar_layout.addWidget(self.on_new_chat_button())
@@ -46,10 +48,10 @@ class Sidebar(QObject):
         print(selected_llm)
         return self.send_selected_client_to_controller(selected_llm)
 
-    @Slot(str)
-    def get_current_client_slot(self, llm):
+    @Slot(tuple)
+    def get_current_settings_slot(self, settings):
         """ Get current llm """
-        self.current_llm = llm
+        self.current_llm = settings[0]
 
     def send_selected_client_to_controller(self, llm):
         """ Send a signal to controller """
