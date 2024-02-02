@@ -17,9 +17,11 @@ class View(QMainWindow):
         """Create a vertical layout for the window"""
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
+        self.status_bar = StatusBar(self)
         self.sidebar = Sidebar(self)
         self.chat = ChatLog(self)
 
+        self.setStatusBar(self.status_bar.status_bar)
         main_layout = QHBoxLayout(central_widget)
         main_layout.addLayout(self.sidebar.on_sidebar_layout())
         main_layout.addLayout(self.chat.on_chat_layout())
