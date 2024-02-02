@@ -55,6 +55,7 @@ class Controller(QObject):
     def on_stop_chat_from_sidebar_signal(self):
         self.chat_stopped_to_model.emit()
         self.view.chat.chat_widget.clear()
+        self.model.client.on_chat_reset()
         self.model.manager.stream_stopped = True
         print("> ChatLog cleared.")
 
