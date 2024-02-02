@@ -40,7 +40,10 @@ class Model(QObject):
         self.event_loop.exit()
 
     @Slot()
+    def chat_stopped_from_controller(self):
+        print("> Main loop was stopped.")
+        self.event_loop.exit()
+
+    @Slot()
     def new_chat_started_from_controller(self):
-        print("> Chat Restarted.")
-        self.manager.stream_stopped = False
-        self.run()
+        pass
