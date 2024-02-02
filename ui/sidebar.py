@@ -47,7 +47,7 @@ class Sidebar(QObject):
         return self.send_selected_client_to_controller(selected_llm)
 
     @Slot(str)
-    def get_current_client_from_controller(self, llm):
+    def get_current_client_slot(self, llm):
         """ Get current llm """
         self.current_llm = llm
 

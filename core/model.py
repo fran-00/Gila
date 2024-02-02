@@ -32,12 +32,12 @@ class Model(QObject):
             self.ai_response_signal_to_controller.emit(ai_response)
 
     @Slot(str)
-    def get_user_prompt_from_controller(self, prompt):
+    def get_user_prompt_slot(self, prompt):
         self.prompt = prompt.lower()
         print("> Processing user prompt and waiting for API Response...")
         self.event_loop.exit()
 
     @Slot()
-    def chat_stopped_from_controller(self):
+    def chat_stopped_slot(self):
         print("> Main loop was stopped.")
         self.event_loop.exit()

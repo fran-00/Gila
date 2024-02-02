@@ -21,9 +21,9 @@ class Controller(QObject):
 
     def connect_model(self):
         # Connect CONTROLLER's signals to MODEL's slots
-        self.user_prompt_to_model.connect(self.model.get_user_prompt_from_controller)
-        self.chat_stopped_to_model.connect(self.model.chat_stopped_from_controller)
-        self.selected_client_to_manager.connect(self.model.manager.get_new_client_from_controller)
+        self.user_prompt_to_model.connect(self.model.get_user_prompt_slot)
+        self.chat_stopped_to_model.connect(self.model.chat_stopped_slot)
+        self.selected_client_to_manager.connect(self.model.manager.get_new_client_slot)
 
         # Connect MODEL's signals to CONTROLLER's slots
         self.model.ai_response_signal_to_controller.connect(self.ai_response_slot)
@@ -32,8 +32,8 @@ class Controller(QObject):
 
     def connect_view(self):
         # Connect CONTROLLER's signals to VIEW's slots
-        self.ai_response_to_chatlog.connect(self.view.chat.get_ai_response_from_controller)
-        self.current_client_to_sidebar.connect(self.view.sidebar.get_current_client_from_controller)
+        self.ai_response_to_chatlog.connect(self.view.chat.get_ai_response_slot)
+        self.current_client_to_sidebar.connect(self.view.sidebar.get_current_client_slot)
         self.update_status_bar.connect(self.view.status_bar.on_status_update)
 
         # Connect VIEW's signals to CONTROLLER's slots

@@ -31,7 +31,7 @@ class ChatLog(QObject):
             self.update_status_bar_from_chatlog.emit(f"Non è possibile inviare un messaggio vuoto.")
 
     @Slot(str)
-    def get_ai_response_from_controller(self, response):
+    def get_ai_response_slot(self, response):
         """ Slot that receives a string from controller as a signal """
         # Append output to chat view window
         self.chat_widget.append(f"<b>Assistente</b>: {response}")

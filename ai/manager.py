@@ -31,7 +31,7 @@ class AIManager(QObject):
         self.client.llm_name = new_llm
 
     @Slot(str)
-    def get_new_client_from_controller(self, new_llm):
+    def get_new_client_slot(self, new_llm):
         self.set_new_client(new_llm)
 
     def send_current_client_to_controller(self):
