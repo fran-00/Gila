@@ -8,6 +8,7 @@ class Controller(QObject):
     current_client_to_sidebar = Signal(str)
     new_chat_started_to_model = Signal()
     chat_stopped_to_model = Signal()
+    update_status_bar = Signal(str)
 
     def __init__(self, model, view, thread):
         super().__init__()
@@ -30,6 +31,7 @@ class Controller(QObject):
         self.selected_client_to_manager.connect(self.model.manager.get_new_client_from_controller)
         self.current_client_to_sidebar.connect(self.view.sidebar.get_current_client_from_controller)
         self.chat_stopped_to_model.connect(self.model.chat_stopped_from_controller)
+        self.update_status_bar.connect(self.view.status_bar.on_status_update)
 
     @Slot(str)
     def on_ai_response_signal(self, ai_response):
