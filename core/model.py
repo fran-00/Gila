@@ -23,15 +23,12 @@ class Model(QObject):
         self.manager.send_current_client_to_controller()
 
         while True:
+            self.event_loop.exec()
             if self.manager.stream_stopped is True:
                 break
-            self.process_main_loop()
-
-    def process_main_loop(self):
-        self.event_loop.exec()
-        ai_response = self.client.submit_prompt(self.prompt)
-        print("> API response received!")
-        self.ai_response_signal_to_controller.emit(ai_response)
+            ai_response = self.client.submit_prompt(self.prompt)
+            print("> API response received!")
+            self.ai_response_signal_to_controller.emit(ai_response)
 
     @Slot(str)
     def get_user_prompt_from_controller(self, prompt):
