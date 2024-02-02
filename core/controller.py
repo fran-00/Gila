@@ -13,8 +13,9 @@ class Controller(QObject):
         super().__init__()
         self.model = model
         self.view = view
+        self.main_thread = thread
         self.connect_signals_and_slots()
-        thread.start()
+        self.main_thread.start()
 
     def connect_signals_and_slots(self):
         self.model.ai_response_signal_to_controller.connect(self.on_ai_response_signal)
