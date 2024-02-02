@@ -4,7 +4,7 @@ from PySide6.QtCore import QObject, Signal, Slot
 
 class Sidebar(QObject):
     selected_client_to_controller = Signal(str)
-    start_new_chat_to_controller = Signal()
+    stop_chat_to_controller = Signal()
 
     def __init__(self, window):
         super().__init__()
@@ -57,8 +57,8 @@ class Sidebar(QObject):
 
     def on_new_chat_button(self):
         new_chat_button = QPushButton("Nuova Chat")
-        new_chat_button.clicked.connect(self.send_start_new_chat_to_controller)
+        new_chat_button.clicked.connect(self.send_stop_chat_to_controller)
         return new_chat_button
 
-    def send_start_new_chat_to_controller(self):
-        self.start_new_chat_to_controller.emit()
+    def send_stop_chat_to_controller(self):
+        self.stop_chat_to_controller.emit()
