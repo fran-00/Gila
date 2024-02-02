@@ -5,7 +5,7 @@ class Controller(QObject):
     user_prompt_to_model = Signal(str)
     ai_response_to_chatlog = Signal(str)
     selected_client_to_manager = Signal(str)
-    current_client_to_sidebar = Signal(str)
+    current_settings_to_sidebar = Signal(tuple)
     new_chat_started_to_model = Signal()
     chat_stopped_to_model = Signal()
     update_status_bar = Signal(str)
@@ -27,12 +27,12 @@ class Controller(QObject):
         # Connect MODEL's signals to CONTROLLER's slots
         self.model.ai_response_signal_to_controller.connect(self.ai_response_slot)
         self.model.start_new_chat_to_controller.connect(self.new_chat_started_from_model_slot)
-        self.model.manager.manager_signal_to_controller_llm.connect(self.send_current_client_from_manager_slot)
+        self.model.manager.settings_signal_to_controller.connect(self.send_current_settings_from_manager_slot)
 
     def connect_view(self):
         # Connect CONTROLLER's signals to VIEW's slots
         self.ai_response_to_chatlog.connect(self.view.chat.get_ai_response_slot)
-        self.current_client_to_sidebar.connect(self.view.sidebar.get_current_client_slot)
+        self.current_settings_to_sidebar.connect(self.view.sidebar.get_current_settings_slot)
         self.update_status_bar.connect(self.view.status_bar.on_status_update_slot)
 
         # Connect VIEW's signals to CONTROLLER's slots
@@ -57,10 +57,10 @@ class Controller(QObject):
         self.user_prompt_to_model.emit(user_prompt)
         self.update_status_bar.emit("Sto inviando il messaggio...")
 
-    @Slot(str)
-    def send_current_client_from_manager_slot(self, current_client):
-        """Receive current client from the MANAGER and send it to SIDEBAR"""
-        self.current_client_to_sidebar.emit(current_client)
+    @Slot(tuple)
+    def send_current_settings_from_manager_slot(self, current_settings):
+        """Receive current settings from the MANAGER and send it to SIDEBAR"""
+        self.current_settings_to_sidebar.emit(current_settings)
 
     @Slot(str)
     def client_changed_from_sidebar_slot(self, new_client):
