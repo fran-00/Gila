@@ -30,3 +30,11 @@ class View(QMainWindow):
     def load_css_file(self):
         with open("ui/styles.css", "r") as file:
             return file.read()
+
+    def on_hide_chatlog_and_prompt_line(self):
+        self.chat.on_hide_chatlog()
+        self.chat.prompt_layout.on_hide_prompt_layout()
+
+    def on_show_chatlog_and_prompt_line(self):
+        self.chat.on_show_chatlog()
+        self.chat.prompt_layout.on_show_prompt_layout()
