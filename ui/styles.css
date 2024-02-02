@@ -7,6 +7,12 @@ QWidget {
     border-radius: 4px;
 }
 
+QStatusBar {
+    background-color: #003452;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+}
+
 /* Chat Log */
 QTextEdit {
     padding: 10px 10px;
