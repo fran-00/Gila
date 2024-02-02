@@ -26,6 +26,7 @@ class View(QMainWindow):
         main_layout = QHBoxLayout(central_widget)
         main_layout.addLayout(self.sidebar.on_sidebar_layout())
         main_layout.addLayout(self.chat.on_chat_layout())
+        self.on_hide_chatlog_and_prompt_line()
 
     def load_css_file(self):
         with open("ui/styles.css", "r") as file:
