@@ -21,15 +21,14 @@ class Controller(QObject):
         self.model.ai_response_signal_to_controller.connect(self.on_ai_response_signal)
         self.view.chat.user_prompt_signal_to_controller.connect(self.on_user_prompt_signal)
         self.model.manager.manager_signal_to_controller_llm.connect(self.on_client_from_manager_signal)
+        self.model.start_new_chat_to_controller.connect(self.on_start_new_chat_from_model_signal)
         self.view.sidebar.selected_client_to_controller.connect(self.on_change_client_from_sidebar_signal)
-        # self.view.sidebar.start_new_chat_to_controller.connect(self.on_start_new_chat_from_sidebar_signal)
         self.view.sidebar.stop_chat_to_controller.connect(self.on_stop_chat_from_sidebar_signal)
 
         self.user_prompt_to_model.connect(self.model.get_user_prompt_from_controller)
         self.ai_response_to_chatlog.connect(self.view.chat.get_ai_response_from_controller)
         self.selected_client_to_manager.connect(self.model.manager.get_new_client_from_controller)
         self.current_client_to_sidebar.connect(self.view.sidebar.get_current_client_from_controller)
-        self.new_chat_started_to_model.connect(self.model.new_chat_started_from_controller)
         self.chat_stopped_to_model.connect(self.model.chat_stopped_from_controller)
 
     @Slot(str)
@@ -60,5 +59,7 @@ class Controller(QObject):
         print("> ChatLog cleared.")
 
     @Slot()
-    def on_start_new_chat_from_sidebar_signal(self):
-        pass
+    def on_start_new_chat_from_model_signal(self):
+        self.model.manager.stream_stopped = False
+        print("> Staring a new chat session...")
+        self.main_thread.model.run()
