@@ -16,11 +16,11 @@ class Model(QObject):
 
     def __init__(self, manager):
         self.manager = manager
-        self.client = self.manager.client
         super().__init__()
 
     def run(self):
         self.event_loop = QEventLoop()
+        self.client = self.manager.client
         self.manager.send_current_client_to_controller()
 
         while True:
