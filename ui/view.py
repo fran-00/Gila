@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout
+from PySide6.QtWidgets import QMainWindow, QWidget, QGridLayout
 
 from .status_bar import StatusBar
 from .chat_log import ChatLog
@@ -23,9 +23,9 @@ class View(QMainWindow):
         self.chat = ChatLog(self)
 
         self.setStatusBar(self.status_bar.status_bar)
-        main_layout = QHBoxLayout(central_widget)
-        main_layout.addLayout(self.sidebar.on_sidebar_layout())
-        main_layout.addLayout(self.chat.on_chat_layout())
+        main_layout = QGridLayout(central_widget)
+        main_layout.addLayout(self.sidebar.on_sidebar_layout(), 0, 0)
+        main_layout.addLayout(self.chat.on_chat_layout(), 0, 1, 1, 3)
         self.on_hide_chatlog_and_prompt_line()
 
     def load_css_file(self):
