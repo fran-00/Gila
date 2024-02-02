@@ -75,3 +75,9 @@ class PromptLayout:
     def clear_prompt_box(self):
         self.prompt_box.clear()
         self.prompt_box.setFocus()
+
+    def on_show_prompt_layout(self):
+        self.prompt_box.show()
+
+    def on_hide_prompt_layout(self):
+        self.prompt_box.hide()
