@@ -4,6 +4,7 @@ from PySide6.QtCore import QObject, Signal, Slot
 
 class ChatLog(QObject):
     user_prompt_signal_to_controller = Signal(str)
+    update_status_bar_from_chatlog = Signal(str)
 
     def __init__(self, window):
         super().__init__()
@@ -21,11 +22,13 @@ class ChatLog(QObject):
         return chat_layout
 
     def process_prompt(self, prompt):
-        # Emits the signal that contains user prompt
-        self.user_prompt_signal_to_controller.emit(prompt)
-        # Append user prompt to log view window
-        self.chat_widget.append(
-            f"<p><b>Tu</b>: {prompt}</p>")
+        if prompt != "":
+            self.user_prompt_signal_to_controller.emit(prompt)
+            # Append user prompt to log view window
+            self.chat_widget.append(
+                f"<p><b>Tu</b>: {prompt}</p>")
+        else:
+            self.update_status_bar_from_chatlog.emit(f"Non è possibile inviare un messaggio vuoto.")
 
     @Slot(str)
     def get_ai_response_from_controller(self, response):
