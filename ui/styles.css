@@ -1,6 +1,6 @@
 /* Main Widget */
 QWidget {
-    background-color: #00578b;
+    background-color: #004872;
     color: #ffffff;
     font-family: 'Garamond', serif;
     font-size: 22px;
@@ -15,8 +15,8 @@ QStatusBar {
 
 /* Chat Log */
 QTextEdit {
+    background-color: #00578b;
     padding: 10px 10px;
-    border: 1px solid #ffffff;
 }
 
 /* Input Line */
