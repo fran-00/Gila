@@ -40,6 +40,7 @@ class Controller(QObject):
         self.view.sidebar.selected_client_to_controller.connect(self.client_changed_from_sidebar_slot)
         self.view.sidebar.stop_chat_to_controller.connect(self.chat_stopped_from_sidebar_slot)
         self.view.chat.user_prompt_signal_to_controller.connect(self.user_prompt_slot)
+        self.view.chat.start_new_chat_to_controller.connect(self.new_chat_started_from_view_slot)
         
         # Connect ChatLog to Status Bar
         self.view.chat.update_status_bar_from_chatlog.connect(self.view.status_bar.on_status_update_slot)
@@ -81,4 +82,11 @@ class Controller(QObject):
     def new_chat_started_from_model_slot(self):
         self.model.manager.stream_stopped = False
         self.update_status_bar.emit("Nuova conversazione avviata.")
+        self.main_thread.model.run()
+
+    @Slot()
+    def new_chat_started_from_view_slot(self):
+        self.model.manager.stream_stopped = False
+        self.update_status_bar.emit("Nuova conversazione avviata.")
+        self.view.on_show_chatlog_and_prompt_line()
         self.main_thread.model.run()
