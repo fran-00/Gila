@@ -8,7 +8,7 @@ class Controller(QObject):
     current_client_to_sidebar = Signal(str)
     new_chat_started_to_model = Signal()
     chat_stopped_to_model = Signal()
-    update_status_bar_from_controller = Signal(str)
+    update_status_bar = Signal(str)
 
     def __init__(self, model, view, thread):
         super().__init__()
@@ -26,56 +26,57 @@ class Controller(QObject):
         self.selected_client_to_manager.connect(self.model.manager.get_new_client_from_controller)
 
         # Connect MODEL's signals to CONTROLLER's slots
-        self.model.ai_response_signal_to_controller.connect(self.on_ai_response_signal)
-        self.model.start_new_chat_to_controller.connect(self.on_start_new_chat_from_model_signal)
-        self.model.manager.manager_signal_to_controller_llm.connect(self.on_client_from_manager_signal)
+        self.model.ai_response_signal_to_controller.connect(self.ai_response_slot)
+        self.model.start_new_chat_to_controller.connect(self.new_chat_started_from_model_slot)
+        self.model.manager.manager_signal_to_controller_llm.connect(self.send_current_client_from_manager_slot)
 
     def connect_view(self):
         # Connect CONTROLLER's signals to VIEW's slots
         self.ai_response_to_chatlog.connect(self.view.chat.get_ai_response_from_controller)
         self.current_client_to_sidebar.connect(self.view.sidebar.get_current_client_from_controller)
-        self.update_status_bar_from_controller.connect(self.view.status_bar.on_status_update)
+        self.update_status_bar.connect(self.view.status_bar.on_status_update)
 
         # Connect VIEW's signals to CONTROLLER's slots
-        self.view.sidebar.selected_client_to_controller.connect(self.on_change_client_from_sidebar_signal)
-        self.view.sidebar.stop_chat_to_controller.connect(self.on_stop_chat_from_sidebar_signal)
-        self.view.chat.user_prompt_signal_to_controller.connect(self.on_user_prompt_signal)
+        self.view.sidebar.selected_client_to_controller.connect(self.client_changed_from_sidebar_slot)
+        self.view.sidebar.stop_chat_to_controller.connect(self.chat_stopped_from_sidebar_slot)
+        self.view.chat.user_prompt_signal_to_controller.connect(self.user_prompt_slot)
         self.view.chat.update_status_bar_from_chatlog.connect(self.view.status_bar.on_status_update)
 
 
     @Slot(str)
-    def on_ai_response_signal(self, ai_response):
-        """Process AI response received from the MODEL and send it to CHATLOG"""
+    def ai_response_slot(self, ai_response):
+        """Receive AI response received from the MODEL and send it to CHATLOG"""
         self.ai_response_to_chatlog.emit(ai_response)
-        self.update_status_bar_from_controller.emit("Risposta ricevuta. In attesa di un nuovo messaggio...")
+        self.update_status_bar.emit("Risposta ricevuta. In attesa di un nuovo messaggio...")
 
     @Slot(str)
-    def on_user_prompt_signal(self, user_prompt):
-        """ Process user prompt received from the CHATLOG and send it to MODEL"""
+    def user_prompt_slot(self, user_prompt):
+        """ Receive user prompt received from the CHATLOG and send it to MODEL"""
         self.user_prompt_to_model.emit(user_prompt)
-        self.update_status_bar_from_controller.emit("Sto inviando il messaggio...")
+        self.update_status_bar.emit("Sto inviando il messaggio...")
 
     @Slot(str)
-    def on_client_from_manager_signal(self, current_client):
-        """Process data received from the MANAGER and send it to SIDEBAR"""
+    def send_current_client_from_manager_slot(self, current_client):
+        """Receive current client from the MANAGER and send it to SIDEBAR"""
         self.current_client_to_sidebar.emit(current_client)
 
     @Slot(str)
-    def on_change_client_from_sidebar_signal(self, new_client):
-        """Process data received from the SIDEBAR and send it to MANAGER"""
+    def client_changed_from_sidebar_slot(self, new_client):
+        """Receive new client name from the SIDEBAR and send it to MANAGER"""
         self.selected_client_to_manager.emit(new_client)
-        self.update_status_bar_from_controller.emit(f"Hai selezionato {new_client}.")
+        self.update_status_bar.emit(f"Hai selezionato {new_client}.")
 
     @Slot()
-    def on_stop_chat_from_sidebar_signal(self):
+    def chat_stopped_from_sidebar_slot(self):
+        """Receive stopping signal from Sidebar and send it to model"""
         self.chat_stopped_to_model.emit()
         self.view.chat.chat_widget.clear()
         self.model.client.on_chat_reset()
         self.model.manager.stream_stopped = True
-        self.update_status_bar_from_controller.emit("La conversazione è stata chiusa.")
+        self.update_status_bar.emit("La conversazione è stata chiusa.")
 
     @Slot()
-    def on_start_new_chat_from_model_signal(self):
+    def new_chat_started_from_model_slot(self):
         self.model.manager.stream_stopped = False
-        self.update_status_bar_from_controller.emit("Nuova conversazione avviata.")
+        self.update_status_bar.emit("Nuova conversazione avviata.")
         self.main_thread.model.run()
