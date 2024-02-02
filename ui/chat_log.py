@@ -30,6 +30,12 @@ class ChatLog(QObject):
         else:
             self.update_status_bar_from_chatlog.emit(f"Non è possibile inviare un messaggio vuoto.")
 
+    def on_show_chatlog(self):
+        self.chat_widget.show()
+
+    def on_hide_chatlog(self):
+        self.chat_widget.hide()
+
     @Slot(str)
     def get_ai_response_slot(self, response):
         """ Slot that receives a string from controller as a signal """
