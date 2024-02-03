@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QMainWindow, QWidget, QGridLayout
 
 from .status_bar import StatusBar
+from .tool_bar import ToolBar
 from .chat_log import ChatLog
 from .sidebar import Sidebar
 
@@ -19,9 +20,11 @@ class View(QMainWindow):
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
         self.status_bar = StatusBar(self)
+        self.toolbar = ToolBar(self)
         self.sidebar = Sidebar(self)
         self.chat = ChatLog(self)
 
+        self.addToolBar(self.toolbar.on_toolbar())
         self.setStatusBar(self.status_bar.status_bar)
         main_layout = QGridLayout(central_widget)
         main_layout.addLayout(self.sidebar.on_sidebar_layout(), 0, 0)
