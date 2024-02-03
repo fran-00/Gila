@@ -6,7 +6,6 @@ from .cohere import CohereClient
 
 
 class AIManager(QObject):
-    settings_signal_to_controller = Signal(tuple)
 
     def __init__(self):
         super().__init__()
@@ -34,7 +33,7 @@ class AIManager(QObject):
     def get_new_client_slot(self, new_llm):
         self.set_new_client(new_llm)
 
-    def send_current_settings_to_controller(self):
-        """ FIXME: this will send the settings, make it a tuple and send temp too """
+    def on_current_settings(self):
+        """ Return current client's settings """
         settings = self.client.llm_name, self.client.temperature
-        self.settings_signal_to_controller.emit(settings)
+        return settings
