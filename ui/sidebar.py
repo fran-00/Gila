@@ -69,7 +69,8 @@ class Sidebar(QObject):
         self.current_settings_label = QLabel(f"- {self.current_llm}\n- {self.current_temperature}")
         return self.current_settings_label
 
-    def update_settings_label(self):
-        """ FIXME: There's a problem with label updating """
-        print(self.current_llm)
+    def update_settings_label(self, settings):
+        """ Called from Controller when new chat is started, return current settings """
+        self.current_llm = settings[0]
+        self.current_temperature = settings[1]
         self.current_settings_label.setText(f"- {self.current_llm}\n- {self.current_temperature}")
