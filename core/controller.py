@@ -26,7 +26,6 @@ class Controller(QObject):
         # Connect MODEL's signals to CONTROLLER's slots
         self.model.ai_response_signal_to_controller.connect(self.ai_response_slot)
         self.model.start_new_chat_to_controller.connect(self.new_chat_started_from_model_slot)
-        self.model.manager.settings_signal_to_controller.connect(self.send_current_settings_from_manager_slot)
 
     def connect_view(self):
         # Connect CONTROLLER's signals to VIEW's slots
@@ -54,11 +53,6 @@ class Controller(QObject):
         """ Receive user prompt from the CHATLOG and send it to MODEL"""
         self.user_prompt_to_model.emit(user_prompt)
         self.update_status_bar.emit("Sto inviando il messaggio...")
-
-    @Slot(tuple)
-    def send_current_settings_from_manager_slot(self, current_settings):
-        """Receive current settings from the MANAGER and send it to SIDEBAR"""
-        self.current_settings_to_sidebar.emit(current_settings)
 
     @Slot(str)
     def client_changed_from_sidebar_slot(self, new_client):
