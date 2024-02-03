@@ -81,6 +81,7 @@ class Controller(QObject):
     def new_chat_started_from_model_slot(self):
         self.model.manager.stream_stopped = False
         self.update_status_bar.emit("Nuova conversazione avviata.")
+        self.view.sidebar.update_settings_label(self.model.manager.on_current_settings())
         self.main_thread.model.run()
 
     @Slot()
@@ -88,4 +89,5 @@ class Controller(QObject):
         self.model.manager.stream_stopped = False
         self.update_status_bar.emit("Nuova conversazione avviata.")
         self.view.on_show_chatlog_and_prompt_line()
+        self.view.sidebar.update_settings_label(self.model.manager.on_current_settings())
         self.main_thread.model.run()
