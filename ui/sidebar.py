@@ -25,6 +25,7 @@ class Sidebar(QObject):
         sidebar_layout.addWidget(self.on_llms_combobox())
         sidebar_layout.addWidget(self.on_confirm_button())
         sidebar_layout.addWidget(self.on_new_chat_button())
+        self.on_hide_widgets()
         return sidebar_layout
 
     def on_llms_combobox(self):
@@ -68,3 +69,11 @@ class Sidebar(QObject):
         self.current_llm = settings[0]
         self.current_temperature = settings[1]
         self.current_settings_label.setText(f"- {self.current_llm}\n- {self.current_temperature}")
+
+    def on_show_widgets(self):
+        self.current_settings_label.show()
+        self.new_chat_button.show()
+
+    def on_hide_widgets(self):
+        self.current_settings_label.hide()
+        self.new_chat_button.hide()
