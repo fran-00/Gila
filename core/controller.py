@@ -82,4 +82,5 @@ class Controller(QObject):
         self.update_status_bar.emit("Nuova conversazione avviata.")
         self.view.on_show_chatlog_and_prompt_line()
         self.view.sidebar.update_settings_label(self.model.manager.on_current_settings())
+        self.view.sidebar.on_show_widgets()
         self.main_thread.model.run()
