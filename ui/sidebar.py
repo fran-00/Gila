@@ -45,13 +45,7 @@ class Sidebar(QObject):
     def set_client(self):
         """ Trigger signal sending when Confirm Button is pressed"""
         selected_llm = self.llms_combobox.currentText()
-        print(selected_llm)
         return self.send_selected_client_to_controller(selected_llm)
-
-    @Slot(tuple)
-    def get_current_settings_slot(self, settings):
-        """ Get current llm """
-        self.current_llm = settings[0]
 
     def send_selected_client_to_controller(self, llm):
         """ Send a signal to controller """

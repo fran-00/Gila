@@ -5,7 +5,6 @@ class Controller(QObject):
     user_prompt_to_model = Signal(str)
     ai_response_to_chatlog = Signal(str)
     selected_client_to_manager = Signal(str)
-    current_settings_to_sidebar = Signal(tuple)
     new_chat_started_to_model = Signal()
     chat_stopped_to_model = Signal()
     update_status_bar = Signal(str)
@@ -32,7 +31,6 @@ class Controller(QObject):
     def connect_view(self):
         # Connect CONTROLLER's signals to VIEW's slots
         self.ai_response_to_chatlog.connect(self.view.chat.get_ai_response_slot)
-        self.current_settings_to_sidebar.connect(self.view.sidebar.get_current_settings_slot)
         self.update_status_bar.connect(self.view.status_bar.on_status_update_slot)
 
         # Connect VIEW's signals to CONTROLLER's slots
