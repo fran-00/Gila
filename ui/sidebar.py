@@ -52,9 +52,9 @@ class Sidebar(QObject):
         self.selected_client_to_controller.emit(llm)
 
     def on_new_chat_button(self):
-        new_chat_button = QPushButton("Nuova Chat")
-        new_chat_button.clicked.connect(self.send_stop_chat_to_controller)
-        return new_chat_button
+        self.new_chat_button = QPushButton("Nuova Chat")
+        self.new_chat_button.clicked.connect(self.send_stop_chat_to_controller)
+        return self.new_chat_button
 
     def send_stop_chat_to_controller(self):
         self.stop_chat_to_controller.emit()
