@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QToolBar, QFileDialog
-from PySide6.QtGui import QAction
-from PySide6.QtCore import QObject, Signal, Slot
+from PySide6.QtGui import QAction, QIcon
+from PySide6.QtCore import QObject
 
 
 class ToolBar(QObject):
