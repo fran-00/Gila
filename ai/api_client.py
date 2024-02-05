@@ -13,4 +13,9 @@ class APIClient:
 
     def load_api_key(self, name):
         load_dotenv()
-        return os.getenv(f"{name}_API_KEY")
+        api_key = os.getenv(f"{name}_API_KEY")
+        if api_key:
+            print("API Key set")
+            return api_key
+        else:
+            print("No API Key set")
