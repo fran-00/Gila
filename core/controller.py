@@ -42,6 +42,7 @@ class Controller(QObject):
         self.view.sidebar.stop_chat_to_controller.connect(self.chat_stopped_from_sidebar_slot)
         self.view.chat.user_prompt_signal_to_controller.connect(self.user_prompt_slot)
         self.view.chat.start_new_chat_to_controller.connect(self.new_chat_started_from_view_slot)
+        self.view.modal.api_key_to_controller.connect(self.api_key_from_modal_slot)
         
         # Connect ChatLog to Status Bar
         self.view.chat.update_status_bar_from_chatlog.connect(self.view.status_bar.on_status_update_slot)
@@ -95,3 +96,7 @@ class Controller(QObject):
     @Slot()
     def missing_api_key_from_manager_slot(self):
         self.missing_api_key_to_view.emit()
+
+    @Slot(str)
+    def api_key_from_modal_slot(self, api_key):
+        self.api_key_to_manager.emit(api_key)
