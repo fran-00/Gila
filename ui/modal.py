@@ -29,3 +29,4 @@ class MissingAPIKeyModal(QDialog):
     def handle_api_key(self):
         api_key = self.modal_entry_line.text().strip()
         self.api_key_to_controller.emit(api_key)
+        self.modal_entry_line.clear()
