@@ -32,22 +32,18 @@ class AIManager(QObject):
             self.client = AVAILABLE_MODELS.get(llm_name)
             self.client.llm_name = llm_name
             self.client.temperature = data.get('temperature')
-        if self.client.check_if_api_key(self.client.company) is True:
-            self.client.submit_api_key()
-            print("API KEY found")
-        else:
-            print("NO API KEY")
 
     def set_new_client(self, new_llm):
         selected_llm = AVAILABLE_MODELS.get(new_llm)
         self.client = selected_llm
         self.client.llm_name = new_llm
+
+    def on_api_key(self):
         if self.client.check_if_api_key(self.client.company) is True:
             self.client.submit_api_key()
             print("API KEY found")
         else:
-            print("NO API KEY")
-
+            self.missing_api_key_to_controller.emit()
 
     @Slot(str)
     def get_new_client_slot(self, new_llm):
