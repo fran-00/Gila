@@ -1,3 +1,5 @@
+import json
+
 from PySide6.QtCore import QObject, Signal, Slot
 
 from .openai import OpenAIClient
@@ -20,10 +22,15 @@ class AIManager(QObject):
         super().__init__()
         self.client = None
         self.stream_stopped = False
+        self.get_saved_settings()
 
-    def available_models(self):
-        """ TODO: must check API keys """
-        pass
+    def get_saved_settings(self):
+        with open('saved_settings.json', 'r') as f:
+            data = json.load(f)
+            llm_name = data.get('llm_name')
+            self.client = AVAILABLE_MODELS.get(llm_name)
+            self.client.llm_name = llm_name
+            self.client.temperature = data.get('temperature')
 
     def set_new_client(self, new_llm):
         selected_llm = AVAILABLE_MODELS.get(new_llm)
