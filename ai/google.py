@@ -1,4 +1,5 @@
 import google.generativeai as genai
+from google.api_core.exceptions import InvalidArgument
 
 from .api_client import APIClient
 
@@ -38,3 +39,13 @@ class GoogleClient(APIClient):
 
     def on_chat_reset(self):
         self.chat_messages = self.model.start_chat(history=[])
+
+    def validate_api_key(self, api_key):
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel('gemini-pro')
+        try:
+            model.generate_content("test")
+            return True
+        except InvalidArgument as e:
+            print(e)
+            return False
