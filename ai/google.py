@@ -25,7 +25,8 @@ class GoogleClient(APIClient):
                                            safety_settings=safety_settings)
         self.chat_messages = self.model.start_chat(history=[])
 
-        genai.configure(api_key=self.load_api_key("GOOGLE"))
+    def submit_api_key(self):
+        genai.configure(api_key=self.get_api_key())
 
     def submit_prompt(self, prompt):
         response = self.chat_messages.send_message(prompt, stream=True)

@@ -8,7 +8,9 @@ class CohereClient(APIClient):
     def __init__(self):
         self.temperature = 0.8
         self.chat_messages = []
-        self.co = cohere.Client(self.load_api_key("COHERE"))
+        
+    def submit_api_key(self):
+        self.co = cohere.Client(self.get_api_key())
 
     def submit_prompt(self, prompt):
         # generate a response with the current chat history

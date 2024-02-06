@@ -9,7 +9,9 @@ class OpenAIClient(APIClient):
         super().__init__(llm)
         self.temperature = 0.7
         self.chat_messages = [{"role": "system", "content": "You are a helpful assistant."}]
-        openai.api_key = self.load_api_key("OPENAI")
+
+    def submit_api_key(self):
+        openai.api_key = self.get_api_key()
 
     def submit_prompt(self, prompt):
         self.chat_messages.append({"role": "user", "content": prompt})
