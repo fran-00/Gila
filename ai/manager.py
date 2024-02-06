@@ -51,8 +51,12 @@ class AIManager(QObject):
 
     @Slot(str)
     def api_key_slot(self, api_key):
-        validate = self.client.validate_api_key(api_key)
-        print(validate)
+        validated = self.client.validate_api_key(api_key)
+        if validated is True:
+            # TODO:
+            pass
+        else:
+            pass
 
     def on_current_settings(self):
         """ Return current client's settings """
