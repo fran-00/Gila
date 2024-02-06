@@ -53,8 +53,7 @@ class AIManager(QObject):
     def api_key_slot(self, api_key):
         validated = self.client.validate_api_key(api_key)
         if validated is True:
-            # TODO:
-            pass
+            self.save_api_key(api_key)
         else:
             pass
 
@@ -62,3 +61,7 @@ class AIManager(QObject):
         """ Return current client's settings """
         settings = self.client.llm_name, self.client.temperature
         return settings
+
+    def save_api_key(self, api_key):
+        with open('.env', 'a') as file:
+            file.write(f"\n{self.client.company}_API_KEY='{api_key}'")
