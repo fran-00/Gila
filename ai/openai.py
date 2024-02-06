@@ -7,6 +7,7 @@ class OpenAIClient(APIClient):
 
     def __init__(self, llm):
         super().__init__(llm)
+        self.company = "OPENAI"
         self.temperature = 0.7
         self.chat_messages = [{"role": "system", "content": "You are a helpful assistant."}]
 

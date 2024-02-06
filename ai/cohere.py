@@ -6,6 +6,7 @@ from .api_client import APIClient
 class CohereClient(APIClient):
 
     def __init__(self):
+        self.company = "COHERE"
         self.temperature = 0.8
         self.chat_messages = []
         
