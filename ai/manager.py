@@ -17,6 +17,7 @@ AVAILABLE_MODELS = {
 
 
 class AIManager(QObject):
+    missing_api_key_to_controller = Signal()
 
     def __init__(self):
         super().__init__()
