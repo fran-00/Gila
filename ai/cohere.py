@@ -32,3 +32,11 @@ class CohereClient(APIClient):
 
     def on_chat_reset(self):
         self.chat_messages = []
+
+    def validate_api_key(self, api_key):
+        test_co = cohere.Client(api_key)
+        try:
+            test_co.generate(prompt='test')
+            return True
+        except cohere.CohereError as e:
+            return False
