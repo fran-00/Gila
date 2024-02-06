@@ -26,7 +26,7 @@ class AIManager(QObject):
         pass
 
     def set_new_client(self, new_llm):
-        selected_llm = self.llms.get(new_llm)
+        selected_llm = AVAILABLE_MODELS.get(new_llm)
         self.client = selected_llm
         self.client.llm_name = new_llm
 
