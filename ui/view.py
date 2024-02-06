@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QMainWindow, QWidget, QGridLayout
+from PySide6.QtCore import Slot
 
 from .status_bar import StatusBar
 from .tool_bar import ToolBar
@@ -44,3 +45,8 @@ class View(QMainWindow):
     def on_show_chatlog_and_prompt_line(self):
         self.chat.on_show_chatlog()
         self.chat.prompt_layout.on_show_prompt_layout()
+
+    @Slot()
+    def on_missing_key_modal_slot(self):
+        print("missing key")
+        self.modal.exec_()
