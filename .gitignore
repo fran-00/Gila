@@ -162,3 +162,5 @@ cython_debug/
 # VSCode stuff
 *.code-workspace
 *.vscode
+
+/drafts/
