@@ -12,9 +12,9 @@ class APIClient:
         self.chat_messages = None
         self.api_key = None
 
-    def check_if_api_key(self, name):
+    def check_if_api_key(self, company_name):
         load_dotenv()
-        if key := os.getenv(f"{name}_API_KEY"):
+        if key := os.getenv(f"{company_name}_API_KEY"):
             self.api_key = key
             return True
         return False
