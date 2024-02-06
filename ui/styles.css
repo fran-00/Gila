@@ -43,3 +43,7 @@ QPushButton:hover {
     background-color: #fff;
     color: #003757; 
 }
+
+QDialog {
+    background-color: #00578b;
+}
