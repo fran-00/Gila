@@ -49,6 +49,11 @@ class AIManager(QObject):
     def get_new_client_slot(self, new_llm):
         self.set_new_client(new_llm)
 
+    @Slot(str)
+    def api_key_slot(self, api_key):
+        validate = self.client.validate_api_key(api_key)
+        print(validate)
+
     def on_current_settings(self):
         """ Return current client's settings """
         settings = self.client.llm_name, self.client.temperature
