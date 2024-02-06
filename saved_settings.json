@@ -1,4 +1,5 @@
 {
+    "company_name": "OPENAI",
     "llm_name": "GPT-3.5 Turbo",
     "temperature": "1.0"
 }
