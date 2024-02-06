@@ -5,19 +5,20 @@ from .google import GoogleClient
 from .cohere import CohereClient
 
 
+AVAILABLE_MODELS = {
+        "GPT-4": OpenAIClient("gpt-4"),
+        "GPT-4 Turbo": OpenAIClient("gpt-4-turbo-preview"),
+        "GPT-3.5 Turbo": OpenAIClient("gpt-3.5-turbo-1106"),
+        "Gemini Pro": GoogleClient("gemini-pro"),
+        "Cohere Chat": CohereClient(),
+}
+
+
 class AIManager(QObject):
 
     def __init__(self):
         super().__init__()
-        self.llms = {
-            "GPT-4": OpenAIClient("gpt-4"),
-            "GPT-4 Turbo": OpenAIClient("gpt-4-turbo-preview"),
-            "GPT-3.5 Turbo": OpenAIClient("gpt-3.5-turbo-1106"),
-            "Gemini Pro": GoogleClient("gemini-pro"),
-            "Cohere Chat": CohereClient(),
-        }
-        self.client = OpenAIClient("gpt-3.5-turbo-1106")
-        self.client.llm_name = "GPT-3.5 Turbo"
+        self.client = None
         self.stream_stopped = False
 
     def available_models(self):
