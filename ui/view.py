@@ -23,6 +23,7 @@ class View(QMainWindow):
         self.toolbar = ToolBar(self)
         self.sidebar = Sidebar(self)
         self.chat = ChatLog(self)
+        self.modal = MissingAPIKeyModal(self)
 
         self.addToolBar(self.toolbar.on_toolbar())
         self.setStatusBar(self.status_bar.status_bar)
