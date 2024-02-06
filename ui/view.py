@@ -4,6 +4,7 @@ from .status_bar import StatusBar
 from .tool_bar import ToolBar
 from .chat_log import ChatLog
 from .sidebar import Sidebar
+from .modal import MissingAPIKeyModal
 
 
 class View(QMainWindow):
