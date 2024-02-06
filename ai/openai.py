@@ -30,3 +30,12 @@ class OpenAIClient(APIClient):
 
     def on_chat_reset(self):
         self.chat_messages = [{"role": "system", "content": "You are a helpful assistant."}]
+
+    def validate_api_key(self, api_key):
+        openai.api_key = api_key
+        try:
+            openai.models.list()
+            return True
+        except openai.AuthenticationError as e:
+            print(e)
+            return False
