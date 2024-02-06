@@ -1,7 +1,9 @@
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton
+from PySide6.QtCore import Signal
 
 
 class MissingAPIKeyModal(QDialog):
+    api_key_to_controller = Signal(str)
 
     def __init__(self, window):
         super().__init__()
