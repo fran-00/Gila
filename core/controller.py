@@ -29,7 +29,7 @@ class Controller(QObject):
 
         # Connect MODEL's signals to CONTROLLER's slots
         self.model.ai_response_signal_to_controller.connect(self.ai_response_slot)
-        self.model.start_new_chat_to_controller.connect(self.new_chat_started_from_model_slot)
+        self.model.start_new_chat_to_controller.connect(self.new_chat_started_slot)
         self.model.manager.api_key_is_valid_to_controller.connect(self.api_key_is_valid_slot)
 
     def connect_view(self):
@@ -43,7 +43,7 @@ class Controller(QObject):
         self.view.sidebar.selected_client_to_controller.connect(self.client_changed_from_sidebar_slot)
         self.view.sidebar.stop_chat_to_controller.connect(self.chat_stopped_from_sidebar_slot)
         self.view.chat.user_prompt_signal_to_controller.connect(self.user_prompt_slot)
-        self.view.chat.start_new_chat_to_controller.connect(self.new_chat_started_from_view_slot)
+        self.view.chat.start_new_chat_to_controller.connect(self.new_chat_started_slot)
         self.view.modal.api_key_to_controller.connect(self.api_key_from_modal_slot)
         
         # Connect ChatLog to Status Bar
@@ -78,15 +78,7 @@ class Controller(QObject):
         self.update_status_bar.emit("La conversazione è stata chiusa.")
 
     @Slot()
-    def new_chat_started_from_model_slot(self):
-        self.model.manager.stream_stopped = False
-        self.update_status_bar.emit("Nuova conversazione avviata.")
-        self.view.sidebar.update_settings_label(self.model.manager.on_current_settings())
-        self.model.manager.on_api_key()
-        self.main_thread.model.run()
-
-    @Slot()
-    def new_chat_started_from_view_slot(self):
+    def new_chat_started_slot(self):
         self.model.manager.stream_stopped = False
         self.update_status_bar.emit("Nuova conversazione avviata.")
         self.view.sidebar.update_settings_label(self.model.manager.on_current_settings())
