@@ -52,6 +52,11 @@ class ChatLog(QObject):
 
     @Slot(str)
     def get_ai_response_slot(self, response):
+        """ Slot
+        Connected to one signal:
+            - controller.ai_response_to_chatlog
+        Adds API response to Chat Log
+        """
         self.prompt_layout.send_button.setEnabled(True)
         """ Slot that receives a string from controller as a signal """
         # Append output to chat view window
