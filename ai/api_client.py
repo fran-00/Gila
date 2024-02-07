@@ -13,6 +13,7 @@ class APIClient:
         self.api_key = None
 
     def check_if_api_key(self, company_name):
+        """ Reads .env file to get API Key, if any """
         load_dotenv()
         if key := os.getenv(f"{company_name}_API_KEY"):
             self.api_key = key
@@ -20,4 +21,5 @@ class APIClient:
         return False
 
     def get_api_key(self):
+        """ Returns API Key"""
         return self.api_key
