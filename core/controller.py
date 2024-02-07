@@ -29,7 +29,6 @@ class Controller(QObject):
         # Connect MODEL's signals to CONTROLLER's slots
         self.model.ai_response_signal_to_controller.connect(self.ai_response_slot)
         self.model.start_new_chat_to_controller.connect(self.new_chat_started_from_model_slot)
-        self.model.manager.missing_api_key_to_controller.connect(self.missing_api_key_from_manager_slot)
 
     def connect_view(self):
         # Connect CONTROLLER's signals to VIEW's slots
@@ -92,10 +91,6 @@ class Controller(QObject):
         self.model.manager.on_api_key()
         self.view.sidebar.on_show_widgets()
         self.main_thread.model.run()
-
-    @Slot()
-    def missing_api_key_from_manager_slot(self):
-        self.missing_api_key_to_view.emit()
 
     @Slot(str)
     def api_key_from_modal_slot(self, api_key):
