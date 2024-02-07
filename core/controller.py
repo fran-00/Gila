@@ -86,10 +86,12 @@ class Controller(QObject):
     def new_chat_started_from_view_slot(self):
         self.model.manager.stream_stopped = False
         self.update_status_bar.emit("Nuova conversazione avviata.")
-        self.view.on_show_chatlog_and_prompt_line()
         self.view.sidebar.update_settings_label(self.model.manager.on_current_settings())
-        self.model.manager.on_api_key()
-        self.view.sidebar.on_show_widgets()
+        if self.model.manager.on_api_key() is False:
+            self.missing_api_key_to_view.emit()
+        else:
+            self.view.on_show_chatlog_and_prompt_line()
+            self.view.sidebar.on_show_widgets()
         self.main_thread.model.run()
 
     @Slot(str)
