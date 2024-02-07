@@ -41,9 +41,10 @@ class MissingAPIKeyModal(QDialog):
 
     def process_api_key(self):
         api_key = self.modal_entry_line.text().strip()
-        self.wait_label.show()
-        self.api_key_to_controller.emit(api_key)
-        self.modal_entry_line.clear()
+        if api_key != "":
+            self.wait_label.show()
+            self.api_key_to_controller.emit(api_key)
+            self.modal_entry_line.clear()
 
     @Slot(bool)
     def on_api_key_validation_slot(self, is_key_valid):
