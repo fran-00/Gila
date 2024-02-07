@@ -21,6 +21,8 @@ class MissingAPIKeyModal(QDialog):
         self.on_modal_entry_line()
         self.on_modal_button()
         self.on_modal_wait_label()
+        self.on_key_is_valid_label()
+        self.on_key_is_not_valid_label()
 
     def on_modal_entry_line(self):
         modal_text = QLabel(f"Inserisci l'API Key")
@@ -39,7 +41,19 @@ class MissingAPIKeyModal(QDialog):
         self.wait_label.hide()
         self.modal_layout.addWidget(self.wait_label)
 
+    def on_key_is_valid_label(self):
+        self.key_valid_label = QLabel('La chiave inserita è valida ed è stata registata.')
+        self.key_valid_label.hide()
+        self.modal_layout.addWidget(self.key_valid_label)
+
+    def on_key_is_not_valid_label(self):
+        self.key_not_valid_label = QLabel('La chiave inserita non è valida, prova di nuovo o chiudi.')
+        self.key_not_valid_label.hide()
+        self.modal_layout.addWidget(self.key_not_valid_label)
+
     def process_api_key(self):
+        self.key_valid_label.hide()
+        self.key_not_valid_label.hide()
         api_key = self.modal_entry_line.text().strip()
         if api_key != "":
             self.wait_label.show()
