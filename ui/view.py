@@ -18,7 +18,7 @@ class View(QMainWindow):
         self.create_layout()
 
     def create_layout(self):
-        """Create a vertical layout for the window"""
+        """ Creates layout for the window and composes UI """
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
         self.status_bar = StatusBar(self)
@@ -35,18 +35,25 @@ class View(QMainWindow):
         self.on_hide_chatlog_and_prompt_line()
 
     def load_css_file(self):
+        """ Loads CSS File to apply style window """
         with open("ui/styles.css", "r") as file:
             return file.read()
 
     def on_hide_chatlog_and_prompt_line(self):
+        """ Hides chat log and prompt box on call """
         self.chat.on_hide_chatlog()
         self.chat.prompt_layout.on_hide_prompt_layout()
 
     def on_show_chatlog_and_prompt_line(self):
+        """ Show chat log and prompt box on call """
         self.chat.on_show_chatlog()
         self.chat.prompt_layout.on_show_prompt_layout()
 
     @Slot()
     def on_missing_key_modal_slot(self):
-        print("missing key")
+        """ Slot
+        Connected to one signal:
+            - controller.missing_api_key_to_view
+        Shows MissingAPIKeyModal when triggered
+        """
         self.modal.exec_()
