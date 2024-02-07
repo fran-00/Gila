@@ -8,6 +8,7 @@ class MissingAPIKeyModal(QDialog):
     def __init__(self, window):
         super().__init__()
         self.window = window
+        self.resize(300, 300)
         self.setWindowTitle("Chiave Mancante")
         self.setStyleSheet(self.load_css_file())
         self.on_modal_layout()
