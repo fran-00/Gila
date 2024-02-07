@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Signal, Slot
 
 
 class MissingAPIKeyModal(QDialog):
