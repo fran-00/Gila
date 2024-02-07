@@ -63,6 +63,11 @@ class MissingAPIKeyModal(QDialog):
 
     @Slot(bool)
     def on_api_key_validation_slot(self, is_key_valid):
+        """ Slot
+        Connected to one signal:
+            - controller.api_key_is_valid_to_view
+        Shows a label saying if api key is valid
+        """
         self.wait_label.hide()
         self.modal_button.setEnabled(True)
         if is_key_valid is True:
