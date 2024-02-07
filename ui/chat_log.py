@@ -16,6 +16,7 @@ class ChatLog(QObject):
         self.prompt_layout = PromptLayout(self)
 
     def on_chat_layout(self):
+        """ Creates Chat layout and calls methods that adds widgets """
         chat_layout = QVBoxLayout(objectName="chat_layout")
         chat_layout.addWidget(self.chat_widget)
         chat_layout.addLayout(self.on_start_layout())
@@ -23,6 +24,7 @@ class ChatLog(QObject):
         return chat_layout
 
     def on_start_layout(self):
+        """ Creates Start layout with a button to start new chat """
         start_layout = QVBoxLayout(objectName="start_layout")
         self.start_chat_button = QPushButton("Nuova Conversazione")
         self.start_chat_button.clicked.connect(
@@ -33,6 +35,9 @@ class ChatLog(QObject):
         return start_layout
 
     def process_prompt(self, prompt):
+        """ Process user prompt, appends it to chatlog and sends it as a Signal
+            to controller
+        """
         if prompt != "":
             self.prompt_layout.send_button.setEnabled(False)
             self.user_prompt_signal_to_controller.emit(prompt)
@@ -40,13 +45,16 @@ class ChatLog(QObject):
             self.chat_widget.append(
                 f"<p><b>Tu</b>: {prompt}</p>")
         else:
-            self.update_status_bar_from_chatlog.emit(f"Non è possibile inviare un messaggio vuoto.")
+            self.update_status_bar_from_chatlog.emit(
+                f"Non è possibile inviare un messaggio vuoto.")
 
     def on_show_chatlog(self):
+        """ Shows chat widget and start chat button on call """
         self.chat_widget.show()
         self.start_chat_button.hide()
 
     def on_hide_chatlog(self):
+        """ Hides chat widget and start chat button on call """
         self.chat_widget.hide()
         self.start_chat_button.show()
 
@@ -63,9 +71,11 @@ class ChatLog(QObject):
         self.chat_widget.append(f"<b>Assistente</b>: {response}")
 
     def get_chat_log(self):
+        """ Returns all current chat text """
         return self.chat_widget.toPlainText()
 
     def on_starting_a_new_chat(self):
+        """ Sends a signal to start a new chat """
         self.start_new_chat_to_controller.emit()
 
 
