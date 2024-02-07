@@ -40,9 +40,8 @@ class AIManager(QObject):
     def on_api_key(self):
         if self.client.check_if_api_key(self.client.company) is True:
             self.client.submit_api_key()
-            print("API KEY found")
-        else:
-            self.missing_api_key_to_controller.emit()
+            return True
+        return False
 
     @Slot(str)
     def get_new_client_slot(self, new_llm):
