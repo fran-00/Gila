@@ -40,17 +40,13 @@ class Sidebar(QObject):
 
     def on_confirm_button(self):
         confirm_button = QPushButton("Conferma")
-        confirm_button.clicked.connect(self.set_client)
+        confirm_button.clicked.connect(self.send_selected_client_to_controller)
         return confirm_button
 
-    def set_client(self):
+    def send_selected_client_to_controller(self):
         """ Trigger signal sending when Confirm Button is pressed"""
         selected_llm = self.llms_combobox.currentText()
-        return self.send_selected_client_to_controller(selected_llm)
-
-    def send_selected_client_to_controller(self, llm):
-        """ Send a signal to controller """
-        self.selected_client_to_controller.emit(llm)
+        self.selected_client_to_controller.emit(selected_llm)
 
     def on_new_chat_button(self):
         self.new_chat_button = QPushButton("Nuova Chat")
