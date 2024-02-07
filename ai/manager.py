@@ -26,6 +26,7 @@ class AIManager(QObject):
         self.get_saved_settings()
 
     def get_saved_settings(self):
+        """ Reads saved client's setting from a json file """
         with open('saved_settings.json', 'r') as f:
             data = json.load(f)
             llm_name = data.get('llm_name')
@@ -34,11 +35,15 @@ class AIManager(QObject):
             self.client.temperature = data.get('temperature')
 
     def set_new_client(self, new_llm):
+        """ Takes new llm name and sets new client on call"""
         selected_llm = AVAILABLE_MODELS.get(new_llm)
         self.client = selected_llm
         self.client.llm_name = new_llm
 
     def on_api_key(self):
+        """ Called by Controller's new_chat_started_slot, asks client to check if
+        API key of the said company is present on the .env file. Returns a boolean
+        with response"""
         if self.client.check_if_api_key(self.client.company) is True:
             self.client.submit_api_key()
             return True
@@ -46,10 +51,21 @@ class AIManager(QObject):
 
     @Slot(str)
     def get_new_client_slot(self, new_llm):
+        """ Slot
+        Connected to one signal:
+            - controller.selected_client_to_manager
+        When triggered, calls set_new_client method with new llm name
+        """
         self.set_new_client(new_llm)
 
     @Slot(str)
     def api_key_slot(self, api_key):
+        """ Slot
+        Connected to one signal:
+            - controller.api_key_to_manager
+        When triggered, send API key to client to check if is valid and then
+        emits a boolean signal with response. If key is valid, calls save_api_key
+        """
         validated = self.client.validate_api_key(api_key)
         if validated is True:
             self.api_key_is_valid_to_controller.emit(True)
@@ -63,5 +79,6 @@ class AIManager(QObject):
         return settings
 
     def save_api_key(self, api_key):
+        """ Saves validated API Key to .env file """
         with open('.env', 'a') as file:
             file.write(f"\n{self.client.company}_API_KEY='{api_key}'")
