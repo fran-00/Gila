@@ -1,22 +1,14 @@
-from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton
-from PySide6.QtCore import Signal, Slot
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QLineEdit, QPushButton
+from PySide6.QtCore import Slot
+
+from .parent_modal import Modal
 
 
-class MissingAPIKeyModal(QDialog):
-    api_key_to_controller = Signal(str)
+class MissingAPIKeyModal(Modal):
 
     def __init__(self, window):
-        super().__init__()
-        self.window = window
-        self.resize(300, 300)
+        super().__init__(window)
         self.setWindowTitle("Chiave Mancante")
-        self.setStyleSheet(self.load_css_file())
-        self.on_modal_layout()
-
-    def load_css_file(self):
-        """ Loads CSS File to apply style to Modal Window """
-        with open("ui/styles.css", "r") as file:
-            return file.read()
 
     def on_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
