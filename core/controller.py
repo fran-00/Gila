@@ -52,25 +52,51 @@ class Controller(QObject):
 
     @Slot(str)
     def ai_response_slot(self, ai_response):
-        """Receive AI response from the MODEL and send it to CHATLOG"""
+        """
+        Connected to one signal:
+            - model.ai_response_signal_to_controller
+        Emits two signals:
+            - ai_response_to_chatlog (view.chat.get_ai_response_slot)
+            - update_status_bar (view.status_bar.on_status_update_slot)
+        
+        Receive AI response from the MODEL and send it to CHATLOG
+        """
         self.ai_response_to_chatlog.emit(ai_response)
         self.update_status_bar.emit("Risposta ricevuta. In attesa di un nuovo messaggio...")
 
     @Slot(str)
     def user_prompt_slot(self, user_prompt):
-        """ Receive user prompt from the CHATLOG and send it to MODEL"""
+        """ Slot
+        Connected to one signal:
+            - view.chat.user_prompt_signal_to_controller
+        Emits two signals:
+            - user_prompt_to_model (model.get_user_prompt_slot)
+            - update_status_bar (view.status_bar.on_status_update_slot)
+        """
         self.user_prompt_to_model.emit(user_prompt)
         self.update_status_bar.emit("Sto inviando il messaggio...")
 
     @Slot(str)
     def client_changed_from_sidebar_slot(self, new_client):
-        """Receive new client name from the SIDEBAR and send it to MANAGER"""
+        """ Slot
+        Connected to new client sidebar signal
+            - view.sidebar.selected_client_to_controller
+        Emits two signals:
+            - selected_client_to_manager (model.manager.get_new_client_slot)
+            - update_status_bar (view.status_bar.on_status_update_slot)
+        """
         self.selected_client_to_manager.emit(new_client)
         self.update_status_bar.emit(f"Hai selezionato {new_client}.")
 
     @Slot()
     def chat_stopped_from_sidebar_slot(self):
-        """Receive stopping signal from Sidebar and send it to model"""
+        """ Slot
+        Connected to stopping signal from Sidebar:
+            - view.sidebar.stop_chat_to_controller
+        Cleans log, resets chat and emits two signals:
+            - chat_stopped_to_model (model.chat_stopped_slot)
+            - update_status_bar (view.status_bar.on_status_update_slot)
+        """
         self.chat_stopped_to_model.emit()
         self.view.chat.chat_widget.clear()
         self.model.client.on_chat_reset()
@@ -79,6 +105,14 @@ class Controller(QObject):
 
     @Slot()
     def new_chat_started_slot(self):
+        """ Slot
+        Connected to two signals:
+            - view.chat.start_new_chat_to_controller
+            - model.start_new_chat_to_controller
+        Checks API Key and emits two signals:
+            - update_status_bar (view.status_bar.on_status_update_slot)
+            - missing_api_key_to_view (view.on_missing_key_modal_slot)
+        """
         self.model.manager.stream_stopped = False
         self.update_status_bar.emit("Nuova conversazione avviata.")
         self.view.sidebar.update_settings_label(self.model.manager.on_current_settings())
@@ -91,8 +125,20 @@ class Controller(QObject):
 
     @Slot(str)
     def api_key_from_modal_slot(self, api_key):
+        """ Slot
+        Connected to one signal:
+            - view.modal.api_key_to_controller
+        Emits one signal:
+            - api_key_to_manager (model.manager.api_key_slot)
+        """
         self.api_key_to_manager.emit(api_key)
 
     @Slot(bool)
     def api_key_is_valid_slot(self, is_key_valid):
+        """ Slot
+        Connected to one signal:
+            - model.manager.api_key_is_valid_to_controller
+        Emits one signal:
+            - api_key_is_valid_to_view (view.modal.on_api_key_validation_slot)
+        """
         self.api_key_is_valid_to_view.emit(is_key_valid)
