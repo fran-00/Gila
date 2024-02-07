@@ -6,6 +6,7 @@ from .tool_bar import ToolBar
 from .chat_log import ChatLog
 from .sidebar import Sidebar
 from .modals.missing_api_key_modal import MissingAPIKeyModal
+from .modals.manage_api_keys_modal import ManageAPIKeysModal
 
 
 class View(QMainWindow):
@@ -25,7 +26,8 @@ class View(QMainWindow):
         self.toolbar = ToolBar(self)
         self.sidebar = Sidebar(self)
         self.chat = ChatLog(self)
-        self.modal = MissingAPIKeyModal(self)
+        self.missing_api_key_modal = MissingAPIKeyModal(self)
+        self.manage_api_keys_modal = ManageAPIKeysModal(self)
 
         self.addToolBar(self.toolbar.on_toolbar())
         self.setStatusBar(self.status_bar.status_bar)
