@@ -1,6 +1,6 @@
 import json
 
-from PySide6.QtCore import QObject, Signal, Slot
+from PySide6.QtCore import QObject, Slot
 
 from .openai import OpenAIClient
 from .google import GoogleClient
@@ -17,7 +17,6 @@ AVAILABLE_MODELS = {
 
 
 class AIManager(QObject):
-    missing_api_key_to_controller = Signal()
 
     def __init__(self):
         super().__init__()
