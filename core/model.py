@@ -33,11 +33,21 @@ class Model(QObject):
 
     @Slot(str)
     def get_user_prompt_slot(self, prompt):
+        """ Slot
+        Connected to one signal:
+            - controller.user_prompt_to_model
+        Gets user prompt and stops event loop.
+        """
         self.prompt = prompt.lower()
         print("> Processing user prompt and waiting for API Response...")
         self.event_loop.exit()
 
     @Slot()
     def chat_stopped_slot(self):
+        """ Slot
+        Connected to one signal:
+            - controller.chat_stopped_to_model
+        Stops event loop.
+        """
         print("> Main loop was stopped.")
         self.event_loop.exit()
