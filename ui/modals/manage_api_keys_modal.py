@@ -19,6 +19,7 @@ class ManageAPIKeysModal(Modal):
     def on_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
+        self.set_icons()
         self.on_client_list_row("OpenAI")
         self.on_client_list_row("Google")
         self.on_client_list_row("Cohere")
@@ -45,3 +46,11 @@ class ManageAPIKeysModal(Modal):
         modify_button = QPushButton("Modifica")
         row_layout.addWidget(modify_button)
         self.modal_layout.addLayout(row_layout)
+
+    def set_icons(self):
+        red_icon_path = "ui/icons/red-circle.png"
+        green_icon_path = "ui/icons/green-circle.png"
+        self.red_icon = QIcon()
+        self.red_icon.addFile(red_icon_path)
+        self.green_icon = QIcon()
+        self.green_icon.addFile(green_icon_path)
