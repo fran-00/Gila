@@ -85,34 +85,37 @@ class PromptLayout:
         self.prompt_box = QLineEdit()
 
     def on_prompt_layout(self):
+        """ Creates prompt layout with prompt box and a button """
+        prompt_layout = QHBoxLayout(objectName="prompt_layout")
+        # Adds prompt box
         self.prompt_box.returnPressed.connect(
             lambda: self.handle_user_prompt("none"))
         self.prompt_box.setFocus()
-
-        # Horizontal layout for input box and button
-        prompt_layout = QHBoxLayout(objectName="prompt_layout")
         prompt_layout.addWidget(self.prompt_box)
-
+        # Adds send button
         self.send_button = QPushButton("Enter", objectName="enter_button")
         self.send_button.clicked.connect(
             lambda: self.handle_user_prompt("none"))
-
         prompt_layout.addWidget(self.send_button)
         return prompt_layout
 
     def handle_user_prompt(self, user_prompt):
+        """ Gets user prompt from prompt box and calls process_prompt method from chatlog """
         prompt = self.prompt_box.text().strip() if user_prompt == "none" else user_prompt
         self.clear_prompt_box()
         return self.chatlog.process_prompt(prompt)
 
     def clear_prompt_box(self):
+        """ Clear prompt layout on call """
         self.prompt_box.clear()
         self.prompt_box.setFocus()
 
     def on_show_prompt_layout(self):
+        """ Shows prompt layout and send button on call """
         self.prompt_box.show()
         self.send_button.show()
 
     def on_hide_prompt_layout(self):
+        """ Hides prompt layout and send button on call """
         self.prompt_box.hide()
         self.send_button.hide()
