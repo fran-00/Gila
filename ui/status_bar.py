@@ -12,5 +12,10 @@ class StatusBar(QObject):
 
     @Slot(str)
     def on_status_update_slot(self, status):
+        """ Slot
+        Connected to one signal:
+            - controller.update_status_bar
+        Shows a message on the status bar
+        """
         self.messages_history.append(status)
         self.status_bar.showMessage(status)
