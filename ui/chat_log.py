@@ -34,6 +34,7 @@ class ChatLog(QObject):
 
     def process_prompt(self, prompt):
         if prompt != "":
+            self.prompt_layout.send_button.setEnabled(False)
             self.user_prompt_signal_to_controller.emit(prompt)
             # Append user prompt to log view window
             self.chat_widget.append(
@@ -51,6 +52,7 @@ class ChatLog(QObject):
 
     @Slot(str)
     def get_ai_response_slot(self, response):
+        self.prompt_layout.send_button.setEnabled(True)
         """ Slot that receives a string from controller as a signal """
         # Append output to chat view window
         self.chat_widget.append(f"<b>Assistente</b>: {response}")
