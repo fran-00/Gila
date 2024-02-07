@@ -65,7 +65,6 @@ class MissingAPIKeyModal(QDialog):
         self.wait_label.hide()
         self.modal_button.setEnabled(True)
         if is_key_valid is True:
-            self.accept()
+            self.key_valid_label.show()
         else:
-            print("api key is not valid!")
-            self.close()
+            self.key_not_valid_label.show()
