@@ -52,7 +52,7 @@ class Controller(QObject):
 
     @Slot(str)
     def ai_response_slot(self, ai_response):
-        """
+        """ Slot
         Connected to one signal:
             - model.ai_response_signal_to_controller
         Emits two signals:
