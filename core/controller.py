@@ -10,6 +10,7 @@ class Controller(QObject):
     update_status_bar = Signal(str)
     missing_api_key_to_view = Signal()
     api_key_to_manager = Signal(str)
+    api_key_is_valid_to_view = Signal(bool)
 
     def __init__(self, model, view, thread):
         super().__init__()
@@ -29,12 +30,14 @@ class Controller(QObject):
         # Connect MODEL's signals to CONTROLLER's slots
         self.model.ai_response_signal_to_controller.connect(self.ai_response_slot)
         self.model.start_new_chat_to_controller.connect(self.new_chat_started_from_model_slot)
+        self.model.manager.api_key_is_valid_to_controller.connect(self.api_key_is_valid_slot)
 
     def connect_view(self):
         # Connect CONTROLLER's signals to VIEW's slots
         self.ai_response_to_chatlog.connect(self.view.chat.get_ai_response_slot)
         self.update_status_bar.connect(self.view.status_bar.on_status_update_slot)
         self.missing_api_key_to_view.connect(self.view.on_missing_key_modal_slot)
+        self.api_key_is_valid_to_view.connect(self.view.modal.on_api_key_validation_slot)
 
         # Connect VIEW's signals to CONTROLLER's slots
         self.view.sidebar.selected_client_to_controller.connect(self.client_changed_from_sidebar_slot)
@@ -97,3 +100,7 @@ class Controller(QObject):
     @Slot(str)
     def api_key_from_modal_slot(self, api_key):
         self.api_key_to_manager.emit(api_key)
+
+    @Slot(bool)
+    def api_key_is_valid_slot(self, is_key_valid):
+        self.api_key_is_valid_to_view.emit(is_key_valid)
