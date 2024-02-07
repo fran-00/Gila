@@ -22,10 +22,13 @@ class MissingAPIKeyModal(QDialog):
         self.modal_layout.addWidget(modal_text)
         self.modal_entry_line = QLineEdit(self)
         self.modal_layout.addWidget(self.modal_entry_line)
-        modal_button = QPushButton("OK", self)
-        modal_button.clicked.connect(self.process_api_key)
-        modal_button.clicked.connect(self.accept)
-        self.modal_layout.addWidget(modal_button)
+        self.modal_button = QPushButton("OK", self)
+        self.modal_button.clicked.connect(self.process_api_key)
+        # modal_button.clicked.connect(self.accept)
+        self.modal_layout.addWidget(self.modal_button)
+        self.wait_label = QLabel('Attendere...')
+        self.wait_label.hide()
+        self.modal_layout.addWidget(self.wait_label)
 
     def process_api_key(self):
         api_key = self.modal_entry_line.text().strip()
