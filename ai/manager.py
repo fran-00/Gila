@@ -1,6 +1,6 @@
 import json
 
-from PySide6.QtCore import QObject, Slot
+from PySide6.QtCore import QObject, Slot, Signal
 
 from .openai import OpenAIClient
 from .google import GoogleClient
@@ -17,6 +17,7 @@ AVAILABLE_MODELS = {
 
 
 class AIManager(QObject):
+    api_key_is_valid_to_controller = Signal(bool)
 
     def __init__(self):
         super().__init__()
@@ -51,9 +52,10 @@ class AIManager(QObject):
     def api_key_slot(self, api_key):
         validated = self.client.validate_api_key(api_key)
         if validated is True:
+            self.api_key_is_valid_to_controller.emit(True)
             self.save_api_key(api_key)
         else:
-            pass
+            self.api_key_is_valid_to_controller.emit(False)
 
     def on_current_settings(self):
         """ Return current client's settings """
