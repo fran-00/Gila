@@ -30,6 +30,8 @@ class ManageAPIKeysModal(Modal):
         load_dotenv()
         if os.getenv(f"{client_name.upper()}_API_KEY"):
             self.api_keys[f"{client_name}"] = True
+        else:
+            self.api_keys[f"{client_name}"] = False
 
     def on_client_list_row(self, client_name):
         row_layout = QHBoxLayout()
