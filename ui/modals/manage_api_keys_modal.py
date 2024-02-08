@@ -38,9 +38,8 @@ class ManageAPIKeysModal(Modal):
         label = QLabel(client_name)
         row_layout.addWidget(label)
 
-        icon = QIcon("ui/icons/green-circle.png")
         icon_label = QLabel()
-        icon_label.setPixmap(icon.pixmap(24, 24))
+        icon_label.setPixmap(self.red_icon)
         row_layout.addWidget(icon_label)
 
         modify_button = QPushButton("Modifica")
