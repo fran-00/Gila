@@ -12,12 +12,15 @@ class ToolBar(QObject):
 
     def on_toolbar(self):
         self.tb = QToolBar("Toolbar")
+        self.on_save_chatlog_action()
+        return self.tb
+
+    def on_save_chatlog_action(self):
         save_action = QAction(self.save_icon, "&Esporta Conversazione", self)
         save_action.setShortcut("Ctrl+S")
         save_action.setStatusTip('Esporta Conversazione')
         save_action.triggered.connect(self.save_txt_file)
         self.tb.addAction(save_action)
-        return self.tb
 
     def set_icons(self):
         save_icon_path = "ui/icons/floppy.svg"
