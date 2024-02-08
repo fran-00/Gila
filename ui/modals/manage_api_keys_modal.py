@@ -22,9 +22,9 @@ class ManageAPIKeysModal(Modal):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.set_icons()
-        self.on_client_list_row("OpenAI")
-        self.on_client_list_row("Google")
-        self.on_client_list_row("Cohere")
+        for key in self.api_keys.keys():
+            self.on_stored_api_keys(key)
+            self.on_client_list_row(key)
 
     def on_stored_api_keys(self, client_name):
         load_dotenv()
