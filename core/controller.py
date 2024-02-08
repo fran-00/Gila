@@ -43,7 +43,7 @@ class Controller(QObject):
         self.update_status_bar.connect(
             self.view.status_bar.on_status_update_slot)
         self.missing_api_key_to_view.connect(
-            self.view.on_missing_key_modal_slot)
+            self.view.add_api_key_modal_slot)
         self.api_key_is_valid_to_view.connect(
             self.view.add_api_key_modal.on_api_key_validation_slot)
 
@@ -125,7 +125,7 @@ class Controller(QObject):
             - model.start_new_chat_to_controller
         Checks API Key and emits two signals:
             - update_status_bar (view.status_bar.on_status_update_slot)
-            - missing_api_key_to_view (view.on_missing_key_modal_slot)
+            - missing_api_key_to_view (view.add_api_key_modal_slot)
         """
         self.model.manager.stream_stopped = False
         self.update_status_bar.emit("Nuova conversazione avviata.")

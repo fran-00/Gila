@@ -52,7 +52,7 @@ class View(QMainWindow):
         self.chat.prompt_layout.on_show_prompt_layout()
 
     @Slot()
-    def on_missing_key_modal_slot(self):
+    def add_api_key_modal_slot(self):
         """ Slot
         Connected to one signal:
             - controller.missing_api_key_to_view
