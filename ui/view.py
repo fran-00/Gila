@@ -26,7 +26,7 @@ class View(QMainWindow):
         self.toolbar = ToolBar(self)
         self.sidebar = Sidebar(self)
         self.chat = ChatLog(self)
-        self.missing_api_key_modal = AddAPIKeyModal(self)
+        self.add_api_key_modal = AddAPIKeyModal(self)
         self.manage_api_keys_modal = ManageAPIKeysModal(self)
 
         self.addToolBar(self.toolbar.on_toolbar())
@@ -58,4 +58,4 @@ class View(QMainWindow):
             - controller.missing_api_key_to_view
         Shows AddAPIKeyModal when triggered
         """
-        self.missing_api_key_modal.exec_()
+        self.add_api_key_modal.exec_()

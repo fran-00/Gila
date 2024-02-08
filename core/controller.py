@@ -45,7 +45,7 @@ class Controller(QObject):
         self.missing_api_key_to_view.connect(
             self.view.on_missing_key_modal_slot)
         self.api_key_is_valid_to_view.connect(
-            self.view.missing_api_key_modal.on_api_key_validation_slot)
+            self.view.add_api_key_modal.on_api_key_validation_slot)
 
         # Connect VIEW's signals to CONTROLLER's slots
         self.view.sidebar.selected_client_to_controller.connect(
@@ -56,7 +56,7 @@ class Controller(QObject):
             self.user_prompt_slot)
         self.view.chat.start_new_chat_to_controller.connect(
             self.new_chat_started_slot)
-        self.view.missing_api_key_modal.api_key_to_controller.connect(
+        self.view.add_api_key_modal.api_key_to_controller.connect(
             self.api_key_from_modal_slot)
 
         # Connect ChatLog to Status Bar
