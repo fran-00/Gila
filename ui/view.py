@@ -58,4 +58,4 @@ class View(QMainWindow):
             - controller.missing_api_key_to_view
         Shows MissingAPIKeyModal when triggered
         """
-        self.modal.exec_()
+        self.missing_api_key_modal.exec_()
