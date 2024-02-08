@@ -58,7 +58,11 @@ class ManageAPIKeysModal(Modal):
 
     def update_labels(self):
         for key in self.api_keys.keys():
+            red_label = self.findChild(QLabel, f"red_{key}_label")
+            green_label = self.findChild(QLabel, f"green_{key}_label")
             if self.api_keys[f'{key}'] is False:
-                self.client_icon_label.setPixmap(self.red_icon)
+                red_label.show()
+                green_label.hide()
             else:
-                self.client_icon_label.setPixmap(self.green_icon)
+                red_label.hide()
+                green_label.show()
