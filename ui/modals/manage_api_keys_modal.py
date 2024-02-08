@@ -12,9 +12,11 @@ class ManageAPIKeysModal(Modal):
     def __init__(self, window):
         super().__init__(window)
         self.setWindowTitle("Gestisci Chiavi API")
-        self.openai_key = False
-        self.google_key = False
-        self.cohere_key = False
+        self.api_keys = {
+            "OpenAi": False,
+            "Google": False,
+            "Cohere": False
+        }
 
     def on_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
