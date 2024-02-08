@@ -38,9 +38,12 @@ class ManageAPIKeysModal(Modal):
         label = QLabel(client_name)
         row_layout.addWidget(label)
 
-        icon_label = QLabel()
-        icon_label.setPixmap(self.red_icon)
-        row_layout.addWidget(icon_label)
+        self.client_icon_label = QLabel()
+        if self.api_keys.get(client_name) is False:
+            self.client_icon_label.setPixmap(self.red_icon)
+        else:
+            self.client_icon_label.setPixmap(self.green_icon)
+        row_layout.addWidget(self.client_icon_label)
 
         modify_button = QPushButton("Modifica")
         row_layout.addWidget(modify_button)
