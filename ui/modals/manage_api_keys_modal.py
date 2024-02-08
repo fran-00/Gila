@@ -26,14 +26,10 @@ class ManageAPIKeysModal(Modal):
         self.on_client_list_row("Google")
         self.on_client_list_row("Cohere")
 
-    def on_stored_api_keys(self):
+    def on_stored_api_keys(self, name):
         load_dotenv()
-        if os.getenv(f"OPENAI_API_KEY"):
-            self.openai_key = True
-        if os.getenv(f"GOOGLE_API_KEY"):
-            self.openai_key = True
-        if os.getenv(f"COHERE_API_KEY"):
-            self.openai_key = True
+        if os.getenv(f"{name.upper()}_API_KEY"):
+            self.api_keys[f"{name}"] = True
 
     def on_client_list_row(self, client_name):
         row_layout = QHBoxLayout()
