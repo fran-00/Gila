@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 from PySide6.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QPushButton
-from PySide6.QtGui import QIcon
+from PySide6.QtGui import QPixmap
 
 from .parent_modal import Modal
 
