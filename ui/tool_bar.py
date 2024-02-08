@@ -32,6 +32,9 @@ class ToolBar(QObject):
         save_icon_path = "ui/icons/floppy.svg"
         self.save_icon = QIcon()
         self.save_icon.addFile(save_icon_path)
+        key_icon_path = "ui/icons/key.svg"
+        self.key_icon = QIcon()
+        self.key_icon.addFile(key_icon_path)
 
     def save_txt_file(self):
         options = QFileDialog.Options()
