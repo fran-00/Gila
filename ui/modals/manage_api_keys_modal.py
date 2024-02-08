@@ -48,9 +48,7 @@ class ManageAPIKeysModal(Modal):
         self.modal_layout.addLayout(row_layout)
 
     def set_icons(self):
-        red_icon_path = "ui/icons/red-circle.png"
-        green_icon_path = "ui/icons/green-circle.png"
-        self.red_icon = QIcon()
-        self.red_icon.addFile(red_icon_path)
-        self.green_icon = QIcon()
-        self.green_icon.addFile(green_icon_path)
+        red_icon_path = "ui/icons/red-circle.svg"
+        green_icon_path = "ui/icons/green-circle.svg"
+        self.red_icon = QPixmap(red_icon_path)
+        self.green_icon = QPixmap(green_icon_path)
