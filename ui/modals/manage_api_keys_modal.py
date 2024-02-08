@@ -17,13 +17,13 @@ class ManageAPIKeysModal(Modal):
             "Google": False,
             "Cohere": False
         }
+        self.on_modal_layout()
 
     def on_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.set_icons()
         for key in self.api_keys.keys():
-            self.on_stored_api_keys(key)
             self.on_client_list_row(key)
 
     def on_stored_api_keys(self):
