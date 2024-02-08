@@ -38,7 +38,7 @@ class ToolBar(QObject):
         self.key_icon.addFile(key_icon_path)
 
     def open_api_keys_modal(self):
-        self.window.manage_api_keys_modal.on_stored_api_keys()
+        self.window.manage_api_keys_modal.on_modal_layout()
         self.window.manage_api_keys_modal.exec_()
 
     def save_txt_file(self):
