@@ -36,6 +36,9 @@ class ToolBar(QObject):
         self.key_icon = QIcon()
         self.key_icon.addFile(key_icon_path)
 
+    def open_api_keys_modal(self):
+        self.window.manage_api_keys_modal.exec_()
+
     def save_txt_file(self):
         options = QFileDialog.Options()
         # options |= QFileDialog.DontUseNativeDialog
