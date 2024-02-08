@@ -13,6 +13,7 @@ class ToolBar(QObject):
     def on_toolbar(self):
         self.tb = QToolBar("Toolbar")
         self.on_save_chatlog_action()
+        self.on_manage_api_keys_action()
         return self.tb
 
     def on_save_chatlog_action(self):
