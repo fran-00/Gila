@@ -9,6 +9,7 @@ class MissingAPIKeyModal(Modal):
     def __init__(self, window):
         super().__init__(window)
         self.setWindowTitle("Chiave Mancante")
+        self.on_modal_layout()
 
     def on_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
