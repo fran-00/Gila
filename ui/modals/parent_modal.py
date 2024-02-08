@@ -10,7 +10,6 @@ class Modal(QDialog):
         self.window = window
         self.resize(300, 300)
         self.setStyleSheet(self.load_css_file())
-        self.on_modal_layout()
 
     def load_css_file(self):
         """ Loads CSS File to apply style to Modal Window """
