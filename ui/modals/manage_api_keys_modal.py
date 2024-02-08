@@ -26,11 +26,12 @@ class ManageAPIKeysModal(Modal):
             self.on_stored_api_keys(key)
             self.on_client_list_row(key)
 
-    def on_stored_api_keys(self, client_name):
+    def on_stored_api_keys(self):
         load_dotenv()
-        if os.getenv(f"{client_name.upper()}_API_KEY"):
-            self.api_keys[f"{client_name}"] = True
-        else:
+        for key in self.api_keys.keys():
+            if os.getenv(f"{key.upper()}_API_KEY"):
+                self.api_keys[f"{key}"] = True
+            else:
             self.api_keys[f"{client_name}"] = False
 
     def on_client_list_row(self, client_name):
