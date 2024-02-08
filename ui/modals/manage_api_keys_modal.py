@@ -54,3 +54,10 @@ class ManageAPIKeysModal(Modal):
         green_icon_path = "ui/icons/green-circle.svg"
         self.red_icon = QPixmap(red_icon_path)
         self.green_icon = QPixmap(green_icon_path)
+
+    def update_labels(self):
+        for key in self.api_keys.keys():
+            if self.api_keys[f'{key}'] is False:
+                self.client_icon_label.setPixmap(self.red_icon)
+            else:
+                self.client_icon_label.setPixmap(self.green_icon)
