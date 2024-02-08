@@ -4,11 +4,11 @@ from PySide6.QtCore import Slot
 from .parent_modal import Modal
 
 
-class MissingAPIKeyModal(Modal):
+class AddAPIKeyModal(Modal):
 
     def __init__(self, window):
         super().__init__(window)
-        self.setWindowTitle("Chiave Mancante")
+        self.setWindowTitle("Aggiungi API Key")
         self.on_modal_layout()
 
     def on_modal_layout(self):

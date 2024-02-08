@@ -5,7 +5,7 @@ from .status_bar import StatusBar
 from .tool_bar import ToolBar
 from .chat_log import ChatLog
 from .sidebar import Sidebar
-from .modals.missing_api_key_modal import MissingAPIKeyModal
+from .modals.add_api_key_modal import AddAPIKeyModal
 from .modals.manage_api_keys_modal import ManageAPIKeysModal
 
 
@@ -26,7 +26,7 @@ class View(QMainWindow):
         self.toolbar = ToolBar(self)
         self.sidebar = Sidebar(self)
         self.chat = ChatLog(self)
-        self.missing_api_key_modal = MissingAPIKeyModal(self)
+        self.missing_api_key_modal = AddAPIKeyModal(self)
         self.manage_api_keys_modal = ManageAPIKeysModal(self)
 
         self.addToolBar(self.toolbar.on_toolbar())
@@ -56,6 +56,6 @@ class View(QMainWindow):
         """ Slot
         Connected to one signal:
             - controller.missing_api_key_to_view
-        Shows MissingAPIKeyModal when triggered
+        Shows AddAPIKeyModal when triggered
         """
         self.missing_api_key_modal.exec_()
