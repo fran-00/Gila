@@ -51,11 +51,13 @@ class View(QMainWindow):
         self.chat.on_show_chatlog()
         self.chat.prompt_layout.on_show_prompt_layout()
 
-    @Slot()
-    def add_api_key_modal_slot(self):
+    @Slot(str)
+    def add_api_key_modal_slot(self, client_name):
         """ Slot
         Connected to one signal:
             - controller.missing_api_key_to_view
+        Called also by view.manage_api_keys_modal passing client name as argument
         Shows AddAPIKeyModal when triggered
         """
+        self.add_api_key_modal.client_name = client_name
         self.add_api_key_modal.exec_()
