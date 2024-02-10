@@ -8,6 +8,7 @@ class AddAPIKeyModal(Modal):
 
     def __init__(self, window):
         super().__init__(window)
+        self.client_name = None
         self.setWindowTitle("Aggiungi API Key")
         self.on_modal_layout()
 
@@ -59,7 +60,7 @@ class AddAPIKeyModal(Modal):
         api_key = self.modal_entry_line.text().strip()
         if api_key != "":
             self.wait_label.show()
-            self.api_key_to_controller.emit(api_key)
+            self.api_key_to_controller.emit(api_key, self.client_name)
             self.modal_entry_line.clear()
 
     @Slot(bool)
