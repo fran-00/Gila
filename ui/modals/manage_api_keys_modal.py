@@ -47,7 +47,7 @@ class ManageAPIKeysModal(Modal):
         row_layout.addWidget(green_icon_label)
 
         modify_button = QPushButton("Modifica")
-        modify_button.clicked.connect(self.window.add_api_key_modal_slot)
+        modify_button.clicked.connect(lambda: self.window.add_api_key_modal_slot(client_name))
         row_layout.addWidget(modify_button)
         self.modal_layout.addLayout(row_layout)
 
