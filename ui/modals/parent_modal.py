@@ -3,7 +3,7 @@ from PySide6.QtCore import Signal
 
 
 class Modal(QDialog):
-    api_key_to_controller = Signal(str)
+    api_key_to_controller = Signal(str, str)
 
     def __init__(self, window):
         super().__init__()
