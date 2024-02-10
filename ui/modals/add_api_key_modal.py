@@ -22,7 +22,7 @@ class AddAPIKeyModal(Modal):
 
     def on_modal_entry_line(self):
         """ Add instructions text and an entry line """
-        modal_text = QLabel(f"Inserisci l'API Key, verrà inviata per la verifica.")
+        modal_text = QLabel(f"Inserisci l'API Key per {self.client_name}, verrà inviata per la verifica.")
         self.modal_layout.addWidget(modal_text)
         self.modal_entry_line = QLineEdit(self)
         self.modal_layout.addWidget(self.modal_entry_line)
