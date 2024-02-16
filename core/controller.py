@@ -139,14 +139,17 @@ class Controller(QObject):
         self.main_thread.model.run()
 
     @Slot(str, str)
-    def api_key_from_modal_slot(self, api_key, client_name):
+    def api_key_from_modal_slot(self, api_key, company_name):
         """ Slot
         Connected to one signal:
             - view.modal.api_key_to_controller
         Emits one signal:
             - api_key_to_manager (model.manager.api_key_slot)
+        If company_name parameter is set by AddAPIKeyModal via process_api_key
+        method. If it is None, manager will send new API key to the current client,
+        else it will send it on the client based on that company name.
         """
-        self.api_key_to_manager.emit(api_key, client_name)
+        self.api_key_to_manager.emit(api_key, company_name)
 
     @Slot(bool)
     def api_key_is_valid_slot(self, is_key_valid):
