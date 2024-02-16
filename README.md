@@ -43,3 +43,4 @@ APIs do have rate limits. To know more:
 - [ ] Add a way to load API keys and create a .env file to store them
 - [ ] Check Internet connection before every request to API, show a modal if client is not connected. Or/and change the color of chatlog to grey.
 - [ ] Ensure that model is disconnected from client on window closing.
+- [ ] Add a loading view on startup.
