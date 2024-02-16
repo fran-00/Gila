@@ -138,15 +138,15 @@ class Controller(QObject):
             self.view.sidebar.on_show_widgets()
         self.main_thread.model.run()
 
-    @Slot(str)
-    def api_key_from_modal_slot(self, api_key):
+    @Slot(str, str)
+    def api_key_from_modal_slot(self, api_key, client_name):
         """ Slot
         Connected to one signal:
             - view.modal.api_key_to_controller
         Emits one signal:
             - api_key_to_manager (model.manager.api_key_slot)
         """
-        self.api_key_to_manager.emit(api_key)
+        self.api_key_to_manager.emit(api_key, client_name)
 
     @Slot(bool)
     def api_key_is_valid_slot(self, is_key_valid):
