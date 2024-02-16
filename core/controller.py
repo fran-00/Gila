@@ -8,8 +8,8 @@ class Controller(QObject):
     new_chat_started_to_model = Signal()
     chat_stopped_to_model = Signal()
     update_status_bar = Signal(str)
-    missing_api_key_to_view = Signal()
-    api_key_to_manager = Signal(str)
+    missing_api_key_to_view = Signal(str)
+    api_key_to_manager = Signal(str, str)
     api_key_is_valid_to_view = Signal(bool)
 
     def __init__(self, model, view, thread):
@@ -132,7 +132,7 @@ class Controller(QObject):
         self.view.sidebar.update_settings_label(
             self.model.manager.on_current_settings())
         if self.model.manager.on_api_key() is False:
-            self.missing_api_key_to_view.emit()
+            self.missing_api_key_to_view.emit(self.model.manager.client)
         else:
             self.view.on_show_chatlog_and_prompt_line()
             self.view.sidebar.on_show_widgets()
