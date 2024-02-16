@@ -60,4 +60,5 @@ class View(QMainWindow):
         Shows AddAPIKeyModal when triggered
         """
         self.add_api_key_modal.client_name = client_name
+        self.add_api_key_modal.update_text()
         self.add_api_key_modal.exec_()
