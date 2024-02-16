@@ -15,6 +15,11 @@ AVAILABLE_MODELS = {
         "Cohere Chat": CohereClient(),
 }
 
+COMPANIES = {
+        "OPENAI": OpenAIClient("gpt-3.5-turbo-1106"),
+        "GOOGLE": GoogleClient("gemini-pro"),
+        "COHERE": CohereClient(),
+}
 
 class AIManager(QObject):
     api_key_is_valid_to_controller = Signal(bool)
@@ -59,14 +64,20 @@ class AIManager(QObject):
         self.set_new_client(new_llm)
 
     @Slot(str)
-    def api_key_slot(self, api_key):
+    def api_key_slot(self, api_key, company_name):
         """ Slot
         Connected to one signal:
             - controller.api_key_to_manager
-        When triggered, send API key to client to check if is valid and then
-        emits a boolean signal with response. If key is valid, calls save_api_key
+        When triggered, if company_name is None, manager will send new API key
+        to the current client, else it will send it on the client based on that
+        company name.
+        API key is then sent to client to check if is valid and emits a boolean
+        signal with response. If key is valid, calls save_api_key
         """
-        validated = self.client.validate_api_key(api_key)
+        client = COMPANIES.get(company_name.upper())
+        if client is None:
+            client = AVAILABLE_MODELS.get(self.client.llm_name)
+        validated = client.validate_api_key(api_key)
         if validated is True:
             self.api_key_is_valid_to_controller.emit(True)
             self.save_api_key(api_key)
