@@ -28,7 +28,9 @@ class AddAPIKeyModal(Modal):
         self.modal_entry_line = QLineEdit(self)
         self.modal_layout.addWidget(self.modal_entry_line)
 
-    def update_text(self):
+    def update_modal_labels(self):
+        self.key_valid_label.hide()
+        self.key_not_valid_label.hide()
         self.modal_text.setText(f"Inserisci l'API Key per {self.client_name}, verrà inviata per la verifica.")
 
     def on_modal_button(self):
