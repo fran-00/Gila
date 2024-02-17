@@ -7,6 +7,7 @@ from .chat_log import ChatLog
 from .sidebar import Sidebar
 from .modals.add_api_key_modal import AddAPIKeyModal
 from .modals.manage_api_keys_modal import ManageAPIKeysModal
+from .modals.warning_modal import WarningModal
 
 
 class View(QMainWindow):
@@ -28,6 +29,7 @@ class View(QMainWindow):
         self.chat = ChatLog(self)
         self.add_api_key_modal = AddAPIKeyModal(self)
         self.manage_api_keys_modal = ManageAPIKeysModal(self)
+        self.warning_modal = WarningModal(self)
 
         self.addToolBar(self.toolbar.on_toolbar())
         self.setStatusBar(self.status_bar.status_bar)
