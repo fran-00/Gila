@@ -142,6 +142,7 @@ class Controller(QObject):
             self.main_thread.model.run()
             return
         # Open a modal that warns user about the lack of connection
+        self.update_status_bar.emit("Nessuna connessione a internet.")
         self.view.warning_modal.on_no_internet_connection_label()
         self.view.warning_modal.exec_()
 
