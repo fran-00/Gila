@@ -167,3 +167,14 @@ class Controller(QObject):
             - api_key_is_valid_to_view (view.modal.on_api_key_validation_slot)
         """
         self.api_key_is_valid_to_view.emit(is_key_valid)
+
+    @Slot()
+    def connection_error_slot(self):
+        """ Slot
+        Connected to one signal:
+            - model.connection_error_to_controller
+        Opens WarningLabel to warn user about internet connection.
+        """
+        self.update_status_bar.emit("Nessuna connessione a internet.")
+        self.view.warning_modal.on_no_internet_connection_label()
+        self.view.warning_modal.exec_()
