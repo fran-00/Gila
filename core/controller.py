@@ -33,6 +33,8 @@ class Controller(QObject):
             self.ai_response_slot)
         self.model.start_new_chat_to_controller.connect(
             self.new_chat_started_slot)
+        self.model.connection_error_to_controller.connect(
+            self.connection_error_slot)
         self.model.manager.api_key_is_valid_to_controller.connect(
             self.api_key_is_valid_slot)
 
