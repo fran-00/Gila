@@ -15,11 +15,12 @@ class WarningModal(Modal):
         self.modal_layout = QVBoxLayout(self)
         self.modal_text = QLabel("Messaggio di avviso da sovrascrivere.")
         self.modal_layout.addWidget(self.modal_text)
-        self.modal_layout.addWidget(self.modal_button)
+        self.on_dismiss_button()
 
     def on_dismiss_button(self):
         self.modal_button = QPushButton("OK", self)
         self.modal_button.clicked.connect(self.accept)
+        self.modal_layout.addWidget(self.modal_button)
 
     def on_no_internet_connection_label(self):
         self.modal_text.setText("Il computer non è connesso ad internet, controlla la connessione e riprova.")
