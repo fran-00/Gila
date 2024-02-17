@@ -14,21 +14,21 @@ class CohereClient(APIClient):
         self.co = cohere.Client(self.get_api_key())
 
     def submit_prompt(self, prompt):
-        # generate a response with the current chat history
-        response = self.co.chat(
-            prompt,
-            temperature=self.temperature,
-            chat_history=self.chat_messages
-        )
-        answer = response.text
+        try:
+            response = self.co.chat(
+                prompt,
+                temperature=self.temperature,
+                chat_history=self.chat_messages
+            )
+            answer = response.text
+            user_message = {"user_name": "User", "text": prompt}
+            bot_message = {"user_name": "Chatbot", "text": answer}
 
-        # add message and answer to the chat history
-        user_message = {"user_name": "User", "text": prompt}
-        bot_message = {"user_name": "Chatbot", "text": answer}
-
-        self.chat_messages.append(user_message)
-        self.chat_messages.append(bot_message)
-        return answer
+            self.chat_messages.append(user_message)
+            self.chat_messages.append(bot_message)
+            return answer
+        except cohere.error.CohereConnectionError:
+            return False
 
     def on_chat_reset(self):
         self.chat_messages = []
