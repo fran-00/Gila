@@ -17,7 +17,7 @@ class CohereClient(APIClient):
         # generate a response with the current chat history
         response = self.co.chat(
             prompt,
-            temperature=0.8,
+            temperature=self.temperature,
             chat_history=self.chat_messages
         )
         answer = response.text
