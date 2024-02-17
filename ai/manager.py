@@ -94,3 +94,10 @@ class AIManager(QObject):
         """ Saves validated API Key to .env file """
         with open('.env', 'a') as file:
             file.write(f"\n{self.client.company}_API_KEY='{api_key}'")
+
+    def check_internet_connection(self):
+        try:
+            requests.head("http://www.google.com/", timeout=1)
+            return True
+        except requests.ConnectionError:
+            return False
