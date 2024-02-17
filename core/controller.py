@@ -127,16 +127,19 @@ class Controller(QObject):
             - update_status_bar (view.status_bar.on_status_update_slot)
             - missing_api_key_to_view (view.add_api_key_modal_slot)
         """
-        self.model.manager.stream_stopped = False
-        self.update_status_bar.emit("Nuova conversazione avviata.")
-        self.view.sidebar.update_settings_label(
-            self.model.manager.on_current_settings())
-        if self.model.manager.on_api_key() is False:
-            self.missing_api_key_to_view.emit(self.model.manager.client)
-        else:
-            self.view.on_show_chatlog_and_prompt_line()
-            self.view.sidebar.on_show_widgets()
-        self.main_thread.model.run()
+        if self.model.manager.check_internet_connection():
+            self.model.manager.stream_stopped = False
+            self.update_status_bar.emit("Nuova conversazione avviata.")
+            self.view.sidebar.update_settings_label(
+                self.model.manager.on_current_settings())
+            if self.model.manager.on_api_key() is False:
+                self.missing_api_key_to_view.emit(self.model.manager.client)
+            else:
+                self.view.on_show_chatlog_and_prompt_line()
+                self.view.sidebar.on_show_widgets()
+            self.main_thread.model.run()
+            return
+        # TODO: open a modal that warns user about the lack of connection
 
     @Slot(str, str)
     def api_key_from_modal_slot(self, api_key, company_name):
