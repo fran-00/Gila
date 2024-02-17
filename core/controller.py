@@ -139,7 +139,9 @@ class Controller(QObject):
                 self.view.sidebar.on_show_widgets()
             self.main_thread.model.run()
             return
-        # TODO: open a modal that warns user about the lack of connection
+        # Open a modal that warns user about the lack of connection
+        self.view.warning_modal.on_no_internet_connection_label()
+        self.view.warning_modal.exec_()
 
     @Slot(str, str)
     def api_key_from_modal_slot(self, api_key, company_name):
