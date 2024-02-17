@@ -13,6 +13,7 @@ class MainThread(QThread):
 class Model(QObject):
     ai_response_signal_to_controller = Signal(str)
     start_new_chat_to_controller = Signal()
+    connection_error_to_controller = Signal()
 
     def __init__(self, manager):
         self.manager = manager
@@ -29,7 +30,10 @@ class Model(QObject):
                 break
             ai_response = self.client.submit_prompt(self.prompt)
             print("> API response received!")
-            self.ai_response_signal_to_controller.emit(ai_response)
+            if ai_response is False:
+                self.connection_error_to_controller.emit()
+            else:
+                self.ai_response_signal_to_controller.emit(ai_response)
 
     @Slot(str)
     def get_user_prompt_slot(self, prompt):
