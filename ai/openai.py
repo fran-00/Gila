@@ -16,15 +16,17 @@ class OpenAIClient(APIClient):
 
     def submit_prompt(self, prompt):
         self.chat_messages.append({"role": "user", "content": prompt})
+        try:
+            response = openai.OpenAI().chat.completions.create(
+                model=self.llm,
+                messages=self.chat_messages
+            )
 
-        response = openai.OpenAI().chat.completions.create(
-            model=self.llm,
-            messages=self.chat_messages
-        )
-
-        ai_response = response.choices[0].message.content
-        self.chat_messages.append({"role": "assistant", "content": ai_response})
-        return ai_response
+            ai_response = response.choices[0].message.content
+            self.chat_messages.append({"role": "assistant", "content": ai_response})
+            return ai_response
+        except openai.APIConnectionError:
+            return False
 
     def on_chat_reset(self):
         self.chat_messages = [{"role": "system", "content": "You are a helpful assistant."}]
