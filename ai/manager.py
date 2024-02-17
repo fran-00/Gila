@@ -1,4 +1,5 @@
 import json
+import requests
 
 from PySide6.QtCore import QObject, Slot, Signal
 
