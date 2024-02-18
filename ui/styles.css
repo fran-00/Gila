@@ -28,7 +28,6 @@ QTextEdit {
 
 /* Input Line */
 QLineEdit {
-    border: 1px solid #fff;
     background-color: #003757;
     color: #FFF;
 }
