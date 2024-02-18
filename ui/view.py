@@ -34,7 +34,7 @@ class View(QMainWindow):
         self.addToolBar(self.toolbar.on_toolbar())
         self.setStatusBar(self.status_bar.status_bar)
         main_layout = QGridLayout(central_widget)
-        main_layout.addLayout(self.sidebar.on_sidebar_layout(), 0, 0)
+        main_layout.addWidget(self.sidebar.on_sidebar_layout(), 0, 0)
         main_layout.addLayout(self.chat.on_chat_layout(), 0, 1, 1, 3)
         self.on_hide_chatlog_and_prompt_line()
 
