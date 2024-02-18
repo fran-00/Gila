@@ -129,11 +129,11 @@ class Controller(QObject):
             - update_status_bar (view.status_bar.on_status_update_slot)
             - missing_api_key_to_view (view.add_api_key_modal_slot)
         """
+        self.view.sidebar.update_settings_label(
+            self.model.manager.on_current_settings())
         if self.model.manager.check_internet_connection():
             self.model.manager.stream_stopped = False
             self.update_status_bar.emit("Nuova conversazione avviata.")
-            self.view.sidebar.update_settings_label(
-                self.model.manager.on_current_settings())
             if self.model.manager.on_api_key() is False:
                 self.missing_api_key_to_view.emit(self.model.manager.client)
             else:
