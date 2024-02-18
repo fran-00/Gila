@@ -32,9 +32,9 @@ QLineEdit:hover {
 
 /* Generic Button */
 QPushButton {
-    background-color: #003757;
+    background-color: #002b44;
+    padding: 6px 0px;
     color: #fff;
-    border: 1px solid #FFF;
     font-size: 16px;
     font-weight: 700;
 }
