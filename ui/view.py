@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QMainWindow, QWidget, QGridLayout
+from PySide6.QtWidgets import QMainWindow, QWidget, QGridLayout, QSplashScreen
+from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Slot
 
 from .status_bar import StatusBar
@@ -8,6 +9,12 @@ from .sidebar import Sidebar
 from .modals.add_api_key_modal import AddAPIKeyModal
 from .modals.manage_api_keys_modal import ManageAPIKeysModal
 from .modals.warning_modal import WarningModal
+
+
+class LoadingScreen(QSplashScreen):
+    def __init__(self):
+        super().__init__()
+        self.setPixmap(QPixmap("ui/assets/img/loading_screen.png"))
 
 
 class View(QMainWindow):
