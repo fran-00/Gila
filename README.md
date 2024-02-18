@@ -44,3 +44,4 @@ APIs do have rate limits. To know more:
 - [ ] Check Internet connection before every request to API, show a modal if client is not connected. Or/and change the color of chatlog to grey.
 - [ ] Ensure that model is disconnected from client on window closing.
 - [ ] Add a loading view on startup.
+- [ ] Prompt line must be a QTextEdit widget instead of a QLineEdit widget.
