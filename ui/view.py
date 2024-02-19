@@ -5,7 +5,7 @@ from PySide6.QtCore import Slot
 from .status_bar import StatusBar
 from .tool_bar import ToolBar
 from .chat_log import ChatLog
-from .sidebar import Sidebar
+from .sidebar.parent_sidebar import Sidebar
 from .modals.add_api_key_modal import AddAPIKeyModal
 from .modals.manage_api_keys_modal import ManageAPIKeysModal
 from .modals.warning_modal import WarningModal
