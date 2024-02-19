@@ -130,7 +130,7 @@ class Controller(QObject):
             - update_status_bar (view.status_bar.on_status_update_slot)
             - missing_api_key_to_view (view.add_api_key_modal_slot)
         """
-        self.view.sidebar.update_settings_label(
+        self.view.sidebar.current_settings.update_settings_label(
             self.model.manager.on_current_settings())
         if self.model.manager.check_internet_connection():
             self.model.manager.stream_stopped = False
@@ -139,7 +139,7 @@ class Controller(QObject):
                 self.missing_api_key_to_view.emit(self.model.manager.client.company)
             else:
                 self.view.on_show_chatlog_and_prompt_line()
-                self.view.sidebar.on_show_widgets()
+                self.view.sidebar.current_settings.on_show_widgets()
             self.main_thread.model.run()
             return
         # Open a modal that warns user about the lack of connection
