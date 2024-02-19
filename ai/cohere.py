@@ -8,7 +8,7 @@ class CohereClient(APIClient):
     def __init__(self):
         self.company = "COHERE"
         self.temperature = 0.8
-        self.chat_messages = []
+        self.chat_history = []
         
     def submit_api_key(self):
         self.co = cohere.Client(self.get_api_key())
@@ -18,20 +18,20 @@ class CohereClient(APIClient):
             response = self.co.chat(
                 prompt,
                 temperature=self.temperature,
-                chat_history=self.chat_messages
+                chat_history=self.chat_history
             )
             answer = response.text
             user_message = {"user_name": "User", "text": prompt}
             bot_message = {"user_name": "Chatbot", "text": answer}
 
-            self.chat_messages.append(user_message)
-            self.chat_messages.append(bot_message)
+            self.chat_history.append(user_message)
+            self.chat_history.append(bot_message)
             return answer
         except cohere.error.CohereConnectionError:
             return False
 
     def on_chat_reset(self):
-        self.chat_messages = []
+        self.chat_history = []
 
     def validate_api_key(self, api_key):
         test_co = cohere.Client(api_key)

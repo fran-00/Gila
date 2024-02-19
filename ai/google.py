@@ -25,7 +25,8 @@ class GoogleClient(APIClient):
         self.model = genai.GenerativeModel(self.llm,
                                            generation_config=generation_config,
                                            safety_settings=safety_settings)
-        self.chat_messages = self.model.start_chat(history=[])
+        self.chat_history = []
+        self.chat_messages = self.model.start_chat(history=self.chat_history)
 
     def submit_api_key(self):
         genai.configure(api_key=self.get_api_key())
