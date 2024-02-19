@@ -20,7 +20,7 @@ AVAILABLE_MODELS = {
 COMPANIES = {
         "OPENAI": OpenAIClient("gpt-3.5-turbo-1106"),
         "GOOGLE": GoogleClient("gemini-pro"),
-        "COHERE": CohereClient(),
+        "COHERE": CohereClient("cohere-chat"),
 }
 
 class AIManager(QObject):
