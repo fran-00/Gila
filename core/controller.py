@@ -136,7 +136,7 @@ class Controller(QObject):
             self.model.manager.stream_stopped = False
             self.update_status_bar.emit("Nuova conversazione avviata.")
             if self.model.manager.on_api_key() is False:
-                self.missing_api_key_to_view.emit(self.model.manager.client)
+                self.missing_api_key_to_view.emit(self.model.manager.client.company)
             else:
                 self.view.on_show_chatlog_and_prompt_line()
                 self.view.sidebar.on_show_widgets()
