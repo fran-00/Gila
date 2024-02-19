@@ -13,7 +13,7 @@ AVAILABLE_MODELS = {
         "GPT-4 Turbo": OpenAIClient("gpt-4-turbo-preview"),
         "GPT-3.5 Turbo": OpenAIClient("gpt-3.5-turbo-1106"),
         "Gemini Pro": GoogleClient("gemini-pro"),
-        "Cohere Chat": CohereClient(),
+        "Cohere Chat": CohereClient("cohere-chat"),
 }
 
 COMPANIES = {
