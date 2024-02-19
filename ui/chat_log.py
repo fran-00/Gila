@@ -15,7 +15,7 @@ class ChatLog(QObject):
         self.chat_widget.ensureCursorVisible()
         self.prompt_layout = PromptLayout(self)
 
-    def on_chat_layout(self):
+    def on_chat_container(self):
         """ Creates Chat layout and calls methods that adds widgets """
         chat_container = QWidget(objectName="chat_container")
         chat_layout = QVBoxLayout(chat_container)
