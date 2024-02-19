@@ -19,7 +19,7 @@ class Sidebar(QObject):
             "Cohere Chat"
         ]
 
-    def on_sidebar_layout(self):
+    def on_sidebar_container(self):
         """ Creates Sidebar layout and calls methods that adds widgets """
         sidebar_container = QWidget(objectName="sidebar_container")
         sidebar_layout = QVBoxLayout(sidebar_container)
