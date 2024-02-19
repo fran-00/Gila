@@ -1,4 +1,6 @@
 import os
+import random
+import string
 
 from dotenv import load_dotenv
 
@@ -11,6 +13,7 @@ class APIClient:
         self.temperature = None
         self.chat_history = None
         self.api_key = None
+        self.chat_id = self.generate_chat_id()
 
     def check_if_api_key(self, company_name):
         """ Reads .env file to get API Key, if any """
@@ -26,3 +29,6 @@ class APIClient:
 
     def get_chat_history(self):
         return self.chat_history
+
+    def generate_chat_id(self):
+        return ''.join(random.choices(string.ascii_letters + string.digits, k=10))
