@@ -1,13 +1,12 @@
 from PySide6.QtWidgets import QStatusBar
-from PySide6.QtCore import QObject, Slot
+from PySide6.QtCore import Slot
 
 
-class StatusBar(QObject):
+class StatusBar(QStatusBar):
 
     def __init__(self, window):
         super().__init__()
         self.window = window
-        self.status_bar = QStatusBar()
         self.messages_history = []
 
     @Slot(str)
@@ -18,4 +17,4 @@ class StatusBar(QObject):
         Shows a message on the status bar
         """
         self.messages_history.append(status)
-        self.status_bar.showMessage(status)
+        self.showMessage(status)
