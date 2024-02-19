@@ -61,6 +61,7 @@ class AddAPIKeyModal(Modal):
         self.modal_button.setEnabled(True)
         if is_key_valid is True:
             self.accept()
+            self.window.manage_api_keys_modal.accept()
             self.window.warning_modal.on_key_is_valid_label()
             self.window.warning_modal.exec_()
         else:
