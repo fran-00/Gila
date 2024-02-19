@@ -49,7 +49,3 @@ class Sidebar(QObject):
         """
         selected_llm = self.llms_combobox.currentText()
         self.selected_client_to_controller.emit(selected_llm)
-
-    def send_stop_chat_to_controller(self):
-        """ Sends a signal to stop current chat, connected to New Chat button"""
-        self.stop_chat_to_controller.emit()
