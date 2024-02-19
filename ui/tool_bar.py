@@ -1,33 +1,28 @@
 from PySide6.QtWidgets import QToolBar, QFileDialog
 from PySide6.QtGui import QAction, QIcon
-from PySide6.QtCore import QObject
 
 
-class ToolBar(QObject):
+class ToolBar(QToolBar):
 
     def __init__(self, window):
         super().__init__()
         self.window = window
         self.set_icons()
-
-    def on_toolbar(self):
-        self.tb = QToolBar("Toolbar")
         self.on_save_chatlog_action()
         self.on_manage_api_keys_action()
-        return self.tb
 
     def on_save_chatlog_action(self):
         save_action = QAction(self.save_icon, "&Esporta Conversazione", self)
         save_action.setShortcut("Ctrl+S")
         save_action.setStatusTip('Esporta Conversazione')
         save_action.triggered.connect(self.save_txt_file)
-        self.tb.addAction(save_action)
+        self.addAction(save_action)
 
     def on_manage_api_keys_action(self):
         api_keys_action = QAction(self.key_icon, "&Gestisci Chiavi API", self)
         api_keys_action.setStatusTip('Gestisci Chiavi API')
         api_keys_action.triggered.connect(self.open_api_keys_modal)
-        self.tb.addAction(api_keys_action)
+        self.addAction(api_keys_action)
 
     def set_icons(self):
         save_icon_path = "ui/icons/floppy.svg"
