@@ -37,9 +37,8 @@ class View(QMainWindow):
         self.add_api_key_modal = AddAPIKeyModal(self)
         self.manage_api_keys_modal = ManageAPIKeysModal(self)
         self.warning_modal = WarningModal(self)
-
-        self.addToolBar(self.toolbar.on_toolbar())
-        self.setStatusBar(self.status_bar.status_bar)
+        self.addToolBar(self.toolbar)
+        self.setStatusBar(self.status_bar)
         main_layout = QGridLayout(central_widget)
         main_layout.addWidget(self.sidebar.on_sidebar_container(), 0, 0)
         main_layout.addWidget(self.chat.on_chat_container(), 0, 1, 1, 3)
