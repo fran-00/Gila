@@ -109,10 +109,11 @@ class Controller(QObject):
         """ Slot
         Connected to stopping signal from Sidebar:
             - view.sidebar.stop_chat_to_controller
-        Cleans log, resets chat and emits two signals:
+        Saves current chat, cleans log, resets chat and emits two signals:
             - chat_stopped_to_model (model.chat_stopped_slot)
             - update_status_bar (view.status_bar.on_status_update_slot)
         """
+        self.model.manager.save_chat_history()
         self.chat_stopped_to_model.emit()
         self.view.chat.chat_widget.clear()
         self.model.client.on_chat_reset()
