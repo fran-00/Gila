@@ -81,7 +81,7 @@ class AIManager(QObject):
         validated = client.validate_api_key(api_key)
         if validated is True:
             self.api_key_is_valid_to_controller.emit(True)
-            self.save_api_key(api_key)
+            self.save_api_key(api_key, company_name)
         else:
             self.api_key_is_valid_to_controller.emit(False)
 
@@ -90,10 +90,10 @@ class AIManager(QObject):
         settings = self.client.llm_name, self.client.temperature
         return settings
 
-    def save_api_key(self, api_key):
+    def save_api_key(self, api_key, company_name):
         """ Saves validated API Key to .env file """
         with open('.env', 'a') as file:
-            file.write(f"\n{self.client.company}_API_KEY='{api_key}'")
+            file.write(f"\n{company_name.upper()}_API_KEY='{api_key}'")
 
     def check_internet_connection(self):
         try:
