@@ -42,7 +42,7 @@ class View(QMainWindow):
         self.setStatusBar(self.status_bar.status_bar)
         main_layout = QGridLayout(central_widget)
         main_layout.addWidget(self.sidebar.on_sidebar_layout(), 0, 0)
-        main_layout.addLayout(self.chat.on_chat_layout(), 0, 1, 1, 3)
+        main_layout.addWidget(self.chat.on_chat_layout(), 0, 1, 1, 3)
         self.on_hide_chatlog_and_prompt_line()
 
     def load_css_file(self):
