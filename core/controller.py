@@ -113,7 +113,7 @@ class Controller(QObject):
             - chat_stopped_to_model (model.chat_stopped_slot)
             - update_status_bar (view.status_bar.on_status_update_slot)
         """
-        self.model.manager.save_chat_history()
+        self.model.manager.save_current_chat()
         self.chat_stopped_to_model.emit()
         self.view.chat.chat_widget.clear()
         self.model.client.on_chat_reset()
