@@ -4,9 +4,9 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel
 
 
 class StoredChats(QWidget):
-    def __init__(self, window):
+    def __init__(self, parent_widget):
         super().__init__()
-        self.window = window
+        self.parent_widget = parent_widget
         self.setObjectName("stored_chats_widget")
         self.on_stored_chats_layout()
 

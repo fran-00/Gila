@@ -5,9 +5,9 @@ from PySide6.QtCore import Signal
 class CurrentSettings(QWidget):
     stop_chat_to_controller = Signal()
 
-    def __init__(self, parent_layout):
+    def __init__(self, parent_widget):
         super().__init__()
-        self.parent_layout = parent_layout
+        self.parent_widget = parent_widget
         self.current_llm = None
         self.current_temperature = None
         self.llms = [
