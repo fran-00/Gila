@@ -25,10 +25,10 @@ class ToolBar(QToolBar):
         self.addAction(api_keys_action)
 
     def set_icons(self):
-        save_icon_path = "ui/icons/floppy.svg"
+        save_icon_path = "ui/assets/icons/floppy.svg"
         self.save_icon = QIcon()
         self.save_icon.addFile(save_icon_path)
-        key_icon_path = "ui/icons/key.svg"
+        key_icon_path = "ui/assets/icons/key.svg"
         self.key_icon = QIcon()
         self.key_icon.addFile(key_icon_path)
 
