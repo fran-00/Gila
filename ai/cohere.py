@@ -10,7 +10,7 @@ class CohereClient(APIClient):
         self.company = "COHERE"
         self.temperature = 0.8
         self.chat_history = []
-        
+
     def submit_api_key(self):
         self.co = cohere.Client(self.get_api_key())
 
