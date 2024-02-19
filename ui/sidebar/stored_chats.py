@@ -7,6 +7,7 @@ class StoredChats(QWidget):
     def __init__(self, window):
         super().__init__()
         self.window = window
+        self.setObjectName("stored_chats_widget")
         self.on_stored_chats_layout()
 
     def on_stored_chats_layout(self):
