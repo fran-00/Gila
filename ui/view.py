@@ -46,7 +46,7 @@ class View(QMainWindow):
 
     def load_css_file(self):
         """ Loads CSS File to apply style window """
-        with open("ui/styles.css", "r") as file:
+        with open("ui/assets/styles.css", "r") as file:
             return file.read()
 
     def on_hide_chatlog_and_prompt_line(self):
