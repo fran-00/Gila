@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QVBoxLayout, QHBoxLayout, QLineEdit, QTextEdit, QPushButton
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QTextEdit, QPushButton
 from PySide6.QtCore import QObject, Signal, Slot
 
 
@@ -17,11 +17,12 @@ class ChatLog(QObject):
 
     def on_chat_layout(self):
         """ Creates Chat layout and calls methods that adds widgets """
-        chat_layout = QVBoxLayout(objectName="chat_layout")
+        chat_container = QWidget(objectName="chat_container")
+        chat_layout = QVBoxLayout(chat_container)
         chat_layout.addWidget(self.chat_widget)
         chat_layout.addLayout(self.on_start_layout())
         chat_layout.addLayout(self.prompt_layout.on_prompt_layout())
-        return chat_layout
+        return chat_container
 
     def on_start_layout(self):
         """ Creates Start layout with a button to start new chat """
