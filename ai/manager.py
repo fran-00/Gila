@@ -111,5 +111,5 @@ class AIManager(QObject):
             "temperature": self.client.temperature,
             "chat_history": self.client.chat_history
         }
-        with open('data.pk', 'ab') as file:
+        with open(f'storage/saved_data/{self.client.chat_id}.pk', 'ab') as file:
             pickle.dump(data, file)
