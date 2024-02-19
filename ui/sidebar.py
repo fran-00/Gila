@@ -23,12 +23,30 @@ class Sidebar(QObject):
         """ Creates Sidebar layout and calls methods that adds widgets """
         sidebar_container = QWidget(objectName="sidebar_container")
         sidebar_layout = QVBoxLayout(sidebar_container)
-        sidebar_layout.addWidget(self.on_settings_label())
+        sidebar_layout.addWidget(self.on_current_settings_container())
         sidebar_layout.addWidget(self.on_llms_combobox())
         sidebar_layout.addWidget(self.on_confirm_button())
-        sidebar_layout.addWidget(self.on_new_chat_button())
         self.on_hide_widgets()
         return sidebar_container
+
+    def on_current_settings_container(self):
+        current_settings_container = QWidget(objectName="current_settings_container")
+        current_settings_layout = QVBoxLayout(current_settings_container)
+        current_settings_layout.addWidget(self.on_settings_label())
+        current_settings_layout.addWidget(self.on_new_chat_button())
+        return current_settings_container
+
+    def on_settings_label(self):
+        """ Creates a label with current client's settings """
+        self.current_settings_label = QLabel(
+            f"- {self.current_llm}\n- {self.current_temperature}")
+        return self.current_settings_label
+
+    def on_new_chat_button(self):
+        """ Creates a button to start a new chat """
+        self.new_chat_button = QPushButton("Nuova Chat")
+        self.new_chat_button.clicked.connect(self.send_stop_chat_to_controller)
+        return self.new_chat_button
 
     def on_llms_combobox(self):
         """ Creates ComboBox with llms list """
@@ -47,18 +65,6 @@ class Sidebar(QObject):
         confirm_button = QPushButton("Conferma")
         confirm_button.clicked.connect(self.send_selected_client_to_controller)
         return confirm_button
-
-    def on_new_chat_button(self):
-        """ Creates a button to start a new chat """
-        self.new_chat_button = QPushButton("Nuova Chat")
-        self.new_chat_button.clicked.connect(self.send_stop_chat_to_controller)
-        return self.new_chat_button
-
-    def on_settings_label(self):
-        """ Creates a label with current client's settings """
-        self.current_settings_label = QLabel(
-            f"- {self.current_llm}\n- {self.current_temperature}")
-        return self.current_settings_label
 
     def send_selected_client_to_controller(self):
         """ Sends selected llm to controller: signal is triggered when Confirm
