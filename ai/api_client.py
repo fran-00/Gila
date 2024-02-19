@@ -9,7 +9,7 @@ class APIClient:
         self.llm = llm
         self.llm_name = None
         self.temperature = None
-        self.chat_messages = None
+        self.chat_history = None
         self.api_key = None
 
     def check_if_api_key(self, company_name):
@@ -23,3 +23,6 @@ class APIClient:
     def get_api_key(self):
         """ Returns API Key"""
         return self.api_key
+
+    def get_chat_history(self):
+        return self.chat_history
