@@ -18,8 +18,6 @@ class AddAPIKeyModal(Modal):
         self.on_modal_entry_line()
         self.on_modal_button()
         self.on_modal_wait_label()
-        self.on_key_is_valid_label()
-        self.on_key_is_not_valid_label()
 
     def on_modal_entry_line(self):
         """ Add instructions text and an entry line """
@@ -29,8 +27,6 @@ class AddAPIKeyModal(Modal):
         self.modal_layout.addWidget(self.modal_entry_line)
 
     def update_modal_labels(self):
-        self.key_valid_label.hide()
-        self.key_not_valid_label.hide()
         self.modal_text.setText(f"Inserisci l'API Key per {self.client_name}, verrà inviata per la verifica.")
 
     def on_modal_button(self):
@@ -47,9 +43,7 @@ class AddAPIKeyModal(Modal):
         self.modal_layout.addWidget(self.wait_label)
 
     def process_api_key(self):
-        """ Hides validation labels, gets API key and sends it as a Signal """
-        self.key_valid_label.hide()
-        self.key_not_valid_label.hide()
+        """ Gets API key and sends it as a Signal """
         api_key = self.modal_entry_line.text().strip()
         if api_key != "":
             self.wait_label.show()
@@ -66,6 +60,9 @@ class AddAPIKeyModal(Modal):
         self.wait_label.hide()
         self.modal_button.setEnabled(True)
         if is_key_valid is True:
-            self.key_valid_label.show()
+            self.accept()
+            self.window.warning_modal.on_key_is_valid_label()
+            self.window.warning_modal.exec_()
         else:
-            self.key_not_valid_label.show()
+            self.window.warning_modal.on_key_is_not_valid_label()
+            self.window.warning_modal.exec_()
