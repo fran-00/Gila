@@ -1,29 +1,29 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QComboBox, QLabel
-from PySide6.QtCore import QObject, Signal
+from PySide6.QtCore import Signal
 
 from .stored_chats import StoredChats
 from .current_settings import CurrentSettings
 
 
-class Sidebar(QObject):
+class Sidebar(QWidget):
     selected_client_to_controller = Signal(str)
 
     def __init__(self, window):
         super().__init__()
         self.window = window
+        self.setObjectName("sidebar_container")
         self.stored_chats = StoredChats(self)
         self.current_settings = CurrentSettings(self)
+        self.on_sidebar_container()
 
     def on_sidebar_container(self):
         """ Creates Sidebar layout and calls methods that adds widgets """
-        sidebar_container = QWidget(objectName="sidebar_container")
-        sidebar_layout = QVBoxLayout(sidebar_container)
+        sidebar_layout = QVBoxLayout(self)
         sidebar_layout.addWidget(self.stored_chats)
         sidebar_layout.addWidget(self.current_settings)
         sidebar_layout.addWidget(self.on_llms_combobox())
         sidebar_layout.addWidget(self.on_confirm_button())
         self.current_settings.on_hide_widgets()
-        return sidebar_container
 
     def on_llms_combobox(self):
         """ Creates ComboBox with llms list """
