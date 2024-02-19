@@ -40,8 +40,8 @@ APIs do have rate limits. To know more:
 - [ ] User must be able to choose response max length (very short, short, medium, long).
 - [ ] Current settings must be saved to an external file for future use, like the current llm.
 - [ ] User must not be able to send another prompt if the program is waiting for API response.
-- [ ] Add a way to load API keys and create a .env file to store them
-- [ ] Check Internet connection before every request to API, show a modal if client is not connected. Or/and change the color of chatlog to grey.
+- [x] Add a way to load API keys and create a .env file to store them
+- [x] Check Internet connection before every request to API, show a modal if client is not connected. Or/and change the color of chatlog to grey.
 - [ ] Ensure that model is disconnected from client on window closing.
-- [ ] Add a loading view on startup.
+- [x] Add a loading view on startup.
 - [ ] Prompt line must be a QTextEdit widget instead of a QLineEdit widget.
