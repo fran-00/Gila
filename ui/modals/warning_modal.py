@@ -7,7 +7,7 @@ class WarningModal(Modal):
 
     def __init__(self, window):
         super().__init__(window)
-        self.setWindowTitle("Attenzione")
+        self.setWindowTitle("Avviso")
         self.on_modal_layout()
 
     def on_modal_layout(self):
