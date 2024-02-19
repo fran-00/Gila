@@ -34,7 +34,7 @@ class AIManager(QObject):
 
     def get_saved_settings(self):
         """ Reads saved client's setting from a json file """
-        with open('saved_settings.json', 'r') as f:
+        with open('storage/saved_settings.json', 'r') as f:
             data = json.load(f)
             llm_name = data.get('llm_name')
             self.client = AVAILABLE_MODELS.get(llm_name)
