@@ -24,3 +24,9 @@ class WarningModal(Modal):
 
     def on_no_internet_connection_label(self):
         self.modal_text.setText("Il computer non è connesso ad internet, controlla la connessione e riprova.")
+
+    def on_key_is_valid_label(self):
+        self.modal_text.setText("La chiave API è valida ed è stata registrata con successo!")
+
+    def on_key_is_not_valid_label(self):
+        self.modal_text.setText("La chiave API che hai inserito non è valida, riprova.")

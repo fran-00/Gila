@@ -46,18 +46,6 @@ class AddAPIKeyModal(Modal):
         self.wait_label.hide()
         self.modal_layout.addWidget(self.wait_label)
 
-    def on_key_is_valid_label(self):
-        """ Add a label that says that API key is valid """
-        self.key_valid_label = QLabel('La chiave inserita è valida ed è stata registata.')
-        self.key_valid_label.hide()
-        self.modal_layout.addWidget(self.key_valid_label)
-
-    def on_key_is_not_valid_label(self):
-        """ Add a label that says that API key is NOT valid """
-        self.key_not_valid_label = QLabel('La chiave inserita non è valida, prova di nuovo o chiudi.')
-        self.key_not_valid_label.hide()
-        self.modal_layout.addWidget(self.key_not_valid_label)
-
     def process_api_key(self):
         """ Hides validation labels, gets API key and sends it as a Signal """
         self.key_valid_label.hide()
