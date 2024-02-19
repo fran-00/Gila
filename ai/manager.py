@@ -1,4 +1,5 @@
 import json
+import pickle
 import requests
 
 from PySide6.QtCore import QObject, Slot, Signal
@@ -101,3 +102,14 @@ class AIManager(QObject):
             return True
         except requests.ConnectionError:
             return False
+
+    def save_current_chat(self):
+        data = {
+            "client": self.client,
+            "llm": self.client.llm,
+            "chat_id": self.client.chat_id,
+            "temperature": self.client.temperature,
+            "chat_history": self.client.chat_history
+        }
+        with open('saved_chats.pk', 'a') as file:
+            pickle.dump(data, file)
