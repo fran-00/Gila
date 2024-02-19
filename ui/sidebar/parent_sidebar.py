@@ -7,7 +7,6 @@ from .current_settings import CurrentSettings
 
 class Sidebar(QObject):
     selected_client_to_controller = Signal(str)
-    stop_chat_to_controller = Signal()
 
     def __init__(self, window):
         super().__init__()

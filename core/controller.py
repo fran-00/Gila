@@ -52,7 +52,7 @@ class Controller(QObject):
         # Connect VIEW's signals to CONTROLLER's slots
         self.view.sidebar.selected_client_to_controller.connect(
             self.client_changed_from_sidebar_slot)
-        self.view.sidebar.stop_chat_to_controller.connect(
+        self.view.sidebar.current_settings.stop_chat_to_controller.connect(
             self.chat_stopped_from_sidebar_slot)
         self.view.chat.user_prompt_signal_to_controller.connect(
             self.user_prompt_slot)

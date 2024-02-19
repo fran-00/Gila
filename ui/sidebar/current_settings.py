@@ -2,6 +2,8 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel
 
 
 class CurrentSettings(QWidget):
+    stop_chat_to_controller = Signal()
+
     def __init__(self, parent_layout):
         super().__init__()
         self.parent_layout = parent_layout
@@ -32,7 +34,7 @@ class CurrentSettings(QWidget):
     def on_new_chat_button(self):
         """ Creates a button to start a new chat """
         self.new_chat_button = QPushButton("Nuova Chat")
-        self.new_chat_button.clicked.connect(self.parent_layout.send_stop_chat_to_controller)
+        self.new_chat_button.clicked.connect(self.send_stop_chat_to_controller)
         return self.new_chat_button
 
     def update_settings_label(self, settings):
