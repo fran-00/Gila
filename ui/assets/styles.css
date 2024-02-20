@@ -8,16 +8,25 @@ QWidget {
 }
 
 QWidget#sidebar_container {
-    background-color: #002135;
-    color: #ffffff;
-    font-size: 22px;
-    border-radius: 4px;
+    background-color: #002b44;
+}
+
+QWidget#current_settings_widget {
+    background-color: #00578b;
+}
+
+QWidget#stored_chats_widget {
+    background-color: #00578b;
 }
 
 QStatusBar {
     background-color: #003452;
     font-family: 'Courier New', monospace;
     font-size: 16px;
+}
+
+QLabel {
+    background-color: #00578b;
 }
 
 /* Chat Log */
