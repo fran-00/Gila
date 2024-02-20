@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel
-from PySide6.QtCore import Signal
+from PySide6.QtCore import QObject, Signal
 
 
-class CurrentSettings(QWidget):
+class CurrentSettings(QObject):
     stop_chat_to_controller = Signal()
 
     def __init__(self, parent_widget):
@@ -17,11 +17,11 @@ class CurrentSettings(QWidget):
             "Gemini Pro",
             "Cohere Chat"
         ]
-        self.setObjectName("current_settings_widget")
+        self.widget = QWidget(objectName="current_settings_widget")
         self.on_current_settings_layout()
 
     def on_current_settings_layout(self):
-        current_settings_layout = QVBoxLayout(self)
+        current_settings_layout = QVBoxLayout(self.widget)
         current_settings_layout.addWidget(self.on_settings_label())
         current_settings_layout.addWidget(self.on_new_chat_button())
         return current_settings_layout
