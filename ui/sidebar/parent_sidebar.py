@@ -11,14 +11,14 @@ class Sidebar(QObject):
     def __init__(self, window):
         super().__init__()
         self.window = window
-        self.widget = QWidget(objectName="sidebar_container")
+        self.widget_container = QWidget(objectName="sidebar_container")
         self.stored_chats = StoredChats(self)
         self.current_settings = CurrentSettings(self)
         self.on_sidebar_container()
 
     def on_sidebar_container(self):
         """ Creates Sidebar layout and calls methods that adds widgets """
-        sidebar_layout = QVBoxLayout(self.widget)
+        sidebar_layout = QVBoxLayout(self.widget_container)
         sidebar_layout.addWidget(self.stored_chats.widget)
         sidebar_layout.addWidget(self.current_settings.widget)
         sidebar_layout.addWidget(self.on_llms_combobox())

@@ -17,11 +17,11 @@ class CurrentSettings(QObject):
             "Gemini Pro",
             "Cohere Chat"
         ]
-        self.widget = QWidget(objectName="current_settings_widget")
+        self.widget_container = QWidget(objectName="current_settings_widget")
         self.on_current_settings_layout()
 
     def on_current_settings_layout(self):
-        current_settings_layout = QVBoxLayout(self.widget)
+        current_settings_layout = QVBoxLayout(self.widget_container)
         current_settings_layout.addWidget(self.on_settings_label())
         current_settings_layout.addWidget(self.on_new_chat_button())
         return current_settings_layout
