@@ -15,7 +15,7 @@ class Chat(QObject):
         self.chat_widget = QTextEdit()
         self.chat_widget.setReadOnly(True)
         self.chat_widget.ensureCursorVisible()
-        self.prompt_layout = PromptLayout(self)
+        self.prompt_layout = Prompt(self)
 
         self.on_chat_container()
 
@@ -82,7 +82,7 @@ class Chat(QObject):
         self.start_new_chat_to_controller.emit()
 
 
-class PromptLayout:
+class Prompt:
     def __init__(self, chatlog):
         self.chatlog = chatlog
         self.prompt_box = QLineEdit()
