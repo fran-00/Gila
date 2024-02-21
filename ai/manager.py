@@ -86,6 +86,11 @@ class AIManager(QObject):
         else:
             self.api_key_is_valid_to_controller.emit(False)
 
+    @Slot(str)
+    def restore_chat_from_id_slot(self, chat_id):
+        # TODO
+        print(f"chat id slot for {chat_id} was called!")
+
     def on_current_settings(self):
         """ Return current client's settings """
         settings = self.client.llm_name, self.client.temperature

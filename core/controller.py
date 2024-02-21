@@ -28,7 +28,7 @@ class Controller(QObject):
         self.selected_client_to_manager.connect(
             self.model.manager.get_new_client_slot)
         self.api_key_to_manager.connect(self.model.manager.api_key_slot)
-        self.loading_saved_chat_id_to_manager.connect(self.model.manager.chat_id_slot)
+        self.loading_saved_chat_id_to_manager.connect(self.model.manager.restore_chat_from_id_slot)
 
         # Connect MODEL's signals to CONTROLLER's slots
         self.model.ai_response_signal_to_controller.connect(
