@@ -21,7 +21,7 @@ class View(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Metis")
+        self.setWindowTitle("Gila")
         self.resize(1024, 768)
         self.setStyleSheet(self.load_css_file())
         self.create_layout()
