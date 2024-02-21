@@ -1,12 +1,12 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QComboBox
-from PySide6.QtCore import QObject, Signal
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton
+from PySide6.QtCore import QObject
 
 from .stored_chats import StoredChats
 from .current_settings import CurrentSettings
+from ui.modals.change_settings_modal import ChangeSettingsModal
 
 
 class Sidebar(QObject):
-    selected_client_to_controller = Signal(str)
 
     def __init__(self, window):
         super().__init__()
@@ -14,6 +14,7 @@ class Sidebar(QObject):
         self.widget_container = QWidget(objectName="sidebar_container")
         self.stored_chats = StoredChats(self)
         self.current_settings = CurrentSettings(self)
+        self.change_settings_modal = ChangeSettingsModal(self.window, self.current_settings)
         self.on_sidebar_container()
 
     def on_sidebar_container(self):
@@ -21,31 +22,13 @@ class Sidebar(QObject):
         sidebar_layout = QVBoxLayout(self.widget_container)
         sidebar_layout.addWidget(self.stored_chats.widget_container)
         sidebar_layout.addWidget(self.current_settings.widget_container)
-        sidebar_layout.addWidget(self.on_llms_combobox())
-        sidebar_layout.addWidget(self.on_confirm_button())
+        sidebar_layout.addWidget(self.on_change_settings_button())
         self.current_settings.on_hide_widgets()
 
-    def on_llms_combobox(self):
-        """ Creates ComboBox with llms list """
-        self.llms_combobox = QComboBox()
-        for llm in self.current_settings.llms:
-            self.llms_combobox.addItem(llm)
-        self.llms_combobox.currentIndexChanged.connect(
-            self.on_combobox_changed)
-        return self.llms_combobox
+    def on_change_settings_button(self):
+        change_settings_button = QPushButton("Modifica impostazioni")
+        change_settings_button.clicked.connect(self.open_change_settings_modal)
+        return change_settings_button
 
-    def on_combobox_changed(self):
-        pass
-
-    def on_confirm_button(self):
-        """ Creates button to confirm llm selection """
-        confirm_button = QPushButton("Conferma")
-        confirm_button.clicked.connect(self.send_selected_client_to_controller)
-        return confirm_button
-
-    def send_selected_client_to_controller(self):
-        """ Sends selected llm to controller: signal is triggered when Confirm
-            Button is pressed
-        """
-        selected_llm = self.llms_combobox.currentText()
-        self.selected_client_to_controller.emit(selected_llm)
+    def open_change_settings_modal(self):
+        self.change_settings_modal.exec_()
