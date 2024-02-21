@@ -4,7 +4,7 @@
 
 To run from source, you'll need Python 3.12 and Git installed in your system. You'll also need some API Keys, but we'll cover it up later. Clone this project:
 
-        https://github.com/fran-00/metis.git
+        https://github.com/fran-00/gila.git
 
 On Windows create a new virtual environment with venv and activate it:
 
