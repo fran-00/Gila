@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton
+from PySide6.QtWidgets import QVBoxLayout, QLabel
 
 from .parent_modal import Modal
 
