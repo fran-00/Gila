@@ -18,3 +18,7 @@ class StoredChats(QObject):
         for file in chats:
             button = QPushButton(file)
             stored_chats_layout.addWidget(button)
+            button.clicked.connect(lambda: self.on_load_saved_chat(file))
+
+    def on_load_saved_chat(self, file):
+        pass
