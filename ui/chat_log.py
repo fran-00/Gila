@@ -1,5 +1,6 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QTextEdit, QPushButton
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QTextEdit, QPushButton, QLabel
 from PySide6.QtCore import QObject, Signal, Slot
+from PySide6.QtGui import QPixmap, Qt
 
 
 class Chat(QObject):
@@ -28,10 +29,13 @@ class Chat(QObject):
 
     def on_start_layout(self):
         """ Creates Start layout with a button to start new chat """
-        start_layout = QVBoxLayout(objectName="start_layout")
+        start_layout = QVBoxLayout()
+        self.gila_image = QLabel(objectName="start_image")
+        self.gila_image.setPixmap(QPixmap("ui/assets/icons/gila_logo.svg"))
         self.start_chat_button = QPushButton("Nuova Conversazione")
         self.start_chat_button.clicked.connect(
             lambda: self.on_starting_a_new_chat())
+        start_layout.addWidget(self.gila_image, alignment=Qt.AlignmentFlag.AlignCenter)
         start_layout.addWidget(self.start_chat_button)
         start_layout.setStretch(0, 1)
         start_layout.setStretch(1, 1)
