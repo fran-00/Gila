@@ -1,4 +1,4 @@
-# AI Chatbot
+# GILA - AI Chatbot
 
 ## How to set up development environment
 
@@ -15,10 +15,11 @@ Install project's required packages via pip:
 
         pip install -r requirements.txt
 
-Now you need an OpenAI API Key and a Google API Key. Once you got them, store them on a *.env* file like this:
+Now you need an OpenAI, Google and Cohere API Keys. Once you got them, store them on a *.env* file like this:
 
         OPENAI_API_KEY="XXXXXXX"
         GOOGLE_API_KEY="XXXXXXX"
+        COHERE_API_KEY="XXXXXXX"
 
 Put this file inside ai folder and you're ready! Run the program:
 
