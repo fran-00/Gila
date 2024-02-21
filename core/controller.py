@@ -114,6 +114,7 @@ class Controller(QObject):
             - update_status_bar (view.status_bar.on_status_update_slot)
         """
         self.model.manager.save_current_chat()
+        self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
         self.chat_stopped_to_model.emit()
         self.view.chat.log_widget.clear()
         self.model.client.on_chat_reset()
