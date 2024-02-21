@@ -30,6 +30,8 @@ class StoredChats(QObject):
         otherwise they won't fit in a single signal if sent from here
         """
         chat_id = re.sub(r'\.pk$', '', file_name)
+        self.loading_saved_chat_id_to_controller.emit(chat_id)
+
         with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
             saved_data = pickle.load(file)
             chat = saved_data[chat_id]
