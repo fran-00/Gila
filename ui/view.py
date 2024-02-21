@@ -4,7 +4,7 @@ from PySide6.QtCore import Slot
 
 from .status_bar import StatusBar
 from .tool_bar import ToolBar
-from .chat_log import ChatLog
+from .chat_log import Chat
 from .sidebar.parent_sidebar import Sidebar
 from .modals.add_api_key_modal import AddAPIKeyModal
 from .modals.manage_api_keys_modal import ManageAPIKeysModal
@@ -33,7 +33,7 @@ class View(QMainWindow):
         self.status_bar = StatusBar(self)
         self.toolbar = ToolBar(self)
         self.sidebar = Sidebar(self)
-        self.chat = ChatLog(self)
+        self.chat = Chat(self)
         self.add_api_key_modal = AddAPIKeyModal(self)
         self.manage_api_keys_modal = ManageAPIKeysModal(self)
         self.warning_modal = WarningModal(self)
