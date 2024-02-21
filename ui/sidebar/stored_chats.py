@@ -1,10 +1,12 @@
 import os
 
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel
-from PySide6.QtCore import QObject
+from PySide6.QtCore import QObject, Signal
 
 
 class StoredChats(QObject):
+    loading_saved_chat_to_controller = Signal(str)
+
     def __init__(self, parent_widget):
         super().__init__()
         self.parent_widget = parent_widget
