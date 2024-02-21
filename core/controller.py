@@ -115,7 +115,7 @@ class Controller(QObject):
         """
         self.model.manager.save_current_chat()
         self.chat_stopped_to_model.emit()
-        self.view.chat.chat_widget.clear()
+        self.view.chat.log_widget.clear()
         self.model.client.on_chat_reset()
         self.model.manager.stream_stopped = True
         self.update_status_bar.emit("La conversazione è stata chiusa.")

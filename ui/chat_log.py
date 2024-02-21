@@ -12,9 +12,9 @@ class Chat(QObject):
         self.window = window
         self.widget_container = QWidget(objectName="chat_container")
 
-        self.chat_widget = QTextEdit()
-        self.chat_widget.setReadOnly(True)
-        self.chat_widget.ensureCursorVisible()
+        self.log_widget = QTextEdit()
+        self.log_widget.setReadOnly(True)
+        self.log_widget.ensureCursorVisible()
         self.prompt_layout = Prompt(self)
 
         self.on_chat_container()
@@ -22,7 +22,7 @@ class Chat(QObject):
     def on_chat_container(self):
         """ Creates Chat layout and calls methods that adds widgets """
         chat_layout = QVBoxLayout(self.widget_container)
-        chat_layout.addWidget(self.chat_widget)
+        chat_layout.addWidget(self.log_widget)
         chat_layout.addLayout(self.on_start_layout())
         chat_layout.addLayout(self.prompt_layout.on_prompt_layout())
 
@@ -45,7 +45,7 @@ class Chat(QObject):
             self.prompt_layout.send_button.setEnabled(False)
             self.user_prompt_signal_to_controller.emit(prompt)
             # Append user prompt to log view window
-            self.chat_widget.append(
+            self.log_widget.append(
                 f"<p><b>Tu</b>: {prompt}</p>")
         else:
             self.update_status_bar_from_chatlog.emit(
@@ -53,12 +53,12 @@ class Chat(QObject):
 
     def on_show_chatlog(self):
         """ Shows chat widget and start chat button on call """
-        self.chat_widget.show()
+        self.log_widget.show()
         self.start_chat_button.hide()
 
     def on_hide_chatlog(self):
         """ Hides chat widget and start chat button on call """
-        self.chat_widget.hide()
+        self.log_widget.hide()
         self.start_chat_button.show()
 
     @Slot(str)
@@ -71,11 +71,11 @@ class Chat(QObject):
         self.prompt_layout.send_button.setEnabled(True)
         """ Slot that receives a string from controller as a signal """
         # Append output to chat view window
-        self.chat_widget.append(f"<b>Assistente</b>: {response}")
+        self.log_widget.append(f"<b>Assistente</b>: {response}")
 
     def get_chat_log(self):
         """ Returns all current chat text """
-        return self.chat_widget.toPlainText()
+        return self.log_widget.toPlainText()
 
     def on_starting_a_new_chat(self):
         """ Sends a signal to start a new chat """

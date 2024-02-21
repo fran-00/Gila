@@ -43,5 +43,5 @@ class ToolBar(QToolBar):
         file_name, _ = QFileDialog.getSaveFileName(self.window, 'Esporta Conversazione', '.txt', '.txt', options = options)
         if file_name:
             with open(file_name, 'w') as file:
-                text = self.window.chat.chat_widget.toPlainText()
+                text = self.window.chat.log_widget.toPlainText()
                 file.write(text)
