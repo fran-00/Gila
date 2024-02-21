@@ -88,8 +88,19 @@ class AIManager(QObject):
 
     @Slot(str)
     def restore_chat_from_id_slot(self, chat_id):
-        # TODO
+        """ Slot
+        Connected to one signal:
+            - controller.loading_saved_chat_id_to_manager
+
+        """
         print(f"chat id slot for {chat_id} was called!")
+        with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
+            saved_data = pickle.load(file)
+            chat = saved_data[chat_id]
+            self.client = chat["client"]
+            self.client.llm = chat["llm"]
+            self.client.temperature = chat["temperature"]
+            self.client.chat_history = chat["chat_history"]
 
     def on_current_settings(self):
         """ Return current client's settings """
@@ -114,7 +125,8 @@ class AIManager(QObject):
                 "client": self.client,
                 "llm": self.client.llm,
                 "temperature": self.client.temperature,
-                "chat_history": self.client.chat_history
+                "chat_history": self.client.chat_history,
+                "chat_log": None
             }
         }
         with open(f'storage/saved_data/{self.client.chat_id}.pk', 'wb') as file:
