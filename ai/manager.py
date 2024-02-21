@@ -29,7 +29,7 @@ class AIManager(QObject):
     def __init__(self):
         super().__init__()
         self.client = None
-        self.stream_stopped = False
+        self.stream_stopped = True
         self.get_saved_settings()
 
     def get_saved_settings(self):
