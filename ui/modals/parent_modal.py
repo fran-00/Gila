@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QDialog
+from PySide6.QtWidgets import QDialog, QPushButton
 from PySide6.QtCore import Signal
 
 
@@ -15,3 +15,8 @@ class Modal(QDialog):
         """ Loads CSS File to apply style to Modal Window """
         with open("ui/assets/styles.css", "r") as file:
             return file.read()
+
+    def on_dismiss_button(self):
+        self.modal_button = QPushButton("OK", self)
+        self.modal_button.clicked.connect(self.accept)
+        self.modal_layout.addWidget(self.modal_button)
