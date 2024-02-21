@@ -194,4 +194,7 @@ class Controller(QObject):
             - view.sidebar.stored_chats.loading_saved_chat_id_to_controller
         Sends chat_id to manager
         """
+        self.chat_stopped_from_sidebar_slot()
         self.loading_saved_chat_id_to_manager.emit(chat_id)
+        self.view.chat.log_widget.append(self.view.sidebar.stored_chats.chatlog)
+        self.new_chat_started_slot()
