@@ -56,6 +56,8 @@ class Controller(QObject):
             self.client_changed_from_sidebar_slot)
         self.view.sidebar.current_settings.stop_chat_to_controller.connect(
             self.chat_stopped_from_sidebar_slot)
+        self.view.sidebar.stored_chats.loading_saved_chat_id_to_controller.connect(
+            self.loading_saved_chat_id_slot)
         self.view.chat.user_prompt_signal_to_controller.connect(
             self.user_prompt_slot)
         self.view.chat.start_new_chat_to_controller.connect(
@@ -184,3 +186,12 @@ class Controller(QObject):
         self.update_status_bar.emit("Nessuna connessione a internet.")
         self.view.warning_modal.on_no_internet_connection_label()
         self.view.warning_modal.exec_()
+
+    @Slot(str)
+    def loading_saved_chat_id_slot(self, chat_id):
+        """ Slot
+        Connected to one signal:
+            - view.sidebar.stored_chats.loading_saved_chat_id_to_controller
+        Sends chat_id to manager
+        """
+        self.loading_saved_chat_id_to_manager.emit(chat_id)
