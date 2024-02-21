@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QMainWindow, QWidget, QGridLayout, QSplashScreen
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtCore import Slot
 
 from .status_bar import StatusBar
@@ -22,6 +22,7 @@ class View(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Gila")
+        self.setWindowIcon(QIcon("ui/assets/icons/gila_logo.svg"))
         self.resize(1024, 768)
         self.setStyleSheet(self.load_css_file())
         self.create_layout()
