@@ -33,6 +33,10 @@ QLabel {
     background-color: #00578b;
 }
 
+QWidget#start_image {
+    background-color: #002b44;
+}
+
 /* Chat Log */
 QTextEdit {
     background-color: #00578b;
@@ -51,7 +55,7 @@ QLineEdit:hover {
 
 /* Generic Button */
 QPushButton {
-    background-color: #002b44;
+    background-color: #00578b;
     padding: 6px 0px;
     color: #fff;
     font-size: 16px;
