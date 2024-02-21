@@ -19,6 +19,10 @@ QWidget#stored_chats_widget {
     background-color: #00578b;
 }
 
+QWidget#chat_container {
+    background-color: #002b44;
+}
+
 QStatusBar {
     background-color: #003452;
     font-family: 'Courier New', monospace;
@@ -37,7 +41,7 @@ QTextEdit {
 
 /* Input Line */
 QLineEdit {
-    background-color: #003757;
+    background-color: #00578b;
     color: #FFF;
 }
 
