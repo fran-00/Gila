@@ -1,3 +1,5 @@
+import pickle
+
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QTextEdit, QPushButton, QLabel
 from PySide6.QtCore import QObject, Signal, Slot
 from PySide6.QtGui import QPixmap, Qt
@@ -54,6 +56,13 @@ class Chat(QObject):
         else:
             self.update_status_bar_from_chatlog.emit(
                 f"Non è possibile inviare un messaggio vuoto.")
+
+    def add_log_to_saved_chat_data(self, chat_id):
+        with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
+            saved_data = pickle.load(file)
+        saved_data[chat_id]["chat_log"] = self.get_chat_log()
+        with open(f'storage/saved_data/{chat_id}.pk', 'wb') as file:
+            pickle.dump(saved_data, file)
 
     def on_show_chatlog(self):
         """ Shows chat widget and start chat button on call """
