@@ -10,19 +10,21 @@ class Chat(QObject):
     def __init__(self, window):
         super().__init__()
         self.window = window
+        self.widget_container = QWidget(objectName="chat_container")
+
         self.chat_widget = QTextEdit()
         self.chat_widget.setReadOnly(True)
         self.chat_widget.ensureCursorVisible()
         self.prompt_layout = PromptLayout(self)
 
+        self.on_chat_container()
+
     def on_chat_container(self):
         """ Creates Chat layout and calls methods that adds widgets """
-        chat_container = QWidget(objectName="chat_container")
-        chat_layout = QVBoxLayout(chat_container)
+        chat_layout = QVBoxLayout(self.widget_container)
         chat_layout.addWidget(self.chat_widget)
         chat_layout.addLayout(self.on_start_layout())
         chat_layout.addLayout(self.prompt_layout.on_prompt_layout())
-        return chat_container
 
     def on_start_layout(self):
         """ Creates Start layout with a button to start new chat """
