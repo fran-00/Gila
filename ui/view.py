@@ -71,3 +71,8 @@ class View(QMainWindow):
         self.add_api_key_modal.client_name = client_name
         self.add_api_key_modal.update_modal_labels()
         self.add_api_key_modal.exec_()
+
+    def closeEvent(self, event):
+        super().closeEvent(event)
+        print("Main Window was closed")
+        # window_closed_signal.window_closed.emit()
