@@ -41,9 +41,11 @@ APIs do have rate limits. To know more:
 - [ ] If user wants to export the current conversation, they must be able to choose file format between .txt, .docx and .pdf.
 - [ ] User must be able to choose response max length (very short, short, medium, long).
 - [ ] Current settings must be saved to an external file for future use, like the current llm.
-- [ ] User must not be able to send another prompt if the program is waiting for API response.
+- [ ] User must not be able to send another prompt if the program is waiting for API response and there must be a "waiting" symbol, like a spinning wheel.
 - [x] Add a way to load API keys and create a .env file to store them
 - [x] Check Internet connection before every request to API, show a modal if client is not connected. Or/and change the color of chatlog to grey.
 - [ ] Ensure that model is disconnected from client on window closing.
 - [x] Add a loading view on startup.
 - [ ] Prompt line must be a QTextEdit widget instead of a QLineEdit widget.
+- [ ] Add custom exceptions to handle as many kind of server's request errors as possible.
+- [ ] Add a warning that warns user to activate a VPN if Gemini is selected.
