@@ -23,7 +23,7 @@ class View(QMainWindow):
         super().__init__()
         self.setWindowTitle("Gila")
         self.setWindowIcon(QIcon("ui/assets/icons/gila_logo.svg"))
-        self.resize(1024, 768)
+        self.resize(800, 600)
         self.setStyleSheet(self.load_css_file())
         self.create_layout()
 
@@ -71,3 +71,8 @@ class View(QMainWindow):
         self.add_api_key_modal.client_name = client_name
         self.add_api_key_modal.update_modal_labels()
         self.add_api_key_modal.exec_()
+
+    def closeEvent(self, event):
+        super().closeEvent(event)
+        print("Main Window was closed")
+        # window_closed_signal.window_closed.emit()

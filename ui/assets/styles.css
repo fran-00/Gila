@@ -3,7 +3,7 @@ QWidget {
     background-color: #004872;
     color: #ffffff;
     font-family: 'Garamond', serif;
-    font-size: 22px;
+    font-size: 16px;
     border-radius: 4px;
 }
 
@@ -59,7 +59,7 @@ QPushButton {
     background-color: #D6943C;
     color: #003757; 
     padding: 6px 0px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
 }
 
@@ -69,5 +69,5 @@ QPushButton:hover {
 }
 
 QDialog {
-    background-color: #00578b;
+    background-color: #002b44;
 }
