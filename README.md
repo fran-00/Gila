@@ -49,3 +49,4 @@ APIs do have rate limits. To know more:
 - [ ] Prompt line must be a QTextEdit widget instead of a QLineEdit widget.
 - [ ] Add custom exceptions to handle as many kind of server's request errors as possible.
 - [ ] Add a warning that warns user to activate a VPN if Gemini is selected.
+- [ ] Add the ability to change the lenght of the response.
