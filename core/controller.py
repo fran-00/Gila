@@ -204,3 +204,13 @@ class Controller(QObject):
         self.loading_saved_chat_id_to_manager.emit(chat_id)
         self.view.chat.log_widget.append(self.view.sidebar.stored_chats.chatlog)
         self.new_chat_started_slot()
+
+    @Slot()
+    def window_was_closed_slot(self):
+        """ Slot
+        Connected to one signal:
+        """
+        self.model.running = False
+        self.model.manager.save_current_chat()
+        print("Main Window was closed")
+        self.main_thread.stop()
