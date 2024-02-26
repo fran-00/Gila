@@ -6,7 +6,6 @@ class Controller(QObject):
     ai_response_to_chatlog = Signal(str)
     selected_client_to_manager = Signal(str)
     new_chat_started_to_model = Signal()
-    chat_stopped_to_model = Signal()
     update_status_bar = Signal(str)
     missing_api_key_to_view = Signal(str)
     api_key_to_manager = Signal(str, str)
@@ -24,7 +23,6 @@ class Controller(QObject):
     def connect_model(self):
         # Connect CONTROLLER's signals to MODEL's slots
         self.user_prompt_to_model.connect(self.model.get_user_prompt_slot)
-        self.chat_stopped_to_model.connect(self.model.chat_stopped_slot)
         self.selected_client_to_manager.connect(
             self.model.manager.get_new_client_slot)
         self.api_key_to_manager.connect(self.model.manager.api_key_slot)
@@ -124,7 +122,7 @@ class Controller(QObject):
         else:
             self.model.manager.save_current_chat()
             self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
-            self.chat_stopped_to_model.emit()
+            self.main_thread.stop()
             self.view.chat.log_widget.clear()
             self.model.client.on_chat_reset()
             self.model.manager.stream_stopped = True
