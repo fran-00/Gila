@@ -21,9 +21,9 @@ Now you need an OpenAI, Google and Cohere API Keys. Once you got them, store the
         GOOGLE_API_KEY="XXXXXXX"
         COHERE_API_KEY="XXXXXXX"
 
-Put this file inside ai folder and you're ready! Run the program:
+Put this file inside the root dir and you're ready! Run the program:
 
-        py main.py
+        py -m gila
 
 ## Notes
 
