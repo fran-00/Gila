@@ -52,6 +52,8 @@ class Controller(QObject):
             self.view.add_api_key_modal.on_api_key_validation_slot)
 
         # Connect VIEW's signals to CONTROLLER's slots
+        self.view.window_closed_signal_to_controller.connect(
+            self.window_was_closed_slot)
         self.view.sidebar.change_settings_modal.selected_client_to_controller.connect(
             self.client_changed_from_sidebar_slot)
         self.view.sidebar.current_settings.stop_chat_to_controller.connect(
