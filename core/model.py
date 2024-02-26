@@ -38,6 +38,9 @@ class Model(QObject):
             else:
                 self.ai_response_signal_to_controller.emit(ai_response)
 
+    def stop(self):
+        self.event_loop.exit()
+
     @Slot(str)
     def get_user_prompt_slot(self, prompt):
         """ Slot
