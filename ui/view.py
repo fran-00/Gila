@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QMainWindow, QWidget, QGridLayout, QSplashScreen
 from PySide6.QtGui import QPixmap, QIcon
-from PySide6.QtCore import Slot
+from PySide6.QtCore import Signal, Slot
 
 from .status_bar import StatusBar
 from .tool_bar import ToolBar
@@ -18,6 +18,7 @@ class LoadingScreen(QSplashScreen):
 
 
 class View(QMainWindow):
+    window_closed_signal_to_controller = Signal()
 
     def __init__(self):
         super().__init__()
@@ -74,5 +75,4 @@ class View(QMainWindow):
 
     def closeEvent(self, event):
         super().closeEvent(event)
-        print("Main Window was closed")
-        # window_closed_signal.window_closed.emit()
+        self.window_closed_signal_to_controller.emit()
