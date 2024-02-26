@@ -44,7 +44,7 @@ APIs do have rate limits. To know more:
 - [ ] User must not be able to send another prompt if the program is waiting for API response and there must be a "waiting" symbol, like a spinning wheel.
 - [x] Add a way to load API keys and create a .env file to store them
 - [x] Check Internet connection before every request to API, show a modal if client is not connected. Or/and change the color of chatlog to grey.
-- [ ] Ensure that model is disconnected from client on window closing.
+- [x] Ensure that model is disconnected from client on window closing.
 - [x] Add a loading view on startup.
 - [ ] Prompt line must be a QTextEdit widget instead of a QLineEdit widget.
 - [ ] Add custom exceptions to handle as many kind of server's request errors as possible.
