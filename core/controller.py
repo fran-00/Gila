@@ -150,6 +150,7 @@ class Controller(QObject):
             else:
                 self.view.on_show_chatlog_and_prompt_line()
                 self.view.sidebar.current_settings.on_show_widgets()
+            self.model.running = True
             self.main_thread.model.run()
             return
         # Open a modal that warns user about the lack of connection
