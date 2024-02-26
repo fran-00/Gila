@@ -51,3 +51,4 @@ APIs do have rate limits. To know more:
 - [ ] Add custom exceptions to handle as many kind of server's request errors as possible.
 - [ ] Add a warning that warns user to activate a VPN if Gemini is selected.
 - [ ] Add the ability to change the lenght of the response.
+- [ ] Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/).
