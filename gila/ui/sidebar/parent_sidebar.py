@@ -3,7 +3,7 @@ from PySide6.QtCore import QObject
 
 from .stored_chats import StoredChats
 from .current_settings import CurrentSettings
-from ui.modals.change_settings_modal import ChangeSettingsModal
+from ..modals.change_settings_modal import ChangeSettingsModal
 
 
 class Sidebar(QObject):
