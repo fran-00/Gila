@@ -3,10 +3,10 @@ import time
 
 from PySide6.QtWidgets import QApplication
 
-from core.model import Model, MainThread
-from ui.view import View, LoadingScreen
-from core.controller import Controller
-from ai.manager import AIManager
+from gila.core.model import Model, MainThread
+from gila.ui.view import View, LoadingScreen
+from gila.core.controller import Controller
+from gila.ai.manager import AIManager
 
 
 if __name__ == '__main__':
