@@ -9,7 +9,7 @@ from gila.core.controller import Controller
 from gila.ai.manager import AIManager
 
 
-if __name__ == '__main__':
+def main():
     app = QApplication(sys.argv)
 
     splash = LoadingScreen()
@@ -25,3 +25,6 @@ if __name__ == '__main__':
 
     splash.finish(view)
     sys.exit(app.exec())
+
+if __name__ == "__main__":
+    main()
