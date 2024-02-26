@@ -9,6 +9,9 @@ class MainThread(QThread):
     def run(self):
         self.model.run()
 
+    def stop(self):
+        self.model.stop()
+
 
 class Model(QObject):
     ai_response_signal_to_controller = Signal(str)
