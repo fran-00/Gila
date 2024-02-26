@@ -21,13 +21,16 @@ class Model(QObject):
     def __init__(self, manager):
         self.manager = manager
         super().__init__()
+        self.running = False
 
     def run(self):
         self.event_loop = QEventLoop()
         self.client = self.manager.client
 
-        while True:
+        while self.running:
             self.event_loop.exec()
+            if not self.running:
+                break
             if self.manager.stream_stopped is True:
                 self.start_new_chat_to_controller.emit()
                 break
