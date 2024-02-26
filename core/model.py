@@ -54,13 +54,3 @@ class Model(QObject):
         self.prompt = prompt.lower()
         print("> Processing user prompt and waiting for API Response...")
         self.event_loop.exit()
-
-    @Slot()
-    def chat_stopped_slot(self):
-        """ Slot
-        Connected to one signal:
-            - controller.chat_stopped_to_model
-        Stops event loop.
-        """
-        print("> Main loop was stopped.")
-        self.event_loop.exit()
