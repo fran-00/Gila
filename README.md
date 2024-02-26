@@ -34,7 +34,8 @@ APIs do have rate limits. To know more:
 
 ## TODO List
 
-- [ ] Add a Pop Up Menu on the left side of screen to adjust settings (model and temperature) and start a new chat
+- [x] Add a Menu on the left side of screen to adjust settings (model and temperature) and start a new chat
+- [ ] Sidebar must be hideable.
 - [ ] Chat log must use markdown instead of html to parse styled responses.
 - [ ] Conversations must be saved on every chat iteration on an archive folder.
 - [ ] Add the ability to continue a conversation and a list of past chat to ui.
