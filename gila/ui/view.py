@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QMainWindow, QWidget, QGridLayout, QSplashScreen
+from PySide6.QtWidgets import QMainWindow, QWidget, QGridLayout, QSplashScreen, QPushButton, QSizePolicy
 from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtCore import Signal, Slot
 
