@@ -41,12 +41,6 @@ class AIManager(QObject):
             self.client.llm_name = llm_name
             self.client.temperature = data.get('temperature')
 
-    def set_new_client(self, new_llm):
-        """ Takes new llm name and sets new client on call"""
-        selected_llm = AVAILABLE_MODELS.get(new_llm)
-        self.client = selected_llm
-        self.client.llm_name = new_llm
-
     def on_api_key(self):
         """ Called by Controller's new_chat_started_slot, asks client to check if
         API key of the said company is present on the .env file. Returns a boolean
@@ -57,13 +51,15 @@ class AIManager(QObject):
         return False
 
     @Slot(str)
-    def get_new_client_slot(self, new_llm):
+    def set_new_client_slot(self, new_llm):
         """ Slot
         Connected to one signal:
             - controller.selected_client_to_manager
-        When triggered, calls set_new_client method with new llm name
+        When triggered, takes new llm name and sets new client on call
         """
-        self.set_new_client(new_llm)
+        selected_llm = AVAILABLE_MODELS.get(new_llm)
+        self.client = selected_llm
+        self.client.llm_name = new_llm
 
     @Slot(str)
     def api_key_slot(self, api_key, company_name):
