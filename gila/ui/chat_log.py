@@ -33,7 +33,7 @@ class Chat(QObject):
         """ Creates Start layout with a button to start new chat """
         start_layout = QVBoxLayout()
         self.gila_image = QLabel(objectName="start_image")
-        self.gila_image.setPixmap(QPixmap("gila/ui/assets/icons/gila_logo.svg"))
+        self.gila_image.setPixmap(QPixmap("gila/assets/icons/gila_logo.svg"))
         self.start_chat_button = QPushButton("Nuova Conversazione")
         self.start_chat_button.clicked.connect(
             lambda: self.on_starting_a_new_chat())

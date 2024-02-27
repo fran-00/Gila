@@ -14,7 +14,7 @@ from .modals.warning_modal import WarningModal
 class LoadingScreen(QSplashScreen):
     def __init__(self):
         super().__init__()
-        self.setPixmap(QPixmap("gila/ui/assets/img/loading_screen.png"))
+        self.setPixmap(QPixmap("gila/assets/img/loading_screen.png"))
 
 
 class View(QMainWindow):
@@ -23,7 +23,7 @@ class View(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Gila")
-        self.setWindowIcon(QIcon("gila/ui/assets/icons/gila_logo.svg"))
+        self.setWindowIcon(QIcon("gila/assets/icons/gila_logo.svg"))
         self.resize(800, 600)
         self.setStyleSheet(self.load_css_file())
         self.create_layout()
@@ -63,7 +63,7 @@ class View(QMainWindow):
 
     def load_css_file(self):
         """ Loads CSS File to apply style window """
-        with open("gila/ui/assets/styles.css", "r") as file:
+        with open("gila/assets/styles.css", "r") as file:
             return file.read()
 
     def on_hide_chatlog_and_prompt_line(self):
