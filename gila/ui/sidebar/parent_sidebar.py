@@ -20,7 +20,7 @@ class Sidebar(QObject):
     def on_sidebar_container(self):
         """ Creates Sidebar layout and calls methods that adds widgets """
         sidebar_layout = QVBoxLayout(self.widget_container)
-        sidebar_layout.addWidget(self.stored_chats.widget_container)
+        sidebar_layout.addWidget(self.stored_chats.scroll_area)
         sidebar_layout.addWidget(self.current_settings.widget_container)
         sidebar_layout.addWidget(self.on_change_settings_button())
         self.current_settings.on_hide_widgets()
