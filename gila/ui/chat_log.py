@@ -88,6 +88,10 @@ class Chat(QObject):
         # Append output to chat view window
         self.log_widget.append(f"<b>Assistente</b>: {response}")
 
+    def chatlog_has_text(self):
+        """ Returns True if log_widget has text, else False """
+        return bool(self.log_widget.toPlainText())
+
     def get_chat_log(self):
         """ Returns all current chat text """
         return self.log_widget.toPlainText()
