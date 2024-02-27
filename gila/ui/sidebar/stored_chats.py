@@ -2,7 +2,7 @@ import os
 import re
 import pickle
 
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QScrollArea
 from PySide6.QtCore import QObject, Signal
 
 
@@ -18,7 +18,10 @@ class StoredChats(QObject):
 
     def on_stored_chats_layout(self):
         self.stored_chats_layout = QVBoxLayout(self.widget_container)
-        
+        self.scroll_area = QScrollArea()
+        self.scroll_area.setWidget(self.widget_container)
+        self.scroll_area.setWidgetResizable(True)
+
         chats = os.listdir("storage/saved_data")
         for file in chats:
             self.add_stored_chat_button(file)
