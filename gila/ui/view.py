@@ -43,7 +43,8 @@ class View(QMainWindow):
         self.setStatusBar(self.status_bar)
         main_layout = QGridLayout(central_widget)
         main_layout.addWidget(self.sidebar.widget_container, 0, 0)
-        main_layout.addWidget(self.chat.widget_container, 0, 1, 1, 3)
+        main_layout.addWidget(self.on_toggle_sidebar_button(), 0, 1)
+        main_layout.addWidget(self.chat.widget_container, 0, 2, 1, 3)
         self.on_hide_chatlog_and_prompt_line()
 
     def on_toggle_sidebar_button(self):
