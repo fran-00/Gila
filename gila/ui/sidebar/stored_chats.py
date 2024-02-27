@@ -21,10 +21,7 @@ class StoredChats(QObject):
         self.scroll_area = QScrollArea()
         self.scroll_area.setWidget(self.widget_container)
         self.scroll_area.setWidgetResizable(True)
-
-        chats = os.listdir("storage/saved_data")
-        for file in chats:
-            self.add_stored_chat_button(file)
+        self.update_chats_list()
 
     def add_stored_chat_button(self, filename):
         button = QPushButton(filename, objectName=f"{filename}_button")
@@ -42,3 +39,10 @@ class StoredChats(QObject):
             chat = saved_data[chat_id]
             self.chatlog = chat["chat_log"]
         self.loading_saved_chat_id_to_controller.emit(chat_id)
+
+    def update_chats_list(self):
+        for i in reversed(range(self.stored_chats_layout.count())): 
+            self.stored_chats_layout.itemAt(i).widget().setParent(None)
+        chats = os.listdir("storage/saved_data")
+        for file in chats:
+            self.add_stored_chat_button(file)
