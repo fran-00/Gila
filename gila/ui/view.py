@@ -53,6 +53,13 @@ class View(QMainWindow):
         self.toggle_sidebar_button.clicked.connect(self.toggle_sidebar)
         return self.toggle_sidebar_button
 
+    def toggle_sidebar(self):
+        self.sidebar.widget_container.setVisible(not self.sidebar.widget_container.isVisible())
+        if self.sidebar.widget_container.isVisible():
+            self.toggle_sidebar_button.setText("<")
+        else:
+            self.toggle_sidebar_button.setText(">")
+
     def load_css_file(self):
         """ Loads CSS File to apply style window """
         with open("gila/ui/assets/styles.css", "r") as file:
