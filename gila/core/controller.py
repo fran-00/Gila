@@ -120,7 +120,9 @@ class Controller(QObject):
         if self.model.manager.stream_stopped is True:
             pass
         else:
-            self.model.manager.save_current_chat()
+            # Chat must be saved only if it's not empty
+            if self.view.chat.chatlog_has_text():
+                self.model.manager.save_current_chat()
             self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
             self.main_thread.stop()
             self.view.chat.log_widget.clear()
@@ -209,6 +211,7 @@ class Controller(QObject):
         Connected to one signal:
         """
         self.model.running = False
-        self.model.manager.save_current_chat()
+        if self.view.chat.chatlog_has_text():
+            self.model.manager.save_current_chat()
         print("Main Window was closed")
         self.main_thread.stop()
