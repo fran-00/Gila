@@ -102,7 +102,7 @@ class Controller(QObject):
         Connected to new client sidebar signal
             - view.sidebar.selected_client_to_controller
         Emits two signals:
-            - selected_client_to_manager (model.manager.get_new_client_slot)
+            - selected_client_to_manager (model.manager.set_new_client_slot)
             - update_status_bar (view.status_bar.on_status_update_slot)
         """
         self.selected_client_to_manager.emit(new_client)
