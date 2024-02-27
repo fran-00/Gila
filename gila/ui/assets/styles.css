@@ -69,9 +69,8 @@ QPushButton:hover {
 }
 
 QPushButton#toggle_sidebar_button {
-    background-color: #003757;
+    background-color: #002b44;
     color: #D6943C;
-    border-radius: 0;
 }
 
 QPushButton#toggle_sidebar_button:hover {
@@ -84,7 +83,7 @@ QDialog {
 }
 
 QScrollBar {
-    background: #003452;
+    background: #001a29;
     width: 10px;
 }
 
@@ -93,6 +92,6 @@ QScrollBar::handle {
 }
 
 QScrollBar::add-page, QScrollBar::sub-page, QScrollBar::add-line, QScrollBar::sub-line {
-    background: #003452;
+    background: #001a29;
     border: none;
 }
