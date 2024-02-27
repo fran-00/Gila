@@ -25,6 +25,12 @@ Put this file inside the root dir and you're ready! Run the program:
 
         py -m gila
 
+## How to build the .exe file
+
+On the root directory:
+
+        pyinstaller cli.py --name gila --onefile
+
 ## Notes
 
 APIs do have rate limits. To know more:
