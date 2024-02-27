@@ -46,6 +46,13 @@ class View(QMainWindow):
         main_layout.addWidget(self.chat.widget_container, 0, 1, 1, 3)
         self.on_hide_chatlog_and_prompt_line()
 
+    def on_toggle_sidebar_button(self):
+        self.toggle_sidebar_button = QPushButton("<", objectName="toggle_sidebar_button")
+        self.toggle_sidebar_button.setFixedWidth(10)
+        self.toggle_sidebar_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.toggle_sidebar_button.clicked.connect(self.toggle_sidebar)
+        return self.toggle_sidebar_button
+
     def load_css_file(self):
         """ Loads CSS File to apply style window """
         with open("gila/ui/assets/styles.css", "r") as file:
