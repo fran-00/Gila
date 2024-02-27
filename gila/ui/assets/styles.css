@@ -57,7 +57,7 @@ QLineEdit:hover {
 QPushButton {
     font-family: 'Consolas', sans-serif;
     background-color: #D6943C;
-    color: #003757; 
+    color: #003757;
     padding: 6px 0px;
     font-size: 14px;
     font-weight: 700;
@@ -65,7 +65,18 @@ QPushButton {
 
 QPushButton:hover {
     background-color: #003757;
-    color: #D6943C; 
+    color: #D6943C;
+}
+
+QPushButton#toggle_sidebar_button {
+    background-color: #003757;
+    color: #D6943C;
+    border-radius: 0;
+}
+
+QPushButton#toggle_sidebar_button:hover {
+    background-color: #D6943C;
+    color: #003757;
 }
 
 QDialog {
