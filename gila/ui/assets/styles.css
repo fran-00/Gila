@@ -71,3 +71,17 @@ QPushButton:hover {
 QDialog {
     background-color: #002b44;
 }
+
+QScrollBar {
+    background: #003452;
+    width: 10px;
+}
+
+QScrollBar::handle {
+    background-color: #D6943C;
+}
+
+QScrollBar::add-page, QScrollBar::sub-page, QScrollBar::add-line, QScrollBar::sub-line {
+    background: #003452;
+    border: none;
+}
