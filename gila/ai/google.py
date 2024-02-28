@@ -32,7 +32,7 @@ class GoogleClient(APIClient):
         genai.configure(api_key=self.get_api_key())
 
     def submit_prompt(self, prompt):
-        response = self.chat_messages.send_message(prompt, stream=True)
+        response = self.chat_messages.send_message(prompt, stream=False)
         response_text = ""
         for chunk in response:
             response_text += chunk.text
