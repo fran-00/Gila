@@ -142,6 +142,13 @@ class Controller(QObject):
             - update_status_bar (view.status_bar.on_status_update_slot)
             - missing_api_key_to_view (view.add_api_key_modal_slot)
         """
+        # Check if manager has changed the client: if so, update setting accordingly
+        if self.model.manager.next_client:
+            self.model.manager.client = self.model.manager.next_client[0]
+            self.model.manager.client.llm_name = self.model.manager.next_client[1]
+            self.model.manager.client.on_chat_reset()
+            self.model.manager.next_client = None
+        # Update settings label on the sidebar
         self.view.sidebar.current_settings.update_settings_label(
             self.model.manager.on_current_settings())
         if self.model.manager.check_internet_connection():
