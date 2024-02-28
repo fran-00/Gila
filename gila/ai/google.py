@@ -1,5 +1,5 @@
 import google.generativeai as genai
-from google.api_core.exceptions import InvalidArgument
+from google.api_core.exceptions import InvalidArgument, GoogleAPIError
 
 from .api_client import APIClient
 
@@ -32,11 +32,14 @@ class GoogleClient(APIClient):
         genai.configure(api_key=self.get_api_key())
 
     def submit_prompt(self, prompt):
-        response = self.chat_messages.send_message(prompt, stream=False)
-        response_text = ""
-        for chunk in response:
-            response_text += chunk.text
-        return response_text
+        try:
+            response = self.chat_messages.send_message(prompt, stream=False)
+            response_text = ""
+            for chunk in response:
+                response_text += chunk.text
+            return True, response_text
+        except GoogleAPIError as e:
+            return False, e.message
 
     def on_chat_reset(self):
         self.chat_messages = self.model.start_chat(history=[])
