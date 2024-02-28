@@ -27,9 +27,9 @@ class CohereClient(APIClient):
 
             self.chat_history.append(user_message)
             self.chat_history.append(bot_message)
-            return answer
-        except cohere.error.CohereConnectionError:
-            return False
+            return True, answer
+        except cohere.error.CohereConnectionError as e:
+            return False, e.message
 
     def on_chat_reset(self):
         self.chat_history = []
