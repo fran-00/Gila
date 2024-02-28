@@ -40,9 +40,9 @@ class CurrentSettings(QObject):
 
     def update_settings_label(self, settings):
         """ Called from Controller when new chat is started, return current settings """
-        self.current_llm = settings[0]
-        self.current_temperature = settings[1]
-        self.chat_id = settings[2]
+        self.chat_id = settings[0]
+        self.current_llm = settings[1]
+        self.current_temperature = settings[2]
         self.current_settings_label.setText(
             f"- {self.chat_id}\n- {self.current_llm}\n- {self.current_temperature}")
 
