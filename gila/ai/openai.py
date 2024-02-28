@@ -30,6 +30,7 @@ class OpenAIClient(APIClient):
 
     def on_chat_reset(self):
         self.chat_history = [{"role": "system", "content": "You are a helpful assistant."}]
+        self.generate_chat_id()
 
     def validate_api_key(self, api_key):
         openai.api_key = api_key

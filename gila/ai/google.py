@@ -40,6 +40,7 @@ class GoogleClient(APIClient):
 
     def on_chat_reset(self):
         self.chat_messages = self.model.start_chat(history=[])
+        self.generate_chat_id()
 
     def validate_api_key(self, api_key):
         genai.configure(api_key=api_key)
