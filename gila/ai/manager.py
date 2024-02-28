@@ -40,6 +40,7 @@ class AIManager(QObject):
             self.client = AVAILABLE_MODELS.get(llm_name)
             self.client.llm_name = llm_name
             self.client.temperature = data.get('temperature')
+        self.client.generate_chat_id()
 
     def on_api_key(self):
         """ Called by Controller's new_chat_started_slot, asks client to check if
