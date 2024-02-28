@@ -125,7 +125,7 @@ class Controller(QObject):
                 print("> Saving the chat...")
                 self.model.manager.save_current_chat()
                 self.view.sidebar.stored_chats.update_chats_list()
-            self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
+                self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
             self.main_thread.stop()
             self.view.chat.log_widget.clear()
             self.model.client.on_chat_reset()
