@@ -24,9 +24,9 @@ class OpenAIClient(APIClient):
 
             ai_response = response.choices[0].message.content
             self.chat_history.append({"role": "assistant", "content": ai_response})
-            return ai_response
-        except openai.APIConnectionError:
-            return False
+            return True, ai_response
+        except openai.APIError as e:
+            return False, e.message
 
     def on_chat_reset(self):
         self.chat_history = [{"role": "system", "content": "You are a helpful assistant."}]
