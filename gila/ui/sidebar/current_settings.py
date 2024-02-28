@@ -42,8 +42,9 @@ class CurrentSettings(QObject):
         """ Called from Controller when new chat is started, return current settings """
         self.current_llm = settings[0]
         self.current_temperature = settings[1]
+        self.chat_id = settings[2]
         self.current_settings_label.setText(
-            f"- {self.current_llm}\n- {self.current_temperature}")
+            f"- {self.chat_id}\n- {self.current_llm}\n- {self.current_temperature}")
 
     def on_show_widgets(self):
         """ Shows settings label and new chat button on call """
