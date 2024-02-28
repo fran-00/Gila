@@ -30,6 +30,7 @@ class AIManager(QObject):
         super().__init__()
         self.client = None
         self.stream_stopped = True
+        self.next_client = None
         self.get_saved_settings()
 
     def get_saved_settings(self):
@@ -59,8 +60,7 @@ class AIManager(QObject):
         When triggered, takes new llm name and sets new client on call
         """
         selected_llm = AVAILABLE_MODELS.get(new_llm)
-        self.client = selected_llm
-        self.client.llm_name = new_llm
+        self.next_client = selected_llm, new_llm
 
     @Slot(str)
     def api_key_slot(self, api_key, company_name):
