@@ -151,9 +151,11 @@ class Controller(QObject):
         # Update settings label on the sidebar
         self.view.sidebar.current_settings.update_settings_label(
             self.model.manager.on_current_settings())
+        # If there is connection, start a new conversation
         if self.model.manager.check_internet_connection():
             self.model.manager.stream_stopped = False
             self.update_status_bar.emit("Nuova conversazione avviata.")
+            # Check if API Key is valid. if it is, show chatlog and run the thread
             if self.model.manager.on_api_key() is False:
                 self.missing_api_key_to_view.emit(self.model.manager.client.company)
             else:
