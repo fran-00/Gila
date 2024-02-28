@@ -17,6 +17,9 @@ class WarningModal(Modal):
         self.modal_layout.addWidget(self.modal_text)
         self.on_dismiss_button()
 
+    def on_label(self, message):
+        self.modal_text.setText(message)
+
     def on_no_internet_connection_label(self):
         self.modal_text.setText("Il computer non è connesso ad internet, controlla la connessione e riprova.")
 
