@@ -17,6 +17,7 @@ class Model(QObject):
     ai_response_signal_to_controller = Signal(str)
     start_new_chat_to_controller = Signal()
     connection_error_to_controller = Signal()
+    generic_error_to_controller = Signal(str)
 
     def __init__(self, manager):
         self.manager = manager
