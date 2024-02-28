@@ -94,9 +94,10 @@ class AIManager(QObject):
         with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
             saved_data = pickle.load(file)
             chat = saved_data[chat_id]
-            self.client = chat["client"]
+            # Due to pickle limitation we have to get the client from its name
+            self.client = AVAILABLE_MODELS.get(chat["llm_name"])
             self.client.chat_id = chat_id
-            self.client.llm = chat["llm"]
+            self.client.llm_name = chat["llm_name"]
             self.client.temperature = chat["temperature"]
             self.client.chat_history = chat["chat_history"]
 
