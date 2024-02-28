@@ -87,13 +87,14 @@ class AIManager(QObject):
         """ Slot
         Connected to one signal:
             - controller.loading_saved_chat_id_to_manager
-
+        Reads saved chats settings from file and applies them to client
         """
         print(f"chat id slot for {chat_id} was called!")
         with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
             saved_data = pickle.load(file)
             chat = saved_data[chat_id]
             self.client = chat["client"]
+            self.client.chat_id = chat_id
             self.client.llm = chat["llm"]
             self.client.temperature = chat["temperature"]
             self.client.chat_history = chat["chat_history"]
