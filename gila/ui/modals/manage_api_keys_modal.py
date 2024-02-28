@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 from PySide6.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QPushButton
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import Qt, QPixmap
 
 from .parent_modal import Modal
 
@@ -41,8 +41,10 @@ class ManageAPIKeysModal(Modal):
 
         red_icon_label = QLabel(objectName=f"red_{client_name}_label")
         red_icon_label.setPixmap(self.red_icon)
+        red_icon_label.setAlignment(Qt.Alignment.AlignCenter)
         green_icon_label = QLabel(objectName=f"green_{client_name}_label")
         green_icon_label.setPixmap(self.green_icon)
+        green_icon_label.setAlignment(Qt.Alignment.AlignCenter)
         row_layout.addWidget(red_icon_label)
         row_layout.addWidget(green_icon_label)
 
