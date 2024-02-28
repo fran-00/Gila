@@ -207,6 +207,17 @@ class Controller(QObject):
         self.view.warning_modal.exec_()
 
     @Slot(str)
+    def generic_error_slot(self, error):
+        """ Slot
+        Connected to one signal:
+            - model.generic_error_to_controller
+        Opens WarningLabel to warn user about internet connection.
+        """
+        self.update_status_bar.emit("Si è verificato un errore.")
+        self.view.warning_modal.on_label(error)
+        self.view.warning_modal.exec_()
+
+    @Slot(str)
     def loading_saved_chat_id_slot(self, chat_id):
         """ Slot
         Connected to one signal:
