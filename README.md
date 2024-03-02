@@ -53,7 +53,7 @@ APIs do have rate limits. To know more:
 - [x] Ensure that model is disconnected from client on window closing.
 - [x] Add a loading view on startup.
 - [ ] Prompt line must be a QTextEdit widget instead of a QLineEdit widget.
-- [ ] Add custom exceptions to handle as many kind of server's request errors as possible.
+- [x] Add custom exceptions to handle as many kind of server's request errors as possible.
 - [ ] Add a warning that warns user to activate a VPN if Gemini is selected.
 - [ ] Add the ability to change the lenght of the response.
 - [ ] Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/).
