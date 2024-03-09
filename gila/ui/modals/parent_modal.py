@@ -13,7 +13,7 @@ class Modal(QDialog):
 
     def load_css_file(self):
         """ Loads CSS File to apply style to Modal Window """
-        with open("gila/assets/styles.css", "r") as file:
+        with open("storage/assets/styles.css", "r") as file:
             return file.read()
 
     def on_dismiss_button(self):

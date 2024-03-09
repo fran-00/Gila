@@ -54,8 +54,8 @@ class ManageAPIKeysModal(Modal):
         self.modal_layout.addLayout(row_layout)
 
     def set_icons(self):
-        red_icon_path = "gila/assets/icons/red-circle.svg"
-        green_icon_path = "gila/assets/icons/green-circle.svg"
+        red_icon_path = "storage/assets/icons/red-circle.svg"
+        green_icon_path = "storage/assets/icons/green-circle.svg"
         self.red_icon = QPixmap(red_icon_path)
         self.green_icon = QPixmap(green_icon_path)
 
