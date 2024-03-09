@@ -27,9 +27,11 @@ Put this file inside the root dir and you're ready! Run the program:
 
 ## How to build the .exe file
 
-On the root directory:
+On the root directory (with the virtual environment activated and PyInstaller installed):
 
-        pyinstaller cli.py --name gila --onefile
+        pyinstaller cli.py --onefile --name gila --add-data="storage/saved_settings.json:." --add-data="storage/assets:."
+
+You will find **gila.exe** executable file inside *dist* directory: remember to copy *storage* folder there before distributing it!
 
 ## Notes
 
