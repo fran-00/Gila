@@ -133,7 +133,7 @@ class Prompt:
 
     def handle_user_prompt(self, user_prompt):
         """ Gets user prompt from prompt box and calls process_prompt method from chatlog """
-        prompt = self.prompt_box.text().strip() if user_prompt == "none" else user_prompt
+        prompt = self.prompt_box.toPlainText().strip() if user_prompt == "none" else user_prompt
         self.clear_prompt_box()
         return self.chatlog.process_prompt(prompt)
 
