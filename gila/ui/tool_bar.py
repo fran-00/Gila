@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QToolBar, QFileDialog
 from PySide6.QtGui import QAction, QIcon
 
 from docx import Document
+from reportlab.pdfgen.canvas import Canvas
 
 
 class ToolBar(QToolBar):
@@ -64,4 +65,9 @@ class ToolBar(QToolBar):
         document.save(file_name)
 
     def save_pdf(self, file_name):
-        pass
+        # FIXME: è tutto storto, sistemalo
+        text = self.window.chat.log_widget.toPlainText()
+        canvas = Canvas(file_name)
+        canvas.setFont("Times-Roman", 12)
+        canvas.drawString(100, 750, text)
+        canvas.save()
