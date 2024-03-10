@@ -54,3 +54,9 @@ class ToolBar(QToolBar):
         with open(file_name, "w") as file:
             text = self.window.chat.log_widget.toPlainText()
             file.write(text)
+
+    def save_docx(self, file_name):
+        pass
+
+    def save_pdf(self, file_name):
+        pass
