@@ -50,12 +50,12 @@ APIs do have rate limits. To know more:
 - [x] Add a loading view on startup.
 - [x] Add the ability to continue a conversation and a list of past chat to ui.
 - [x] Add custom exceptions to handle as many kind of server's request errors as possible.
+- [x] Prompt line must be a QTextEdit widget instead of a QLineEdit widget.
+- [x] If user wants to export the current conversation, they must be able to choose file format between .txt, .docx and .pdf.
+- [x] User must not be able to send another prompt if the program is waiting for API response and there must be a "waiting" symbol, like a spinning wheel.
 - [ ] Chat log must use markdown instead of html to parse styled responses.
-- [ ] If user wants to export the current conversation, they must be able to choose file format between .txt, .docx and .pdf.
 - [ ] User must be able to choose response max length (very short, short, medium, long).
 - [ ] Last used settings must be saved to an external file for future use, like the current llm, temperature and maximum number of tokens.
-- [ ] User must not be able to send another prompt if the program is waiting for API response and there must be a "waiting" symbol, like a spinning wheel.
-- [ ] Prompt line must be a QTextEdit widget instead of a QLineEdit widget.
 - [ ] Add a warning that warns user to activate a VPN if Gemini is selected.
 - [ ] Add the ability to change the lenght of the response.
 - [ ] Add a token counter, at least for OpenAI. Use [tiktoken](https://github.com/openai/tiktoken).
