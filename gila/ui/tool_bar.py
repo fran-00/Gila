@@ -34,6 +34,9 @@ class ToolBar(QToolBar):
         key_icon_path = "storage/assets/icons/key.svg"
         self.key_icon = QIcon()
         self.key_icon.addFile(key_icon_path)
+        settings_icon_path = "storage/assets/icons/settings.svg"
+        self.settings_icon = QIcon()
+        self.settings_icon.addFile(settings_icon_path)
 
     def open_api_keys_modal(self):
         self.window.manage_api_keys_modal.on_stored_api_keys()
