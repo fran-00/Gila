@@ -1,6 +1,8 @@
 from PySide6.QtWidgets import QToolBar, QFileDialog
 from PySide6.QtGui import QAction, QIcon
 
+from docx import Document
+
 
 class ToolBar(QToolBar):
 
@@ -56,7 +58,10 @@ class ToolBar(QToolBar):
             file.write(text)
 
     def save_docx(self, file_name):
-        pass
+        document = Document()
+        text = self.window.chat.log_widget.toPlainText()
+        document.add_paragraph(text)
+        document.save(file_name)
 
     def save_pdf(self, file_name):
         pass
