@@ -1,6 +1,6 @@
 import pickle
 
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QTextEdit, QPushButton, QLabel
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTextEdit, QPushButton, QLabel
 from PySide6.QtCore import QObject, Signal, Slot
 from PySide6.QtGui import QPixmap, Qt
 
