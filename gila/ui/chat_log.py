@@ -85,8 +85,6 @@ class Chat(QObject):
         Adds API response to Chat Log
         """
         self.prompt_layout.send_button.setEnabled(True)
-        """ Slot that receives a string from controller as a signal """
-        # Append output to chat view window
         self.log_widget.append(f"<b>Assistente</b>: {response}")
 
     def chatlog_has_text(self):
