@@ -15,7 +15,7 @@ class ToolBar(QToolBar):
         save_action = QAction(self.save_icon, "&Esporta Conversazione", self)
         save_action.setShortcut("Ctrl+S")
         save_action.setStatusTip('Esporta Conversazione')
-        save_action.triggered.connect(self.save_txt_file)
+        save_action.triggered.connect(self.export_chatlog)
         self.addAction(save_action)
 
     def on_manage_api_keys_action(self):
@@ -37,7 +37,7 @@ class ToolBar(QToolBar):
         self.window.manage_api_keys_modal.update_labels()
         self.window.manage_api_keys_modal.exec_()
 
-    def save_txt_file(self):
+    def export_chatlog(self):
         options = QFileDialog.Options()
         # options |= QFileDialog.DontUseNativeDialog
         file_name, _ = QFileDialog.getSaveFileName(self.window, 'Esporta Conversazione', '.txt', '.txt', options = options)
