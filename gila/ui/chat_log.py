@@ -125,7 +125,9 @@ class Prompt:
         self.prompt_box.setFocus()
         prompt_layout.addWidget(self.prompt_box)
         # Adds send button
-        self.send_button = QPushButton("Enter", objectName="enter_button")
+        self.send_button = QPushButton("Invia", objectName="enter_button")
+        self.send_button.setFixedWidth(50)
+        self.send_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.send_button.clicked.connect(
             lambda: self.handle_user_prompt("none"))
         prompt_layout.addWidget(self.send_button)
