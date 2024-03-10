@@ -1,8 +1,9 @@
 import pickle
 
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTextEdit, QPushButton, QLabel
 from PySide6.QtCore import QObject, Signal, Slot
 from PySide6.QtGui import QPixmap, Qt
+from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QTextEdit,
+                               QPushButton, QLabel, QSizePolicy)
 
 
 class Chat(QObject):
