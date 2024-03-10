@@ -101,6 +101,16 @@ class Chat(QObject):
         self.start_new_chat_to_controller.emit()
 
 
+class CustomTextEdit(QTextEdit):
+    returnPressed = Signal()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+            self.returnPressed.emit()
+        else:
+            super().keyPressEvent(event)
+
+
 class Prompt:
     def __init__(self, chatlog):
         self.chatlog = chatlog
