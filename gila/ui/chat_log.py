@@ -3,7 +3,7 @@ import pickle
 from PySide6.QtCore import QObject, Signal, Slot
 from PySide6.QtGui import QPixmap, Qt
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QTextEdit,
-                               QPushButton, QLabel, QSizePolicy)
+                               QPushButton, QLabel, QSizePolicy, QApplication)
 
 
 class Chat(QObject):
@@ -51,6 +51,8 @@ class Chat(QObject):
         if prompt != "":
             self.prompt_layout.send_button.setEnabled(False)
             self.user_prompt_signal_to_controller.emit(prompt)
+            # Shows a cursor spinning wheel when waiting for response
+            QApplication.setOverrideCursor(Qt.WaitCursor)
             # Append user prompt to log view window
             self.log_widget.append(
                 f"<p><b>Tu</b>: {prompt}</p>")
