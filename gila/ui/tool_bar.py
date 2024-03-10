@@ -13,6 +13,7 @@ class ToolBar(QToolBar):
         self.set_icons()
         self.on_save_chatlog_action()
         self.on_manage_api_keys_action()
+        self.on_chat_settings_action()
 
     def on_save_chatlog_action(self):
         save_action = QAction(self.save_icon, "&Esporta Conversazione", self)
@@ -27,6 +28,12 @@ class ToolBar(QToolBar):
         api_keys_action.triggered.connect(self.open_api_keys_modal)
         self.addAction(api_keys_action)
 
+    def on_chat_settings_action(self):
+        chat_settings_action = QAction(self.settings_icon, "&Modifica Impostazioni Chat", self)
+        chat_settings_action.setStatusTip('Modifica Impostazioni Chat')
+        chat_settings_action.triggered.connect(self.open_change_settings_modal)
+        self.addAction(chat_settings_action)
+
     def set_icons(self):
         save_icon_path = "storage/assets/icons/export.svg"
         self.save_icon = QIcon()
@@ -37,6 +44,9 @@ class ToolBar(QToolBar):
         settings_icon_path = "storage/assets/icons/settings.svg"
         self.settings_icon = QIcon()
         self.settings_icon.addFile(settings_icon_path)
+
+    def open_change_settings_modal(self):
+        self.window.sidebar.change_settings_modal.exec_()
 
     def open_api_keys_modal(self):
         self.window.manage_api_keys_modal.on_stored_api_keys()
