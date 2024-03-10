@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QToolBar, QFileDialog
 from PySide6.QtGui import QAction, QIcon
+from PySide6.QtWidgets import QToolBar, QFileDialog
 
 from docx import Document
 from reportlab.pdfgen.canvas import Canvas

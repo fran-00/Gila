@@ -2,9 +2,9 @@ import os
 import re
 import pickle
 
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QScrollArea
 from PySide6.QtCore import QObject, Signal
 from PySide6.QtGui import Qt
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QScrollArea
 
 
 class StoredChats(QObject):

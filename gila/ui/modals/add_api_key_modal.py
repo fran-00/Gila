@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QLineEdit, QPushButton
 from PySide6.QtCore import Slot
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QLineEdit, QPushButton
 
 from .parent_modal import Modal
 

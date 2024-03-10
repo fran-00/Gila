@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QStatusBar
 from PySide6.QtCore import Slot
+from PySide6.QtWidgets import QStatusBar
 
 
 class StatusBar(QStatusBar):

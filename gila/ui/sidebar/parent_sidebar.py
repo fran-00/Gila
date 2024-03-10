@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton
 from PySide6.QtCore import QObject
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton
 
 from .stored_chats import StoredChats
 from .current_settings import CurrentSettings

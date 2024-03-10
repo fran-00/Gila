@@ -1,6 +1,7 @@
-from PySide6.QtWidgets import QMainWindow, QWidget, QGridLayout, QSplashScreen, QPushButton, QSizePolicy
-from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtCore import Signal, Slot
+from PySide6.QtGui import QPixmap, QIcon
+from PySide6.QtWidgets import (QMainWindow, QWidget, QGridLayout, 
+                               QSplashScreen, QPushButton, QSizePolicy)
 
 from .status_bar import StatusBar
 from .tool_bar import ToolBar
