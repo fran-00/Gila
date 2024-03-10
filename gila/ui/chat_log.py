@@ -87,6 +87,7 @@ class Chat(QObject):
         Adds API response to Chat Log
         """
         self.prompt_layout.send_button.setEnabled(True)
+        QApplication.restoreOverrideCursor()
         self.log_widget.append(f"<b>Assistente</b>: {response}")
 
     def chatlog_has_text(self):
