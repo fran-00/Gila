@@ -26,9 +26,17 @@ class StoredChats(QObject):
         self.update_chats_list()
 
     def add_stored_chat_button(self, filename):
+        """ Adds an horizzontal layout with a chat button and a button to delete
+            that chat
+        """
+        stored_chat_row = QHBoxLayout()
         button = QPushButton(filename, objectName=f"{filename}_button")
+        delete_button = QPushButton("X", objectName=f"{filename}_delete_button")
         button.clicked.connect(lambda: self.on_load_saved_chat(filename))
-        self.stored_chats_layout.addWidget(button)
+        delete_button.clicked.connect(lambda: self.on_delete_saved_chat(filename))
+        stored_chat_row.addWidget(button)
+        stored_chat_row.addWidget(delete_button)
+        self.stored_chats_layout.addLayout(stored_chat_row)
 
     def on_load_saved_chat(self, file_name):
         """
@@ -41,6 +49,9 @@ class StoredChats(QObject):
             chat = saved_data[chat_id]
             self.chatlog = chat["chat_log"]
         self.loading_saved_chat_id_to_controller.emit(chat_id)
+
+    def on_delete_saved_chat(self, file_name):
+        print(f"DELETE button for {file_name} was pressed")
 
     def update_chats_list(self):
         for i in reversed(range(self.stored_chats_layout.count())): 
