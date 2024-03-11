@@ -11,6 +11,10 @@ QWidget#sidebar_container {
     background-color: #002b44;
 }
 
+QWidget#prompt_box_widget {
+    background-color: #003d61;
+}
+
 QWidget#current_settings_widget {
     background-color: #00578b;
 }
