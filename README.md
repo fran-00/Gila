@@ -21,13 +21,17 @@ Now you need an OpenAI, Google and Cohere API Keys. Once you got them, store the
         GOOGLE_API_KEY="XXXXXXX"
         COHERE_API_KEY="XXXXXXX"
 
-Put this file inside the root dir and you're ready! Run the program:
+Put this file inside the root dir and you're ready! Now you can run the program as a Python package:
 
         py -m gila
 
 ## How to build the .exe file
 
 On the root directory (with the virtual environment activated and PyInstaller installed):
+
+        pyinstaller build.spec
+
+The command used to create the spec file was this:
 
         pyinstaller cli.py --onefile --name gila --add-data="storage/saved_settings.json:." --add-data="storage/assets:."
 
@@ -60,3 +64,4 @@ APIs do have rate limits. To know more:
 - [ ] Add the ability to change the lenght of the response.
 - [ ] Add a token counter, at least for OpenAI. Use [tiktoken](https://github.com/openai/tiktoken).
 - [ ] Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/).
+- [ ] How do releases work in GitHub?
