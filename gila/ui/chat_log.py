@@ -26,9 +26,9 @@ class Chat(QObject):
     def on_chat_container(self):
         """ Creates Chat layout and calls methods that adds widgets """
         chat_layout = QVBoxLayout(self.widget_container)
-        chat_layout.addWidget(self.log_widget)
+        chat_layout.addWidget(self.log_widget, stretch=7)
+        chat_layout.addLayout(self.prompt_layout.on_prompt_layout(), stretch=3)
         chat_layout.addLayout(self.on_start_layout())
-        chat_layout.addLayout(self.prompt_layout.on_prompt_layout())
 
     def on_start_layout(self):
         """ Creates Start layout with a button to start new chat """
