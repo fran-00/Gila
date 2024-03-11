@@ -34,8 +34,8 @@ class StoredChats(QObject):
         delete_button = QPushButton("X", objectName=f"{filename}_delete_button")
         button.clicked.connect(lambda: self.on_load_saved_chat(filename))
         delete_button.clicked.connect(lambda: self.on_delete_saved_chat(filename))
-        stored_chat_row.addWidget(button)
-        stored_chat_row.addWidget(delete_button)
+        stored_chat_row.addWidget(button, 9)
+        stored_chat_row.addWidget(delete_button, 1)
         self.stored_chats_layout.addLayout(stored_chat_row)
 
     def on_load_saved_chat(self, file_name):
