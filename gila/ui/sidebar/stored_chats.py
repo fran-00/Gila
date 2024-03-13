@@ -57,7 +57,6 @@ class StoredChats(QObject):
     def open_confirm_chat_deletion_modal(self, file_name):
         """Triggers a modal that asks to confirm before deleting """
         self.chat_marked_for_deletion = file_name
-        print(f"DELETE button for {file_name} was pressed")
         self.confirm_modal.exec_()
 
     def update_chats_list(self):
@@ -69,7 +68,6 @@ class StoredChats(QObject):
 
     def delete_stored_chat_by_name(self):
         layout_name = f"{self.chat_marked_for_deletion}_layout"
-        print(f"Deleting {layout_name} ....")
         for i in range(self.stored_chats_layout.layout().count()):
             layout_item = self.stored_chats_layout.layout().itemAt(i)
             if isinstance(layout_item, QHBoxLayout) and layout_item.objectName() == layout_name:
