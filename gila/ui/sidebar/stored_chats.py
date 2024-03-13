@@ -29,9 +29,9 @@ class StoredChats(QObject):
         """ Adds an horizzontal layout with a chat button and a button to delete
             that chat
         """
-        stored_chat_row = QHBoxLayout()
+        stored_chat_row = QHBoxLayout(objectName=f"{filename}_layout")
         button = QPushButton(filename, objectName=f"{filename}_button")
-        delete_button = QPushButton("X", objectName=f"{filename}_delete_button")
+        delete_button = QPushButton("X", objectName=f"delete_button")
         button.clicked.connect(lambda: self.on_load_saved_chat(filename))
         delete_button.clicked.connect(lambda: self.on_delete_saved_chat(filename))
         stored_chat_row.addWidget(button, 9)
