@@ -6,6 +6,8 @@ from PySide6.QtCore import QObject, Signal
 from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QScrollArea
 
+from ..modals.confirm_chat_deletion_modal import ConfirmChatDeletionModal
+
 
 class StoredChats(QObject):
     loading_saved_chat_id_to_controller = Signal(str)
@@ -15,6 +17,7 @@ class StoredChats(QObject):
         self.parent_widget = parent_widget
         self.widget_container = QWidget(objectName="stored_chats_widget")
         self.chatlog = None
+        self.confirm_modal = ConfirmChatDeletionModal(self.parent_widget.window)
         self.on_stored_chats_layout()
 
     def on_stored_chats_layout(self):
