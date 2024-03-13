@@ -11,6 +11,16 @@ QWidget#sidebar_container {
     background-color: #002b44;
 }
 
+QWidget#delete_button {
+    background-color: #610000;
+    color: #ffffff;
+}
+
+QWidget#delete_button:hover {
+    background-color: #ffffff;
+    color: #610000;
+}
+
 QWidget#prompt_box_widget {
     background-color: #003d61;
 }
