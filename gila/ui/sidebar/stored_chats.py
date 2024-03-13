@@ -67,7 +67,9 @@ class StoredChats(QObject):
         for file in chats:
             self.add_stored_chat_button(file)
 
-    def delete_stored_chat_by_name(self, layout_name):
+    def delete_stored_chat_by_name(self):
+        layout_name = f"{self.chat_marked_for_deletion}_layout"
+        print(f"Deleting {layout_name} ....")
         for i in range(self.stored_chats_layout.layout().count()):
             layout_item = self.stored_chats_layout.layout().itemAt(i)
             if isinstance(layout_item, QHBoxLayout) and layout_item.objectName() == layout_name:
@@ -79,3 +81,4 @@ class StoredChats(QObject):
                     else:
                         self.delete_stored_chat_by_name(layout_item, layout_name)
                 layout_item.deleteLater()
+        os.remove(f"storage/saved_data/{self.chat_marked_for_deletion}")
