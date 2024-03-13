@@ -36,7 +36,6 @@ class Model(QObject):
                 self.start_new_chat_to_controller.emit()
                 break
             ai_response = self.client.submit_prompt(self.prompt)
-            print("> API response received!")
             if ai_response[0] is True:
                 self.ai_response_signal_to_controller.emit(ai_response[1])
             elif ai_response[0] is False:
@@ -56,5 +55,4 @@ class Model(QObject):
         Gets user prompt and stops event loop.
         """
         self.prompt = prompt.lower()
-        print("> Processing user prompt and waiting for API Response...")
         self.event_loop.exit()
