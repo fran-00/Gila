@@ -35,7 +35,7 @@ class ToolBar(QToolBar):
         self.addAction(chat_settings_action)
 
     def set_icons(self):
-        save_icon_path = "storage/assets/icons/export.svg"
+        save_icon_path = "storage/assets/icons/floppy.svg"
         self.save_icon = QIcon()
         self.save_icon.addFile(save_icon_path)
         key_icon_path = "storage/assets/icons/key.svg"
