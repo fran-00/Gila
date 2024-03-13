@@ -37,7 +37,7 @@ class StoredChats(QObject):
         button = QPushButton(filename, objectName=f"{filename}_button")
         delete_button = QPushButton("X", objectName=f"delete_button")
         button.clicked.connect(lambda: self.on_load_saved_chat(filename))
-        delete_button.clicked.connect(lambda: self.on_delete_saved_chat(filename))
+        delete_button.clicked.connect(lambda: self.open_confirm_chat_deletion_modal(filename))
         stored_chat_row.addWidget(button, 9)
         stored_chat_row.addWidget(delete_button, 1)
         self.stored_chats_layout.addLayout(stored_chat_row)
@@ -54,10 +54,11 @@ class StoredChats(QObject):
             self.chatlog = chat["chat_log"]
         self.loading_saved_chat_id_to_controller.emit(chat_id)
 
-    def on_delete_saved_chat(self, file_name):
-        self.delete_stored_chat_by_name(f"{file_name}_layout")
-        os.remove(f"storage/saved_data/{file_name}")
+    def open_confirm_chat_deletion_modal(self, file_name):
+        """Triggers a modal that asks to confirm before deleting """
+        self.chat_marked_for_deletion = file_name
         print(f"DELETE button for {file_name} was pressed")
+        self.confirm_modal.exec_()
 
     def update_chats_list(self):
         for i in reversed(range(self.stored_chats_layout.count())):
