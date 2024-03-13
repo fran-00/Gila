@@ -57,7 +57,7 @@ class StoredChats(QObject):
 
     def update_chats_list(self):
         for i in reversed(range(self.stored_chats_layout.count())): 
-            self.stored_chats_layout.itemAt(i).widget().setParent(None)
+            self.stored_chats_layout.itemAt(i).layout().setParent(None)
         chats = os.listdir("storage/saved_data")
         for file in chats:
             self.add_stored_chat_button(file)
