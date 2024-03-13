@@ -17,7 +17,8 @@ class StoredChats(QObject):
         self.parent_widget = parent_widget
         self.widget_container = QWidget(objectName="stored_chats_widget")
         self.chatlog = None
-        self.confirm_modal = ConfirmChatDeletionModal(self.parent_widget.window)
+        self.confirm_modal = ConfirmChatDeletionModal(self.parent_widget.window, self)
+        self.chat_marked_for_deletion = None
         self.on_stored_chats_layout()
 
     def on_stored_chats_layout(self):
