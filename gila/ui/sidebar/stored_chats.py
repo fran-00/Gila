@@ -59,3 +59,9 @@ class StoredChats(QObject):
         chats = os.listdir("storage/saved_data")
         for file in chats:
             self.add_stored_chat_button(file)
+
+    def delete_stored_chat_by_name(self, name):
+        for child in self.stored_chats_layout.findChildren(QHBoxLayout):
+            if child.objectName() == name:
+                child.deleteLater()
+                return
