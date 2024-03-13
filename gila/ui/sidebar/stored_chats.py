@@ -56,7 +56,7 @@ class StoredChats(QObject):
         print(f"DELETE button for {file_name} was pressed")
 
     def update_chats_list(self):
-        for i in reversed(range(self.stored_chats_layout.count())): 
+        for i in reversed(range(self.stored_chats_layout.count())):
             self.stored_chats_layout.itemAt(i).layout().setParent(None)
         chats = os.listdir("storage/saved_data")
         for file in chats:
