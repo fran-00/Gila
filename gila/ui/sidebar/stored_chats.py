@@ -51,6 +51,8 @@ class StoredChats(QObject):
         self.loading_saved_chat_id_to_controller.emit(chat_id)
 
     def on_delete_saved_chat(self, file_name):
+        self.delete_stored_chat_by_name(f"{file_name}_layout")
+        os.remove(f"storage/saved_data/{file_name}")
         print(f"DELETE button for {file_name} was pressed")
 
     def update_chats_list(self):
