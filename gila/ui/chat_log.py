@@ -30,13 +30,16 @@ class Chat(QObject):
         chat_layout = QVBoxLayout(self.widget_container)
         chat_layout.addWidget(self.log_widget, stretch=7)
         chat_layout.addLayout(self.prompt_layout.on_prompt_layout(), stretch=3)
-        chat_layout.addWidget(self.on_prompt_info())
+        chat_layout.addLayout(self.on_prompt_info_layout())
         chat_layout.addLayout(self.on_start_layout())
 
-    def on_prompt_info(self):
-        self.prompt_info = QLabel()
-        self.prompt_info.setText("Parole: 0")
-        return self.prompt_info
+    def on_prompt_info_layout(self):
+        self.prompt_info_layout = QHBoxLayout()
+        self.num_of_words = QLabel("Parole: 0")
+        self.num_of_tokens = QLabel("Token: 0")
+        self.prompt_info_layout.addWidget(self.num_of_words)
+        self.prompt_info_layout.addWidget(self.num_of_tokens)
+        return self.prompt_info_layout
 
     def words_counter(self):
         text = self.prompt_layout.prompt_box.toPlainText()
