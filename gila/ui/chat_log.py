@@ -22,6 +22,7 @@ class Chat(QObject):
         self.log_widget.setReadOnly(True)
         self.log_widget.ensureCursorVisible()
         self.prompt_layout = Prompt(self)
+        self.tokenizer = Tokenizer()
 
         self.on_chat_container()
 
