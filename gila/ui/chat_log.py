@@ -44,7 +44,7 @@ class Chat(QObject):
     def words_counter(self):
         text = self.prompt_layout.prompt_box.toPlainText()
         word_count = len(text.split())
-        self.prompt_info.setText(f"Parole: {word_count}")
+        self.num_of_words.setText(f"Parole: {word_count}")
 
     def on_start_layout(self):
         """ Creates Start layout with a button to start new chat """
