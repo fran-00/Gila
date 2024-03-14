@@ -32,6 +32,11 @@ class Chat(QObject):
         chat_layout.addLayout(self.prompt_layout.on_prompt_layout(), stretch=3)
         chat_layout.addLayout(self.on_start_layout())
 
+    def words_counter(self):
+        text = self.prompt_layout.prompt_box.toPlainText()
+        word_count = len(text.split())
+        self.prompt_info.setText(f"Parole: {word_count}")
+
     def on_start_layout(self):
         """ Creates Start layout with a button to start new chat """
         start_layout = QVBoxLayout()
@@ -113,11 +118,6 @@ class CustomTextEdit(QTextEdit):
             self.returnPressed.emit()
         else:
             super().keyPressEvent(event)
-
-    def words_counter(self):
-        text = self.toPlainText()
-        word_count = len(text.split())
-        print("Words:", word_count)
 
 
 class Prompt:
