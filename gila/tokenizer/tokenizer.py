@@ -6,8 +6,9 @@ class Tokenizer:
     def __init__(self):
         pass
 
-    def encode(self, text, encoding_model):
-        encoding = tiktoken.encoding_for_model(encoding_model)
+    def tokens_counter(self, text):
+        encoding = tiktoken.get_encoding("cl100k_base")
         encoding.encode(text)
         num_tokens = len(encoding.encode(text))
+        print("Tokens:", num_tokens)
         return num_tokens
