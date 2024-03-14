@@ -121,9 +121,13 @@ class CustomTextEdit(QTextEdit):
 
 
 class Prompt:
+
     def __init__(self, chatlog):
         self.chatlog = chatlog
         self.prompt_box = CustomTextEdit(objectName="prompt_box_widget")
+        self.tokenizer = Tokenizer()
+        self.prompt_box.textChanged.connect(self.prompt_box.words_counter)
+        self.prompt_box.textChanged.connect(lambda: self.tokenizer.tokens_counter(self.prompt_box.toPlainText()))
 
     def on_prompt_layout(self):
         """ Creates prompt layout with prompt box and a button """
