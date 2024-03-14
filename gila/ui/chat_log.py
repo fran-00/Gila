@@ -46,6 +46,10 @@ class Chat(QObject):
         word_count = len(text.split())
         self.num_of_words.setText(f"Parole: {word_count}")
 
+    def tokens_counter(self):
+        num_tokens = self.tokenizer.get_num_of_tokens(self.prompt_layout.prompt_box.toPlainText())
+        self.num_of_tokens.setText(f"Token: {num_tokens}")
+
     def on_start_layout(self):
         """ Creates Start layout with a button to start new chat """
         start_layout = QVBoxLayout()
