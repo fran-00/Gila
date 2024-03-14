@@ -112,6 +112,11 @@ class CustomTextEdit(QTextEdit):
         else:
             super().keyPressEvent(event)
 
+    def words_counter(self):
+        text = self.toPlainText()
+        word_count = len(text.split())
+        print("Words:", word_count)
+
 
 class Prompt:
     def __init__(self, chatlog):
