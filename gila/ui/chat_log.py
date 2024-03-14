@@ -5,6 +5,8 @@ from PySide6.QtGui import QPixmap, Qt
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QTextEdit,
                                QPushButton, QLabel, QSizePolicy, QApplication)
 
+from ..tokenizer.tokenizer import Tokenizer
+
 
 class Chat(QObject):
     user_prompt_signal_to_controller = Signal(str)
