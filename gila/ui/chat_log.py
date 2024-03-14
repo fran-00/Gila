@@ -83,12 +83,14 @@ class Chat(QObject):
     def on_show_chatlog(self):
         """ Shows chat widget and start chat button on call """
         self.log_widget.show()
+        self.prompt_info.show()
         self.gila_image.hide()
         self.start_chat_button.hide()
 
     def on_hide_chatlog(self):
         """ Hides chat widget and start chat button on call """
         self.log_widget.hide()
+        self.prompt_info.hide()
         self.gila_image.show()
         self.start_chat_button.show()
 
