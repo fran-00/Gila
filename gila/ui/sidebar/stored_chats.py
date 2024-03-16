@@ -20,6 +20,7 @@ class StoredChats(QObject):
         self.chatlog = None
         self.rename_modal = RenameChatModal(self.parent_widget.window, self)
         self.confirm_modal = ConfirmChatDeletionModal(self.parent_widget.window, self)
+        self.chat_marked_for_renaming = None
         self.chat_marked_for_deletion = None
         self.on_stored_chats_layout()
 
