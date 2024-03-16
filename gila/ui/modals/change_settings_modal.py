@@ -21,7 +21,6 @@ class ChangeSettingsModal(Modal):
         self.modal_layout.addWidget(self.modal_text)
         self.modal_layout.addWidget(self.on_llms_combobox())
         self.modal_layout.addWidget(self.on_confirm_button())
-        self.on_dismiss_button()
 
     def on_llms_combobox(self):
         """ Creates ComboBox with llms list """
