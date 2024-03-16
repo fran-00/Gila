@@ -38,6 +38,7 @@ class ChangeSettingsModal(Modal):
         """ Creates button to confirm llm selection """
         confirm_button = QPushButton("Conferma")
         confirm_button.clicked.connect(self.send_selected_client_to_controller)
+        confirm_button.clicked.connect(self.accept)
         return confirm_button
 
     def send_selected_client_to_controller(self):
