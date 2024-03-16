@@ -29,12 +29,12 @@ class StoredChats(QObject):
         self.scroll_area.setWidgetResizable(True)
         self.update_chats_list()
 
-    def add_stored_chat_button(self, filename):
+    def add_stored_chat_button(self, chat_id):
         """ Adds an horizzontal layout with a button to delete a stored chat,
             a button to rename it and a button to delete it
         """
-        stored_chat_row = QHBoxLayout(objectName=f"{filename}_layout")
-        button = QPushButton(filename, objectName=f"{filename}_button")
+        stored_chat_row = QHBoxLayout(objectName=f"{chat_id}_layout")
+        button = QPushButton(chat_id, objectName=f"{chat_id}_button")
         button.setStyleSheet("text-align: left; padding-left: 5px;")
         rename_button = QPushButton(objectName=f"rename_button")
         rename_icon = QIcon("storage/assets/icons/pen.svg")
@@ -42,28 +42,26 @@ class StoredChats(QObject):
         delete_button = QPushButton(objectName=f"delete_button")
         delete_icon = QIcon("storage/assets/icons/trash-bin.svg")
         delete_button.setIcon(delete_icon)
-        button.clicked.connect(lambda: self.on_load_saved_chat(filename))
-        delete_button.clicked.connect(lambda: self.open_confirm_chat_deletion_modal(filename))
+        button.clicked.connect(lambda: self.on_load_saved_chat(chat_id))
+        delete_button.clicked.connect(lambda: self.open_confirm_chat_deletion_modal(chat_id))
         stored_chat_row.addWidget(button, 8)
         stored_chat_row.addWidget(rename_button, 1)
         stored_chat_row.addWidget(delete_button, 1)
         self.stored_chats_layout.addLayout(stored_chat_row)
 
-    def on_load_saved_chat(self, file_name):
+    def on_load_saved_chat(self, chat_id):
+        """ MUST ONLY restore chatlog, other data must be parsed directly from manager on signal receiving
+            otherwise they won't fit in a single signal if sent from here
         """
-        MUST ONLY restore chatlog, other data must be parsed directly from manager on signal receiving
-        otherwise they won't fit in a single signal if sent from here
-        """
-        chat_id = re.sub(r'\.pk$', '', file_name)
         with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
             saved_data = pickle.load(file)
             chat = saved_data[chat_id]
             self.chatlog = chat["chat_log"]
         self.loading_saved_chat_id_to_controller.emit(chat_id)
 
-    def open_confirm_chat_deletion_modal(self, file_name):
+    def open_confirm_chat_deletion_modal(self, chat_id):
         """Triggers a modal that asks to confirm before deleting """
-        self.chat_marked_for_deletion = file_name
+        self.chat_marked_for_deletion = chat_id
         self.confirm_modal.exec_()
 
     def update_chats_list(self):
@@ -71,7 +69,8 @@ class StoredChats(QObject):
             self.stored_chats_layout.itemAt(i).layout().setParent(None)
         chats = os.listdir("storage/saved_data")
         for file in chats:
-            self.add_stored_chat_button(file)
+            chat_id = re.sub(r'\.pk$', '', file)
+            self.add_stored_chat_button(chat_id)
 
     def rename_stored_chat(self, chat_id):
         pass
@@ -89,4 +88,4 @@ class StoredChats(QObject):
                     else:
                         self.delete_stored_chat_by_name(layout_item, layout_name)
                 layout_item.deleteLater()
-        os.remove(f"storage/saved_data/{self.chat_marked_for_deletion}")
+        os.remove(f"storage/saved_data/{self.chat_marked_for_deletion}.pk")
