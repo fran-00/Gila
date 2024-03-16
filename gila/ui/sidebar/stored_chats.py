@@ -69,7 +69,7 @@ class StoredChats(QObject):
 
     def update_chats_list(self):
         for i in reversed(range(self.stored_chats_layout.count())):
-            self.stored_chats_layout.itemAt(i).layout().setParent(None)
+            self.stored_chats_layout.itemAt(i).layout().deleteLater()
         chats = os.listdir("storage/saved_data")
         for file in chats:
             chat_id = re.sub(r'\.pk$', '', file)
