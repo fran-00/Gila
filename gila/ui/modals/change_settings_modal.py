@@ -17,6 +17,7 @@ class ChangeSettingsModal(Modal):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.modal_text = QLabel("Modifica le impostazioni, saranno applicate all'avvio di una nuova chat.")
+        self.modal_text.setWordWrap(True)
         self.modal_layout.addWidget(self.modal_text)
         self.modal_layout.addWidget(self.on_llms_combobox())
         self.modal_layout.addWidget(self.on_confirm_button())

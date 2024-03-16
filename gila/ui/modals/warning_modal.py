@@ -14,6 +14,7 @@ class WarningModal(Modal):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.modal_text = QLabel("Messaggio di avviso da sovrascrivere.")
+        self.modal_text.setWordWrap(True)
         self.modal_layout.addWidget(self.modal_text)
         self.on_dismiss_button()
 
