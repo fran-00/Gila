@@ -30,18 +30,22 @@ class StoredChats(QObject):
         self.update_chats_list()
 
     def add_stored_chat_button(self, filename):
-        """ Adds an horizzontal layout with a chat button and a button to delete
-            that chat
+        """ Adds an horizzontal layout with a button to delete a stored chat,
+            a button to rename it and a button to delete it
         """
         stored_chat_row = QHBoxLayout(objectName=f"{filename}_layout")
         button = QPushButton(filename, objectName=f"{filename}_button")
         button.setStyleSheet("text-align: left; padding-left: 5px;")
+        rename_button = QPushButton(objectName=f"rename_button")
+        rename_icon = QIcon("storage/assets/icons/pen.svg")
+        rename_button.setIcon(rename_icon)
         delete_button = QPushButton(objectName=f"delete_button")
         delete_icon = QIcon("storage/assets/icons/trash-bin.svg")
         delete_button.setIcon(delete_icon)
         button.clicked.connect(lambda: self.on_load_saved_chat(filename))
         delete_button.clicked.connect(lambda: self.open_confirm_chat_deletion_modal(filename))
-        stored_chat_row.addWidget(button, 9)
+        stored_chat_row.addWidget(button, 8)
+        stored_chat_row.addWidget(rename_button, 1)
         stored_chat_row.addWidget(delete_button, 1)
         self.stored_chats_layout.addLayout(stored_chat_row)
 
