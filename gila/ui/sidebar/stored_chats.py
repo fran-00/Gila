@@ -39,6 +39,7 @@ class StoredChats(QObject):
         rename_button = QPushButton(objectName=f"rename_button")
         rename_icon = QIcon("storage/assets/icons/pen.svg")
         rename_button.setIcon(rename_icon)
+        rename_button.clicked.connect(lambda: self.rename_stored_chat(chat_id))
         delete_button = QPushButton(objectName=f"delete_button")
         delete_icon = QIcon("storage/assets/icons/trash-bin.svg")
         delete_button.setIcon(delete_icon)
