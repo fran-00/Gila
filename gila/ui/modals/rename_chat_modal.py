@@ -17,10 +17,15 @@ class RenameChatModal(Modal):
         self.modal_text = QLabel("Inserisci un nuovo nome per la chat salvata")
         self.modal_text.setWordWrap(True)
         self.modal_layout.addWidget(self.modal_text)
-        self.on_dismiss_button()
+        self.on_new_name_entry()
+        self.on_confirm_button()
 
     def on_confirm_button(self):
         self.modal_button = QPushButton("Ok", self)
-        self.modal_button.clicked.connect(lambda: self.parent_class.delete_stored_chat_by_name())
+        self.modal_button.clicked.connect(lambda: self.parent_class.rename_stored_chat(self.new_name_entry.text()))
         self.modal_button.clicked.connect(self.accept)
-        self.buttons_layout.addWidget(self.modal_button)
+        self.modal_layout.addWidget(self.modal_button)
+
+    def on_new_name_entry(self):
+        self.new_name_entry = QLineEdit()
+        self.modal_layout.addWidget(self.new_name_entry)
