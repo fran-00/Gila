@@ -73,6 +73,9 @@ class StoredChats(QObject):
         for file in chats:
             self.add_stored_chat_button(file)
 
+    def rename_stored_chat(self, chat_id):
+        pass
+
     def delete_stored_chat_by_name(self):
         layout_name = f"{self.chat_marked_for_deletion}_layout"
         for i in range(self.stored_chats_layout.layout().count()):
