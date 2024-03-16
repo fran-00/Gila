@@ -3,7 +3,7 @@ import re
 import pickle
 
 from PySide6.QtCore import QObject, Signal
-from PySide6.QtGui import Qt
+from PySide6.QtGui import Qt, QIcon
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QScrollArea
 
 from ..modals.confirm_chat_deletion_modal import ConfirmChatDeletionModal
@@ -36,7 +36,9 @@ class StoredChats(QObject):
         stored_chat_row = QHBoxLayout(objectName=f"{filename}_layout")
         button = QPushButton(filename, objectName=f"{filename}_button")
         button.setStyleSheet("text-align: left; padding-left: 5px;")
-        delete_button = QPushButton("X", objectName=f"delete_button")
+        delete_button = QPushButton(objectName=f"delete_button")
+        delete_icon = QIcon("storage/assets/icons/trash-bin.svg")
+        delete_button.setIcon(delete_icon)
         button.clicked.connect(lambda: self.on_load_saved_chat(filename))
         delete_button.clicked.connect(lambda: self.open_confirm_chat_deletion_modal(filename))
         stored_chat_row.addWidget(button, 9)
