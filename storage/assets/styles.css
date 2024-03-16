@@ -92,10 +92,6 @@ QPushButton#toggle_sidebar_button:hover {
     color: #003757;
 }
 
-QDialog {
-    background-color: #002b44;
-}
-
 QScrollBar {
     background: #001a29;
     width: 10px;
