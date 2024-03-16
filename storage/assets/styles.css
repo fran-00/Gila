@@ -11,14 +11,13 @@ QWidget#sidebar_container {
     background-color: #002b44;
 }
 
-QWidget#delete_button {
-    background-color: #610000;
+QWidget#rename_button, QWidget#delete_button {
+    background-color: #002b44;
     color: #ffffff;
 }
 
-QWidget#delete_button:hover {
-    background-color: #ffffff;
-    color: #610000;
+QWidget#rename_button:hover, QWidget#delete_button:hover {
+    background-color: #610000;
 }
 
 QWidget#prompt_box_widget {
