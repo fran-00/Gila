@@ -41,7 +41,7 @@ class StoredChats(QObject):
         rename_button = QPushButton(objectName=f"rename_button")
         rename_icon = QIcon("storage/assets/icons/pen.svg")
         rename_button.setIcon(rename_icon)
-        rename_button.clicked.connect(lambda: self.rename_stored_chat(chat_id))
+        rename_button.clicked.connect(lambda: self.open_rename_chat_modal(chat_id))
         delete_button = QPushButton(objectName=f"delete_button")
         delete_icon = QIcon("storage/assets/icons/trash-bin.svg")
         delete_button.setIcon(delete_icon)
@@ -75,8 +75,10 @@ class StoredChats(QObject):
             chat_id = re.sub(r'\.pk$', '', file)
             self.add_stored_chat_button(chat_id)
 
-    def rename_stored_chat(self, chat_id):
-        pass
+    def open_rename_chat_modal(self, chat_id):
+        """Triggers a modal that asks to insert a new name for the chat """
+        self.chat_marked_for_renaming = chat_id
+        self.rename_modal.exec_()
 
     def delete_stored_chat_by_name(self):
         layout_name = f"{self.chat_marked_for_deletion}_layout"
