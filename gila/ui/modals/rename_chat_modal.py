@@ -14,8 +14,8 @@ class RenameChatModal(Modal):
     def on_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
-        self.modal_text = QLabel("Inserisci un nuovo nome per la chat salvata")
-        self.modal_text.setWordWrap(True)
+        self.on_modal_text()
+        self.modal_text.setText("Inserisci un nuovo nome per la chat salvata")
         self.modal_layout.addWidget(self.modal_text)
         self.on_new_name_entry()
         self.on_confirm_button()
