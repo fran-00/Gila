@@ -1,9 +1,8 @@
-from PySide6.QtCore import QObject, Signal
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel
+from PySide6.QtCore import QObject
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
 
 
 class CurrentSettings(QObject):
-    stop_chat_to_controller = Signal()
 
     def __init__(self, parent_widget):
         super().__init__()
@@ -55,7 +54,3 @@ class CurrentSettings(QObject):
         """ Hides settings label and new chat button on call """
         self.current_settings_label.hide()
         self.new_chat_button.hide()
-
-    def send_stop_chat_to_controller(self):
-        """ Sends a signal to stop current chat, connected to New Chat button"""
-        self.stop_chat_to_controller.emit()

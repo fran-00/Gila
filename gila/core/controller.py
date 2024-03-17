@@ -56,7 +56,7 @@ class Controller(QObject):
             self.window_was_closed_slot)
         self.view.sidebar.change_settings_modal.selected_client_to_controller.connect(
             self.client_changed_from_sidebar_slot)
-        self.view.sidebar.current_settings.stop_chat_to_controller.connect(
+        self.view.sidebar.stop_chat_to_controller.connect(
             self.chat_stopped_from_sidebar_slot)
         self.view.sidebar.stored_chats.loading_saved_chat_id_to_controller.connect(
             self.loading_saved_chat_id_slot)

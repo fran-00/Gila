@@ -1,4 +1,4 @@
-from PySide6.QtCore import QObject
+from PySide6.QtCore import QObject, Signal
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton
 
 from .stored_chats import StoredChats
@@ -7,6 +7,7 @@ from ..modals.change_settings_modal import ChangeSettingsModal
 
 
 class Sidebar(QObject):
+    stop_chat_to_controller = Signal()
 
     def __init__(self, window):
         super().__init__()
@@ -33,3 +34,7 @@ class Sidebar(QObject):
 
     def open_change_settings_modal(self):
         self.change_settings_modal.exec_()
+
+    def send_stop_chat_to_controller(self):
+        """ Sends a signal to stop current chat, connected to New Chat button"""
+        self.stop_chat_to_controller.emit()
