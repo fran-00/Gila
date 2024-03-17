@@ -15,14 +15,14 @@ class AddAPIKeyModal(Modal):
     def on_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
+        self.on_modal_text()
+        self.modal_text.setText(f"Inserisci l'API Key per {self.client_name}, verrà inviata per la verifica.")
         self.on_modal_entry_line()
         self.on_modal_button()
         self.on_modal_wait_label()
 
     def on_modal_entry_line(self):
         """ Add instructions text and an entry line """
-        self.modal_text = QLabel(f"Inserisci l'API Key per {self.client_name}, verrà inviata per la verifica.")
-        self.modal_layout.addWidget(self.modal_text)
         self.modal_entry_line = QLineEdit(self)
         self.modal_layout.addWidget(self.modal_entry_line)
 
