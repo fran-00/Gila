@@ -75,6 +75,11 @@ class StoredChats(QObject):
         """ Updates text shown on saved chat button """
         button = self.widget_container.findChild(QPushButton, f"{self.chat_marked_for_renaming}_button")
         button.setText(new_name)
+        with open(f'storage/saved_data/{self.chat_marked_for_renaming}.pk', 'rb') as file:
+            saved_data = pickle.load(file)
+        saved_data[self.chat_marked_for_renaming]["chat_custom_name"] = new_name
+        with open(f'storage/saved_data/{self.chat_marked_for_renaming}.pk', 'wb') as file:
+            pickle.dump(saved_data, file)
 
     def update_chats_list(self):
         for i in reversed(range(self.stored_chats_layout.count())):
