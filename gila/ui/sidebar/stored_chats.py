@@ -69,8 +69,9 @@ class StoredChats(QObject):
         self.confirm_modal.exec_()
 
     def rename_stored_chat(self, new_name):
-        """ TODO: Write the logic to update button name here """
-        pass
+        """ Updates text shown on saved chat button """
+        button = self.widget_container.findChild(QPushButton, f"{self.chat_marked_for_renaming}_button")
+        button.setText(new_name)
 
     def update_chats_list(self):
         for i in reversed(range(self.stored_chats_layout.count())):
