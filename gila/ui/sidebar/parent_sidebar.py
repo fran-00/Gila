@@ -26,6 +26,7 @@ class Sidebar(QObject):
         sidebar_layout.addWidget(self.current_settings.widget_container)
         sidebar_layout.addWidget(self.on_new_chat_button())
         self.current_settings.on_hide_widgets()
+        self.on_hide_widgets()
 
     def on_new_chat_button(self):
         """ Creates a button to start a new chat """
@@ -39,3 +40,11 @@ class Sidebar(QObject):
     def send_stop_chat_to_controller(self):
         """ Sends a signal to stop current chat, connected to New Chat button"""
         self.stop_chat_to_controller.emit()
+
+    def on_show_widgets(self):
+        """ Shows new chat button on call """
+        self.new_chat_button.show()
+
+    def on_hide_widgets(self):
+        """ Hides new chat button on call """
+        self.new_chat_button.hide()
