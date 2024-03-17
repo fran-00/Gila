@@ -96,4 +96,5 @@ class ToolBar(QToolBar):
         canvas.save()
 
     def open_info_modal(self):
-        print("Info Modal Called!")
+        self.window.warning_modal.on_info_label()
+        self.window.warning_modal.exec_()
