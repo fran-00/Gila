@@ -73,6 +73,7 @@ class StoredChats(QObject):
 
     def rename_stored_chat(self, new_name):
         """ Updates text shown on saved chat button """
+        self.rename_modal.new_name_entry.clear()
         button = self.widget_container.findChild(QPushButton, f"{self.chat_marked_for_renaming}_button")
         button.setText(new_name)
         with open(f'storage/saved_data/{self.chat_marked_for_renaming}.pk', 'rb') as file:
