@@ -32,12 +32,15 @@ class StoredChats(QObject):
         self.scroll_area.setWidgetResizable(True)
         self.update_chats_list()
 
-    def add_stored_chat_button(self, chat_id):
+    def add_stored_chat_button(self, chat_id, custom_name):
         """ Adds an horizzontal layout with a button to delete a stored chat,
             a button to rename it and a button to delete it
         """
         stored_chat_row = QHBoxLayout(objectName=f"{chat_id}_layout")
-        button = QPushButton(chat_id, objectName=f"{chat_id}_button")
+        if custom_name is not None:
+            button = QPushButton(custom_name, objectName=f"{chat_id}_button")
+        else:
+            button = QPushButton(chat_id, objectName=f"{chat_id}_button")
         button.setStyleSheet("text-align: left; padding-left: 5px;")
         rename_button = QPushButton(objectName=f"rename_button")
         rename_icon = QIcon("storage/assets/icons/pen.svg")
