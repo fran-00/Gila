@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QLineEdit
+from PySide6.QtWidgets import QVBoxLayout, QPushButton, QLineEdit
 
 from .parent_modal import Modal
 
@@ -15,8 +15,7 @@ class RenameChatModal(Modal):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.on_modal_text()
-        self.modal_text.setText("Inserisci un nuovo nome per la chat salvata")
-        self.modal_layout.addWidget(self.modal_text)
+        self.modal_text.setText("Inserisci un nuovo nome per la chat salvata.")
         self.on_new_name_entry()
         self.on_confirm_button()
 
