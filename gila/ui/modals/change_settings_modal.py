@@ -24,9 +24,11 @@ class ChangeSettingsModal(Modal):
 
     def on_llms_combobox(self):
         """ Creates ComboBox with llms list """
+        select_llm_label = QLabel("Modello")
         self.llms_combobox = QComboBox()
         for llm in self.current_settings.llms:
             self.llms_combobox.addItem(llm)
+        self.modal_layout.addWidget(select_llm_label)
         self.modal_layout.addWidget(self.llms_combobox)
 
     def on_confirm_button(self):
