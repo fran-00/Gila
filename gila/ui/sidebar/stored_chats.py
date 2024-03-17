@@ -79,7 +79,10 @@ class StoredChats(QObject):
         chats = os.listdir("storage/saved_data")
         for file in chats:
             chat_id = re.sub(r'\.pk$', '', file)
-            self.add_stored_chat_button(chat_id)
+            with open(f'storage/saved_data/{file}', 'rb') as file:
+                saved_data = pickle.load(file)
+            custom_name = saved_data[chat_id]["chat_custom_name"]
+            self.add_stored_chat_button(chat_id, custom_name)
 
     def open_rename_chat_modal(self, chat_id):
         """Triggers a modal that asks to insert a new name for the chat """
