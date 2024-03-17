@@ -25,5 +25,8 @@ QDialog {
 
 QLabel {
     background-color: #00578b;
+}
+
+QLabel#modal_text {
     padding: 10 0;
 }
