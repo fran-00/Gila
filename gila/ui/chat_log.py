@@ -36,6 +36,9 @@ class Chat(QObject):
         chat_layout.addLayout(self.on_prompt_info_layout())
         chat_layout.addLayout(self.on_start_layout())
 
+    def update_chat_title(self):
+        self.title.setText(f"{self.window.sidebar.current_settings.current_llm}")
+
     def on_prompt_info_layout(self):
         self.prompt_info_layout = QHBoxLayout()
         self.num_of_words = QLabel("Parole: 0")
