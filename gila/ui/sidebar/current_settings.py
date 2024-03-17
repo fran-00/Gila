@@ -22,7 +22,6 @@ class CurrentSettings(QObject):
     def on_current_settings_layout(self):
         current_settings_layout = QVBoxLayout(self.widget_container)
         current_settings_layout.addWidget(self.on_settings_label())
-        current_settings_layout.addWidget(self.on_new_chat_button())
         return current_settings_layout
 
     def on_settings_label(self):
@@ -30,12 +29,6 @@ class CurrentSettings(QObject):
         self.current_settings_label = QLabel(
             f"- {self.current_llm}\n- {self.current_temperature}")
         return self.current_settings_label
-
-    def on_new_chat_button(self):
-        """ Creates a button to start a new chat """
-        self.new_chat_button = QPushButton("Nuova Chat")
-        self.new_chat_button.clicked.connect(self.send_stop_chat_to_controller)
-        return self.new_chat_button
 
     def update_settings_label(self, settings):
         """ Called from Controller when new chat is started, return current settings """
@@ -46,11 +39,9 @@ class CurrentSettings(QObject):
             f"- {self.chat_id}\n- {self.current_llm}\n- {self.current_temperature}")
 
     def on_show_widgets(self):
-        """ Shows settings label and new chat button on call """
-        self.current_settings_label.show()
-        self.new_chat_button.show()
+        """ Shows settings label on call """
+        self.widget_container.show()
 
     def on_hide_widgets(self):
-        """ Hides settings label and new chat button on call """
-        self.current_settings_label.hide()
-        self.new_chat_button.hide()
+        """ Hides settings label on call """
+        self.widget_container.hide()
