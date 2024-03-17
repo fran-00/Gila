@@ -35,3 +35,5 @@ class WarningModal(Modal):
             html_content = file.read()
         self.modal_text.setTextFormat(Qt.TextFormat.RichText)
         self.modal_text.setText(html_content)
+        self.modal_text.setAlignment(Qt.AlignTop)
+        self.resize(500, 800)
