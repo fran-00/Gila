@@ -21,6 +21,7 @@ class ChangeSettingsModal(Modal):
         self.modal_text.setText("Modifica le impostazioni, saranno applicate all'avvio di una nuova chat.")
         self.on_llms_combobox()
         self.on_temperature_slider()
+        self.on_max_tokens_slider()
         self.on_confirm_button()
 
     def on_llms_combobox(self):
@@ -42,6 +43,20 @@ class ChangeSettingsModal(Modal):
         # self.temperature_slider.valueChanged.connect()
         self.modal_layout.addWidget(select_temperature_label)
         self.modal_layout.addWidget(self.temperature_slider)
+
+    def on_max_tokens_slider(self):
+        """
+        Forse imposto molto lunga, lunga, media e corta e assegno un valore ai veri
+        estremi direttamente nel client
+        """
+        select_tokens_label = QLabel("Massimo numero di Token")
+        self.tokens_slider = QSlider(Qt.Horizontal)
+        self.tokens_slider.setMinimum(0)
+        self.tokens_slider.setMaximum(20)
+        self.tokens_slider.setTickInterval(1)
+        self.tokens_slider.setSingleStep(1)
+        self.modal_layout.addWidget(select_tokens_label)
+        self.modal_layout.addWidget(self.tokens_slider)
 
     def on_confirm_button(self):
         """ Creates button to confirm llm selection """
