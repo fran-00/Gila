@@ -1,5 +1,6 @@
 from PySide6.QtCore import Signal
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QComboBox, QPushButton
+from PySide6.QtGui import Qt
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QComboBox, QPushButton, QSlider
 
 from .parent_modal import Modal
 
