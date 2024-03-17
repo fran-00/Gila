@@ -51,6 +51,9 @@ class ToolBar(QToolBar):
         settings_icon_path = "storage/assets/icons/settings.svg"
         self.settings_icon = QIcon()
         self.settings_icon.addFile(settings_icon_path)
+        info_icon_path = "storage/assets/icons/info.svg"
+        self.info_icon = QIcon()
+        self.info_icon.addFile(info_icon_path)
 
     def open_change_settings_modal(self):
         self.window.sidebar.change_settings_modal.exec_()
