@@ -29,6 +29,8 @@ class Chat(QObject):
     def on_chat_container(self):
         """ Creates Chat layout and calls methods that adds widgets """
         chat_layout = QVBoxLayout(self.widget_container)
+        self.title = QLabel("GILA")
+        chat_layout.addWidget(self.title)
         chat_layout.addWidget(self.log_widget, stretch=7)
         chat_layout.addLayout(self.prompt_layout.on_prompt_layout(), stretch=3)
         chat_layout.addLayout(self.on_prompt_info_layout())
@@ -90,6 +92,7 @@ class Chat(QObject):
 
     def on_show_chatlog(self):
         """ Shows chat widget and start chat button on call """
+        self.title.show()
         self.log_widget.show()
         self.num_of_words.show()
         self.num_of_tokens.show()
@@ -98,6 +101,7 @@ class Chat(QObject):
 
     def on_hide_chatlog(self):
         """ Hides chat widget and start chat button on call """
+        self.title.hide()
         self.log_widget.hide()
         self.num_of_words.hide()
         self.num_of_tokens.hide()
