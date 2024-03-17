@@ -97,6 +97,7 @@ class AIManager(QObject):
             # Due to pickle limitation we have to get the client from its name
             self.client = AVAILABLE_MODELS.get(chat["llm_name"])
             self.client.chat_id = chat_id
+            self.client.chat_custom_name = chat["chat_custom_name"]
             self.client.llm_name = chat["llm_name"]
             self.client.temperature = chat["temperature"]
             self.client.chat_history = chat["chat_history"]
