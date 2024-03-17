@@ -68,6 +68,10 @@ class StoredChats(QObject):
         self.chat_marked_for_deletion = chat_id
         self.confirm_modal.exec_()
 
+    def rename_stored_chat(self, new_name):
+        """ TODO: Write the logic to update button name here """
+        pass
+
     def update_chats_list(self):
         for i in reversed(range(self.stored_chats_layout.count())):
             self.stored_chats_layout.itemAt(i).layout().deleteLater()
