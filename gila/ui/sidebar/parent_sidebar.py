@@ -24,13 +24,14 @@ class Sidebar(QObject):
         sidebar_layout = QVBoxLayout(self.widget_container)
         sidebar_layout.addWidget(self.stored_chats.scroll_area)
         sidebar_layout.addWidget(self.current_settings.widget_container)
-        sidebar_layout.addWidget(self.on_change_settings_button())
+        sidebar_layout.addWidget(self.on_new_chat_button())
         self.current_settings.on_hide_widgets()
 
-    def on_change_settings_button(self):
-        change_settings_button = QPushButton("Modifica impostazioni")
-        change_settings_button.clicked.connect(self.open_change_settings_modal)
-        return change_settings_button
+    def on_new_chat_button(self):
+        """ Creates a button to start a new chat """
+        self.new_chat_button = QPushButton("Nuova Chat")
+        self.new_chat_button.clicked.connect(self.send_stop_chat_to_controller)
+        return self.new_chat_button
 
     def open_change_settings_modal(self):
         self.change_settings_modal.exec_()
