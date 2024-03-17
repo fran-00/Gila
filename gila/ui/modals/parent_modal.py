@@ -1,5 +1,5 @@
 from PySide6.QtCore import Signal
-from PySide6.QtWidgets import QDialog, QPushButton
+from PySide6.QtWidgets import QDialog, QPushButton, QLabel
 
 
 class Modal(QDialog):
@@ -15,6 +15,11 @@ class Modal(QDialog):
         """ Loads CSS File to apply style to Modal Window """
         with open("storage/assets/modal-styles.css", "r") as file:
             return file.read()
+
+    def on_modal_text(self):
+        self.modal_text = QLabel("Messaggio da sovrascrivere.", objectName="modal_text")
+        self.modal_text.setWordWrap(True)
+        self.modal_layout.addWidget(self.modal_text)
 
     def on_dismiss_button(self):
         self.modal_button = QPushButton("OK", self)
