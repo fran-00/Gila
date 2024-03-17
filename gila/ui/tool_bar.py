@@ -14,6 +14,7 @@ class ToolBar(QToolBar):
         self.on_save_chatlog_action()
         self.on_manage_api_keys_action()
         self.on_chat_settings_action()
+        self.on_open_info_modal_action()
 
     def on_save_chatlog_action(self):
         save_action = QAction(self.save_icon, "&Esporta Conversazione", self)
@@ -33,6 +34,12 @@ class ToolBar(QToolBar):
         chat_settings_action.setStatusTip('Modifica Impostazioni Chat')
         chat_settings_action.triggered.connect(self.open_change_settings_modal)
         self.addAction(chat_settings_action)
+
+    def on_open_info_modal_action(self):
+        info_action = QAction(self.info_icon, "&Informazioni", self)
+        info_action.setStatusTip('Informazioni')
+        info_action.triggered.connect(self.open_info_modal)
+        self.addAction(info_action)
 
     def set_icons(self):
         save_icon_path = "storage/assets/icons/floppy.svg"
@@ -84,3 +91,6 @@ class ToolBar(QToolBar):
         canvas.setFont("Times-Roman", 12)
         canvas.drawString(100, 750, text)
         canvas.save()
+
+    def open_info_modal(self):
+        print("Info Modal Called!")
