@@ -122,6 +122,7 @@ class AIManager(QObject):
     def save_current_chat(self):
         data = {
             self.client.chat_id: {
+                "chat_custom_name" : self.client.chat_custom_name,
                 "llm_name": self.client.llm_name,
                 "temperature": self.client.temperature,
                 "chat_history": self.client.chat_history,
