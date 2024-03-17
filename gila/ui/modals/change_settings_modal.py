@@ -21,6 +21,7 @@ class ChangeSettingsModal(Modal):
         self.modal_text.setWordWrap(True)
         self.modal_layout.addWidget(self.modal_text)
         self.on_llms_combobox()
+        self.on_temperature_slider()
         self.on_confirm_button()
 
     def on_llms_combobox(self):
@@ -31,6 +32,17 @@ class ChangeSettingsModal(Modal):
             self.llms_combobox.addItem(llm)
         self.modal_layout.addWidget(select_llm_label)
         self.modal_layout.addWidget(self.llms_combobox)
+
+    def on_temperature_slider(self):
+        select_temperature_label = QLabel("Temperatura")
+        self.temperature_slider = QSlider(Qt.Horizontal)
+        self.temperature_slider.setMinimum(0)
+        self.temperature_slider.setMaximum(20)
+        self.temperature_slider.setTickInterval(1)
+        self.temperature_slider.setSingleStep(1)
+        # self.temperature_slider.valueChanged.connect()
+        self.modal_layout.addWidget(select_temperature_label)
+        self.modal_layout.addWidget(self.temperature_slider)
 
     def on_confirm_button(self):
         """ Creates button to confirm llm selection """
