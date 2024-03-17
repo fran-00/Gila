@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QVBoxLayout, QLabel
+from PySide6.QtWidgets import QVBoxLayout
 
 from .parent_modal import Modal
 
@@ -13,9 +13,7 @@ class WarningModal(Modal):
     def on_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
-        self.modal_text = QLabel("Messaggio di avviso da sovrascrivere.")
-        self.modal_text.setWordWrap(True)
-        self.modal_layout.addWidget(self.modal_text)
+        self.on_modal_text()
         self.on_dismiss_button()
 
     def on_label(self, message):
