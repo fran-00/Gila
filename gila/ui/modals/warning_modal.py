@@ -1,3 +1,4 @@
+from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QVBoxLayout
 
 from .parent_modal import Modal
@@ -27,3 +28,10 @@ class WarningModal(Modal):
 
     def on_key_is_not_valid_label(self):
         self.modal_text.setText("La chiave API che hai inserito non è valida, riprova.")
+
+    def on_info_label(self):
+        """ Parse an HTML file to show info to user """
+        with open("storage/about.html", 'r') as file:
+            html_content = file.read()
+        self.modal_text.setTextFormat(Qt.TextFormat.RichText)
+        self.modal_text.setText(html_content)
