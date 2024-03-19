@@ -2,7 +2,7 @@
 QWidget {
     background-color: #004872;
     color: #ffffff;
-    font-family: 'Consolas', sans-serif;
+    font-family: 'Gill Sans', sans-serif;
     font-size: 16px;
     border-radius: 4px;
 }
@@ -38,7 +38,6 @@ QWidget#chat_container {
 
 QStatusBar {
     background-color: #003452;
-    font-family: 'Courier New', monospace;
     font-size: 16px;
 }
 
@@ -69,7 +68,6 @@ QLineEdit:hover {
 
 /* Generic Button */
 QPushButton {
-    font-family: 'Consolas', sans-serif;
     background-color: #D6943C;
     color: #003757;
     padding: 6px 0px;
