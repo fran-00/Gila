@@ -37,7 +37,8 @@ class GoogleClient(APIClient):
             response_text = ""
             for chunk in response:
                 response_text += chunk.text
-            return True, response_text
+            response_info = {"total_tokens": self.model.count_tokens(self.chat_history)}
+            return True, response_text, response_info
         except GoogleAPIError as e:
             return False, e.message, None
 
