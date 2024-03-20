@@ -31,6 +31,7 @@ class Chat(QObject):
         chat_layout = QVBoxLayout(self.widget_container)
         self.title = QLabel("GILA")
         chat_layout.addWidget(self.title)
+        chat_layout.addLayout(self.on_chatlog_info_layout())
         chat_layout.addWidget(self.log_widget, stretch=7)
         chat_layout.addLayout(self.prompt_layout.on_prompt_layout(), stretch=3)
         chat_layout.addLayout(self.on_prompt_info_layout())
@@ -107,6 +108,9 @@ class Chat(QObject):
         """ Shows chat widget and start chat button on call """
         self.title.show()
         self.log_widget.show()
+        self.first_label.show()
+        self.second_label.show()
+        self.third_label.show()
         self.num_of_words.show()
         self.num_of_tokens.show()
         self.gila_image.hide()
@@ -116,6 +120,9 @@ class Chat(QObject):
         """ Hides chat widget and start chat button on call """
         self.title.hide()
         self.log_widget.hide()
+        self.first_label.hide()
+        self.second_label.hide()
+        self.third_label.hide()
         self.num_of_words.hide()
         self.num_of_tokens.hide()
         self.gila_image.show()
