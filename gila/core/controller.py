@@ -4,7 +4,7 @@ from PySide6.QtCore import QObject, Signal, Slot
 class Controller(QObject):
     user_prompt_to_model = Signal(str)
     ai_response_to_chatlog = Signal(str)
-    response_info_to_sidebar = Signal(dict)
+    response_info_to_chatlog = Signal(dict)
     selected_client_to_manager = Signal(str)
     new_chat_started_to_model = Signal()
     update_status_bar = Signal(str)
@@ -47,8 +47,8 @@ class Controller(QObject):
         # Connect CONTROLLER's signals to VIEW's slots
         self.ai_response_to_chatlog.connect(
             self.view.chat.get_ai_response_slot)
-        self.response_info_to_sidebar.connect(
-            self.view.sidebar.get_response_info_slot)
+        self.response_info_to_chatlog.connect(
+            self.view.chat.get_response_info_slot)
         self.update_status_bar.connect(
             self.view.status_bar.on_status_update_slot)
         self.missing_api_key_to_view.connect(
@@ -97,11 +97,11 @@ class Controller(QObject):
         Connected to one signal:
             - model.response_info_signal_to_controller
         Emits two signals:
-            - response_info_to_sidebar (view.chat.get_ai_response_slot)
+            - response_info_to_chatlog (view.chat.get_ai_response_slot)
 
         Receive response info from the MODEL and send it to SIDEBAR
         """
-        self.response_info_to_sidebar.emit(response_info)
+        self.response_info_to_chatlog.emit(response_info)
 
     @Slot(str)
     def user_prompt_slot(self, user_prompt):
