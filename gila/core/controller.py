@@ -47,6 +47,8 @@ class Controller(QObject):
         # Connect CONTROLLER's signals to VIEW's slots
         self.ai_response_to_chatlog.connect(
             self.view.chat.get_ai_response_slot)
+        self.response_info_to_sidebar.connect(
+            self.view.sidebar.get_response_info_slot)
         self.update_status_bar.connect(
             self.view.status_bar.on_status_update_slot)
         self.missing_api_key_to_view.connect(
