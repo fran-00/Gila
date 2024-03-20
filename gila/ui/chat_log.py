@@ -47,6 +47,16 @@ class Chat(QObject):
         self.prompt_info_layout.addWidget(self.num_of_tokens)
         return self.prompt_info_layout
 
+    def on_chatlog_info_layout(self):
+        self.chatlog_info_layout = QHBoxLayout()
+        self.first_label = QLabel("")
+        self.second_label = QLabel("")
+        self.third_label = QLabel("")
+        self.chatlog_info_layout.addWidget(self.first_label)
+        self.chatlog_info_layout.addWidget(self.second_label)
+        self.chatlog_info_layout.addWidget(self.third_label)
+        return self.chatlog_info_layout
+
     def words_counter(self):
         text = self.prompt_layout.prompt_box.toPlainText()
         word_count = len(text.split())
