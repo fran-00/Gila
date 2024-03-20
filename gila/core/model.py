@@ -14,7 +14,7 @@ class MainThread(QThread):
 
 
 class Model(QObject):
-    ai_response_signal_to_controller = Signal(str)
+    response_message_signal_to_controller = Signal(str)
     response_info_signal_to_controller = Signal(dict)
     start_new_chat_to_controller = Signal()
     connection_error_to_controller = Signal()
@@ -41,7 +41,7 @@ class Model(QObject):
             response_message = ai_response[1]
             response_info = ai_response[2]
             if no_errors is True:
-                self.ai_response_signal_to_controller.emit(response_message)
+                self.response_message_signal_to_controller.emit(response_message)
                 self.response_info_signal_to_controller.emit(response_info)
             elif no_errors is False:
                 if "Connection" in response_message:

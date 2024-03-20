@@ -112,10 +112,10 @@ class Chat(QObject):
         self.start_chat_button.show()
 
     @Slot(str)
-    def get_ai_response_slot(self, response):
+    def get_response_message_slot(self, response):
         """ Slot
         Connected to one signal:
-            - controller.ai_response_to_chatlog
+            - controller.response_message_to_chatlog
         Adds API response to Chat Log
         """
         self.prompt_layout.send_button.setEnabled(True)

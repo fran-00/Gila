@@ -3,7 +3,7 @@ from PySide6.QtCore import QObject, Signal, Slot
 
 class Controller(QObject):
     user_prompt_to_model = Signal(str)
-    ai_response_to_chatlog = Signal(str)
+    response_message_to_chatlog = Signal(str)
     response_info_to_chatlog = Signal(dict)
     selected_client_to_manager = Signal(str)
     new_chat_started_to_model = Signal()
@@ -30,8 +30,8 @@ class Controller(QObject):
         self.loading_saved_chat_id_to_manager.connect(self.model.manager.restore_chat_from_id_slot)
 
         # Connect MODEL's signals to CONTROLLER's slots
-        self.model.ai_response_signal_to_controller.connect(
-            self.ai_response_slot)
+        self.model.response_message_signal_to_controller.connect(
+            self.response_message_slot)
         self.model.response_info_signal_to_controller.connect(
             self.response_info_slot)
         self.model.start_new_chat_to_controller.connect(
@@ -45,8 +45,8 @@ class Controller(QObject):
 
     def connect_view(self):
         # Connect CONTROLLER's signals to VIEW's slots
-        self.ai_response_to_chatlog.connect(
-            self.view.chat.get_ai_response_slot)
+        self.response_message_to_chatlog.connect(
+            self.view.chat.get_response_message_slot)
         self.response_info_to_chatlog.connect(
             self.view.chat.get_response_info_slot)
         self.update_status_bar.connect(
@@ -77,17 +77,17 @@ class Controller(QObject):
             self.view.status_bar.on_status_update_slot)
 
     @Slot(str)
-    def ai_response_slot(self, ai_response):
+    def response_message_slot(self, response_message):
         """ Slot
         Connected to one signal:
-            - model.ai_response_signal_to_controller
+            - model.response_message_signal_to_controller
         Emits two signals:
-            - ai_response_to_chatlog (view.chat.get_ai_response_slot)
+            - response_message_to_chatlog (view.chat.get_response_message_slot)
             - update_status_bar (view.status_bar.on_status_update_slot)
 
         Receive AI response from the MODEL and send it to CHATLOG
         """
-        self.ai_response_to_chatlog.emit(ai_response)
+        self.response_message_to_chatlog.emit(response_message)
         self.update_status_bar.emit(
             "Risposta ricevuta. In attesa di un nuovo messaggio...")
 
@@ -97,7 +97,7 @@ class Controller(QObject):
         Connected to one signal:
             - model.response_info_signal_to_controller
         Emits two signals:
-            - response_info_to_chatlog (view.chat.get_ai_response_slot)
+            - response_info_to_chatlog (view.chat.get_response_message_slot)
 
         Receive response info from the MODEL and send it to SIDEBAR
         """
