@@ -1,4 +1,4 @@
-from PySide6.QtCore import QObject, Signal
+from PySide6.QtCore import QObject, Signal, Slot
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton
 
 from .stored_chats import StoredChats
@@ -48,3 +48,7 @@ class Sidebar(QObject):
     def on_hide_widgets(self):
         """ Hides new chat button on call """
         self.new_chat_button.hide()
+
+    @Slot(dict)
+    def get_response_info_slot(self, response_info):
+        print(f"Slot: {response_info}")
