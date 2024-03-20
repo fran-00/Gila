@@ -87,6 +87,18 @@ class Controller(QObject):
         self.update_status_bar.emit(
             "Risposta ricevuta. In attesa di un nuovo messaggio...")
 
+    @Slot(dict)
+    def response_info_slot(self, response_info):
+        """ Slot
+        Connected to one signal:
+            - model.response_info_signal_to_controller
+        Emits two signals:
+            - response_info_to_sidebar (view.chat.get_ai_response_slot)
+
+        Receive response info from the MODEL and send it to SIDEBAR
+        """
+        self.response_info_to_sidebar.emit(response_info)
+
     @Slot(str)
     def user_prompt_slot(self, user_prompt):
         """ Slot
