@@ -122,6 +122,10 @@ class Chat(QObject):
         QApplication.restoreOverrideCursor()
         self.log_widget.append(f"<b>Assistente</b>: {response}")
 
+    @Slot(dict)
+    def get_response_info_slot(self, response_info):
+        print(f"Slot: {response_info}")
+
     def chatlog_has_text(self):
         """ Returns True if log_widget has text, else False """
         return bool(self.log_widget.toPlainText())
