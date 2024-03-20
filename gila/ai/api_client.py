@@ -11,6 +11,7 @@ class APIClient:
         self.llm = llm
         self.llm_name = None
         self.temperature = None
+        self.max_tokens = None
         self.chat_history = None
         self.api_key = None
         self.chat_id = None
