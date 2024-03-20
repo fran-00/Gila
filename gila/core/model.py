@@ -37,13 +37,17 @@ class Model(QObject):
                 self.start_new_chat_to_controller.emit()
                 break
             ai_response = self.client.submit_prompt(self.prompt)
-            if ai_response[0] is True:
-                self.ai_response_signal_to_controller.emit(ai_response[1])
-            elif ai_response[0] is False:
-                if "Connection" in ai_response[1]:
+            no_errors = ai_response[0]
+            response_message = ai_response[1]
+            response_info = ai_response[2]
+            if no_errors is True:
+                self.ai_response_signal_to_controller.emit(response_message)
+                self.response_info_signal_to_controller.emit(response_info)
+            elif no_errors is False:
+                if "Connection" in response_message:
                     self.connection_error_to_controller.emit()
                 else:
-                    self.generic_error_to_controller.emit(ai_response[1])
+                    self.generic_error_to_controller.emit(response_message)
 
     def stop(self):
         self.event_loop.exit()
