@@ -21,10 +21,14 @@ class OpenAIClient(APIClient):
                 model=self.llm,
                 messages=self.chat_history
             )
-
+            response_info = {
+                "prompt_tokens": response.usage.prompt_tokens,
+                "completion_tokens": response.usage.completion_tokens,
+                "total_tokens": response.usage.total_tokens,
+            }
             ai_response = response.choices[0].message.content
             self.chat_history.append({"role": "assistant", "content": ai_response})
-            return True, ai_response
+            return True, ai_response, response_info
         except openai.APIError as e:
             return False, e.message
 
