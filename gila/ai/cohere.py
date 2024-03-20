@@ -22,12 +22,17 @@ class CohereClient(APIClient):
                 chat_history=self.chat_history
             )
             answer = response.text
+            response_info = {
+                "prompt_tokens": response.token_count["prompt_tokens"],
+                "total_tokens": response.token_count["total_tokens"],
+                "billed_tokens": response.token_count["billed_tokens"]
+            }
             user_message = {"user_name": "User", "text": prompt}
             bot_message = {"user_name": "Chatbot", "text": answer}
 
             self.chat_history.append(user_message)
             self.chat_history.append(bot_message)
-            return True, answer
+            return True, answer, response_info
         except cohere.error.CohereConnectionError as e:
             return False, e.message
 
