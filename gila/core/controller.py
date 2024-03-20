@@ -4,6 +4,7 @@ from PySide6.QtCore import QObject, Signal, Slot
 class Controller(QObject):
     user_prompt_to_model = Signal(str)
     ai_response_to_chatlog = Signal(str)
+    response_info_to_sidebar = Signal(dict)
     selected_client_to_manager = Signal(str)
     new_chat_started_to_model = Signal()
     update_status_bar = Signal(str)
