@@ -15,6 +15,7 @@ class MainThread(QThread):
 
 class Model(QObject):
     ai_response_signal_to_controller = Signal(str)
+    response_info_signal_to_controller = Signal(dict)
     start_new_chat_to_controller = Signal()
     connection_error_to_controller = Signal()
     generic_error_to_controller = Signal(str)
