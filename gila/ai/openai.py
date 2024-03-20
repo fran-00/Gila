@@ -30,7 +30,7 @@ class OpenAIClient(APIClient):
             self.chat_history.append({"role": "assistant", "content": ai_response})
             return True, ai_response, response_info
         except openai.APIError as e:
-            return False, e.message
+            return False, e.message, None
 
     def on_chat_reset(self):
         self.chat_history = [{"role": "system", "content": "You are a helpful assistant."}]

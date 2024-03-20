@@ -39,7 +39,7 @@ class GoogleClient(APIClient):
                 response_text += chunk.text
             return True, response_text
         except GoogleAPIError as e:
-            return False, e.message
+            return False, e.message, None
 
     def on_chat_reset(self):
         self.chat_messages = self.model.start_chat(history=[])
