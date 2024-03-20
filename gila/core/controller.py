@@ -32,6 +32,8 @@ class Controller(QObject):
         # Connect MODEL's signals to CONTROLLER's slots
         self.model.ai_response_signal_to_controller.connect(
             self.ai_response_slot)
+        self.model.response_info_signal_to_controller.connect(
+            self.response_info_slot)
         self.model.start_new_chat_to_controller.connect(
             self.new_chat_started_slot)
         self.model.connection_error_to_controller.connect(
