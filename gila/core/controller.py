@@ -141,7 +141,6 @@ class Controller(QObject):
         else:
             # Chat must be saved only if it's not empty
             if self.view.chat.chatlog_has_text():
-                print("> Saving the chat...")
                 self.model.manager.save_current_chat()
                 self.view.sidebar.stored_chats.update_chats_list()
                 self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
