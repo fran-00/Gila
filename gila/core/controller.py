@@ -172,6 +172,7 @@ class Controller(QObject):
             self.model.manager.on_current_settings())
         self.view.chat.update_chat_title()
         self.view.chat.on_response_info_labels_reset()
+        self.view.sidebar.stored_chats.current_chat_id = self.model.manager.client.chat_id
         # If there is connection, start a new conversation
         if self.model.manager.check_internet_connection():
             self.model.manager.stream_stopped = False
