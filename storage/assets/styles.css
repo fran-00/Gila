@@ -43,6 +43,12 @@ QStatusBar {
 
 QLabel {
     background-color: #00578b;
+    font-size: 14px;
+}
+
+QLabel#chat_title_label {
+    font-size: 16px;
+    font-weight: 600;
 }
 
 QWidget#start_image {
