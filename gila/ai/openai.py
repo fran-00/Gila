@@ -22,9 +22,9 @@ class OpenAIClient(APIClient):
                 messages=self.chat_history
             )
             response_info = {
-                "prompt_tokens": response.usage.prompt_tokens,
-                "completion_tokens": response.usage.completion_tokens,
-                "total_tokens": response.usage.total_tokens,
+                "Token richiesta": response.usage.prompt_tokens,
+                "Token completamento": response.usage.completion_tokens,
+                "Token totali": response.usage.total_tokens,
             }
             ai_response = response.choices[0].message.content
             self.chat_history.append({"role": "assistant", "content": ai_response})
