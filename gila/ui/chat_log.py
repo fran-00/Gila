@@ -53,6 +53,7 @@ class Chat(QObject):
         self.first_label = QLabel("")
         self.second_label = QLabel("")
         self.third_label = QLabel("")
+        self.chatlog_info_labels = [self.first_label, self.second_label, self.third_label]
         self.chatlog_info_layout.addWidget(self.first_label)
         self.chatlog_info_layout.addWidget(self.second_label)
         self.chatlog_info_layout.addWidget(self.third_label)
@@ -141,7 +142,8 @@ class Chat(QObject):
 
     @Slot(dict)
     def get_response_info_slot(self, response_info):
-        print(f"Slot: {response_info}")
+        for i, (key, value) in enumerate(response_info.items()):
+            self.chatlog_info_labels[i].setText(f"{key}: {value}")
 
     def chatlog_has_text(self):
         """ Returns True if log_widget has text, else False """
