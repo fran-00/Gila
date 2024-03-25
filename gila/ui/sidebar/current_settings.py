@@ -13,7 +13,7 @@ class CurrentSettings(QObject):
             "GPT-4",
             "GPT-4 Turbo",
             "GPT-3.5 Turbo",
-            "Gemini Pro",
+            # "Gemini Pro",
             "Cohere Chat"
         ]
         self.widget_container = QWidget(objectName="current_settings_widget")

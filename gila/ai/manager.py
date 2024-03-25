@@ -5,7 +5,7 @@ import requests
 from PySide6.QtCore import QObject, Slot, Signal
 
 from .openai import OpenAIClient
-from .google import GoogleClient
+# from .google import GoogleClient
 from .cohere import CohereClient
 
 
@@ -13,13 +13,13 @@ AVAILABLE_MODELS = {
         "GPT-4": OpenAIClient("gpt-4"),
         "GPT-4 Turbo": OpenAIClient("gpt-4-turbo-preview"),
         "GPT-3.5 Turbo": OpenAIClient("gpt-3.5-turbo"),
-        "Gemini Pro": GoogleClient("gemini-pro"),
+        # "Gemini Pro": GoogleClient("gemini-pro"),
         "Cohere Chat": CohereClient("cohere-chat"),
 }
 
 COMPANIES = {
         "OPENAI": OpenAIClient("gpt-3.5-turbo"),
-        "GOOGLE": GoogleClient("gemini-pro"),
+        # "GOOGLE": GoogleClient("gemini-pro"),
         "COHERE": CohereClient("cohere-chat"),
 }
 
