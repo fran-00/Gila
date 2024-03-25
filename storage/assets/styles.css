@@ -51,6 +51,10 @@ QLabel#chat_title_label {
     font-weight: 600;
 }
 
+QLabel.chatlog_info_labels {
+    padding-left: 2px;
+}
+
 QWidget#start_image {
     background-color: #002b44;
 }
