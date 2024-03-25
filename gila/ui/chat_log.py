@@ -143,6 +143,10 @@ class Chat(QObject):
         for i, (key, value) in enumerate(response_info.items()):
             self.chatlog_info_labels[i].setText(f"{key}: {value}")
 
+    def on_response_info_labels_reset(self):
+        for label in self.chatlog_info_labels:
+            label.setText("")
+
     def chatlog_has_text(self):
         """ Returns True if log_widget has text, else False """
         return bool(self.log_widget.toPlainText())
