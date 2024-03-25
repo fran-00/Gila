@@ -258,5 +258,4 @@ class Controller(QObject):
         if self.view.chat.chatlog_has_text():
             self.model.manager.save_current_chat()
             self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
-        print("Main Window was closed")
         self.main_thread.stop()
