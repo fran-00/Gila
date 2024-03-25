@@ -60,11 +60,14 @@ class StoredChats(QObject):
         """ MUST ONLY restore chatlog, other data must be parsed directly from manager on signal receiving
             otherwise they won't fit in a single signal if sent from here
         """
-        with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
-            saved_data = pickle.load(file)
-            chat = saved_data[chat_id]
-            self.chatlog = chat["chat_log"]
-        self.loading_saved_chat_id_to_controller.emit(chat_id)
+        # Checks if requested chat is already open. If so, ignores the loading
+        if chat_id != self.current_chat_id:
+            with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
+                saved_data = pickle.load(file)
+                chat = saved_data[chat_id]
+                self.chatlog = chat["chat_log"]
+            self.current_chat_id = chat_id
+            self.loading_saved_chat_id_to_controller.emit(chat_id)
 
     def open_confirm_chat_deletion_modal(self, chat_id):
         """Triggers a modal that asks to confirm before deleting """
