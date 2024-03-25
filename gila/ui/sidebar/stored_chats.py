@@ -18,6 +18,7 @@ class StoredChats(QObject):
         self.parent_widget = parent_widget
         self.widget_container = QWidget(objectName="stored_chats_widget")
         self.chatlog = None
+        self.current_chat_id = None
         self.rename_modal = RenameChatModal(self.parent_widget.window, self)
         self.confirm_modal = ConfirmChatDeletionModal(self.parent_widget.window, self)
         self.chat_marked_for_renaming = None
