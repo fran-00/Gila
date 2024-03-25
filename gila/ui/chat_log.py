@@ -109,9 +109,8 @@ class Chat(QObject):
         """ Shows chat widget and start chat button on call """
         self.title.show()
         self.log_widget.show()
-        self.first_label.show()
-        self.second_label.show()
-        self.third_label.show()
+        for label in self.chatlog_info_labels:
+            label.show()
         self.num_of_words.show()
         self.num_of_tokens.show()
         self.gila_image.hide()
@@ -121,9 +120,8 @@ class Chat(QObject):
         """ Hides chat widget and start chat button on call """
         self.title.hide()
         self.log_widget.hide()
-        self.first_label.hide()
-        self.second_label.hide()
-        self.third_label.hide()
+        for label in self.chatlog_info_labels:
+            label.hide()
         self.num_of_words.hide()
         self.num_of_tokens.hide()
         self.gila_image.show()
