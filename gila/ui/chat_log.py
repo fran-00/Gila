@@ -29,7 +29,8 @@ class Chat(QObject):
     def on_chat_container(self):
         """ Creates Chat layout and calls methods that adds widgets """
         chat_layout = QVBoxLayout(self.widget_container)
-        self.title = QLabel("GILA")
+        self.title = QLabel("GILA", objectName="chat_title_label")
+        self.title.setAlignment(Qt.AlignCenter)
         chat_layout.addWidget(self.title)
         chat_layout.addLayout(self.on_chatlog_info_layout())
         chat_layout.addWidget(self.log_widget, stretch=7)
