@@ -60,7 +60,6 @@ APIs do have rate limits. To know more:
 - [ ] Chat log must use markdown instead of html to parse styled responses.
 - [ ] User must be able to choose response max length (very short, short, medium, long).
 - [ ] Last used settings must be saved to an external file for future use, like the current llm, temperature and maximum number of tokens.
-- [ ] Add a warning that warns user to activate a VPN if Gemini is selected.
 - [ ] Add the ability to change the lenght of the response.
 - [ ] Add a token counter, at least for OpenAI. Use [tiktoken](https://github.com/openai/tiktoken).
 - [ ] Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/). (How do releases work in GitHub?)
