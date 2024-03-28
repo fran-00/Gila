@@ -94,14 +94,14 @@ class AIManager(QObject):
         with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
             saved_data = pickle.load(file)
             chat = saved_data[chat_id]
-            # Due to pickle limitation we have to get the client from its name
-            self.client = AVAILABLE_MODELS.get(chat["llm_name"])
-            self.client.chat_id = chat_id
-            self.client.chat_custom_name = chat["chat_custom_name"]
-            self.client.llm_name = chat["llm_name"]
-            self.client.temperature = chat["temperature"]
-            self.client.max_tokens = chat["max_tokens"]
-            self.client.chat_history = chat["chat_history"]
+        # Due to pickle limitation we have to get the client from its name
+        self.client = AVAILABLE_MODELS.get(chat["llm_name"])
+        self.client.chat_id = chat_id
+        self.client.chat_custom_name = chat["chat_custom_name"]
+        self.client.llm_name = chat["llm_name"]
+        self.client.temperature = chat["temperature"]
+        self.client.max_tokens = chat["max_tokens"]
+        self.client.chat_history = chat["chat_history"]
 
     def on_current_settings(self):
         """ Return current client's settings """
