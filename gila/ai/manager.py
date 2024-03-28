@@ -90,7 +90,6 @@ class AIManager(QObject):
             - controller.loading_saved_chat_id_to_manager
         Reads saved chats settings from file and applies them to client
         """
-        print(f"chat id slot for {chat_id} was called!")
         with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
             saved_data = pickle.load(file)
             chat = saved_data[chat_id]
