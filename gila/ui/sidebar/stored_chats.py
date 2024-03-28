@@ -73,6 +73,10 @@ class StoredChats(QObject):
     def open_confirm_chat_deletion_modal(self, chat_id):
         """Triggers a modal that asks to confirm before deleting """
         self.chat_marked_for_deletion = chat_id
+        if self.chat_marked_for_deletion == self.current_chat_id:
+            self.parent_class.window.warning_modal.on_deleting_current_chat_label()
+            self.parent_class.window.warning_modal.exec_()
+            return
         self.confirm_modal.exec_()
 
     def rename_stored_chat(self, new_name):
