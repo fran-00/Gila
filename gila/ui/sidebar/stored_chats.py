@@ -13,14 +13,14 @@ from ..modals.confirm_chat_deletion_modal import ConfirmChatDeletionModal
 class StoredChats(QObject):
     loading_saved_chat_id_to_controller = Signal(str)
 
-    def __init__(self, parent_widget):
+    def __init__(self, parent_class):
         super().__init__()
-        self.parent_widget = parent_widget
+        self.parent_class = parent_class
         self.widget_container = QWidget(objectName="stored_chats_widget")
         self.chatlog = None
         self.current_chat_id = None
-        self.rename_modal = RenameChatModal(self.parent_widget.window, self)
-        self.confirm_modal = ConfirmChatDeletionModal(self.parent_widget.window, self)
+        self.rename_modal = RenameChatModal(self.parent_class.window, self)
+        self.confirm_modal = ConfirmChatDeletionModal(self.parent_class.window, self)
         self.chat_marked_for_renaming = None
         self.chat_marked_for_deletion = None
         self.on_stored_chats_layout()

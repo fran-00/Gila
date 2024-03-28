@@ -14,7 +14,7 @@ class Sidebar(QObject):
         self.window = window
         self.widget_container = QWidget(objectName="sidebar_container")
         self.widget_container.setFixedWidth(300)
-        self.stored_chats = StoredChats(self.widget_container)
+        self.stored_chats = StoredChats(self)
         self.current_settings = CurrentSettings(self.widget_container)
         self.change_settings_modal = ChangeSettingsModal(self.window, self.current_settings)
         self.on_sidebar_container()
