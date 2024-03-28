@@ -29,6 +29,9 @@ class WarningModal(Modal):
     def on_key_is_not_valid_label(self):
         self.modal_text.setText("La chiave API che hai inserito non è valida, riprova.")
 
+    def on_deleting_current_chat_label(self):
+        self.modal_text.setText("Non puoi eliminare una chat in corso!\nAvvia una nuova conversazione o caricane un'altra e riprova.")
+
     def on_info_label(self):
         """ Parse an HTML file to show info to user """
         with open("storage/about.html", 'r') as file:
