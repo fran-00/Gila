@@ -33,7 +33,7 @@ class StoredChats(QObject):
         self.scroll_area.setWidgetResizable(True)
         self.create_chats_list()
 
-    def add_stored_chat_button(self, chat_id, custom_name):
+    def add_stored_chat_button(self, chat_id, custom_name=None):
         """ Adds an horizzontal layout with a button to delete a stored chat,
             a button to rename it and a button to delete it
         """
