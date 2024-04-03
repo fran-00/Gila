@@ -31,7 +31,7 @@ class StoredChats(QObject):
         self.scroll_area = QScrollArea()
         self.scroll_area.setWidget(self.widget_container)
         self.scroll_area.setWidgetResizable(True)
-        self.update_chats_list()
+        self.create_chats_list()
 
     def add_stored_chat_button(self, chat_id, custom_name):
         """ Adds an horizzontal layout with a button to delete a stored chat,
@@ -90,10 +90,7 @@ class StoredChats(QObject):
         with open(f'storage/saved_data/{self.chat_marked_for_renaming}.pk', 'wb') as file:
             pickle.dump(saved_data, file)
 
-    def update_chats_list(self):
-        for i in reversed(range(self.stored_chats_layout.count())):
-            self.stored_chats_layout.itemAt(i).layout().deleteLater()
-            self.stored_chats_layout.itemAt(i).layout().setParent(None)
+    def create_chats_list(self):
         chats = os.listdir("storage/saved_data")
         for file in chats:
             chat_id = re.sub(r'\.pk$', '', file)
