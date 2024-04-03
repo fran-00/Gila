@@ -37,6 +37,9 @@ class StoredChats(QObject):
         """ Adds an horizzontal layout with a button to delete a stored chat,
             a button to rename it and a button to delete it
         """
+        # If this chat is already saved, skips button's creation
+        if same_name_button := self.widget_container.findChild(QPushButton, f"{chat_id}_button"):
+            return
         stored_chat_row = QHBoxLayout(objectName=f"{chat_id}_layout")
         if custom_name is not None:
             button = QPushButton(custom_name, objectName=f"{chat_id}_button")
