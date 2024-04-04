@@ -15,6 +15,7 @@ class APIClient:
         self.chat_history = None
         self.api_key = None
         self.chat_id = None
+        self.chat_date = None
         self.chat_custom_name = None
 
     def check_if_api_key(self, company_name):
