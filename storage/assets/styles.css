@@ -59,6 +59,10 @@ QWidget#start_image {
     background-color: #002b44;
 }
 
+QLabel#placeholder_label {
+    font-weight: 600;
+}
+
 /* Chat Log */
 QTextEdit {
     font-family: 'Garamond', serif;
