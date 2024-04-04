@@ -122,7 +122,7 @@ class AIManager(QObject):
             return False
 
     def save_current_chat(self):
-        date = datetime.now().strftime(f"%d-%m-%y-%H-%M-%S")
+        date = datetime.now().strftime(f"%d-%m-%y %H:%M:%S")
         data = {
             self.client.chat_id: {
                 "chat_custom_name" : self.client.chat_custom_name,
