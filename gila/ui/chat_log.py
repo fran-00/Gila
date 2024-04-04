@@ -156,6 +156,14 @@ class Chat(QObject):
         """ Returns True if log_widget has text, else False """
         return bool(self.log_widget.toPlainText())
 
+    def chatlog_has_changed(self, chat_id):
+        with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
+            saved_data = pickle.load(file)
+        chat_log = saved_data[chat_id]["chat_log"]
+        if self.log_widget.toPlainText() == chat_log:
+            return False
+        return True
+
     def get_chat_log(self):
         """ Returns all current chat text """
         return self.log_widget.toPlainText()
