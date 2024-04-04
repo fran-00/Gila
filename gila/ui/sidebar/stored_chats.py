@@ -95,9 +95,20 @@ class StoredChats(QObject):
 
     def create_chats_list(self):
         chats = os.listdir("storage/saved_data")
-        for file in chats:
-            chat_id = re.sub(r'\.pk$', '', file)
-            with open(f'storage/saved_data/{file}', 'rb') as file:
+        # Create a list of tuples (file, data_creazione)
+        chat_files_with_dates = []
+        for chat_file in chats:
+            chat_id = re.sub(r'\.pk$', '', chat_file)
+            with open(f'storage/saved_data/{chat_file}', 'rb') as file:
+                saved_data = pickle.load(file)
+            chat_date = saved_data[chat_id]["chat_date"]
+            chat_files_with_dates.append((chat_file, chat_date))
+        # Sorts the list based on file creation date
+        chat_files_with_dates.sort(key=lambda x: x[1], reverse=True)
+        # Calls add_stored_chat_button based on stored chats order
+        for chat_file, _ in chat_files_with_dates:
+            chat_id = re.sub(r'\.pk$', '', chat_file)
+            with open(f'storage/saved_data/{chat_file}', 'rb') as file:
                 saved_data = pickle.load(file)
             custom_name = saved_data[chat_id]["chat_custom_name"]
             self.add_stored_chat_button(chat_id, custom_name)
