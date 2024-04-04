@@ -30,6 +30,7 @@ class StoredChats(QObject):
     def on_stored_chats_layout(self):
         self.stored_chats_layout = QVBoxLayout(self.widget_container)
         self.stored_chats_layout.setAlignment(Qt.Alignment.AlignTop)
+        self.stored_chats_layout.addWidget(self.placeholder_label)
         self.scroll_area = QScrollArea()
         self.scroll_area.setWidget(self.widget_container)
         self.scroll_area.setWidgetResizable(True)
