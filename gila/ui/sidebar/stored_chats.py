@@ -24,12 +24,12 @@ class StoredChats(QObject):
         self.confirm_modal = ConfirmChatDeletionModal(self.parent_class.window, self)
         self.chat_marked_for_renaming = None
         self.chat_marked_for_deletion = None
-        self.placeholder_label = QLabel("Le chat salvate compariranno qui.", objectName="placeholder_label")
         self.on_stored_chats_layout()
 
     def on_stored_chats_layout(self):
         self.stored_chats_layout = QVBoxLayout(self.widget_container)
         self.stored_chats_layout.setAlignment(Qt.Alignment.AlignTop)
+        self.placeholder_label = QLabel("Le chat salvate compariranno qui.", objectName="placeholder_label")
         self.stored_chats_layout.addWidget(self.placeholder_label)
         self.scroll_area = QScrollArea()
         self.scroll_area.setWidget(self.widget_container)
