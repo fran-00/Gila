@@ -102,6 +102,7 @@ class AIManager(QObject):
         self.client.temperature = chat["temperature"]
         self.client.max_tokens = chat["max_tokens"]
         self.client.chat_history = chat["chat_history"]
+        self.client.chat_date = chat["chat_date"]
 
     def on_current_settings(self):
         """ Return current client's settings """
