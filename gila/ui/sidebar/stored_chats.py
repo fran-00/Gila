@@ -68,6 +68,7 @@ class StoredChats(QObject):
         stored_chat_row.addWidget(button, 8)
         stored_chat_row.addWidget(rename_button, 1)
         stored_chat_row.addWidget(delete_button, 1)
+        self.on_placeholder_label()
         self.stored_chats_layout.insertLayout(0, stored_chat_row)
 
     def on_load_saved_chat(self, chat_id):
@@ -142,3 +143,4 @@ class StoredChats(QObject):
                         self.delete_stored_chat_by_name(layout_item, layout_name)
                 layout_item.deleteLater()
         os.remove(f"storage/saved_data/{self.chat_marked_for_deletion}.pk")
+        self.on_placeholder_label()
