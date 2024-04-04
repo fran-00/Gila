@@ -140,7 +140,7 @@ class Controller(QObject):
             pass
         else:
             # Chat must be saved only if it's not empty and date must not be changed if chatlog is not changed
-            if self.view.chat.chatlog_has_changed(self.model.manager.client.chat_id):
+            if self.view.chat.chatlog_has_changed(self.model.manager.client.chat_id) and self.view.chat.chatlog_has_text():
                 self.model.manager.save_current_chat()
                 # Adds a new saved_chat_button passing chat_id as argument
                 self.view.sidebar.stored_chats.add_stored_chat_button(self.model.manager.client.chat_id)
