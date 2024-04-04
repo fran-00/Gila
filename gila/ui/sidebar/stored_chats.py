@@ -42,6 +42,26 @@ class StoredChats(QObject):
             self.placeholder_label.show()
         else:
             self.placeholder_label.hide()
+
+    def create_chats_list(self):
+        chats = os.listdir("storage/saved_data")
+        # Create a list of tuples (file, data_creazione)
+        chat_files_with_dates = []
+        for chat_file in chats:
+            chat_id = re.sub(r'\.pk$', '', chat_file)
+            with open(f'storage/saved_data/{chat_file}', 'rb') as file:
+                saved_data = pickle.load(file)
+            chat_date = saved_data[chat_id]["chat_date"]
+            chat_files_with_dates.append((chat_file, chat_date))
+        # Sorts the list based on file creation date
+        chat_files_with_dates.sort(key=lambda x: x[1], reverse=True)
+        # Calls add_stored_chat_button based on stored chats order
+        for chat_file, _ in chat_files_with_dates:
+            chat_id = re.sub(r'\.pk$', '', chat_file)
+            with open(f'storage/saved_data/{chat_file}', 'rb') as file:
+                saved_data = pickle.load(file)
+            custom_name = saved_data[chat_id]["chat_custom_name"]
+            self.add_stored_chat_button(chat_id, custom_name)
  
     def add_stored_chat_button(self, chat_id, custom_name=None):
         """ Adds an horizzontal layout with a button to delete a stored chat,
@@ -84,14 +104,10 @@ class StoredChats(QObject):
             self.current_chat_id = chat_id
             self.loading_saved_chat_id_to_controller.emit(chat_id)
 
-    def open_confirm_chat_deletion_modal(self, chat_id):
-        """Triggers a modal that asks to confirm before deleting """
-        self.chat_marked_for_deletion = chat_id
-        if self.chat_marked_for_deletion == self.current_chat_id:
-            self.parent_class.window.warning_modal.on_deleting_current_chat_label()
-            self.parent_class.window.warning_modal.exec_()
-            return
-        self.confirm_modal.exec_()
+    def open_rename_chat_modal(self, chat_id):
+        """Triggers a modal that asks to insert a new name for the chat """
+        self.chat_marked_for_renaming = chat_id
+        self.rename_modal.exec_()
 
     def rename_stored_chat(self, new_name):
         """ Updates text shown on saved chat button """
@@ -104,30 +120,14 @@ class StoredChats(QObject):
         with open(f'storage/saved_data/{self.chat_marked_for_renaming}.pk', 'wb') as file:
             pickle.dump(saved_data, file)
 
-    def create_chats_list(self):
-        chats = os.listdir("storage/saved_data")
-        # Create a list of tuples (file, data_creazione)
-        chat_files_with_dates = []
-        for chat_file in chats:
-            chat_id = re.sub(r'\.pk$', '', chat_file)
-            with open(f'storage/saved_data/{chat_file}', 'rb') as file:
-                saved_data = pickle.load(file)
-            chat_date = saved_data[chat_id]["chat_date"]
-            chat_files_with_dates.append((chat_file, chat_date))
-        # Sorts the list based on file creation date
-        chat_files_with_dates.sort(key=lambda x: x[1], reverse=True)
-        # Calls add_stored_chat_button based on stored chats order
-        for chat_file, _ in chat_files_with_dates:
-            chat_id = re.sub(r'\.pk$', '', chat_file)
-            with open(f'storage/saved_data/{chat_file}', 'rb') as file:
-                saved_data = pickle.load(file)
-            custom_name = saved_data[chat_id]["chat_custom_name"]
-            self.add_stored_chat_button(chat_id, custom_name)
-
-    def open_rename_chat_modal(self, chat_id):
-        """Triggers a modal that asks to insert a new name for the chat """
-        self.chat_marked_for_renaming = chat_id
-        self.rename_modal.exec_()
+    def open_confirm_chat_deletion_modal(self, chat_id):
+        """Triggers a modal that asks to confirm before deleting """
+        self.chat_marked_for_deletion = chat_id
+        if self.chat_marked_for_deletion == self.current_chat_id:
+            self.parent_class.window.warning_modal.on_deleting_current_chat_label()
+            self.parent_class.window.warning_modal.exec_()
+            return
+        self.confirm_modal.exec_()
 
     def delete_stored_chat_by_name(self):
         layout_name = f"{self.chat_marked_for_deletion}_layout"
