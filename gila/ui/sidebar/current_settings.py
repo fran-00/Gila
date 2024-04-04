@@ -35,8 +35,9 @@ class CurrentSettings(QObject):
         self.chat_id = settings[0]
         self.current_llm = settings[1]
         self.current_temperature = settings[2]
+        self.current_chat_date = settings[3]
         self.current_settings_label.setText(
-            f"- {self.chat_id}\n- {self.current_llm}\n- {self.current_temperature}")
+            f"- {self.chat_id}\n- {self.current_llm}\n- {self.current_temperature}\n- {self.current_chat_date}")
 
     def on_show_widgets(self):
         """ Shows settings label on call """
