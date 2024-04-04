@@ -1,6 +1,7 @@
 import json
 import pickle
 import requests
+from datetime import datetime
 
 from PySide6.QtCore import QObject, Slot, Signal
 
@@ -120,12 +121,14 @@ class AIManager(QObject):
             return False
 
     def save_current_chat(self):
+        date = datetime.now().strftime(f"%d-%m-%y-%H-%M-%S")
         data = {
             self.client.chat_id: {
                 "chat_custom_name" : self.client.chat_custom_name,
                 "llm_name": self.client.llm_name,
                 "temperature": self.client.temperature,
                 "max_tokens": self.client.max_tokens,
+                "chat_date": date,
                 "chat_history": self.client.chat_history,
                 "chat_log": None
             }
