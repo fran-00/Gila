@@ -139,8 +139,8 @@ class Controller(QObject):
         if self.model.manager.stream_stopped is True:
             pass
         else:
-            # Chat must be saved only if it's not empty
-            if self.view.chat.chatlog_has_text():
+            # Chat must be saved only if it's not empty and date must not be changed if chatlog is not changed
+            if self.view.chat.chatlog_has_changed(self.model.manager.client.chat_id):
                 self.model.manager.save_current_chat()
                 # Adds a new saved_chat_button passing chat_id as argument
                 self.view.sidebar.stored_chats.add_stored_chat_button(self.model.manager.client.chat_id)
