@@ -58,7 +58,7 @@ class StoredChats(QObject):
         stored_chat_row.addWidget(button, 8)
         stored_chat_row.addWidget(rename_button, 1)
         stored_chat_row.addWidget(delete_button, 1)
-        self.stored_chats_layout.addLayout(stored_chat_row)
+        self.stored_chats_layout.insertLayout(0, stored_chat_row)
 
     def on_load_saved_chat(self, chat_id):
         """ MUST ONLY restore chatlog, other data must be parsed directly from manager on signal receiving
