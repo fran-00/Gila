@@ -33,12 +33,16 @@ class CurrentSettings(QObject):
     def update_settings_label(self, settings):
         """ Called from Controller when new chat is started, return current settings """
         self.chat_id = settings[0]
-        self.current_llm = settings[1]
-        self.current_temperature = settings[2]
-        self.current_chat_date = settings[3]
-        self.current_settings_label.setText(
-            f"- {self.chat_id}\n- {self.current_llm}\n- {self.current_temperature}\n- {self.current_chat_date if self.current_chat_date is not None else 'Appena creata'}")
-
+        self.chat_custom_name = settings[1]
+        self.current_llm = settings[2]
+        self.current_temperature = settings[3]
+        self.current_chat_date = settings[4]
+        settings_string = f"""- {self.chat_id}
+- {self.chat_custom_name if self.chat_custom_name is not None else 'Nome non impostato'}
+- {self.current_llm}
+- {self.current_temperature}
+- {self.current_chat_date if self.current_chat_date is not None else 'Appena creata'}"""
+        self.current_settings_label.setText(settings_string)
     def on_show_widgets(self):
         """ Shows settings label on call """
         self.widget_container.show()
