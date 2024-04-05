@@ -24,12 +24,6 @@ class CurrentSettings(QObject):
         current_settings_layout.addWidget(self.on_settings_label())
         return current_settings_layout
 
-    def on_settings_label(self):
-        """ Creates a label with current client's settings """
-        self.current_settings_label = QLabel(
-            f"- {self.current_llm}\n- {self.current_temperature}")
-        return self.current_settings_label
-
     def update_settings_label(self, settings):
         """ Called from Controller when new chat is started, return current settings """
         self.chat_id = settings[0]
