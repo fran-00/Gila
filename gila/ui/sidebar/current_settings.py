@@ -21,7 +21,8 @@ class CurrentSettings(QObject):
 
     def on_current_settings_layout(self):
         current_settings_layout = QVBoxLayout(self.widget_container)
-        current_settings_layout.addWidget(self.on_settings_label())
+        self.current_settings_label = QLabel("", objectName="settings_label")
+        current_settings_layout.addWidget(self.current_settings_label)
         return current_settings_layout
 
     def update_settings_label(self, settings):
