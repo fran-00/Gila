@@ -32,11 +32,13 @@ class CurrentSettings(QObject):
         self.current_llm = settings[2]
         self.current_temperature = settings[3]
         self.current_chat_date = settings[4]
-        settings_string = f"""- {self.chat_id}
-- {self.chat_custom_name if self.chat_custom_name is not None else 'Nome non impostato'}
-- {self.current_llm}
-- {self.current_temperature}
-- {self.current_chat_date if self.current_chat_date is not None else 'Appena creata'}"""
+        settings_string = f"""<div>
+            - <b>ID</b>: {self.chat_id}<br>
+            - <b>Nome</b>: {self.chat_custom_name if self.chat_custom_name is not None else 'Nome non impostato'}<br>
+            - <b>Modello</b>: {self.current_llm}<br>
+            - <b>Temperatura</b>: {self.current_temperature}<br>
+            - <b>Ultima modifica</b>: {self.current_chat_date if self.current_chat_date is not None else 'Appena creata'}
+            </div>"""
         self.current_settings_label.setText(settings_string)
 
     def on_show_widgets(self):
