@@ -51,6 +51,10 @@ QLabel#chat_title_label {
     font-weight: 600;
 }
 
+QLabel#settings_label {
+    font-size: 12px;
+}
+
 QLabel.chatlog_info_labels {
     padding-left: 2px;
 }
