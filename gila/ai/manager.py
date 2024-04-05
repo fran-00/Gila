@@ -106,7 +106,13 @@ class AIManager(QObject):
 
     def on_current_settings(self):
         """ Return current client's settings """
-        settings = self.client.chat_id, self.client.llm_name, self.client.temperature, self.client.chat_date
+        settings = (
+            self.client.chat_id,
+            self.client.chat_custom_name,
+            self.client.llm_name,
+            self.client.temperature,
+            self.client.chat_date
+        )
         return settings
 
     def save_api_key(self, api_key, company_name):
