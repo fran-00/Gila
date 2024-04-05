@@ -43,6 +43,7 @@ class CurrentSettings(QObject):
 - {self.current_temperature}
 - {self.current_chat_date if self.current_chat_date is not None else 'Appena creata'}"""
         self.current_settings_label.setText(settings_string)
+
     def on_show_widgets(self):
         """ Shows settings label on call """
         self.widget_container.show()
