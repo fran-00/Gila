@@ -63,6 +63,10 @@ class Controller(QObject):
             self.window_was_closed_slot)
         self.view.sidebar.change_settings_modal.selected_client_to_controller.connect(
             self.client_changed_from_sidebar_slot)
+        self.view.sidebar.change_settings_modal.selected_temperature_to_controller.connect(
+            self.temperature_changed_from_sidebar_slot)
+        self.view.sidebar.change_settings_modal.selected_max_tokens_to_controller.connect(
+            self.max_tokens_changed_from_sidebar_slot)
         self.view.sidebar.stop_chat_to_controller.connect(
             self.chat_stopped_from_sidebar_slot)
         self.view.sidebar.stored_chats.loading_saved_chat_id_to_controller.connect(
