@@ -136,9 +136,15 @@ class Controller(QObject):
     @Slot(float)
     def temperature_changed_from_sidebar_slot(self, new_temperature):
         """ Slot
-        Connected to 
+        Connected to
+            - view.sidebar.selected_temperature_to_controller
+        Emits two signals:
+            - selected_temperature_to_manager (model.manager.set_new_temperature_slot)
+            - update_status_bar (view.status_bar.on_status_update_slot)
+
         """
-        pass
+        self.selected_temperature_to_manager.emit(new_temperature)
+        self.update_status_bar.emit(f"Hai selezionato una temperatura di {new_temperature}.")
 
     @Slot(int)
     def max_tokens_changed_from_sidebar_slot(self, new_max_tokens):
