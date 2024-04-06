@@ -7,6 +7,8 @@ from .parent_modal import Modal
 
 class ChangeSettingsModal(Modal):
     selected_client_to_controller = Signal(str)
+    selected_temperature_to_controller = Signal(float)
+    selected_max_tokens_to_controller = Signal(int)
 
     def __init__(self, window, current_settings):
         super().__init__(window)
