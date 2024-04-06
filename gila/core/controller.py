@@ -143,9 +143,14 @@ class Controller(QObject):
     @Slot(int)
     def max_tokens_changed_from_sidebar_slot(self, new_max_tokens):
         """ Slot
-        Connected to 
+        Connected to
+            - view.sidebar.selected_max_tokens_to_controller
+        Emits two signals:
+            - selected_max_tokens_to_manager (model.manager.set_new_max_tokens_slot)
+            - update_status_bar (view.status_bar.on_status_update_slot)
         """
-        pass
+        self.selected_max_tokens_to_manager.emit(new_max_tokens)
+        self.update_status_bar.emit(f"Hai selezionato {new_max_tokens} come numero massimo di token.")
 
     @Slot()
     def chat_stopped_from_sidebar_slot(self):
