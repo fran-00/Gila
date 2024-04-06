@@ -127,6 +127,20 @@ class Controller(QObject):
         self.selected_client_to_manager.emit(new_client)
         self.update_status_bar.emit(f"Hai selezionato {new_client}.")
 
+    @Slot(float)
+    def temperature_changed_from_sidebar_slot(self, new_temperature):
+        """ Slot
+        Connected to 
+        """
+        pass
+
+    @Slot(int)
+    def max_tokens_changed_from_sidebar_slot(self, new_max_tokens):
+        """ Slot
+        Connected to 
+        """
+        pass
+
     @Slot()
     def chat_stopped_from_sidebar_slot(self):
         """ Slot
