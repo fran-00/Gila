@@ -8,7 +8,7 @@ class Modal(QDialog):
     def __init__(self, window):
         super().__init__()
         self.window = window
-        self.resize(300, 100)
+        self.resize(400, 250)
         self.setStyleSheet(self.load_css_file())
 
     def load_css_file(self):

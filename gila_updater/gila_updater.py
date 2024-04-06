@@ -1,7 +1,7 @@
 from git import Repo
 
 
-class Updater:
+class GilaUpdater:
 
     def __init__(self):
         pass
