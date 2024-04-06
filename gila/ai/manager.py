@@ -63,6 +63,18 @@ class AIManager(QObject):
         selected_llm = AVAILABLE_MODELS.get(new_llm)
         self.next_client = selected_llm, new_llm
 
+    @Slot(float)
+    def set_new_temperature_slot(self, new_temperature):
+        """ Slot
+        """
+        pass
+
+    @Slot(int)
+    def set_new_max_tokens_slot(self, new_max_tokens):
+        """ Slot
+        """
+        pass
+
     @Slot(str)
     def api_key_slot(self, api_key, company_name):
         """ Slot
