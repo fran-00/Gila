@@ -6,6 +6,8 @@ class Controller(QObject):
     response_message_to_chatlog = Signal(str)
     response_info_to_chatlog = Signal(dict)
     selected_client_to_manager = Signal(str)
+    selected_temperature_to_manager = Signal(float)
+    selected_max_tokens_to_manager = Signal(int)
     new_chat_started_to_model = Signal()
     update_status_bar = Signal(str)
     missing_api_key_to_view = Signal(str)
