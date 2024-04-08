@@ -44,12 +44,17 @@ class ChangeSettingsModal(Modal):
         self.temperature_slider.setMaximum(20)
         self.temperature_slider.setTickInterval(1)
         self.temperature_slider.setSingleStep(1)
-        # self.temperature_slider.valueChanged.connect()
+        self.temperature_slider.valueChanged.connect(self.on_temperature_slider_changed)
+
         self.modal_layout.addWidget(select_temperature_label)
         temperature_slider_layout.addWidget(min_temperature_label)
         temperature_slider_layout.addWidget(self.temperature_slider)
         temperature_slider_layout.addWidget(max_temperature_label)
         self.modal_layout.addLayout(temperature_slider_layout)
+
+    def on_temperature_slider_changed(self):
+        selected_temperature_value = self.temperature_slider.value() / 10
+        self.temperature_current_value_label.setText(str(selected_temperature_value))
 
     def on_max_tokens_slider(self):
         """
