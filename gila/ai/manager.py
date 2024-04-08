@@ -68,7 +68,7 @@ class AIManager(QObject):
         """
         selected_llm = AVAILABLE_MODELS.get(new_llm)
         self.next_client = selected_llm, new_llm
-        self.next_temperature = new_temperature
+        self.next_temperature = new_temperature / 10
         self.next_max_tokens = new_max_tokens
         print(self.next_temperature, self.next_max_tokens)
 
