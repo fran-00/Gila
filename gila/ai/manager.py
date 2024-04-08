@@ -44,6 +44,7 @@ class AIManager(QObject):
             self.client = AVAILABLE_MODELS.get(llm_name)
             self.client.llm_name = llm_name
             self.client.temperature = data.get('temperature')
+            self.client.max_tokens = data.get('max_tokens')
         self.client.generate_chat_id()
 
     def on_api_key(self):
