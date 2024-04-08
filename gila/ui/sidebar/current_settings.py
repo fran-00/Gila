@@ -9,6 +9,7 @@ class CurrentSettings(QObject):
         self.parent_widget = parent_widget
         self.current_llm = None
         self.current_temperature = None
+        self.current_max_tokens = None
         self.llms = [
             "GPT-4",
             "GPT-4 Turbo",
