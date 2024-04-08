@@ -32,6 +32,8 @@ class AIManager(QObject):
         self.client = None
         self.stream_stopped = True
         self.next_client = None
+        self.next_temperature = None
+        self.next_max_tokens = None
         self.get_saved_settings()
 
     def get_saved_settings(self):
