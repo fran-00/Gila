@@ -65,15 +65,18 @@ class ChangeSettingsModal(Modal):
         Forse imposto molto lunga, lunga, media e corta e assegno un valore ai veri
         estremi direttamente nel client
         """
+        # Create widgets and slider's sub-layout
         select_tokens_label = QLabel("Massimo numero di Token")
         tokens_slider_layout = QHBoxLayout()
         min_tokens_label = QLabel("1000")
         max_tokens_label = QLabel("10000")
         self.tokens_slider = QSlider(Qt.Horizontal)
+        # Adjust slider's settings
         self.tokens_slider.setMinimum(1000)
         self.tokens_slider.setMaximum(10000)
         self.tokens_slider.setTickInterval(100)
         self.tokens_slider.setSingleStep(100)
+        # Add widgets and slider's layout to modal's layout
         self.modal_layout.addWidget(select_tokens_label)
         tokens_slider_layout.addWidget(min_tokens_label)
         tokens_slider_layout.addWidget(self.tokens_slider)
