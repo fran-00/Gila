@@ -165,6 +165,8 @@ class Controller(QObject):
         if self.model.manager.next_client:
             self.model.manager.client = self.model.manager.next_client[0]
             self.model.manager.client.llm_name = self.model.manager.next_client[1]
+            self.model.manager.client.temperature = self.model.manager.next_temperature
+            self.model.manager.client.max_tokens = self.model.manager.next_max_tokens
             self.model.manager.client.on_chat_reset()
             self.model.manager.next_client = None
         # Update settings label on the sidebar
