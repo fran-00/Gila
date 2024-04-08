@@ -120,6 +120,7 @@ class AIManager(QObject):
             self.client.chat_custom_name,
             self.client.llm_name,
             self.client.temperature,
+            self.client.max_tokens,
             self.client.chat_date
         )
         return settings
