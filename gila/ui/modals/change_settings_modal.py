@@ -71,17 +71,20 @@ class ChangeSettingsModal(Modal):
         min_tokens_label = QLabel("1000")
         max_tokens_label = QLabel("10000")
         self.tokens_slider = QSlider(Qt.Horizontal)
+        self.max_tokens_current_value_label = QLabel("", objectName="max_tokens_current_value_label")
         # Adjust slider's settings
         self.tokens_slider.setMinimum(1000)
         self.tokens_slider.setMaximum(10000)
         self.tokens_slider.setTickInterval(100)
         self.tokens_slider.setSingleStep(100)
+        self.tokens_slider.valueChanged.connect(self.on_max_tokens_slider_changed)
         # Add widgets and slider's layout to modal's layout
         self.modal_layout.addWidget(select_tokens_label)
         tokens_slider_layout.addWidget(min_tokens_label)
         tokens_slider_layout.addWidget(self.tokens_slider)
         tokens_slider_layout.addWidget(max_tokens_label)
         self.modal_layout.addLayout(tokens_slider_layout)
+        self.modal_layout.addWidget(self.max_tokens_current_value_label)
 
     def on_max_tokens_slider_changed(self):
         selected_max_tokens_value = self.tokens_slider.value()
