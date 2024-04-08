@@ -61,6 +61,10 @@ class AIManager(QObject):
         Connected to one signal:
             - controller.selected_client_to_manager
         When triggered, takes new llm name and sets new client on call
+        
+        next_client is a tuple because the first element is the class instance,
+        while the second element is the name of the selected client: you can see
+        the reason for this in controller.new_chat_started_slot method
         """
         selected_llm = AVAILABLE_MODELS.get(new_llm)
         self.next_client = selected_llm, new_llm
