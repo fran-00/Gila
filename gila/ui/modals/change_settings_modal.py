@@ -1,6 +1,7 @@
 from PySide6.QtCore import Signal
 from PySide6.QtGui import Qt
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QComboBox, QPushButton, QSlider
+from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QLabel, QComboBox, 
+                               QPushButton, QSlider)
 
 from .parent_modal import Modal
 
@@ -50,13 +51,19 @@ class ChangeSettingsModal(Modal):
         estremi direttamente nel client
         """
         select_tokens_label = QLabel("Massimo numero di Token")
+        self.tokens_slider_layout = QHBoxLayout()
+        self.min_tokens_label = QLabel("1000")
+        self.max_tokens_label = QLabel("10000")
         self.tokens_slider = QSlider(Qt.Horizontal)
-        self.tokens_slider.setMinimum(0)
-        self.tokens_slider.setMaximum(20)
-        self.tokens_slider.setTickInterval(1)
-        self.tokens_slider.setSingleStep(1)
+        self.tokens_slider.setMinimum(1000)
+        self.tokens_slider.setMaximum(10000)
+        self.tokens_slider.setTickInterval(100)
+        self.tokens_slider.setSingleStep(100)
         self.modal_layout.addWidget(select_tokens_label)
-        self.modal_layout.addWidget(self.tokens_slider)
+        self.tokens_slider_layout.addWidget(self.min_tokens_label)
+        self.tokens_slider_layout.addWidget(self.tokens_slider)
+        self.tokens_slider_layout.addWidget(self.max_tokens_label)
+        self.modal_layout.addLayout(self.tokens_slider_layout)
 
     def on_confirm_button(self):
         """ Creates button to confirm llm selection """
