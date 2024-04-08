@@ -24,8 +24,8 @@ class Controller(QObject):
     def connect_model(self):
         # Connect CONTROLLER's signals to MODEL's slots
         self.user_prompt_to_model.connect(self.model.get_user_prompt_slot)
-        self.selected_client_to_manager.connect(
-            self.model.manager.set_new_client_slot)
+        self.new_settings_to_manager.connect(
+            self.model.manager.set_new_settings_slot)
         self.api_key_to_manager.connect(self.model.manager.api_key_slot)
         self.loading_saved_chat_id_to_manager.connect(self.model.manager.restore_chat_from_id_slot)
 
@@ -59,12 +59,8 @@ class Controller(QObject):
         # Connect VIEW's signals to CONTROLLER's slots
         self.view.window_closed_signal_to_controller.connect(
             self.window_was_closed_slot)
-        self.view.sidebar.change_settings_modal.selected_client_to_controller.connect(
-            self.client_changed_from_sidebar_slot)
-        self.view.sidebar.change_settings_modal.selected_temperature_to_controller.connect(
-            self.temperature_changed_from_sidebar_slot)
-        self.view.sidebar.change_settings_modal.selected_max_tokens_to_controller.connect(
-            self.max_tokens_changed_from_sidebar_slot)
+        self.view.sidebar.change_settings_modal.new_settings_to_controller.connect(
+            self.new_settings_to_manager)
         self.view.sidebar.stop_chat_to_controller.connect(
             self.chat_stopped_from_sidebar_slot)
         self.view.sidebar.stored_chats.loading_saved_chat_id_to_controller.connect(
