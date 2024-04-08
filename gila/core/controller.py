@@ -119,42 +119,17 @@ class Controller(QObject):
         self.user_prompt_to_model.emit(user_prompt)
         self.update_status_bar.emit("Sto inviando il messaggio...")
 
-    @Slot(str)
-    def client_changed_from_sidebar_slot(self, new_client):
+    @Slot(str, float, int)
+    def settings_changed_from_sidebar_slot(self, new_client, new_temperature, new_max_tokens):
         """ Slot
-        Connected to new client sidebar signal
-            - view.sidebar.selected_client_to_controller
+        Connected to new settings sidebar signal
+            - view.sidebar.new_settings_to_controller
         Emits two signals:
-            - selected_client_to_manager (model.manager.set_new_client_slot)
+            - new_settings_to_manager (model.manager.set_new_client_slot)
             - update_status_bar (view.status_bar.on_status_update_slot)
         """
-        self.selected_client_to_manager.emit(new_client)
-        self.update_status_bar.emit(f"Hai selezionato {new_client}.")
-
-    @Slot(float)
-    def temperature_changed_from_sidebar_slot(self, new_temperature):
-        """ Slot
-        Connected to
-            - view.sidebar.selected_temperature_to_controller
-        Emits two signals:
-            - selected_temperature_to_manager (model.manager.set_new_temperature_slot)
-            - update_status_bar (view.status_bar.on_status_update_slot)
-
-        """
-        self.selected_temperature_to_manager.emit(new_temperature)
-        self.update_status_bar.emit(f"Hai selezionato una temperatura di {new_temperature}.")
-
-    @Slot(int)
-    def max_tokens_changed_from_sidebar_slot(self, new_max_tokens):
-        """ Slot
-        Connected to
-            - view.sidebar.selected_max_tokens_to_controller
-        Emits two signals:
-            - selected_max_tokens_to_manager (model.manager.set_new_max_tokens_slot)
-            - update_status_bar (view.status_bar.on_status_update_slot)
-        """
-        self.selected_max_tokens_to_manager.emit(new_max_tokens)
-        self.update_status_bar.emit(f"Hai selezionato {new_max_tokens} come numero massimo di token.")
+        self.new_settings_to_manager.emit(new_client, new_temperature, new_max_tokens)
+        self.update_status_bar.emit(f"Hai selezionato {new_client} con una temperatura di {new_temperature}.")
 
     @Slot()
     def chat_stopped_from_sidebar_slot(self):
