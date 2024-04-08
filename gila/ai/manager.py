@@ -47,6 +47,16 @@ class AIManager(QObject):
             self.client.max_tokens = data.get('max_tokens')
         self.client.generate_chat_id()
 
+    def update_saved_settings(self):
+        with open('storage/saved_settings.json', 'r') as f:
+            data = json.load(f)
+            data["llm_name"] = self.client.llm_name
+            data["temperature"] = self.client.temperature
+            data["max_tokens"] = self.client.max_tokens
+
+        with open('storage/saved_settings.json', 'w') as file:
+            json.dump(data, file, indent=4)
+
     def on_api_key(self):
         """ Called by Controller's new_chat_started_slot, asks client to check if
         API key of the said company is present on the .env file. Returns a boolean
