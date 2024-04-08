@@ -172,6 +172,8 @@ class Controller(QObject):
         # Update settings label on the sidebar
         self.view.sidebar.current_settings.update_settings_label(
             self.model.manager.on_current_settings())
+        self.view.sidebar.change_settings_modal.update_current_settings(
+            self.model.manager.on_current_settings())
         self.view.chat.update_chat_title()
         self.view.chat.on_response_info_labels_reset()
         self.view.sidebar.stored_chats.current_chat_id = self.model.manager.client.chat_id
