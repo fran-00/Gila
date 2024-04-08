@@ -83,6 +83,10 @@ class ChangeSettingsModal(Modal):
         tokens_slider_layout.addWidget(max_tokens_label)
         self.modal_layout.addLayout(tokens_slider_layout)
 
+    def on_max_tokens_slider_changed(self):
+        selected_max_tokens_value = self.tokens_slider.value()
+        self.max_tokens_current_value_label.setText(str(selected_max_tokens_value))
+
     def on_confirm_button(self):
         """ Creates button to confirm llm selection """
         confirm_button = QPushButton("Conferma")
