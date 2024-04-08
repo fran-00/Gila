@@ -9,6 +9,7 @@ class OpenAIClient(APIClient):
         super().__init__(llm)
         self.company = "OPENAI"
         self.temperature = 0.7
+        self.max_tokens = None
         self.chat_history = [{"role": "system", "content": "You are a helpful assistant."}]
 
     def submit_api_key(self):
@@ -20,7 +21,8 @@ class OpenAIClient(APIClient):
             response = openai.OpenAI().chat.completions.create(
                 model=self.llm,
                 messages=self.chat_history,
-                temperature=self.temperature
+                temperature=self.temperature,
+                max_tokens=self.max_tokens
             )
             response_info = {
                 "Token richiesta": response.usage.prompt_tokens,
