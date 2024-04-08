@@ -65,9 +65,11 @@ class ChangeSettingsModal(Modal):
         confirm_button.clicked.connect(self.accept)
         self.modal_layout.addWidget(confirm_button)
 
-    def send_selected_client_to_controller(self):
-        """ Sends selected llm to controller: signal is triggered when Confirm
-            Button is pressed
+    def send_new_settings_to_controller(self):
+        """ Sends new settings to controller: signal is triggered when
+            Confirm Button is pressed
         """
         selected_llm = self.llms_combobox.currentText()
-        self.selected_client_to_controller.emit(selected_llm)
+        selected_temperature = self.temperature_slider.value()
+        selected_max_tokens = self.tokens_slider.value()
+        self.new_settings_to_controller.emit(selected_llm, selected_temperature, selected_max_tokens)
