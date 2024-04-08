@@ -60,6 +60,10 @@ class ChangeSettingsModal(Modal):
         selected_temperature_value = self.temperature_slider.value() / 10
         self.temperature_current_value_label.setText(str(selected_temperature_value))
 
+    def update_current_settings(self, settings):
+        self.temperature_slider.setValue(int(settings[3]))
+        self.tokens_slider.setValue(int(settings[4]))
+
     def on_max_tokens_slider(self):
         """
         Forse imposto molto lunga, lunga, media e corta e assegno un valore ai veri
