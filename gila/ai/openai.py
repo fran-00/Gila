@@ -19,7 +19,8 @@ class OpenAIClient(APIClient):
         try:
             response = openai.OpenAI().chat.completions.create(
                 model=self.llm,
-                messages=self.chat_history
+                messages=self.chat_history,
+                temperature=self.temperature
             )
             response_info = {
                 "Token richiesta": response.usage.prompt_tokens,
