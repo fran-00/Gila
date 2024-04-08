@@ -55,8 +55,8 @@ class AIManager(QObject):
             return True
         return False
 
-    @Slot(str)
-    def set_new_client_slot(self, new_llm):
+    @Slot(str, float, int)
+    def set_new_settings_slot(self, new_llm, new_temperature, new_max_tokens):
         """ Slot
         Connected to one signal:
             - controller.selected_client_to_manager
@@ -64,18 +64,9 @@ class AIManager(QObject):
         """
         selected_llm = AVAILABLE_MODELS.get(new_llm)
         self.next_client = selected_llm, new_llm
-
-    @Slot(float)
-    def set_new_temperature_slot(self, new_temperature):
-        """ Slot
-        """
-        pass
-
-    @Slot(int)
-    def set_new_max_tokens_slot(self, new_max_tokens):
-        """ Slot
-        """
-        pass
+        self.next_temperature = new_temperature
+        self.next_max_tokens = new_max_tokens
+        print(self.next_temperature, self.next_max_tokens)
 
     @Slot(str)
     def api_key_slot(self, api_key, company_name):
