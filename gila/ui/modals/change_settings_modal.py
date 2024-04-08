@@ -51,19 +51,19 @@ class ChangeSettingsModal(Modal):
         estremi direttamente nel client
         """
         select_tokens_label = QLabel("Massimo numero di Token")
-        self.tokens_slider_layout = QHBoxLayout()
-        self.min_tokens_label = QLabel("1000")
-        self.max_tokens_label = QLabel("10000")
+        tokens_slider_layout = QHBoxLayout()
+        min_tokens_label = QLabel("1000")
+        max_tokens_label = QLabel("10000")
         self.tokens_slider = QSlider(Qt.Horizontal)
         self.tokens_slider.setMinimum(1000)
         self.tokens_slider.setMaximum(10000)
         self.tokens_slider.setTickInterval(100)
         self.tokens_slider.setSingleStep(100)
         self.modal_layout.addWidget(select_tokens_label)
-        self.tokens_slider_layout.addWidget(self.min_tokens_label)
-        self.tokens_slider_layout.addWidget(self.tokens_slider)
-        self.tokens_slider_layout.addWidget(self.max_tokens_label)
-        self.modal_layout.addLayout(self.tokens_slider_layout)
+        tokens_slider_layout.addWidget(min_tokens_label)
+        tokens_slider_layout.addWidget(self.tokens_slider)
+        tokens_slider_layout.addWidget(max_tokens_label)
+        self.modal_layout.addLayout(tokens_slider_layout)
 
     def on_confirm_button(self):
         """ Creates button to confirm llm selection """
