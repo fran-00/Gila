@@ -35,19 +35,20 @@ class ChangeSettingsModal(Modal):
         self.modal_layout.addWidget(self.llms_combobox)
 
     def on_temperature_slider(self):
+        # Create widgets and slider's sub-layout
         select_temperature_label = QLabel("Temperatura")
         temperature_slider_layout = QHBoxLayout()
         min_temperature_label = QLabel("0")
         max_temperature_label = QLabel("2")
         self.temperature_slider = QSlider(Qt.Horizontal)
         self.temperature_current_value_label = QLabel("", objectName="temperature_current_value_label")
-
+        # Adjust slider's settings
         self.temperature_slider.setMinimum(0)
         self.temperature_slider.setMaximum(20)
         self.temperature_slider.setTickInterval(1)
         self.temperature_slider.setSingleStep(1)
         self.temperature_slider.valueChanged.connect(self.on_temperature_slider_changed)
-
+        # Add widgets and slider's layout to modal's layout
         self.modal_layout.addWidget(select_temperature_label)
         temperature_slider_layout.addWidget(min_temperature_label)
         temperature_slider_layout.addWidget(self.temperature_slider)
