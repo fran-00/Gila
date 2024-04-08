@@ -40,6 +40,8 @@ class ChangeSettingsModal(Modal):
         min_temperature_label = QLabel("0")
         max_temperature_label = QLabel("2")
         self.temperature_slider = QSlider(Qt.Horizontal)
+        self.temperature_current_value_label = QLabel("", objectName="temperature_current_value_label")
+
         self.temperature_slider.setMinimum(0)
         self.temperature_slider.setMaximum(20)
         self.temperature_slider.setTickInterval(1)
@@ -51,6 +53,7 @@ class ChangeSettingsModal(Modal):
         temperature_slider_layout.addWidget(self.temperature_slider)
         temperature_slider_layout.addWidget(max_temperature_label)
         self.modal_layout.addLayout(temperature_slider_layout)
+        self.modal_layout.addWidget(self.temperature_current_value_label)
 
     def on_temperature_slider_changed(self):
         selected_temperature_value = self.temperature_slider.value() / 10
