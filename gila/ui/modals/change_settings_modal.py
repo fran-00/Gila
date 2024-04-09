@@ -43,15 +43,15 @@ class ChangeSettingsModal(Modal):
         self.temperature_slider = QSlider(Qt.Horizontal)
         self.temperature_current_value_label = QLabel("", objectName="temperature_current_value_label")
         # Adjust labels settings and width
+        min_temperature_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
+        min_temperature_label.setFixedWidth(30)
+        max_temperature_label.setFixedWidth(30)
         temperature_slider_layout.setStretchFactor(min_temperature_label, 0)
         temperature_slider_layout.setStretchFactor(self.temperature_slider, 1)
         temperature_slider_layout.setStretchFactor(max_temperature_label, 0)
         self.window.assign_css_class(min_temperature_label, "slider_value")
         self.window.assign_css_class(max_temperature_label, "slider_value")
         # Adjust slider's settings
-        min_temperature_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
-        min_temperature_label.setFixedWidth(30)
-        max_temperature_label.setFixedWidth(30)
         self.temperature_slider.setMinimum(0)
         self.temperature_slider.setMaximum(20)
         self.temperature_slider.setTickInterval(1)
