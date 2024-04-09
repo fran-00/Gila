@@ -20,8 +20,11 @@ class ChangeSettingsModal(Modal):
         self.modal_layout = QVBoxLayout(self)
         self.on_modal_text()
         self.modal_text.setText("Modifica le impostazioni, saranno applicate all'avvio di una nuova chat.")
+        self.add_line_separator(self.modal_layout)
         self.on_llms_combobox()
+        self.add_line_separator(self.modal_layout)
         self.on_temperature_slider()
+        self.add_line_separator(self.modal_layout)
         self.on_max_tokens_slider()
         self.on_confirm_button()
 
