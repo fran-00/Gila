@@ -80,6 +80,9 @@ class ChangeSettingsModal(Modal):
         self.tokens_slider = QSlider(Qt.Horizontal)
         self.max_tokens_current_value_label = QLabel("", objectName="max_tokens_current_value_label")
         # Adjust labels settings and width
+        tokens_slider_layout.setStretchFactor(min_tokens_label, 0)
+        tokens_slider_layout.setStretchFactor(self.tokens_slider, 1)
+        tokens_slider_layout.setStretchFactor(max_tokens_label, 0)
         self.window.assign_css_class(min_tokens_label, "slider_value")
         self.window.assign_css_class(max_tokens_label, "slider_value")
         # Adjust slider's settings
