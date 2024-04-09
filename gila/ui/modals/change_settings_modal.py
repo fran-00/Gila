@@ -41,7 +41,7 @@ class ChangeSettingsModal(Modal):
         min_temperature_label = QLabel("0")
         max_temperature_label = QLabel("2")
         self.temperature_slider = QSlider(Qt.Horizontal)
-        self.temperature_current_value_label = QLabel("", objectName="temperature_current_value_label")
+        self.temperature_current_value_label = QLabel("0", objectName="temperature_current_value_label")
         # Adjust labels settings and width
         min_temperature_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
         min_temperature_label.setFixedWidth(30)
@@ -84,7 +84,7 @@ class ChangeSettingsModal(Modal):
         min_tokens_label = QLabel("1000")
         max_tokens_label = QLabel("10000")
         self.tokens_slider = QSlider(Qt.Horizontal)
-        self.max_tokens_current_value_label = QLabel("", objectName="max_tokens_current_value_label")
+        self.max_tokens_current_value_label = QLabel("1000", objectName="max_tokens_current_value_label")
         # Adjust labels settings and width
         min_tokens_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
         min_tokens_label.setFixedWidth(30)
