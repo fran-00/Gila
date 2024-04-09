@@ -93,5 +93,5 @@ class View(QMainWindow):
         super().closeEvent(event)
         self.window_closed_signal_to_controller.emit()
 
-    def assign_css_class(self, gui_element, class_name):
-        gui_element.setProperty("class", class_name)
+    def assign_css_class(self, widget, class_name):
+        widget.setProperty("class", class_name)
