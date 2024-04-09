@@ -39,7 +39,9 @@ class ChangeSettingsModal(Modal):
         select_temperature_label = QLabel("Temperatura")
         temperature_slider_layout = QHBoxLayout()
         min_temperature_label = QLabel("0")
+        self.window.assign_css_class(min_temperature_label, "slider_value")
         max_temperature_label = QLabel("2")
+        self.window.assign_css_class(max_temperature_label, "slider_value")
         self.temperature_slider = QSlider(Qt.Horizontal)
         self.temperature_current_value_label = QLabel("", objectName="temperature_current_value_label")
         # Adjust slider's settings
@@ -73,7 +75,9 @@ class ChangeSettingsModal(Modal):
         select_tokens_label = QLabel("Massimo numero di Token")
         tokens_slider_layout = QHBoxLayout()
         min_tokens_label = QLabel("1000")
+        self.window.assign_css_class(min_tokens_label, "slider_value")
         max_tokens_label = QLabel("10000")
+        self.window.assign_css_class(max_tokens_label, "slider_value")
         self.tokens_slider = QSlider(Qt.Horizontal)
         self.max_tokens_current_value_label = QLabel("", objectName="max_tokens_current_value_label")
         # Adjust slider's settings
