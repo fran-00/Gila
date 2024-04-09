@@ -36,3 +36,7 @@ QLabel.slider_value_label {
     font-size: 9px;
     font-weight: 600;
 }
+
+QFrame.line_separator {
+    background-color: #ffffff;
+}
