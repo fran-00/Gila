@@ -50,8 +50,8 @@ class ChangeSettingsModal(Modal):
         temperature_slider_layout.setStretchFactor(min_temperature_label, 0)
         temperature_slider_layout.setStretchFactor(self.temperature_slider, 1)
         temperature_slider_layout.setStretchFactor(max_temperature_label, 0)
-        self.window.assign_css_class(min_temperature_label, "slider_value")
-        self.window.assign_css_class(max_temperature_label, "slider_value")
+        self.window.assign_css_class(min_temperature_label, "slider_value_label")
+        self.window.assign_css_class(max_temperature_label, "slider_value_label")
         # Adjust slider's settings
         self.temperature_slider.setMinimum(0)
         self.temperature_slider.setMaximum(20)
@@ -94,8 +94,8 @@ class ChangeSettingsModal(Modal):
         tokens_slider_layout.setStretchFactor(min_tokens_label, 0)
         tokens_slider_layout.setStretchFactor(self.tokens_slider, 1)
         tokens_slider_layout.setStretchFactor(max_tokens_label, 0)
-        self.window.assign_css_class(min_tokens_label, "slider_value")
-        self.window.assign_css_class(max_tokens_label, "slider_value")
+        self.window.assign_css_class(min_tokens_label, "slider_value_label")
+        self.window.assign_css_class(max_tokens_label, "slider_value_label")
         # Adjust slider's settings
         self.tokens_slider.setMinimum(1000)
         self.tokens_slider.setMaximum(10000)
