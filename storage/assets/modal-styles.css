@@ -30,3 +30,9 @@ QLabel {
 QLabel#modal_text {
     padding: 10 0;
 }
+
+QLabel.slider_value_label {
+    color: #D6943C;
+    font-size: 9px;
+    font-weight: 600;
+}
