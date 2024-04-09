@@ -45,9 +45,9 @@ class Chat(QObject):
     def on_prompt_info_layout(self):
         self.prompt_info_layout = QHBoxLayout()
         self.num_of_words = QLabel("Parole: 0")
-        self.num_of_words.setProperty("class", "chatlog_info_labels")
         self.num_of_tokens = QLabel("Token: 0")
-        self.num_of_tokens.setProperty("class", "chatlog_info_labels")
+        self.window.assign_css_class(self.num_of_words, "chatlog_info_labels")
+        self.window.assign_css_class(self.num_of_tokens, "chatlog_info_labels")
         self.prompt_info_layout.addWidget(self.num_of_words)
         self.prompt_info_layout.addWidget(self.num_of_tokens)
         return self.prompt_info_layout
@@ -59,7 +59,7 @@ class Chat(QObject):
         self.third_label = QLabel("")
         self.chatlog_info_labels = [self.first_label, self.second_label, self.third_label]
         for label in self.chatlog_info_labels:
-            label.setProperty("class", "chatlog_info_labels")
+            self.window.assign_css_class(label, "chatlog_info_labels")
         self.chatlog_info_layout.addWidget(self.first_label)
         self.chatlog_info_layout.addWidget(self.second_label)
         self.chatlog_info_layout.addWidget(self.third_label)
