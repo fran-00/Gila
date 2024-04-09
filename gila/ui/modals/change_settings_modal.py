@@ -1,7 +1,7 @@
 from PySide6.QtCore import Signal
 from PySide6.QtGui import Qt
 from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QLabel, QComboBox, 
-                               QPushButton, QSlider)
+                               QPushButton, QSlider, QFrame)
 
 from .parent_modal import Modal
 
@@ -113,6 +113,14 @@ class ChangeSettingsModal(Modal):
     def on_max_tokens_slider_changed(self):
         selected_max_tokens_value = self.tokens_slider.value()
         self.max_tokens_current_value_label.setText(str(selected_max_tokens_value))
+
+    def add_line_separator(self, layout):
+        line = QFrame()
+        line.setFrameShape(QFrame.HLine)
+        line.setFrameShadow(QFrame.Sunken)
+        line.setMaximumHeight(1)
+        self.window.assign_css_class(line, "line_separator")
+        layout.addWidget(line)
 
     def on_confirm_button(self):
         """ Creates button to confirm llm selection """
