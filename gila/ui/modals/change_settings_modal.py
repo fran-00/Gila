@@ -74,7 +74,7 @@ class ChangeSettingsModal(Modal):
         self.temperature_current_value_label.setText(str(selected_temperature_value))
 
     def update_current_settings(self, settings):
-        self.temperature_slider.setValue(int(settings[3]))
+        self.temperature_slider.setValue(int(settings[3]) * 10)
         self.tokens_slider.setValue(int(settings[4]))
 
     def on_max_tokens_slider(self):
