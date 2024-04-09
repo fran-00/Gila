@@ -49,6 +49,9 @@ class ChangeSettingsModal(Modal):
         self.window.assign_css_class(min_temperature_label, "slider_value")
         self.window.assign_css_class(max_temperature_label, "slider_value")
         # Adjust slider's settings
+        min_temperature_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
+        min_temperature_label.setFixedWidth(30)
+        max_temperature_label.setFixedWidth(30)
         self.temperature_slider.setMinimum(0)
         self.temperature_slider.setMaximum(20)
         self.temperature_slider.setTickInterval(1)
