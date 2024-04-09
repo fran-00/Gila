@@ -9,7 +9,6 @@ class GoogleClient(APIClient):
     def __init__(self, llm):
         super().__init__(llm)
         self.company = "GOOGLE"
-        self.temperature = 0.7
         generation_config = {
             "temperature": self.temperature,
             "top_p": 1,
