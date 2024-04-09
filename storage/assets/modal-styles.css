@@ -40,3 +40,17 @@ QLabel.slider_value_label {
 QFrame.line_separator {
     background-color: #ffffff;
 }
+
+QSlider::groove:horizontal {
+    background: #00578b;
+    border: 1px solid #fff;
+    height: 10px;
+    border-radius: 5px;
+}
+
+QSlider::handle:horizontal {
+    background: #D6943C;
+    width: 20px;
+    margin: -5px 0;
+    border-radius: 10px;
+}
