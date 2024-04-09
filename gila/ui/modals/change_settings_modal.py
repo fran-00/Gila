@@ -43,6 +43,9 @@ class ChangeSettingsModal(Modal):
         self.temperature_slider = QSlider(Qt.Horizontal)
         self.temperature_current_value_label = QLabel("", objectName="temperature_current_value_label")
         # Adjust labels settings and width
+        temperature_slider_layout.setStretchFactor(min_temperature_label, 0)
+        temperature_slider_layout.setStretchFactor(self.temperature_slider, 1)
+        temperature_slider_layout.setStretchFactor(max_temperature_label, 0)
         self.window.assign_css_class(min_temperature_label, "slider_value")
         self.window.assign_css_class(max_temperature_label, "slider_value")
         # Adjust slider's settings
