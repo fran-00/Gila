@@ -27,12 +27,12 @@ class ChangeSettingsModal(Modal):
         self.add_line_separator(self.modal_layout)
         self.on_max_tokens_slider()
         self.on_confirm_button()
+        self.llms_combobox.currentTextChanged.connect(self.update_sliders_values)
 
     def on_llms_combobox(self):
         """ Creates ComboBox with llms list """
         select_llm_label = QLabel("Modello")
         self.llms_combobox = QComboBox()
-        self.llms_combobox.currentTextChanged.connect(self.update_sliders_values)
         for llm in self.current_settings.llms:
             self.llms_combobox.addItem(llm)
         self.modal_layout.addWidget(select_llm_label)
