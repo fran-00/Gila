@@ -17,8 +17,9 @@ class CohereClient(APIClient):
         try:
             response = self.co.chat(
                 prompt,
+                chat_history=self.chat_history,
                 temperature=self.temperature,
-                chat_history=self.chat_history
+                max_tokens=self.max_tokens
             )
             answer = response.text
             response_info = {
