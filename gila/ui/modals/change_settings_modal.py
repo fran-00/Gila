@@ -27,7 +27,7 @@ class ChangeSettingsModal(Modal):
         self.add_line_separator(self.modal_layout)
         self.on_max_tokens_slider()
         self.on_confirm_button()
-        self.llms_combobox.currentTextChanged.connect(self.update_sliders_values)
+        self.llms_combobox.currentTextChanged.connect(lambda: self.update_sliders_values)
 
     def on_llms_combobox(self):
         """ Creates ComboBox with llms list """
