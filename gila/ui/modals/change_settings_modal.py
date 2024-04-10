@@ -27,7 +27,7 @@ class ChangeSettingsModal(Modal):
         self.add_line_separator(self.modal_layout)
         self.on_max_tokens_slider()
         self.on_confirm_button()
-        self.llms_combobox.currentTextChanged.connect(lambda: self.update_sliders_values)
+        self.llms_combobox.currentTextChanged.connect(self.update_sliders_values)
 
     def on_llms_combobox(self):
         """ Creates ComboBox with llms list """
@@ -141,3 +141,27 @@ class ChangeSettingsModal(Modal):
         selected_temperature = self.temperature_slider.value()
         selected_max_tokens = self.tokens_slider.value()
         self.new_settings_to_controller.emit(selected_llm, selected_temperature, selected_max_tokens)
+
+    def update_sliders_values(self):
+        """ Adjusts token limits and temperature, based on a given model.
+            Here's allowed max tokens and temperature:
+            - GPT-3.5 Turbo: 4096 tokens, 2 temperature
+            - GPT-4: 8192 tokens, 2 temperature
+            - GPT-4 Turbo: 4096 tokens, 2 temperature
+            - Cohere Chat: 4000 tokens, 1 temperature
+            - Gemini Pro: ? tokens, ? temperature
+        """
+        llm = self.llms_combobox.currentText()
+        if llm == "Cohere Chat":
+            self.temperature_slider.setMaximum(10)
+            self.max_temperature_label.setText("1")
+            self.tokens_slider.setMaximum(4000)
+            self.max_tokens_label.setText("4000")
+        else:
+            self.temperature_slider.setMaximum(20)
+            self.max_temperature_label.setText("2")
+            self.tokens_slider.setMaximum(4096)
+            self.max_tokens_label.setText("4096")
+        if llm == "GPT-4":
+            self.tokens_slider.setMaximum(8192)
+            self.max_tokens_label.setText("8192")
