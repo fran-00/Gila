@@ -86,8 +86,8 @@ class ChangeSettingsModal(Modal):
         # Create widgets and slider's sub-layout
         select_tokens_label = QLabel("Massimo numero di Token")
         tokens_slider_layout = QHBoxLayout()
-        min_tokens_label = QLabel("1000")
-        self.max_tokens_label = QLabel("10000")
+        min_tokens_label = QLabel("150")
+        self.max_tokens_label = QLabel("4096")
         self.tokens_slider = QSlider(Qt.Horizontal)
         self.max_tokens_current_value_label = QLabel("1000", objectName="max_tokens_current_value_label")
         # Adjust labels settings and width
@@ -101,8 +101,8 @@ class ChangeSettingsModal(Modal):
         self.window.assign_css_class(min_tokens_label, "slider_value_label")
         self.window.assign_css_class(self.max_tokens_label, "slider_value_label")
         # Adjust slider's settings
-        self.tokens_slider.setMinimum(1000)
-        self.tokens_slider.setMaximum(10000)
+        self.tokens_slider.setMinimum(150)
+        self.tokens_slider.setMaximum(4096)
         self.tokens_slider.setTickInterval(100)
         self.tokens_slider.setSingleStep(100)
         self.tokens_slider.valueChanged.connect(self.on_max_tokens_slider_changed)
