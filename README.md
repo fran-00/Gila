@@ -57,14 +57,17 @@ APIs do have rate limits. To know more:
 - [x] Prompt line must be a QTextEdit widget instead of a QLineEdit widget.
 - [x] If user wants to export the current conversation, they must be able to choose file format between .txt, .docx and .pdf.
 - [x] User must not be able to send another prompt if the program is waiting for API response and there must be a "waiting" symbol, like a spinning wheel.
-- [ ] Chat log must use markdown instead of html to parse styled responses.
-- [ ] User must be able to choose response max length (very short, short, medium, long).
-- [ ] Last used settings must be saved to an external file for future use, like the current llm, temperature and maximum number of tokens.
-- [ ] Add the ability to change the lenght of the response.
-- [ ] Add a token counter, at least for OpenAI. Use [tiktoken](https://github.com/openai/tiktoken).
-- [ ] Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/). (How do releases work in GitHub?)
-- [ ] User must be able to rename stored chats.
+- [x] User must be able to choose response length.
+- [x] Last used settings must be saved to an external file for future use, like the current llm, temperature and maximum number of tokens.
+- [x] Add the ability to change the lenght of the response.
+- [x] Add a token counter, at least for OpenAI. Use [tiktoken](https://github.com/openai/tiktoken).
+- [x] User must be able to rename stored chats.
 - [x] Chatlog must show the number of token used.
+- [ ] Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/). (How do releases work in GitHub?)
+- [ ] Chat log must use markdown instead of html to parse styled responses.
+- [ ] Fix .pdf files created when chat is exported.
+- [ ] Fix the gila monster image visible when opening the program not remaining aligned to the center when the window is resized.
+- [ ] Find a way to exit the main thread if the chat is taking too long to respond.
 
 ## Useful Docs
 
