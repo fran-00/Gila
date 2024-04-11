@@ -28,6 +28,7 @@ class Model(QObject):
         self.manager = manager
         super().__init__()
         self.running = False
+        self.check_for_updates()
 
     def run(self):
         self.event_loop = QEventLoop()
@@ -65,3 +66,15 @@ class Model(QObject):
         """
         self.prompt = prompt.lower()
         self.event_loop.exit()
+
+    def check_for_updates(self):
+        with open('storage/local_sha.json', 'r') as f:
+            data = json.load(f)
+        local_sha = data["local_sha"]
+        process = subprocess.Popen(["git", "ls-remote", self.repo_url], stdout=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        remote_sha = re.split(r'\t+', stdout.decode('ascii'))[0]
+        if local_sha != remote_sha:
+            print("Codebase is not updated!")
+        else:
+            print("Codebase is updated!")
