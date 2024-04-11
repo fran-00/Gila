@@ -20,6 +20,7 @@ class Controller(QObject):
         self.main_thread = thread
         self.connect_model()
         self.connect_view()
+        self.model.check_for_updates()
 
     def connect_model(self):
         # Connect CONTROLLER's signals to MODEL's slots

@@ -28,7 +28,6 @@ class Model(QObject):
         self.manager = manager
         super().__init__()
         self.running = False
-        self.check_for_updates()
 
     def run(self):
         self.event_loop = QEventLoop()
