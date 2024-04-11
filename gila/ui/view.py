@@ -10,6 +10,7 @@ from .sidebar.parent_sidebar import Sidebar
 from .modals.add_api_key_modal import AddAPIKeyModal
 from .modals.manage_api_keys_modal import ManageAPIKeysModal
 from .modals.warning_modal import WarningModal
+from .modals.update_found_modal import UpdateFoundModal
 
 
 class LoadingScreen(QSplashScreen):
@@ -40,6 +41,7 @@ class View(QMainWindow):
         self.add_api_key_modal = AddAPIKeyModal(self)
         self.manage_api_keys_modal = ManageAPIKeysModal(self)
         self.warning_modal = WarningModal(self)
+        self.update_found_modal = UpdateFoundModal(self)
         self.addToolBar(self.toolbar)
         self.setStatusBar(self.status_bar)
         main_layout = QGridLayout(central_widget)
