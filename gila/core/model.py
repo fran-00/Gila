@@ -68,10 +68,11 @@ class Model(QObject):
         self.event_loop.exit()
 
     def check_for_updates(self):
+        repo_url = "https://github.com/fran-00/gila.git"
         with open('storage/local_sha.json', 'r') as f:
             data = json.load(f)
         local_sha = data["local_sha"]
-        process = subprocess.Popen(["git", "ls-remote", self.repo_url], stdout=subprocess.PIPE)
+        process = subprocess.Popen(["git", "ls-remote", repo_url], stdout=subprocess.PIPE)
         stdout, stderr = process.communicate()
         remote_sha = re.split(r'\t+', stdout.decode('ascii'))[0]
         if local_sha != remote_sha:
