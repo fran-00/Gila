@@ -1,3 +1,7 @@
+import json
+import re
+import subprocess
+
 from PySide6.QtCore import QThread, QObject, Signal, Slot, QEventLoop
 
 
