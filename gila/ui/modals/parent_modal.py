@@ -22,6 +22,6 @@ class Modal(QDialog):
         self.modal_layout.addWidget(self.modal_text)
 
     def on_dismiss_button(self):
-        self.modal_button = QPushButton("OK", self)
-        self.modal_button.clicked.connect(self.accept)
-        self.modal_layout.addWidget(self.modal_button)
+        self.dismiss_button = QPushButton("OK", self)
+        self.dismiss_button.clicked.connect(self.accept)
+        self.modal_layout.addWidget(self.dismiss_button)
