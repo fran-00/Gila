@@ -23,6 +23,7 @@ class Model(QObject):
     start_new_chat_to_controller = Signal()
     connection_error_to_controller = Signal()
     generic_error_to_controller = Signal(str)
+    update_found_to_controller = Signal()
 
     def __init__(self, manager):
         self.manager = manager
