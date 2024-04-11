@@ -79,6 +79,11 @@ class Controller(QObject):
         self.view.chat.update_status_bar_from_chatlog.connect(
             self.view.status_bar.on_status_update_slot)
 
+    @Slot()
+    def update_found_slot(self):
+        self.update_status_bar.emit("Aggiornamento trovato.")
+        self.view.update_found_modal.exec_()
+
     @Slot(str)
     def response_message_slot(self, response_message):
         """ Slot
