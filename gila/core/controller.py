@@ -41,6 +41,8 @@ class Controller(QObject):
             self.connection_error_slot)
         self.model.generic_error_to_controller.connect(
             self.generic_error_slot)
+        self.model.update_found_to_controller.connect(
+            self.update_found_slot)
         self.model.manager.api_key_is_valid_to_controller.connect(
             self.api_key_is_valid_slot)
 
