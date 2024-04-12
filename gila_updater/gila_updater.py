@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import venv
 
 from git import Repo
 
@@ -20,3 +21,7 @@ class GilaUpdater:
             print("Pacchetti di terze parti installati con successo!")
         except Exception as e:
             print(f"Si è verificato un errore durante l'installazione dei pacchetti di terze parti: {e}")
+
+    def create_virtualenv(self, env_dir):
+        venv.create(env_dir, system_site_packages=False, clear=True)
+        print(f"Ambiente virtuale creato con successo in: {env_dir}")
