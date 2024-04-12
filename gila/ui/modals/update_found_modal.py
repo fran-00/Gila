@@ -2,6 +2,8 @@ from PySide6.QtWidgets import QVBoxLayout, QPushButton
 
 from .parent_modal import Modal
 
+from gila_updater.gila_updater import GilaUpdater
+
 
 class UpdateFoundModal(Modal):
 
@@ -26,4 +28,4 @@ class UpdateFoundModal(Modal):
         self.modal_layout.addWidget(self.modal_button)
 
     def download_update(self):
-        print("Scarica aggiornamento")
+        GilaUpdater().clone_repo()
