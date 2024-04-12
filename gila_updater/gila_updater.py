@@ -9,6 +9,7 @@ class GilaUpdater:
 
     def __init__(self):
         self.repo_url = "https://github.com/fran-00/gila.git"
+        self.local_dir = "storage/cloned_repo"
 
     def compare_local_and_remote_sha(self):
         with open('storage/gila_conf.json', 'r') as f:
