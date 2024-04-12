@@ -75,5 +75,7 @@ class Model(QObject):
         process = subprocess.Popen(["git", "ls-remote", repo_url], stdout=subprocess.PIPE)
         stdout, stderr = process.communicate()
         remote_sha = re.split(r'\t+', stdout.decode('ascii'))[0]
+        process.kill()
+        process.wait()
         if local_sha != remote_sha:
             self.update_found_to_controller.emit()
