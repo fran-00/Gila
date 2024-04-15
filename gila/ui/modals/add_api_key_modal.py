@@ -17,6 +17,7 @@ class AddAPIKeyModal(Modal):
         self.modal_layout = QVBoxLayout(self)
         self.on_modal_text()
         self.modal_text.setText(f"Inserisci l'API Key per {self.client_name}, verrà inviata per la verifica.")
+        self.add_line_separator(self.modal_layout)
         self.on_modal_entry_line()
         self.on_modal_button()
         self.on_modal_wait_label()
