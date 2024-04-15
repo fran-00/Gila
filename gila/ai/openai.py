@@ -8,7 +8,7 @@ class OpenAIClient(APIClient):
     def __init__(self, llm):
         super().__init__(llm)
         self.company = "OPENAI"
-        self.chat_history = [{"role": "system", "content": "You are a helpful assistant."}]
+        self.chat_history = [{"role": "system", "content": "Ti chiami Gila. Sei un'assistente che aiuta l'utente a scrivere dei racconti lunghi e creativi a partire da brevi indicazioni."}]
 
     def submit_api_key(self):
         openai.api_key = self.get_api_key()
@@ -34,7 +34,7 @@ class OpenAIClient(APIClient):
             return False, e.message, None
 
     def on_chat_reset(self):
-        self.chat_history = [{"role": "system", "content": "You are a helpful assistant."}]
+        self.chat_history = [{"role": "system", "content": "Ti chiami Gila. Sei un'assistente che aiuta l'utente a scrivere dei racconti lunghi e creativi a partire da brevi indicazioni."}]
         self.chat_custom_name = None
         self.generate_chat_id()
 
