@@ -118,14 +118,6 @@ class ChangeSettingsModal(Modal):
         selected_max_tokens_value = self.tokens_slider.value()
         self.max_tokens_current_value_label.setText(str(selected_max_tokens_value))
 
-    def add_line_separator(self, layout):
-        line = QFrame()
-        line.setFrameShape(QFrame.HLine)
-        line.setFrameShadow(QFrame.Sunken)
-        line.setMaximumHeight(1)
-        self.window.assign_css_class(line, "line_separator")
-        layout.addWidget(line)
-
     def on_confirm_button(self):
         """ Creates button to confirm llm selection """
         confirm_button = QPushButton("Conferma")
