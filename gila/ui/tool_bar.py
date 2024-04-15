@@ -66,15 +66,14 @@ class ToolBar(QToolBar):
     def export_chatlog(self):
         options = QFileDialog.Options()
         # options |= QFileDialog.DontUseNativeDialog
-        file_types = "File di testo (*.txt);;Documento Word (*.docx);;Documento PDF (*.pdf)"
+        # file_types = "File di testo (*.txt);;Documento Word (*.docx);;Documento PDF (*.pdf)"
+        file_types = "File di testo (*.txt);;Documento Word (*.docx)"
         file_name, _ = QFileDialog.getSaveFileName(self, "Esporta Conversazione", "", file_types, options=options)
         if file_name:
             if file_name.endswith(".txt"):
                 self.save_txt(file_name)
             elif file_name.endswith(".docx"):
                 self.save_docx(file_name)
-            elif file_name.endswith(".pdf"):
-                self.save_pdf(file_name)
 
     def save_txt(self, file_name):
         with open(file_name, "w") as file:
@@ -89,7 +88,7 @@ class ToolBar(QToolBar):
 
     def save_pdf(self, file_name):
         # FIXME: è tutto storto, sistemalo
-        text = self.window.chat.log_widget.toPlainText()
+        text = self.window.chat.log_widget.toHtml()
         canvas = Canvas(file_name)
         canvas.setFont("Times-Roman", 12)
         canvas.drawString(100, 750, text)
