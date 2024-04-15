@@ -1,5 +1,5 @@
 from PySide6.QtCore import Signal
-from PySide6.QtWidgets import QDialog, QPushButton, QLabel
+from PySide6.QtWidgets import QDialog, QPushButton, QLabel, QFrame
 
 
 class Modal(QDialog):
@@ -25,3 +25,11 @@ class Modal(QDialog):
         self.dismiss_button = QPushButton("OK", self)
         self.dismiss_button.clicked.connect(self.accept)
         self.modal_layout.addWidget(self.dismiss_button)
+
+    def add_line_separator(self, layout):
+        line = QFrame()
+        line.setFrameShape(QFrame.HLine)
+        line.setFrameShadow(QFrame.Sunken)
+        line.setMaximumHeight(1)
+        self.window.assign_css_class(line, "line_separator")
+        layout.addWidget(line)
