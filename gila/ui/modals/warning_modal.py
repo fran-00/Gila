@@ -1,4 +1,3 @@
-from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QVBoxLayout
 
 from .parent_modal import Modal
@@ -31,12 +30,3 @@ class WarningModal(Modal):
 
     def on_deleting_current_chat_label(self):
         self.modal_text.setText("Non puoi eliminare una chat in corso!\nAvvia una nuova conversazione o caricane un'altra e riprova.")
-
-    def on_info_label(self):
-        """ Parse an HTML file to show info to user """
-        with open("storage/about.html", 'r') as file:
-            html_content = file.read()
-        self.modal_text.setTextFormat(Qt.TextFormat.RichText)
-        self.modal_text.setText(html_content)
-        self.modal_text.setAlignment(Qt.AlignTop)
-        self.resize(500, 800)
