@@ -95,5 +95,4 @@ class ToolBar(QToolBar):
         canvas.save()
 
     def open_info_modal(self):
-        self.window.warning_modal.on_info_label()
-        self.window.warning_modal.exec_()
+        self.window.about_gila_modal.exec_()
