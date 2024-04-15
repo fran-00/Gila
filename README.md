@@ -84,4 +84,3 @@ The Model runs a method to compare the sha of the running project (saved in a co
 If the two shas don't match, the Model sends a Boolean signal to the controller, which will tell the view to show a modal asking the user if he wants to update the program.
 
 If the user agrees, the Gila process closes and the remote repo will be cloned locally via the subprocess module. At this point Pyinstaller creates a new executable starting from the updated codebase and puts it in place of the old one.
-
