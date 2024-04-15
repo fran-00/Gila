@@ -142,7 +142,7 @@ class Chat(QObject):
         """
         self.prompt_layout.send_button.setEnabled(True)
         QApplication.restoreOverrideCursor()
-        self.log_widget.append(f"<b>Assistente</b>: {response}")
+        self.log_widget.append(f"<b>Gila</b>: {response}")
 
     @Slot(dict)
     def get_response_info_slot(self, response_info):
