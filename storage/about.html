@@ -1,4 +1,5 @@
 <html lang="it">
+
 <head>
     <style>
         h1 {
@@ -11,6 +12,84 @@
 <body>
     <div>
         <h1>Informazioni su Gila</h1>
-        <p>Gila &#232; "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+        <h2>Che cos'&#232; Gila?</h2>
+        <p>Gila &#232; un client che fornisce un'interfaccia grafica per connettersi al modelli linguistici di intelligenza artificiale generativa, creato nello specifico per aiutare ad espandere racconti.
+
+            Al momento supporta OpenAI, Cohere e supporter&#224; Google API quando l'utilizzo del servizio sar&#224; disponibile anche in Italia.
+        </p>
+    </div>
+    <hr>
+    <div>
+        <h2>Come si utilizza Gila?</h2>
+        <p>
+            Per poter utilizzare il programma bisogna ottenere le <b>chiavi API</b> per avere accesso ai servizi. Ogni servizio ha un sistema di pagamento diverso, ma sono tutti basati sul numero di token utilizzati. Al momento Cohere Chat è gratis mentre i modelli di OpenAI sono a pagamento.
+        </p>
+        
+        <h3>La barra degli strumenti</h3>
+        <p>Dalla barra degli strumenti è possibile compiere 4 azioni:</p>
+        <ol>
+            <li>Esportare la conversazione corrente come file .txt o .docx.</li>
+            <li>Aggiungere le chiavi API per poter comunicare con OpenAI e Cohere.</li>
+            <li>Modificare le impostazioni relative alla conversazione come il modello, la temperatura e il numero di token massimi utilizzabili in una risposta.</li>
+            <li>Aprire questa finestra con le informazioni sul programma.</li>
+        </ol>
+        <h3>Le chat salvate</h3>
+            <p>
+                Le conversazioni vengono salvate automaticamente nella barra laterale: il nome assegnato è un semplice ID a 10 caratteri che serve per identificare univocamente la conversazione, ma &#232; possibile rinominarle per distinguerle più facilemente e cancellarle. 
+            </p>
+        <h3>La temperatura</h3>
+        <p>
+            La temperatura è un valore che rappresenta il grado di creatività del modello: a una temperatura più alta corrispondono risposte più fantasiose. Si può cambiare il valore della temperatura dalla finestra delle impostazioni.
+        </p>
+        <h3>I token</h3>
+        <p>
+            I token sono unit&#224; minime di sequenze di caratteri di un testo. I grandi modelli linguistici (come GPT) analizzano un testo dividendolo in token e a partire dalle relazioni statistiche che ci sono tra le sequenze di caratteri sono in grado di produrre del testo coerente.
+
+            <br>
+
+            <b>In lingua inglese un token equivale a circa 4 caratteri e 1,000 token corrispondono a circa 750 parole.</b>
+
+            <br>
+
+            Il programma mostrerà il numero di token utilizzati per una conversazione data: quanti token costituiscono la domanda, quanti token costituiscono la risposta e il numero di token complessivo.
+
+    </div>
+    <br>
+    <div>
+        <h2>Prezzi</h2>
+        <p>
+            Il funzionamento dei token cambia in base al modello utilizzato Nella tabella che segue, ci sono i tre modelli di OpenAI supportati dal programma. Il prezzo riportato per l'Input e per l'Output si riferisce a 1000 token.
+
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Modello</th>
+                    <th>Input</th>
+                    <th>Output</th>
+                    <th>10000 parole di risposta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>GPT-3.5 Turbo</td>
+                    <td>0.00092&euro;</td>
+                    <td>0.0018&euro;</td>
+                    <td>0.02&euro;</td>
+                </tr>
+                <tr>
+                    <td>GPT-4 Turbo</td>
+                    <td>0.0092&euro;</td>
+                    <td>0.028&euro;</td>
+                    <td>0.37&euro;</td>
+                </tr>
+                <tr>
+                    <td>GPT-4</td>
+                    <td>0.028&euro;</td>
+                    <td>0.055&euro;</td>
+                    <td>0.73&euro;</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
