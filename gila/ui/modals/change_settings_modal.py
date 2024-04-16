@@ -43,7 +43,7 @@ class ChangeSettingsModal(Modal):
         select_temperature_label = QLabel("Temperatura")
         temperature_slider_layout = QHBoxLayout()
         min_temperature_label = QLabel("0")
-        self.max_temperature_label = QLabel("2")
+        self.max_temperature_label = QLabel("1")
         self.temperature_slider = QSlider(Qt.Horizontal)
         self.temperature_current_value_label = QLabel("0", objectName="temperature_current_value_label")
         # Adjust labels settings and width
@@ -58,7 +58,7 @@ class ChangeSettingsModal(Modal):
         self.window.assign_css_class(self.max_temperature_label, "slider_value_label")
         # Adjust slider's settings
         self.temperature_slider.setMinimum(0)
-        self.temperature_slider.setMaximum(20)
+        self.temperature_slider.setMaximum(10)
         self.temperature_slider.setTickInterval(1)
         self.temperature_slider.setSingleStep(1)
         self.temperature_slider.valueChanged.connect(self.on_temperature_slider_changed)
@@ -145,13 +145,9 @@ class ChangeSettingsModal(Modal):
         """
         llm = self.llms_combobox.currentText()
         if llm == "Cohere Chat":
-            self.temperature_slider.setMaximum(10)
-            self.max_temperature_label.setText("1")
             self.tokens_slider.setMaximum(4000)
             self.max_tokens_label.setText("4000")
         else:
-            self.temperature_slider.setMaximum(20)
-            self.max_temperature_label.setText("2")
             self.tokens_slider.setMaximum(4096)
             self.max_tokens_label.setText("4096")
         if llm == "GPT-4":
