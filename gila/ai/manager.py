@@ -81,7 +81,6 @@ class AIManager(QObject):
         self.next_client = selected_llm, new_llm
         self.next_temperature = new_temperature / 10
         self.next_max_tokens = new_max_tokens
-        print(self.next_temperature, self.next_max_tokens)
 
     @Slot(str)
     def api_key_slot(self, api_key, company_name):
