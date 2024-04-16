@@ -10,6 +10,7 @@ class AboutGilaModal(Modal):
         super().__init__(window)
         self.setWindowTitle("Informazioni su Gila")
         self.on_modal_layout()
+        self.resize(800, 600)
 
     def on_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
