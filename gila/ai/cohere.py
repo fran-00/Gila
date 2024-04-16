@@ -22,11 +22,7 @@ class CohereClient(APIClient):
                 max_tokens=self.max_tokens
             )
             answer = response.text
-            response_info = {
-                "prompt_tokens": response.token_count["prompt_tokens"],
-                "total_tokens": response.token_count["total_tokens"],
-                "billed_tokens": response.token_count["billed_tokens"]
-            }
+            response_info = None
             user_message = {"user_name": "User", "text": prompt}
             bot_message = {"user_name": "Chatbot", "text": answer}
 
