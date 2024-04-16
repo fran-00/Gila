@@ -36,8 +36,8 @@ class ToolBar(QToolBar):
         self.addAction(chat_settings_action)
 
     def on_open_info_modal_action(self):
-        info_action = QAction(self.info_icon, "&Informazioni", self)
-        info_action.setStatusTip('Informazioni')
+        info_action = QAction(self.info_icon, "&Informazioni su Gila", self)
+        info_action.setStatusTip('Informazioni su Gila')
         info_action.triggered.connect(self.open_info_modal)
         self.addAction(info_action)
 
