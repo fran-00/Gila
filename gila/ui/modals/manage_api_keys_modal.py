@@ -24,6 +24,7 @@ class ManageAPIKeysModal(Modal):
         self.modal_layout = QVBoxLayout(self)
         self.on_modal_text()
         self.modal_text.setText("Modifica le API Key salvate (pallino verde) o aggiungi quelle mancanti (pallino rosso).")
+        self.add_line_separator(self.modal_layout)
         self.set_icons()
         for key in self.api_keys.keys():
             self.on_client_list_row(key)
