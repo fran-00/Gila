@@ -54,3 +54,17 @@ QSlider::handle:horizontal {
     margin: -5px 0;
     border-radius: 10px;
 }
+
+QScrollBar {
+    background: #001a29;
+    width: 10px;
+}
+
+QScrollBar::handle {
+    background-color: #D6943C;
+}
+
+QScrollBar::add-page, QScrollBar::sub-page, QScrollBar::add-line, QScrollBar::sub-line {
+    background: #001a29;
+    border: none;
+}
