@@ -15,8 +15,6 @@ class AboutGilaModal(Modal):
     def on_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
-        self.on_modal_text()
-        self.modal_text.setText("Informazioni su Gila")
         self.on_about_text()
         self.on_dismiss_button()
 
