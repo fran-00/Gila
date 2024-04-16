@@ -9,6 +9,24 @@
             text-align: center;
             color: #D6943C;
         }
+        #table_container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #D6943C;
+            padding: 8px;
+            text-align: left;
+        }
+        thead th {
+            background-color: #003757;
+            color: #D6943C;
+        }
     </style>
 </head>
 
@@ -61,35 +79,37 @@
         <p>
             Il funzionamento dei token cambia in base al modello utilizzato Nella tabella che segue, ci sono i tre modelli di OpenAI supportati dal programma. Il prezzo riportato per l'Input e per l'Output si riferisce a 1000 token.
         </p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Modello</th>
-                    <th>Input</th>
-                    <th>Output</th>
-                    <th>10000 parole di risposta</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>GPT-3.5 Turbo</td>
-                    <td>0.00092&euro;</td>
-                    <td>0.0018&euro;</td>
-                    <td>0.02&euro;</td>
-                </tr>
-                <tr>
-                    <td>GPT-4 Turbo</td>
-                    <td>0.0092&euro;</td>
-                    <td>0.028&euro;</td>
-                    <td>0.37&euro;</td>
-                </tr>
-                <tr>
-                    <td>GPT-4</td>
-                    <td>0.028&euro;</td>
-                    <td>0.055&euro;</td>
-                    <td>0.73&euro;</td>
-                </tr>
-            </tbody>
-        </table>
+        <div id="table_container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Modello</th>
+                        <th>Input</th>
+                        <th>Output</th>
+                        <th>10000 parole di risposta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GPT-3.5 Turbo</td>
+                        <td>0.00092&euro;</td>
+                        <td>0.0018&euro;</td>
+                        <td>0.02&euro;</td>
+                    </tr>
+                    <tr>
+                        <td>GPT-4 Turbo</td>
+                        <td>0.0092&euro;</td>
+                        <td>0.028&euro;</td>
+                        <td>0.37&euro;</td>
+                    </tr>
+                    <tr>
+                        <td>GPT-4</td>
+                        <td>0.028&euro;</td>
+                        <td>0.055&euro;</td>
+                        <td>0.73&euro;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
