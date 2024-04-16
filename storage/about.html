@@ -35,7 +35,7 @@
         <h1>Informazioni su Gila</h1>
         <h2>Che cos'&#232; Gila?</h2>
         <p>
-            Gila &#232; un client che fornisce un'interfaccia grafica per connettersi al modelli linguistici di intelligenza artificiale generativa, creato nello specifico per aiutare ad espandere racconti.
+            Gila &#232; un client che fornisce un'interfaccia grafica per connettersi al modelli linguistici di intelligenza artificiale generativa, ideato nello specifico per aiutare l'utente a produrre dei testi creativi.
             <br>
             Al momento supporta OpenAI, Cohere e supporter&#224; Google API quando l'utilizzo del servizio sar&#224; disponibile anche in Italia.
         </p>
@@ -43,41 +43,45 @@
     <hr>
     <div>
         <h2>Come si utilizza Gila?</h2>
+        <h3>Le chiavi API</h3>
         <p>
-            Per poter utilizzare il programma bisogna ottenere le <b>chiavi API</b> per avere accesso ai servizi. Ogni servizio ha un sistema di pagamento diverso, ma sono tutti basati sul numero di token utilizzati. Al momento Cohere Chat &#232; gratis mentre i modelli di OpenAI sono a pagamento.
+            Per poter utilizzare il programma bisogna ottenere almeno una <b>chiave API</b>: si tratta un codice univoco che viene assegnato a un'applicazione o a un servizio web per consentire l'accesso e l'interazione con chi lo fornisce. Una volta inserita una chiave API nel programma &#232; possibile avviare una nuova conversazione con uno dei modelli linguistici disponibili.
+            Utilizzare alcuni servizi (come OpenAI) comporta dei costi: pi&#249; in basso ci sono i dettagli sui prezzi e sui limiti di utilizzo.
         </p>
         <h3>La barra degli strumenti</h3>
         <p>
             Dalla barra degli strumenti &#232; possibile compiere 4 azioni:
         </p>
         <ol>
-            <li>Esportare la conversazione corrente come file .txt o .docx.</li>
-            <li>Aggiungere le chiavi API per poter comunicare con OpenAI e Cohere.</li>
+            <li>Esportare la conversazione corrente come file <i>.txt</i> o <i>.docx</i>.</li>
+            <li>Aggiungere le <b>chiavi API</b> per poter comunicare con i servizi di OpenAI e Cohere.</li>
             <li>Modificare le impostazioni relative alla conversazione come il modello, la temperatura e il numero di token massimi utilizzabili in una risposta.</li>
             <li>Aprire questa finestra con le informazioni sul programma.</li>
         </ol>
         <h3>Le chat salvate</h3>
         <p>
-            Le conversazioni vengono salvate automaticamente nella barra laterale: il nome assegnato &#232; un semplice ID a 10 caratteri che serve per identificare univocamente la conversazione, ma &#232; possibile rinominarle per distinguerle più facilemente e cancellarle.
+            Le conversazioni vengono salvate automaticamente nella barra laterale: il nome assegnato &#232; un semplice ID composto da 10 lettere che serve per identificare univocamente la conversazione, ma &#232; possibile rinominarle per distinguerle pi&#249; facilemente e cancellarle.
         </p>
         <h3>La temperatura</h3>
         <p>
-            La temperatura &#232; un valore che rappresenta il grado di creatività del modello: a una temperatura più alta corrispondono risposte più fantasiose e imprevedibili. Si può cambiare il valore della temperatura dalla finestra delle impostazioni.
+            La temperatura &#232; un valore che rappresenta il grado di <b>creativit&#224;</b> del modello: a una temperatura pi&#249; alta corrispondono risposte pi&#249; fantasiose e imprevedibili. Si pu&#242; cambiare il valore della temperatura dalla finestra delle impostazioni.
         </p>
         <h3>I token</h3>
         <p>
-            I token sono unit&#224; minime di sequenze di caratteri di un testo. I grandi modelli linguistici (come GPT) analizzano un testo dividendolo in token e a partire dalle relazioni statistiche che ci sono tra le sequenze di caratteri sono in grado di produrre del testo coerente.
-            <br>
-            <b>In lingua inglese un token equivale a circa 4 caratteri.</b>
-            <br>
-            Il programma mostrerà il numero di token utilizzati per una conversazione data: quanti token costituiscono la domanda, quanti token costituiscono la risposta e il numero di token complessivo.
+            I <b>token</b> sono unit&#224; minime di sequenze di caratteri di un testo. I grandi modelli linguistici (come GPT) analizzano un testo dividendolo in token e a partire dalle relazioni statistiche che ci sono tra le sequenze di caratteri sono in grado di produrre in risposta un testo coerente. <b>In lingua inglese un token equivale a circa 4 caratteri.</b>
+            <br><br>
+            Il programma mostrer&#224; il numero di token utilizzati per una conversazione data: quanti token costituiscono la domanda, quanti token costituiscono la risposta e il numero di token complessivo.
         </p>
     </div>
     <hr>
     <div>
-        <h2>I prezzi di OpenAI</h2>
+        <h2>OpenAI</h2>
         <p>
-            Il funzionamento dei token cambia in base al modello utilizzato. Nella tabella che segue, ci sono i tre modelli di OpenAI supportati dal programma. Il prezzo riportato per l'Input e per l'Output si riferisce a 1000 token (circa 750 parole).
+            Al momento l'unico fornitore di servizi a pagamento supportato dal programma &#232; <b>OpenAI</b>. Ogni servizio ha un sistema di calcolo dei pagamenti diverso, ma sono tutti basati sul numero di token utilizzati.
+        </p>
+        <h3>I prezzi</h3>
+        <p>
+            Nella tabella che segue, ci sono i tre modelli di OpenAI supportati dal programma. Il prezzo riportato per l'Input e per l'Output si riferisce a 1000 token (circa 750 parole).
         </p>
         <div class="table_container">
             <table>
@@ -111,12 +115,56 @@
                 </tbody>
             </table>
         </div>
+        <p>
+            I prezzi sono da considerarsi puramente indicativi: sono soggetti a frequenti aggiornamenti che spesso rendono i modelli ancora pi&#249; economici a causa del miglioramento del servizio o dell'emergere di nuovi modelli ancora pi&#249; performanti.
+        </p>
     </div>
     <div>
-        <h2>Limiti alle richieste per OpenAI</h2>
+        <h3>Limiti alle richieste</h3>
         <p>
-            La comunicazione con i modelli linguistici forniti da OpenAI è soggetta a dei limiti di tempo e di risorse che dipendono dal modello utilizzato e da quanti soldi si sono spesi nell'utilizzo del servizio.
+            La comunicazione con i modelli linguistici forniti da OpenAI &#232; soggetta a dei limiti di tempo e di risorse che dipendono dal modello utilizzato e da quanti soldi si sono gi&#224; spesi nell'utilizzo del servizio. Nella tabella che segue sono riportati i limiti relativi ad un utente che ha speso almeno 5 euro:
         </p>
-        
+        <div class="table_container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Modello</th>
+                        <th>Richieste al minuto</th>
+                        <th>Richieste al giorno</th>
+                        <th>Token al minuto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GPT-3.5 Turbo</td>
+                        <td>3500</td>
+                        <td>10000</td>
+                        <td>60000</td>
+                    </tr>
+                    <tr>
+                        <td>GPT-4 Turbo</td>
+                        <td>500</td>
+                        <td>-</td>
+                        <td>300000</td>
+                    </tr>
+                    <tr>
+                        <td>GPT-4</td>
+                        <td>500</td>
+                        <td>10000</td>
+                        <td>10000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            Se questi limiti dovessero venire superati durante l'utilizzo del programma, verr&#224; mostrato un messaggio di avviso in inglese: in tal caso &#232; necessario aspettare che i limiti vengano ripristinati prima di poter continuare a comunicare con il modello dato.
+        </p>
+    </div>
+    <hr>
+    <div>
+        <h2>Eventuali problemi con Gila</h2>
+        <p> 
+            Potrebbe capitare che il programma si blocchi, soprattutto a causa di problemi di connessione con i servizi web necessari al suo funzionamento: in tal caso &#232; sufficiente chiudere Gila e riavviarlo. Se si dovessero verificare dei problemi che impediscono il corretto utilizzo di Gila, lo sviluppatore provveder&#224; a risolverli il prima possibile.
+        </p>
     </div>
 </body>
