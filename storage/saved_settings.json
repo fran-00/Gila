@@ -1,5 +1,5 @@
 {
     "llm_name": "GPT-3.5 Turbo",
-    "temperature": 1.5,
-    "max_tokens": 500
+    "temperature": 1.0,
+    "max_tokens": 4096
 }
