@@ -170,7 +170,7 @@ class Chat(QObject):
 
     def get_chat_log(self):
         """ Returns all current chat text """
-        return self.log_widget.toPlainText()
+        return self.log_widget.toHtml()
 
     def on_starting_a_new_chat(self):
         """ Sends a signal to start a new chat """
