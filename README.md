@@ -75,9 +75,18 @@ APIs do have rate limits. To know more:
 - [PyUpdater](https://www.pyupdater.org/)
 - [GitPython](https://gitpython.readthedocs.io/en/stable/)
 
-## Gila Updater
+## Gila Updater (Not yet implemented)
 
 The Model runs a method to compare the sha of the running project (saved in a configuration file in the *storage* folder) with that of the latest commit on the remote repo.
 If the two shas don't match, the Model sends a Boolean signal to the controller, which will tell the view to show a modal asking the user if he wants to update the program.
 
 If the user agrees, the Gila process closes and the remote repo will be cloned locally via the subprocess module. At this point Pyinstaller creates a new executable starting from the updated codebase and puts it in place of the old one.
+
+# Future changes
+
+- Add chat formatting.
+- Fix .pdf files created when chat is exported.
+- Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/)?
+- Add image generation to AI Clients that supports it.
+- Improve errors and exceptions management.
+- Main thread must stop if API is taking too long to respond to prevent GUI freezing.
