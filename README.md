@@ -85,6 +85,7 @@ If the user agrees, the Gila process closes and the remote repo will be cloned l
 # Future changes
 
 - Add chat formatting.
+- Add Gemini Pro, Anthropic, Meta and Mistral to AI clients.
 - Fix .pdf files created when chat is exported.
 - Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/)?
 - Add image generation to AI Clients that supports it.
