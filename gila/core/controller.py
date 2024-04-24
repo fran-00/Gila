@@ -236,6 +236,7 @@ class Controller(QObject):
             - model.connection_error_to_controller
         Opens WarningLabel to warn user about internet connection.
         """
+        self.response_message_to_chatlog.emit("<span style='color:#f00'>Nessuna connessione a internet!</span>")
         self.update_status_bar.emit("Nessuna connessione a internet.")
         self.view.warning_modal.on_no_internet_connection_label()
         self.view.warning_modal.exec_()
@@ -247,6 +248,7 @@ class Controller(QObject):
             - model.generic_error_to_controller
         Opens WarningLabel to warn user about internet connection.
         """
+        self.response_message_to_chatlog.emit("<span style='color:#f00'>Si è verificato un errore! Riprova!</span>")
         self.update_status_bar.emit("Si è verificato un errore.")
         self.view.warning_modal.on_label(error)
         self.view.warning_modal.exec_()
