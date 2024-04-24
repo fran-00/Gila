@@ -14,6 +14,12 @@ class OpenAIClient(APIClient):
         openai.api_key = self.get_api_key()
 
     def submit_prompt(self, prompt):
+        if self.llm_name == "DALL-E-2" or self.llm_name == "DALL-E-3":
+            return self.on_image_generations(prompt)
+        else:
+            return self.on_chat_completions(prompt)
+
+    def on_chat_completions(self, prompt):
         self.chat_history.append({"role": "user", "content": prompt})
         try:
             response = openai.OpenAI().chat.completions.create(
@@ -30,6 +36,20 @@ class OpenAIClient(APIClient):
             ai_response = response.choices[0].message.content
             self.chat_history.append({"role": "assistant", "content": ai_response})
             return True, ai_response, response_info
+        except openai.APIError as e:
+            return False, e.message, None
+
+    def on_image_generations(self, prompt):
+        try:
+            response = openai.OpenAI().images.generate(
+                model=self.llm,
+                prompt=prompt,
+                size="1024x1024",
+                quality="standard",
+                n=1,
+            )
+            ai_response = response.data[0].url
+            return True, ai_response, None
         except openai.APIError as e:
             return False, e.message, None
 
