@@ -41,18 +41,21 @@ class Model(QObject):
             if self.manager.stream_stopped is True:
                 self.start_new_chat_to_controller.emit()
                 break
-            ai_response = self.client.submit_prompt(self.prompt)
-            no_errors = ai_response[0]
-            response_message = ai_response[1]
-            response_info = ai_response[2]
-            if no_errors is True:
-                self.response_message_signal_to_controller.emit(response_message)
-                self.response_info_signal_to_controller.emit(response_info)
-            elif no_errors is False:
-                if "Connection" in response_message:
-                    self.connection_error_to_controller.emit()
-                else:
-                    self.generic_error_to_controller.emit(response_message)
+            self.handle_client_response()
+
+    def handle_client_response(self):
+        ai_response = self.client.submit_prompt(self.prompt)
+        no_errors = ai_response[0]
+        response_message = ai_response[1]
+        response_info = ai_response[2]
+        if no_errors is True:
+            self.response_message_signal_to_controller.emit(response_message)
+            self.response_info_signal_to_controller.emit(response_info)
+        elif no_errors is False:
+            if "Connection" in response_message:
+                self.connection_error_to_controller.emit()
+            else:
+                self.generic_error_to_controller.emit(response_message)
 
     def stop(self):
         self.event_loop.exit()
