@@ -14,6 +14,8 @@ AVAILABLE_MODELS = {
         "GPT-4": OpenAIClient("gpt-4"),
         "GPT-4 Turbo": OpenAIClient("gpt-4-turbo-preview"),
         "GPT-3.5 Turbo": OpenAIClient("gpt-3.5-turbo"),
+        "DALL-E-2": OpenAIClient("dall-e-2"),
+        "DALL-E-3": OpenAIClient("dall-e-3"),
         # "Gemini Pro": GoogleClient("gemini-pro"),
         "Cohere Chat": CohereClient("cohere-chat"),
 }
