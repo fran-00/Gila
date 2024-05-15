@@ -12,6 +12,7 @@ class CurrentSettings(QObject):
         self.current_max_tokens = None
         self.llms = [
             "GPT-3.5 Turbo",
+            "GPT-4o",
             "GPT-4",
             "GPT-4 Turbo",
             # "DALL-E-2",
