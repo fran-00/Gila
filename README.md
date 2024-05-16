@@ -15,13 +15,16 @@ Install project's required packages via pip:
 
         pip install -r requirements.txt
 
-Now you need an OpenAI, Google and Cohere API Keys. Once you got them, store them on a *.env* file like this:
+Now you need an OpenAI, Google, Mistral and Cohere API Keys. Once you got them, store them on a *api_keys.json* file like this:
 
-        OPENAI_API_KEY="XXXXXXX"
-        GOOGLE_API_KEY="XXXXXXX"
-        COHERE_API_KEY="XXXXXXX"
+        {
+            "COHERE_API_KEY": "XXXXXXX",
+            "MISTRAL_API_KEY": "XXXXXXX",
+            "GOOGLE_API_KEY": "XXXXXXX",
+            "OPENAI_API_KEY": "XXXXXXX"
+        }
 
-Put this file inside the root dir and you're ready! Now you can run the program as a Python package:
+Put this file inside the *storage* dir and you're ready! Now you can run the program as a Python package:
 
         py -m gila
 
@@ -48,7 +51,7 @@ APIs do have rate limits. To know more:
 
 - [x] Add a Menu on the left side of screen to adjust settings (model and temperature) and start a new chat
 - [x] Sidebar must be hideable.
-- [x] Add a way to load API keys and create a .env file to store them
+- [x] Add a way to load API keys and create a .json file to store them
 - [x] Check Internet connection before every request to API, show a modal if client is not connected. Or/and change the color of chatlog to grey.
 - [x] Ensure that model is disconnected from client on window closing.
 - [x] Add a loading view on startup.
