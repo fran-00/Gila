@@ -166,3 +166,4 @@ cython_debug/
 
 *.pk
 local_sha.json
+api_keys.json
