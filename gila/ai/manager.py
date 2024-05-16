@@ -62,8 +62,8 @@ class AIManager(QObject):
 
     def on_api_key(self):
         """ Called by Controller's new_chat_started_slot, asks client to check if
-        API key of the said company is present on the .env file. Returns a boolean
-        with response"""
+        API key of the said company is present on the storage/api_keys.json file.
+        Returns a boolean with response"""
         if self.client.check_if_api_key(self.client.company) is True:
             self.client.submit_api_key()
             return True
