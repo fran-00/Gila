@@ -139,9 +139,12 @@ class AIManager(QObject):
         return settings
 
     def save_api_key(self, api_key, company_name):
-        """ Saves validated API Key to .env file """
-        with open('.env', 'a') as file:
-            file.write(f"\n{company_name.upper()}_API_KEY='{api_key}'")
+        """ Saves validated API Key to api_keys.json file """
+        with open('storage/api_keys.json', 'r+') as file:
+            api_keys = json.load(file)
+            api_keys[f"{company_name.upper()}_API_KEY"] = api_key
+            file.seek(0)
+            json.dump(api_keys, file, indent=4)
 
     def check_internet_connection(self):
         try:
