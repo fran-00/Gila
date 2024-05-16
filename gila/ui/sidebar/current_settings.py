@@ -15,8 +15,8 @@ class CurrentSettings(QObject):
             "GPT-4o",
             "GPT-4",
             "GPT-4 Turbo",
-            # "DALL-E-2",
-            # "DALL-E-3",
+            "DALL-E-2",
+            "DALL-E-3",
             "Cohere Chat",
             # "Gemini Pro"
         ]
