@@ -1,8 +1,6 @@
-import os
+import json
 import random
 import string
-
-from dotenv import load_dotenv
 
 
 class APIClient:
