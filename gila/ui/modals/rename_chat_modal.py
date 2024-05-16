@@ -27,4 +27,5 @@ class RenameChatModal(Modal):
 
     def on_new_name_entry(self):
         self.new_name_entry = QLineEdit()
+        self.new_name_entry.setMaxLength(20)
         self.modal_layout.addWidget(self.new_name_entry)
