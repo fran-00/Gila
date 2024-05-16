@@ -17,12 +17,14 @@ class APIClient:
         self.chat_custom_name = None
 
     def check_if_api_key(self, company_name):
-        """ Reads .env file to get API Key, if any """
-        load_dotenv()
-        if key := os.getenv(f"{company_name}_API_KEY"):
-            self.api_key = key
-            return True
-        return False
+        with open('storage/api_keys.json', 'r') as f:
+            api_keys = json.load(f)
+            key = api_keys.get(f"{company_name}_API_KEY")
+            if key != "None":
+                self.api_key = key
+                return True
+            else:
+                return False
 
     def get_api_key(self):
         """ Returns API Key"""
