@@ -29,12 +29,14 @@ class ManageAPIKeysModal(Modal):
             self.on_client_list_row(key)
 
     def on_stored_api_keys(self):
-        load_dotenv()
-        for key in self.api_keys.keys():
-            if os.getenv(f"{key.upper()}_API_KEY"):
-                self.api_keys[f"{key}"] = True
-            else:
-                self.api_keys[f"{key}"] = False
+        with open('storage/api_keys.json', 'r') as f:
+            stored_api_keys = json.load(f)
+            for company_name, _ in self.api_keys.items():
+                stored_key = stored_api_keys.get(company_name.upper() + "_API_KEY")
+                if stored_key != "None":
+                    self.api_keys[company_name] = True
+                else:
+                    self.api_keys[company_name] = False
 
     def on_client_list_row(self, client_name):
         row_layout = QHBoxLayout()
