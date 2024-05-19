@@ -86,12 +86,12 @@ If the two shas don't match, the Model sends a Boolean signal to the controller,
 
 If the user agrees, the Gila process closes and the remote repo will be cloned locally via the subprocess module. At this point Pyinstaller creates a new executable starting from the updated codebase and puts it in place of the old one.
 
-# Future changes
+## Future changes
 
 - Add chat formatting.
 - Add Gemini Pro, Anthropic, Meta and Mistral to AI clients.
 - Fix .pdf files created when chat is exported.
 - Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/)?
-- Add image generation to AI Clients that supports it.
+- Add image generation to AI Clients that supports it and internal image rendering with Pillow.
 - Improve errors and exceptions management.
 - Main thread must stop if API is taking too long to respond to prevent GUI freezing.
