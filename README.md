@@ -68,6 +68,7 @@ APIs do have rate limits. To know more:
 - [x] Chatlog must show the number of token used.
 - [x] Find a way to exit the main thread if the chat is taking too long to respond.
 - [ ] Fix the gila monster image visible when opening the program not remaining aligned to the center when the window is resized.
+- [ ] Add specific settings for images generation models like Dall-E 2 and 3.
 
 ## Useful Docs
 
