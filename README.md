@@ -4,39 +4,53 @@
 
 To run from source, you'll need Python 3.12 and Git installed in your system. You'll also need some API Keys, but we'll cover it up later. Clone this project:
 
-        git clone https://github.com/fran-00/gila.git
+```shell
+git clone https://github.com/fran-00/gila.git
+```
 
 On Windows create a new virtual environment with venv and activate it:
 
-        py -m venv venv
-        venv/Scripts/Activate.ps1
+```shell
+py -m venv venv
+venv/Scripts/Activate.ps1
+```
 
 Install project's required packages via pip:
 
-        pip install -r requirements.txt
+```shell
+pip install -r requirements.txt
+```
 
 Now you need an OpenAI, Google, Mistral and Cohere API Keys. Once you got them, store them on a *api_keys.json* file like this:
 
-        {
-            "COHERE_API_KEY": "XXXXXXX",
-            "MISTRAL_API_KEY": "XXXXXXX",
-            "GOOGLE_API_KEY": "XXXXXXX",
-            "OPENAI_API_KEY": "XXXXXXX"
-        }
+```json
+{
+    "COHERE_API_KEY": "XXXXXXX",
+    "MISTRAL_API_KEY": "XXXXXXX",
+    "GOOGLE_API_KEY": "XXXXXXX",
+    "OPENAI_API_KEY": "XXXXXXX"
+}
+```
 
 Put this file inside the *storage* dir and you're ready! Now you can run the program as a Python package:
 
-        py -m gila
+```shell
+py -m gila
+```
 
 ## How to build the .exe file
 
 On the root directory (with the virtual environment activated and PyInstaller installed):
 
-        pyinstaller build.spec
+```shell
+pyinstaller build.spec
+```
 
 The command used to create the spec file was this:
 
-        pyinstaller cli.py --onefile --name gila --add-data="storage/saved_settings.json:." --add-data="storage/assets:."
+```shell
+ pyinstaller cli.py --onefile --name gila --add-data="storage/saved_settings.json:." --add-data="storage/assets:."
+```
 
 You will find **gila.exe** executable file inside *dist* directory: remember to copy *storage* folder there before distributing it!
 
