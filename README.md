@@ -21,15 +21,13 @@ Install project's required packages via pip:
 pip install -r requirements.txt
 ```
 
-Now you need an OpenAI, Google, Mistral and Cohere API Keys. Once you got them, store them on a *api_keys.json* file like this:
+Now you need an OpenAI, Google, Mistral and Cohere API Keys. Once you got them, store them on a *.env* file like this:
 
-```json
-{
-    "COHERE_API_KEY": "XXXXXXX",
-    "MISTRAL_API_KEY": "XXXXXXX",
-    "GOOGLE_API_KEY": "XXXXXXX",
-    "OPENAI_API_KEY": "XXXXXXX"
-}
+```python
+COHERE_API_KEY='XXXXXXX'
+MISTRAL_API_KEY='XXXXXXX'
+GOOGLE_API_KEY='XXXXXXX'
+OPENAI_API_KEY='XXXXXXX'
 ```
 
 Put this file inside the *storage* dir and you're ready! Now you can run the program as a Python package:
