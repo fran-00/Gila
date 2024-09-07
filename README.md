@@ -84,22 +84,6 @@ APIs do have rate limits. To know more:
 - [ ] Fix the gila monster image visible when opening the program not remaining aligned to the center when the window is resized.
 - [ ] Add specific settings for images generation models like Dall-E 2 and 3.
 
-## Useful Docs
-
-- [Gemini Pro API count tokens](https://ai.google.dev/tutorials/python_quickstart#count_tokens)
-- [OpenAI API max tokens](https://platform.openai.com/docs/api-reference/chat/create#chat-create-max_tokens)
-- [Cohere API Generate](https://docs.cohere.com/reference/generate)
-- [PyInstaller](https://pyinstaller.org/en/stable/)
-- [PyUpdater](https://www.pyupdater.org/)
-- [GitPython](https://gitpython.readthedocs.io/en/stable/)
-
-## Gila Updater (Not yet implemented)
-
-The Model runs a method to compare the sha of the running project (saved in a configuration file in the *storage* folder) with that of the latest commit on the remote repo.
-If the two shas don't match, the Model sends a Boolean signal to the controller, which will tell the view to show a modal asking the user if he wants to update the program.
-
-If the user agrees, the Gila process closes and the remote repo will be cloned locally via the subprocess module. At this point Pyinstaller creates a new executable starting from the updated codebase and puts it in place of the old one.
-
 ## Future changes
 
 - Add chat formatting.
