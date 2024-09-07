@@ -14,7 +14,7 @@ class ManageAPIKeysModal(Modal):
         self.setWindowTitle("Gestisci Chiavi API")
         self.api_keys = {
             "OpenAi": False,
-            # "Google": False,
+            "Google": False,
             "Cohere": False
         }
         self.on_modal_layout()

@@ -21,7 +21,7 @@ Install project's required packages via pip:
 pip install -r requirements.txt
 ```
 
-Now you need an OpenAI, Google, Mistral and Cohere API Keys. Once you got them, store them on a *.env* file like this:
+Now you need an OpenAI, Google and Cohere API Keys. Once you got them, store them on a *.env* file like this:
 
 ```python
 COHERE_API_KEY='XXXXXXX'

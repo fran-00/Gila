@@ -6,7 +6,7 @@ from datetime import datetime
 from PySide6.QtCore import QObject, Slot, Signal
 
 from .openai import OpenAIClient
-# from .google import GoogleClient
+from .google import GoogleClient
 from .cohere import CohereClient
 
 
@@ -17,13 +17,13 @@ AVAILABLE_MODELS = {
         "GPT-3.5 Turbo": OpenAIClient("gpt-3.5-turbo"),
         "DALL-E-2": OpenAIClient("dall-e-2"),
         "DALL-E-3": OpenAIClient("dall-e-3"),
-        # "Gemini Pro": GoogleClient("gemini-pro"),
+        "Gemini Pro": GoogleClient("gemini-pro"),
         "Cohere Chat": CohereClient("cohere-chat"),
 }
 
 COMPANIES = {
         "OPENAI": OpenAIClient("gpt-3.5-turbo"),
-        # "GOOGLE": GoogleClient("gemini-pro"),
+        "GOOGLE": GoogleClient("gemini-pro"),
         "COHERE": CohereClient("cohere-chat"),
 }
 
