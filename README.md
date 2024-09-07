@@ -30,7 +30,7 @@ GOOGLE_API_KEY='XXXXXXX'
 OPENAI_API_KEY='XXXXXXX'
 ```
 
-Put this file inside the *storage* dir and you're ready! Now you can run the program as a Python package:
+Put this file on the project root dir and you're ready! Now you can run the program as a Python package:
 
 ```shell
 py -m gila
