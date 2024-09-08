@@ -25,7 +25,6 @@ Now you need an OpenAI, Google and Cohere API Keys. Once you got them, store the
 
 ```python
 COHERE_API_KEY='XXXXXXX'
-MISTRAL_API_KEY='XXXXXXX'
 GOOGLE_API_KEY='XXXXXXX'
 OPENAI_API_KEY='XXXXXXX'
 ```
@@ -80,12 +79,13 @@ APIs do have rate limits. To know more:
 - [x] Chatlog must show the number of token used.
 - [x] Find a way to exit the main thread if the chat is taking too long to respond.
 - [ ] Fix the gila monster image visible when opening the program not remaining aligned to the center when the window is resized.
-- [ ] Add specific settings for images generation models like Dall-E 2 and 3.
+- [ ] Add specific settings for images generation models like Dall-E 2 and 3 ([size, quality and quantity](https://platform.openai.com/docs/guides/images/generations)).
+- [ ] Add logic to display model-generated images directly in the chat log.
 
 ## Future changes
 
 - Add chat formatting.
-- Add Gemini Pro, Anthropic, Meta and Mistral to AI clients.
+- Add Anthropic, Meta and Mistral to AI clients.
 - Fix .pdf files created when chat is exported.
 - Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/)?
 - Add image generation to AI Clients that supports it and internal image rendering with Pillow.
