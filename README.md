@@ -1,5 +1,24 @@
 # GILA - AI Chatbot
 
+This is an AI chatbot client made with Python and PySide6.
+Currently supported large language models:
+
+- GPT-4o
+- GPT-4o mini
+- GPT-4
+- GPT-4 Turbo
+- Gemini 1.0 Pro
+- Gemini 1.5 Pro
+- Gemini 1.5 Flash
+- Command
+- Command R
+- Command R+
+
+Currently supported text-to-image models:
+
+- DALL-E-2
+- DALL-E-3
+
 ## How to set up development environment
 
 To run from source, you'll need Python 3.12 and Git installed in your system. You'll also need some API Keys, but we'll cover it up later. Clone this project:
