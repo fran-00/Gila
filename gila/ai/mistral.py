@@ -29,3 +29,8 @@ class MistralClient(APIClient):
             return True, answer, response_info
         except ValueError as e:
             return False, e.message, None
+
+    def on_chat_reset(self):
+        self.chat_history = []
+        self.chat_custom_name = None
+        self.generate_chat_id()
