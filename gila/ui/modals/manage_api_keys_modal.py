@@ -32,10 +32,7 @@ class ManageAPIKeysModal(Modal):
     def on_stored_api_keys(self):
         load_dotenv()
         for key in self.api_keys.keys():
-            if os.getenv(f"{key.upper()}_API_KEY"):
-                self.api_keys[f"{key}"] = True
-            else:
-                self.api_keys[f"{key}"] = False
+            self.api_keys[f"{key}"] = bool(os.getenv(f"{key.upper()}_API_KEY"))
 
     def on_client_list_row(self, client_name):
         row_layout = QHBoxLayout()
