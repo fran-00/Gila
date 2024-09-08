@@ -144,6 +144,7 @@ class ChangeSettingsModal(Modal):
             "GPT-4": (8192, 2),
             "Gemini 1.5 Flash": (8192, 2),
             "Gemini 1.5 Pro": (8192, 2),
+            "Gemini 1.0 Pro": (8192, 2),
             "Command": (4000, 1),
             "Command R": (4000, 1),
             "Command R+": (4000, 1),

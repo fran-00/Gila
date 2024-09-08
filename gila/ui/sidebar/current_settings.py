@@ -19,6 +19,7 @@ class CurrentSettings(QObject):
             "DALL-E-3",
             "Gemini 1.5 Flash",
             "Gemini 1.5 Pro",
+            "Gemini 1.0 Pro",
             "Command",
             "Command R+",
             "Command"

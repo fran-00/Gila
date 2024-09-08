@@ -20,6 +20,7 @@ AVAILABLE_MODELS = {
     "DALL-E-3": OpenAIClient("dall-e-3"),
     "Gemini 1.5 Flash": GoogleClient("gemini-1.5-flash"),
     "Gemini 1.5 Pro": GoogleClient("gemini-1.5-pro"),
+    "Gemini 1.0 Pro": GoogleClient("gemini-1.0-pro"),
     "Command": CohereClient("command"),
     "Command R+": CohereClient("command-r-plus"),
     "Command R": CohereClient("command-r"),
