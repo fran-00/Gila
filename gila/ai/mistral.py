@@ -1,5 +1,3 @@
-import os
-
 from mistralai import Mistral
 from .api_client import APIClient
 
