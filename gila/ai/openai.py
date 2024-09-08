@@ -14,7 +14,7 @@ class OpenAIClient(APIClient):
         openai.api_key = self.get_api_key()
 
     def submit_prompt(self, prompt):
-        if self.llm_name == "DALL-E-2" or self.llm_name == "DALL-E-3":
+        if self.llm_name in ["DALL-E-2", "DALL-E-3"]:
             return self.on_image_generations(prompt)
         else:
             return self.on_chat_completions(prompt)
