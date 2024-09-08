@@ -14,7 +14,7 @@ AVAILABLE_MODELS = {
         "GPT-4": OpenAIClient("gpt-4"),
         "GPT-4o": OpenAIClient("gpt-4o"),
         "GPT-4 Turbo": OpenAIClient("gpt-4-turbo"),
-        "GPT-3.5 Turbo": OpenAIClient("gpt-3.5-turbo"),
+        "GPT-4o mini": OpenAIClient("gpt-4o-mini"),
         "DALL-E-2": OpenAIClient("dall-e-2"),
         "DALL-E-3": OpenAIClient("dall-e-3"),
         "Gemini Pro": GoogleClient("gemini-pro"),
@@ -22,7 +22,7 @@ AVAILABLE_MODELS = {
 }
 
 COMPANIES = {
-        "OPENAI": OpenAIClient("gpt-3.5-turbo"),
+        "OPENAI": OpenAIClient("gpt-4o-mini"),
         "GOOGLE": GoogleClient("gemini-pro"),
         "COHERE": CohereClient("cohere-chat"),
 }
