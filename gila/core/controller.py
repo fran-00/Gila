@@ -144,9 +144,7 @@ class Controller(QObject):
             - chat_stopped_to_model (model.chat_stopped_slot)
             - update_status_bar (view.status_bar.on_status_update_slot)
         """
-        if self.model.manager.stream_stopped is True:
-            pass
-        else:
+        if self.model.manager.stream_stopped is not True:
             # Chat must be saved only if it's not empty and date must not be changed if chatlog is not changed
             if self.view.chat.chatlog_has_changed(self.model.manager.client.chat_id) and self.view.chat.chatlog_has_text():
                 self.model.manager.save_current_chat()
