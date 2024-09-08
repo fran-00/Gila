@@ -11,14 +11,15 @@ class CurrentSettings(QObject):
         self.current_temperature = None
         self.current_max_tokens = None
         self.llms = [
-            "GPT-3.5 Turbo",
+            "GPT-4o mini",
             "GPT-4o",
             "GPT-4",
             "GPT-4 Turbo",
             "DALL-E-2",
             "DALL-E-3",
             "Cohere Chat",
-            # "Gemini Pro"
+            "Gemini 1.5 Flash",
+            "Gemini 1.5 Pro"
         ]
         self.widget_container = QWidget(objectName="current_settings_widget")
         self.on_current_settings_layout()
