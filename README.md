@@ -9,7 +9,8 @@ Currently supported large language models:
 - Claude 3.5 Sonnet
 - Command
 - Command R
-- Command R+- Gemini 1.0 Pro
+- Command R+
+- Gemini 1.0 Pro
 - Gemini 1.5 Pro
 - Gemini 1.5 Flash
 - GPT-4
