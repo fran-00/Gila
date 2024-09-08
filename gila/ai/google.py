@@ -20,7 +20,7 @@ class GoogleClient(APIClient):
         try:
             response = self.chat_messages.send_message(prompt, stream=False)
             response_text = "".join(chunk.text for chunk in response)
-            response_info = {"total_tokens": self.model.count_tokens(self.chat_history)}
+            response_info = {"total_tokens": response.usage_metadata.candidates_token_count}
             return True, response_text, response_info
         except GoogleAPIError as e:
             return False, e.message, None
