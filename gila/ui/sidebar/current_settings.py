@@ -40,7 +40,7 @@ class CurrentSettings(QObject):
         self.current_chat_date = settings[5]
         settings_string = f"""<div>
             <b>ID</b>: {self.chat_id}<br>
-            <b>Name</b>: {self.chat_custom_name if self.chat_custom_name is not None else 'Nome non impostato'}<br>
+            <b>Name</b>: {self.chat_custom_name if self.chat_custom_name is not None else 'Name not set'}<br>
             <b>Model</b>: {self.current_llm}<br>
             <b>Temperature</b>: {self.current_temperature}<br>
             <b>Max tokens</b>: {self.current_max_tokens}<br>
