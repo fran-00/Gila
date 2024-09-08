@@ -35,3 +35,8 @@ class AnthropicClient(APIClient):
             return True, answer, response_info
         except anthropic.APIError as e:
             return False, e.message, None
+
+    def on_chat_reset(self):
+        self.chat_history = []
+        self.chat_custom_name = None
+        self.generate_chat_id()
