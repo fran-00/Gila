@@ -17,7 +17,6 @@ class CurrentSettings(QObject):
             "GPT-4 Turbo",
             "DALL-E-2",
             "DALL-E-3",
-            "Cohere Chat",
             "Gemini 1.5 Flash",
             "Gemini 1.5 Pro",
             "Command",
