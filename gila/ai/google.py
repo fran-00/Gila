@@ -34,7 +34,7 @@ class GoogleClient(APIClient):
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel('gemini-pro')
         try:
-            model.generate_content("test")
+            model.generate_text("test")
             return True
         except InvalidArgument as e:
             print(e)
