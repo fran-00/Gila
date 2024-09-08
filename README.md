@@ -13,6 +13,8 @@ Currently supported large language models:
 - Command
 - Command R
 - Command R+
+- Mistral Large
+- Mistral Nemo
 
 Currently supported text-to-image models:
 
@@ -46,6 +48,7 @@ Now you need an OpenAI, Google and Cohere API Keys. Once you got them, store the
 COHERE_API_KEY='XXXXXXX'
 GOOGLE_API_KEY='XXXXXXX'
 OPENAI_API_KEY='XXXXXXX'
+MISTRAL_API_KEY='XXXXXXX'
 ```
 
 Put this file on the project root dir and you're ready! Now you can run the program as a Python package:
@@ -104,7 +107,7 @@ APIs do have rate limits. To know more:
 ## Future changes
 
 - Add chat formatting.
-- Add Anthropic, Meta and Mistral to AI clients.
+- Add Anthropic and Meta to AI clients.
 - Fix .pdf files created when chat is exported.
 - Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/)?
 - Add image generation to AI Clients that supports it and internal image rendering with Pillow.
