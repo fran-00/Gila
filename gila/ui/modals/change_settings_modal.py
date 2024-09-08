@@ -134,25 +134,22 @@ class ChangeSettingsModal(Modal):
         selected_max_tokens = self.tokens_slider.value()
         self.new_settings_to_controller.emit(selected_llm, selected_temperature, selected_max_tokens)
 
-    def update_sliders_values(self):  # sourcery skip: remove-redundant-if
-        """ Adjusts token limits and temperature, based on a given model.
+    def update_sliders_values(self):
+        """ Adjusts token limits and temperature range, based on a given model.
             Here's allowed max tokens and temperature:
             - GPT-4o mini: 16384 tokens, 2 temperature
-            - GPT-4o: 4096 tokens, 2 temperature
-            - GPT-4: 8192 tokens, 2 temperature
-            - GPT-4 Turbo: 4096 tokens, 2 temperature
-            - Gemini 1.5 Flash: 8.192 tokens, 2 temperature
-            - Gemini 1.5 Pro: 8.192 tokens, 2 temperature
-            - Cohere Chat: 4000 tokens, 1 temperature
+            - GPT-4o, GPT-4 Turbo: 4096 tokens, 2 temperature
+            - GPT-4, Gemini 1.5 Flash, Gemini 1.5 Pro: 8.192 tokens, 2 temperature
+            - Command, Command R, Command R+: 4000 tokens, 1 temperature
         """
         llm = self.llms_combobox.currentText()
         if llm == "GPT-4o mini":
             self.tokens_slider.setMaximum(16384)
             self.max_tokens_label.setText("16384")
-        elif llm == "Cohere Chat":
+        elif llm in ["Cohere Chat","Command R", "Command R+"]:
             self.tokens_slider.setMaximum(4000)
             self.max_tokens_label.setText("4000")
-        elif llm == "GPT-4" or "Gemini 1.5 Flash" or "Gemini 1.5 Pro":
+        elif llm in ["GPT-4", "Gemini 1.5 Flash", "Gemini 1.5 Pro"]:
             self.tokens_slider.setMaximum(8192)
             self.max_tokens_label.setText("8192")
         else:
