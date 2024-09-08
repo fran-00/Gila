@@ -1,3 +1,4 @@
+import os
 import json
 import pickle
 import requests
@@ -40,8 +41,17 @@ class AIManager(QObject):
         self.get_saved_settings()
 
     def get_saved_settings(self):
-        """ Reads saved client's setting from a json file """
-        with open('storage/saved_settings.json', 'r') as f:
+        file_path = 'storage/saved_settings.json'
+        if not os.path.exists(file_path):
+            default_data = {
+                "llm_name": "GPT-4o mini",
+                "temperature": 1.0,
+                "max_tokens": 4096
+            }
+            with open(file_path, 'w') as f:
+                json.dump(default_data, f)
+
+        with open(file_path, 'r') as f:
             data = json.load(f)
             llm_name = data.get('llm_name')
             self.client = AVAILABLE_MODELS.get(llm_name)
