@@ -135,23 +135,23 @@ class ChangeSettingsModal(Modal):
         self.new_settings_to_controller.emit(selected_llm, selected_temperature, selected_max_tokens)
 
     def update_sliders_values(self):
-        """ Adjusts token limits and temperature range, based on a given model.
-            Here's allowed max tokens and temperature:
-            - GPT-4o mini: 16384 tokens, 2 temperature
-            - GPT-4o, GPT-4 Turbo: 4096 tokens, 2 temperature
-            - GPT-4, Gemini 1.5 Flash, Gemini 1.5 Pro: 8.192 tokens, 2 temperature
-            - Command, Command R, Command R+: 4000 tokens, 1 temperature
-        """
+        """ Adjusts token limits and temperature range, based on a given model. """
         llm = self.llms_combobox.currentText()
-        if llm == "GPT-4o mini":
-            self.tokens_slider.setMaximum(16384)
-            self.max_tokens_label.setText("16384")
-        elif llm in ["Cohere Chat","Command R", "Command R+"]:
-            self.tokens_slider.setMaximum(4000)
-            self.max_tokens_label.setText("4000")
-        elif llm in ["GPT-4", "Gemini 1.5 Flash", "Gemini 1.5 Pro"]:
-            self.tokens_slider.setMaximum(8192)
-            self.max_tokens_label.setText("8192")
-        else:
-            self.tokens_slider.setMaximum(4096)
-            self.max_tokens_label.setText("4096")
+        limits = {
+            "GPT-4o mini": (16384, 2),
+            "GPT-4o": (4096, 2),
+            "GPT-4 Turbo": (4096, 2),
+            "GPT-4": (8192, 2),
+            "Gemini 1.5 Flash": (8192, 2),
+            "Gemini 1.5 Pro": (8192, 2),
+            "Command": (4000, 1),
+            "Command R": (4000, 1),
+            "Command R+": (4000, 1),
+        }
+        default_tokens = (4096, 2)
+        max_tokens, max_temp = limits.get(llm, default_tokens)
+        
+        self.tokens_slider.setMaximum(max_tokens)
+        self.max_tokens_label.setText(str(max_tokens))
+        self.temperature_slider.setMaximum(20 if max_temp == 2 else 10)
+        self.max_temperature_label.setText(str(max_temp))
