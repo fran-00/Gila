@@ -11,18 +11,22 @@ class CurrentSettings(QObject):
         self.current_temperature = None
         self.current_max_tokens = None
         self.llms = [
-            "GPT-4o mini",
-            "GPT-4o",
-            "GPT-4",
-            "GPT-4 Turbo",
+            "Claude 3 Haiku",
+            "Claude 3 Opus",
+            "Claude 3 Sonnet",
+            "Claude 3.5 Sonnet",
+            "Command",
+            "Command",
+            "Command R+",
             "DALL-E-2",
             "DALL-E-3",
             "Gemini 1.5 Flash",
             "Gemini 1.5 Pro",
             "Gemini 1.0 Pro",
-            "Command",
-            "Command R+",
-            "Command",
+            "GPT-4",
+            "GPT-4 Turbo",
+            "GPT-4o",
+            "GPT-4o mini",
             "Mistral Large",
             "Mistral Nemo"
         ]
