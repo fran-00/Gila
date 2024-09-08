@@ -9,21 +9,7 @@ class GoogleClient(APIClient):
     def __init__(self, llm):
         super().__init__(llm)
         self.company = "GOOGLE"
-        generation_config = {
-            "temperature": self.temperature,
-            "top_p": 1,
-            "top_k": 1,
-            "max_output_tokens": 2048,
-        }
-        safety_settings = {
-            "HARM_CATEGORY_HARASSMENT": "BLOCK_NONE",
-            "HARM_CATEGORY_HATE_SPEECH": "BLOCK_NONE",
-            "HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_NONE",
-            "HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_NONE",
-        }
-        self.model = genai.GenerativeModel(self.llm,
-                                           generation_config=generation_config,
-                                           safety_settings=safety_settings)
+        self.model = genai.GenerativeModel(self.llm)
         self.chat_history = []
         self.chat_messages = self.model.start_chat(history=self.chat_history)
 
