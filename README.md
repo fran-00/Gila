@@ -3,16 +3,19 @@
 This is an AI chatbot client made with Python and PySide6.
 Currently supported large language models:
 
-- GPT-4o
-- GPT-4o mini
-- GPT-4
-- GPT-4 Turbo
-- Gemini 1.0 Pro
-- Gemini 1.5 Pro
-- Gemini 1.5 Flash
+- Claude 3 Haiku
+- Claude 3 Opus
+- Claude 3 Sonnet
+- Claude 3.5 Sonnet
 - Command
 - Command R
-- Command R+
+- Command R+- Gemini 1.0 Pro
+- Gemini 1.5 Pro
+- Gemini 1.5 Flash
+- GPT-4
+- GPT-4 Turbo
+- GPT-4o
+- GPT-4o mini
 - Mistral Large
 - Mistral Nemo
 
@@ -45,10 +48,12 @@ pip install -r requirements.txt
 Now you need an OpenAI, Google and Cohere API Keys. Once you got them, store them on a *.env* file like this:
 
 ```python
+ANTHROPIC_API_KEY='XXXXXXX'
 COHERE_API_KEY='XXXXXXX'
 GOOGLE_API_KEY='XXXXXXX'
-OPENAI_API_KEY='XXXXXXX'
 MISTRAL_API_KEY='XXXXXXX'
+OPENAI_API_KEY='XXXXXXX'
+
 ```
 
 Put this file on the project root dir and you're ready! Now you can run the program as a Python package:
@@ -107,7 +112,6 @@ APIs do have rate limits. To know more:
 ## Future changes
 
 - Add chat formatting.
-- Add Anthropic and Meta to AI clients.
 - Fix .pdf files created when chat is exported.
 - Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/)?
 - Add image generation to AI Clients that supports it and internal image rendering with Pillow.
