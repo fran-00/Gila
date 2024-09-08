@@ -23,7 +23,7 @@ class ManageAPIKeysModal(Modal):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.on_modal_text()
-        self.modal_text.setText("Modifica le API Key salvate (pallino verde) o aggiungi quelle mancanti (pallino rosso).")
+        self.modal_text.setText("Edit saved API Keys (green dot) or add missing ones (red dot).")
         self.add_line_separator(self.modal_layout)
         self.set_icons()
         for key in self.api_keys.keys():
@@ -51,7 +51,7 @@ class ManageAPIKeysModal(Modal):
         row_layout.addWidget(red_icon_label)
         row_layout.addWidget(green_icon_label)
 
-        modify_button = QPushButton("Modifica")
+        modify_button = QPushButton("Update")
         modify_button.clicked.connect(lambda: self.window.add_api_key_modal_slot(client_name))
         row_layout.addWidget(modify_button)
         self.modal_layout.addLayout(row_layout)

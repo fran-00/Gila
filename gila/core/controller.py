@@ -81,7 +81,7 @@ class Controller(QObject):
 
     @Slot()
     def update_found_slot(self):
-        self.update_status_bar.emit("Aggiornamento trovato.")
+        self.update_status_bar.emit("Update found.")
         self.view.update_found_modal.exec_()
 
     @Slot(str)
@@ -97,7 +97,7 @@ class Controller(QObject):
         """
         self.response_message_to_chatlog.emit(response_message)
         self.update_status_bar.emit(
-            "Risposta ricevuta. In attesa di un nuovo messaggio...")
+            "Response received. Waiting for a new message...")
 
     @Slot(dict)
     def response_info_slot(self, response_info):
@@ -121,7 +121,7 @@ class Controller(QObject):
             - update_status_bar (view.status_bar.on_status_update_slot)
         """
         self.user_prompt_to_model.emit(user_prompt)
-        self.update_status_bar.emit("Sto inviando il messaggio...")
+        self.update_status_bar.emit("I'm sending the message...")
 
     @Slot(str, float, int)
     def settings_changed_from_sidebar_slot(self, new_client, new_temperature, new_max_tokens):
@@ -133,7 +133,7 @@ class Controller(QObject):
             - update_status_bar (view.status_bar.on_status_update_slot)
         """
         self.new_settings_to_manager.emit(new_client, new_temperature, new_max_tokens)
-        self.update_status_bar.emit(f"Hai selezionato {new_client} con una temperatura di {new_temperature}.")
+        self.update_status_bar.emit(f"You have selected {new_client} with {new_temperature} temperature.")
 
     @Slot()
     def chat_stopped_from_sidebar_slot(self):
@@ -157,7 +157,7 @@ class Controller(QObject):
             self.view.chat.log_widget.clear()
             self.model.client.on_chat_reset()
             self.model.manager.stream_stopped = True
-            self.update_status_bar.emit("La conversazione è stata chiusa.")
+            self.update_status_bar.emit("The conversation has been closed.")
 
     @Slot()
     def new_chat_started_slot(self):
@@ -189,7 +189,7 @@ class Controller(QObject):
         # If there is connection, start a new conversation
         if self.model.manager.check_internet_connection():
             self.model.manager.stream_stopped = False
-            self.update_status_bar.emit("Nuova conversazione avviata.")
+            self.update_status_bar.emit("New conversation started.")
             # Check if API Key is valid. if it is, show chatlog and run the thread
             if self.model.manager.on_api_key() is False:
                 self.missing_api_key_to_view.emit(self.model.manager.client.company)
@@ -201,7 +201,7 @@ class Controller(QObject):
             self.main_thread.model.run()
             return
         # Open a modal that warns user about the lack of connection
-        self.update_status_bar.emit("Nessuna connessione a internet.")
+        self.update_status_bar.emit("No internet connection.")
         self.view.on_hide_chatlog_and_prompt_line()
         self.view.warning_modal.on_no_internet_connection_label()
         self.view.warning_modal.exec_()
@@ -248,8 +248,8 @@ class Controller(QObject):
             - model.generic_error_to_controller
         Opens WarningLabel to warn user about internet connection.
         """
-        self.response_message_to_chatlog.emit("<span style='color:#f00'>Si è verificato un errore! Riprova!</span>")
-        self.update_status_bar.emit("Si è verificato un errore.")
+        self.response_message_to_chatlog.emit("<span style='color:#f00'>An error has occurred! Try again!</span>")
+        self.update_status_bar.emit("An error has occurred.")
         self.view.warning_modal.on_label(error)
         self.view.warning_modal.exec_()
 

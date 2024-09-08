@@ -17,7 +17,7 @@ class Modal(QDialog):
             return file.read()
 
     def on_modal_text(self):
-        self.modal_text = QLabel("Messaggio da sovrascrivere.", objectName="modal_text")
+        self.modal_text = QLabel("Message to overwrite.", objectName="modal_text")
         self.modal_text.setWordWrap(True)
         self.modal_layout.addWidget(self.modal_text)
 

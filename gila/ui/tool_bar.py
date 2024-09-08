@@ -17,27 +17,27 @@ class ToolBar(QToolBar):
         self.on_open_info_modal_action()
 
     def on_save_chatlog_action(self):
-        save_action = QAction(self.save_icon, "&Esporta Conversazione", self)
+        save_action = QAction(self.save_icon, "&Export Chat", self)
         save_action.setShortcut("Ctrl+S")
-        save_action.setStatusTip('Esporta Conversazione')
+        save_action.setStatusTip('Export Chat')
         save_action.triggered.connect(self.export_chatlog)
         self.addAction(save_action)
 
     def on_manage_api_keys_action(self):
-        api_keys_action = QAction(self.key_icon, "&Gestisci Chiavi API", self)
-        api_keys_action.setStatusTip('Gestisci Chiavi API')
+        api_keys_action = QAction(self.key_icon, "&Manage API Keys", self)
+        api_keys_action.setStatusTip('Manage API Keys')
         api_keys_action.triggered.connect(self.open_api_keys_modal)
         self.addAction(api_keys_action)
 
     def on_chat_settings_action(self):
-        chat_settings_action = QAction(self.settings_icon, "&Modifica Impostazioni Chat", self)
-        chat_settings_action.setStatusTip('Modifica Impostazioni Chat')
+        chat_settings_action = QAction(self.settings_icon, "&Edit chat settings", self)
+        chat_settings_action.setStatusTip('Edit chat settings')
         chat_settings_action.triggered.connect(self.open_change_settings_modal)
         self.addAction(chat_settings_action)
 
     def on_open_info_modal_action(self):
-        info_action = QAction(self.info_icon, "&Informazioni su Gila", self)
-        info_action.setStatusTip('Informazioni su Gila')
+        info_action = QAction(self.info_icon, "&About Gila", self)
+        info_action.setStatusTip('About Gila')
         info_action.triggered.connect(self.open_info_modal)
         self.addAction(info_action)
 
@@ -68,7 +68,7 @@ class ToolBar(QToolBar):
         # options |= QFileDialog.DontUseNativeDialog
         # file_types = "File di testo (*.txt);;Documento Word (*.docx);;Documento PDF (*.pdf)"
         file_types = "File di testo (*.txt);;Documento Word (*.docx)"
-        file_name, _ = QFileDialog.getSaveFileName(self, "Esporta Conversazione", "", file_types, options=options)
+        file_name, _ = QFileDialog.getSaveFileName(self, "Export Chat", "", file_types, options=options)
         if file_name:
             if file_name.endswith(".txt"):
                 self.save_txt(file_name)

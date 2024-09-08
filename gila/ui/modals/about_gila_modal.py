@@ -8,7 +8,7 @@ class AboutGilaModal(Modal):
 
     def __init__(self, window):
         super().__init__(window)
-        self.setWindowTitle("Informazioni su Gila")
+        self.setWindowTitle("About Gila")
         self.on_modal_layout()
         self.resize(800, 600)
 

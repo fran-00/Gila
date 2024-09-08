@@ -29,7 +29,7 @@ class StoredChats(QObject):
     def on_stored_chats_layout(self):
         self.stored_chats_layout = QVBoxLayout(self.widget_container)
         self.stored_chats_layout.setAlignment(Qt.Alignment.AlignTop)
-        self.placeholder_label = QLabel("Le chat salvate compariranno qui.", objectName="placeholder_label")
+        self.placeholder_label = QLabel("Saved chats will appear here.", objectName="placeholder_label")
         self.stored_chats_layout.addWidget(self.placeholder_label)
         self.scroll_area = QScrollArea()
         self.scroll_area.setWidget(self.widget_container)

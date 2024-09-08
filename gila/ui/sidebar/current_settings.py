@@ -40,11 +40,11 @@ class CurrentSettings(QObject):
         self.current_chat_date = settings[5]
         settings_string = f"""<div>
             <b>ID</b>: {self.chat_id}<br>
-            <b>Nome</b>: {self.chat_custom_name if self.chat_custom_name is not None else 'Nome non impostato'}<br>
-            <b>Modello</b>: {self.current_llm}<br>
-            <b>Temperatura</b>: {self.current_temperature}<br>
-            <b>N. massimo di token</b>: {self.current_max_tokens}<br>
-            <b>Ultima modifica</b>: {self.current_chat_date if self.current_chat_date is not None else 'Appena creata'}
+            <b>Name</b>: {self.chat_custom_name if self.chat_custom_name is not None else 'Nome non impostato'}<br>
+            <b>Model</b>: {self.current_llm}<br>
+            <b>Temperature</b>: {self.current_temperature}<br>
+            <b>Max tokens</b>: {self.current_max_tokens}<br>
+            <b>Last message</b>: {self.current_chat_date if self.current_chat_date is not None else 'Just created'}
             </div>"""
         self.current_settings_label.setText(settings_string)
 

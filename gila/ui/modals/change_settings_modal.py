@@ -11,7 +11,7 @@ class ChangeSettingsModal(Modal):
 
     def __init__(self, window, current_settings):
         super().__init__(window)
-        self.setWindowTitle("Modifica Impostazioni")
+        self.setWindowTitle("Change Settings")
         self.current_settings = current_settings
         self.on_modal_layout()
 
@@ -19,7 +19,7 @@ class ChangeSettingsModal(Modal):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.on_modal_text()
-        self.modal_text.setText("Modifica le impostazioni, saranno applicate all'avvio di una nuova chat.")
+        self.modal_text.setText("Change settings, they will be applied when starting a new chat.")
         self.add_line_separator(self.modal_layout)
         self.on_llms_combobox()
         self.add_line_separator(self.modal_layout)
@@ -31,7 +31,7 @@ class ChangeSettingsModal(Modal):
 
     def on_llms_combobox(self):
         """ Creates ComboBox with llms list """
-        select_llm_label = QLabel("Modello")
+        select_llm_label = QLabel("Model")
         self.llms_combobox = QComboBox()
         for llm in self.current_settings.llms:
             self.llms_combobox.addItem(llm)
@@ -40,7 +40,7 @@ class ChangeSettingsModal(Modal):
 
     def on_temperature_slider(self):
         # Create widgets and slider's sub-layout
-        select_temperature_label = QLabel("Temperatura")
+        select_temperature_label = QLabel("Temperature")
         temperature_slider_layout = QHBoxLayout()
         min_temperature_label = QLabel("0")
         self.max_temperature_label = QLabel("1")
@@ -84,7 +84,7 @@ class ChangeSettingsModal(Modal):
         estremi direttamente nel client
         """
         # Create widgets and slider's sub-layout
-        select_tokens_label = QLabel("Massimo numero di Token")
+        select_tokens_label = QLabel("Max Tokens")
         tokens_slider_layout = QHBoxLayout()
         min_tokens_label = QLabel("150")
         self.max_tokens_label = QLabel("4096")
@@ -120,7 +120,7 @@ class ChangeSettingsModal(Modal):
 
     def on_confirm_button(self):
         """ Creates button to confirm llm selection """
-        confirm_button = QPushButton("Conferma")
+        confirm_button = QPushButton("Confirm")
         confirm_button.clicked.connect(self.send_new_settings_to_controller)
         confirm_button.clicked.connect(self.accept)
         self.modal_layout.addWidget(confirm_button)

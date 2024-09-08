@@ -56,8 +56,8 @@ class Chat(QObject):
 
     def on_prompt_info_layout(self):
         self.prompt_info_layout = QHBoxLayout()
-        self.num_of_words = QLabel("Parole: 0")
-        self.num_of_tokens = QLabel("Token: 0")
+        self.num_of_words = QLabel("Words: 0")
+        self.num_of_tokens = QLabel("Tokens: 0")
         self.window.assign_css_class(self.num_of_words, "chatlog_info_labels")
         self.window.assign_css_class(self.num_of_tokens, "chatlog_info_labels")
         self.prompt_info_layout.addWidget(self.num_of_words)
@@ -80,18 +80,18 @@ class Chat(QObject):
     def words_counter(self):
         text = self.prompt_layout.prompt_box.toPlainText()
         word_count = len(text.split())
-        self.num_of_words.setText(f"Parole: {word_count}")
+        self.num_of_words.setText(f"Words: {word_count}")
 
     def tokens_counter(self):
         num_tokens = self.tokenizer.get_num_of_tokens(self.prompt_layout.prompt_box.toPlainText())
-        self.num_of_tokens.setText(f"Token: {num_tokens}")
+        self.num_of_tokens.setText(f"Tokens: {num_tokens}")
 
     def on_start_layout(self):
         """ Creates Start layout with a button to start new chat """
         start_layout = QVBoxLayout()
         self.gila_image = QLabel(objectName="start_image")
         self.gila_image.setPixmap(QPixmap("storage/assets/icons/gila_logo.svg"))
-        self.start_chat_button = QPushButton("Nuova Conversazione")
+        self.start_chat_button = QPushButton("New Chat")
         self.start_chat_button.clicked.connect(
             lambda: self.on_starting_a_new_chat())
         start_layout.addWidget(self.gila_image, alignment=Qt.AlignmentFlag.AlignCenter)
@@ -114,7 +114,7 @@ class Chat(QObject):
                 f"<p><b>Tu</b>: {prompt}</p>")
         else:
             self.update_status_bar_from_chatlog.emit(
-                f"Non è possibile inviare un messaggio vuoto.")
+                "It is not possible to send an empty message.")
 
     def add_log_to_saved_chat_data(self, chat_id):
         with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
@@ -216,7 +216,7 @@ class Prompt:
         self.prompt_box.setFocus()
         prompt_layout.addWidget(self.prompt_box)
         # Adds send button
-        self.send_button = QPushButton("Invia", objectName="enter_button")
+        self.send_button = QPushButton("Submit", objectName="enter_button")
         self.send_button.setFixedWidth(50)
         self.send_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.send_button.clicked.connect(

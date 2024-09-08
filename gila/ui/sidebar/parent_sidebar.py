@@ -30,7 +30,7 @@ class Sidebar(QObject):
 
     def on_new_chat_button(self):
         """ Creates a button to start a new chat """
-        self.new_chat_button = QPushButton("Nuova Chat")
+        self.new_chat_button = QPushButton("New Chat")
         self.new_chat_button.clicked.connect(self.send_stop_chat_to_controller)
         return self.new_chat_button
 

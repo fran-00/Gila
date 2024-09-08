@@ -7,7 +7,7 @@ class RenameChatModal(Modal):
 
     def __init__(self, window, parent_class):
         super().__init__(window)
-        self.setWindowTitle("Rinomina Chat")
+        self.setWindowTitle("Rename Chat")
         self.on_modal_layout()
         self.parent_class = parent_class
 
@@ -15,7 +15,7 @@ class RenameChatModal(Modal):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.on_modal_text()
-        self.modal_text.setText("Inserisci un nuovo nome per la chat salvata.")
+        self.modal_text.setText("Enter a new name for the saved chat.")
         self.on_new_name_entry()
         self.on_confirm_button()
 

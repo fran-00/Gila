@@ -9,20 +9,20 @@ class UpdateFoundModal(Modal):
 
     def __init__(self, window):
         super().__init__(window)
-        self.setWindowTitle("Aggiornamento trovato!")
+        self.setWindowTitle("Update found!")
         self.on_modal_layout()
 
     def on_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.on_modal_text()
-        self.modal_text.setText("È disponibile un nuovo aggiornamento, vuoi scaricarlo?")
+        self.modal_text.setText("A new update is available, do you want to download it?")
         self.on_confirm_button()
         self.on_dismiss_button()
-        self.dismiss_button.setText("Chiudi")
+        self.dismiss_button.setText("Close")
 
     def on_confirm_button(self):
-        self.modal_button = QPushButton("Scarica", self)
+        self.modal_button = QPushButton("Download", self)
         self.modal_button.clicked.connect(lambda: self.download_update())
         self.modal_button.clicked.connect(self.accept)
         self.modal_layout.addWidget(self.modal_button)
