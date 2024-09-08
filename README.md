@@ -71,12 +71,6 @@ On the root directory (with the virtual environment activated and PyInstaller in
 pyinstaller build.spec
 ```
 
-The command used to create the spec file was this:
-
-```shell
- pyinstaller cli.py --onefile --name gila --add-data="storage/saved_settings.json:." --add-data="storage/assets:."
-```
-
 You will find **gila.exe** executable file inside *dist* directory: remember to copy *storage* folder there before distributing it!
 
 ## Notes
