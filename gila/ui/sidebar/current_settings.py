@@ -22,7 +22,9 @@ class CurrentSettings(QObject):
             "Gemini 1.0 Pro",
             "Command",
             "Command R+",
-            "Command"
+            "Command",
+            "Mistral Large",
+            "Mistral Nemo"
         ]
         self.widget_container = QWidget(objectName="current_settings_widget")
         self.on_current_settings_layout()

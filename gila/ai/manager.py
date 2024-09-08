@@ -9,6 +9,7 @@ from PySide6.QtCore import QObject, Slot, Signal
 from .openai import OpenAIClient
 from .google import GoogleClient
 from .cohere import CohereClient
+from .mistral import MistralClient
 
 
 AVAILABLE_MODELS = {
@@ -24,12 +25,15 @@ AVAILABLE_MODELS = {
     "Command": CohereClient("command"),
     "Command R+": CohereClient("command-r-plus"),
     "Command R": CohereClient("command-r"),
+    "Mistral Large": MistralClient("mistral-large-latest"),
+    "Mistral Nemo": MistralClient("open-mistral-nemo"),
 }
 
 COMPANIES = {
     "OPENAI": OpenAIClient("gpt-4o-mini"),
     "GOOGLE": GoogleClient("gemini-1.5-flash"),
     "COHERE": CohereClient("command"),
+    "MISTRAL": CohereClient("mistral-large-latest"),
 }
 
 

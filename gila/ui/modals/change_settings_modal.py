@@ -148,6 +148,8 @@ class ChangeSettingsModal(Modal):
             "Command": (4000, 1),
             "Command R": (4000, 1),
             "Command R+": (4000, 1),
+            "Mistral Large": (8000, 1),
+            "Mistral Nemo": (8000, 1),
             "DALL-E-2": (0, 0),
             "DALL-E-3": (0, 0),
         }
