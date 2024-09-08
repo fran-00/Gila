@@ -14,11 +14,10 @@ class CohereClient(APIClient):
         self.co = cohere.Client(self.get_api_key())
 
     def submit_prompt(self, prompt):
-        # FIXME: Cohere chat not working
         try:
             response = self.co.chat(
-                message={prompt},
                 model=self.llm,
+                message=prompt,
                 chat_history=self.chat_history,
                 temperature=self.temperature,
                 max_tokens=self.max_tokens
