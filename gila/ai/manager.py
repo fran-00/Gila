@@ -18,13 +18,14 @@ AVAILABLE_MODELS = {
     "GPT-4o mini": OpenAIClient("gpt-4o-mini"),
     "DALL-E-2": OpenAIClient("dall-e-2"),
     "DALL-E-3": OpenAIClient("dall-e-3"),
-    "Gemini Pro": GoogleClient("gemini-pro"),
+    "Gemini 1.5 Flash": GoogleClient("gemini-1.5-flash"),
+    "Gemini 1.5 Pro": GoogleClient("gemini-1.5-pro"),
     "Cohere Chat": CohereClient("cohere-chat"),
 }
 
 COMPANIES = {
     "OPENAI": OpenAIClient("gpt-4o-mini"),
-    "GOOGLE": GoogleClient("gemini-pro"),
+    "GOOGLE": GoogleClient("gemini-1.5-flash"),
     "COHERE": CohereClient("cohere-chat"),
 }
 
