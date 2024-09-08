@@ -20,13 +20,15 @@ AVAILABLE_MODELS = {
     "DALL-E-3": OpenAIClient("dall-e-3"),
     "Gemini 1.5 Flash": GoogleClient("gemini-1.5-flash"),
     "Gemini 1.5 Pro": GoogleClient("gemini-1.5-pro"),
-    "Cohere Chat": CohereClient("cohere-chat"),
+    "Command": CohereClient("command"),
+    "Command R+": CohereClient("command-r-plus"),
+    "Command R": CohereClient("command-r"),
 }
 
 COMPANIES = {
     "OPENAI": OpenAIClient("gpt-4o-mini"),
     "GOOGLE": GoogleClient("gemini-1.5-flash"),
-    "COHERE": CohereClient("cohere-chat"),
+    "COHERE": CohereClient("command"),
 }
 
 

@@ -19,7 +19,10 @@ class CurrentSettings(QObject):
             "DALL-E-3",
             "Cohere Chat",
             "Gemini 1.5 Flash",
-            "Gemini 1.5 Pro"
+            "Gemini 1.5 Pro",
+            "Command",
+            "Command R+",
+            "Command"
         ]
         self.widget_container = QWidget(objectName="current_settings_widget")
         self.on_current_settings_layout()
