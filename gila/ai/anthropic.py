@@ -40,3 +40,11 @@ class AnthropicClient(APIClient):
         self.chat_history = []
         self.chat_custom_name = None
         self.generate_chat_id()
+
+    def validate_api_key(self, api_key):
+        test = anthropic.Anthropic(api_key=api_key)
+        try:
+            test.messages.create(messages="test", max_tokens=10, model=self.llm)
+            return True
+        except ValueError as e:
+            return False
