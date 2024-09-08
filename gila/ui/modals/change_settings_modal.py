@@ -1,7 +1,7 @@
 from PySide6.QtCore import Signal
 from PySide6.QtGui import Qt
 from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QLabel, QComboBox, 
-                               QPushButton, QSlider, QFrame)
+                               QPushButton, QSlider, QWidget)
 
 from .parent_modal import Modal
 
@@ -147,6 +147,8 @@ class ChangeSettingsModal(Modal):
             "Command": (4000, 1),
             "Command R": (4000, 1),
             "Command R+": (4000, 1),
+            "DALL-E-2": (0, 0),
+            "DALL-E-3": (0, 0),
         }
         default_tokens = (4096, 2)
         max_tokens, max_temp = limits.get(llm, default_tokens)
