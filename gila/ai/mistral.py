@@ -10,3 +10,6 @@ class MistralClient(APIClient):
         super().__init__(llm)
         self.company = "MISTRAL"
         self.chat_history = []
+
+    def submit_api_key(self):
+        self.client = Mistral(api_key=self.get_api_key())
