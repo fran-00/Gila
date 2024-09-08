@@ -29,7 +29,7 @@ class MistralClient(APIClient):
             return False, e.message, None
 
     def on_chat_reset(self):
-        self.chat_history = []
+        self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
         self.chat_custom_name = None
         self.generate_chat_id()
 
