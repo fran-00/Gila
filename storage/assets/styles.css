@@ -69,7 +69,7 @@ QLabel#placeholder_label {
 
 /* Chat Log */
 QTextEdit {
-    font-family: 'Garamond', serif;
+    font-family: 'Courier New', monospace;
     background-color: #000000;
     padding: 10px 10px;
 }
@@ -86,16 +86,16 @@ QLineEdit:hover {
 
 /* Generic Button */
 QPushButton {
-    background-color: #D6943C;
-    color: #003757;
+    background-color: #ffee00;
+    color: #000000;
     padding: 6px 0px;
     font-size: 14px;
     font-weight: 700;
 }
 
 QPushButton:hover {
-    background-color: #003757;
-    color: #D6943C;
+    background-color: #ffffff;
+    color: #000000;
 }
 
 QPushButton#toggle_sidebar_button {
@@ -104,7 +104,7 @@ QPushButton#toggle_sidebar_button {
 }
 
 QPushButton#toggle_sidebar_button:hover {
-    background-color: #ffffff;
+    background-color: #ffee00;
     color: #000000;
 }
 
@@ -114,7 +114,7 @@ QScrollBar {
 }
 
 QScrollBar::handle {
-    background-color: #D6943C;
+    background-color: #ffee00;
 }
 
 QScrollBar::add-page, QScrollBar::sub-page, QScrollBar::add-line, QScrollBar::sub-line {
