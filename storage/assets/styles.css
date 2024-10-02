@@ -1,18 +1,18 @@
 /* Main Widget */
 QWidget {
-    background-color: #004872;
+    background-color: #000000;
     color: #ffffff;
-    font-family: 'Gill Sans', sans-serif;
+    font-family: 'Courier New', monospace;
     font-size: 16px;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 QWidget#sidebar_container {
-    background-color: #002b44;
+    background-color: #343c51;
 }
 
 QWidget#rename_button, QWidget#delete_button {
-    background-color: #002b44;
+    background-color: #343c51;
     color: #ffffff;
 }
 
@@ -21,28 +21,28 @@ QWidget#rename_button:hover, QWidget#delete_button:hover {
 }
 
 QWidget#prompt_box_widget {
-    background-color: #004064;
+    background-color: #000000;
 }
 
 QWidget#current_settings_widget {
-    background-color: #00578b;
+    background-color: #000000;
 }
 
 QWidget#stored_chats_widget {
-    background-color: #00578b;
+    background-color: #000000;
 }
 
 QWidget#chat_container {
-    background-color: #002b44;
+    background-color: #343c51;
 }
 
 QStatusBar {
-    background-color: #003452;
+    background-color: #343c51;
     font-size: 16px;
 }
 
 QLabel {
-    background-color: #00578b;
+    background-color: #000000;
     font-size: 14px;
 }
 
@@ -60,7 +60,7 @@ QLabel.chatlog_info_labels {
 }
 
 QWidget#start_image {
-    background-color: #002b44;
+    background-color: #000000;
 }
 
 QLabel#placeholder_label {
@@ -70,7 +70,7 @@ QLabel#placeholder_label {
 /* Chat Log */
 QTextEdit {
     font-family: 'Garamond', serif;
-    background-color: #00578b;
+    background-color: #000000;
     padding: 10px 10px;
 }
 
@@ -99,13 +99,13 @@ QPushButton:hover {
 }
 
 QPushButton#toggle_sidebar_button {
-    background-color: #002b44;
-    color: #D6943C;
+    background-color: #343c51;
+    color: #ffffff;
 }
 
 QPushButton#toggle_sidebar_button:hover {
-    background-color: #D6943C;
-    color: #003757;
+    background-color: #ffffff;
+    color: #000000;
 }
 
 QScrollBar {
