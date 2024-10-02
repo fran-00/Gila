@@ -16,8 +16,12 @@ QWidget#rename_button, QWidget#delete_button {
     color: #ffffff;
 }
 
-QWidget#rename_button:hover, QWidget#delete_button:hover {
-    background-color: #610000;
+QWidget#rename_button:hover{
+    background-color: #00ac6a;
+}
+
+QWidget#delete_button:hover {
+    background-color: #ac0000;
 }
 
 QWidget#prompt_box_widget {
@@ -109,7 +113,7 @@ QPushButton#toggle_sidebar_button:hover {
 }
 
 QScrollBar {
-    background: #001a29;
+    background: #343c51;
     width: 10px;
 }
 
@@ -118,6 +122,6 @@ QScrollBar::handle {
 }
 
 QScrollBar::add-page, QScrollBar::sub-page, QScrollBar::add-line, QScrollBar::sub-line {
-    background: #001a29;
+    background: #343c51;
     border: none;
 }
