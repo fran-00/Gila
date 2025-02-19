@@ -25,19 +25,21 @@ Currently supported text-to-image models:
 - DALL-E-2
 - DALL-E-3
 
+We will use [PyInstaller](https://pyinstaller.org/en/stable/operating-mode.html) to create an executable file that will allow us to start the client without having to deal with the source code. The executable file that **PyInstaller** will create depends on the operating system: this guide refers specifically to **Windows** but the steps for Linux and MacOs are practically the same. For the same reason I chose [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html) as the virtual environment manager to run **Gila**: it allows you to specify a Python version and is easy to use on Windows, Linux and MacOs, but you can use any manager of your choice depending on the operating system you are on.
+
 ## How to set up development environment
 
-To run from source, you'll need Python 3.12 and Git installed in your system. You'll also need some API Keys, but we'll cover it up later. Clone this project:
+To run from source, you'll need **Conda** and **Git** installed in your system. You'll also need some API Keys, but we'll cover it up later. Clone this project:
 
 ```shell
 git clone https://github.com/fran-00/gila.git
 ```
 
-On Windows create a new virtual environment with venv and activate it:
+Create a new virtual environment with *Python 3.12* using **conda** and activate it:
 
 ```shell
-py -m venv venv
-venv/Scripts/Activate.ps1
+conda create --name gila python=3.12
+conda activate gila
 ```
 
 Install project's required packages via pip:
@@ -60,7 +62,7 @@ OPENAI_API_KEY='XXXXXXX'
 Put this file on the project root dir and you're ready! Now you can run the program as a Python package:
 
 ```shell
-py -m gila
+python -m gila
 ```
 
 ## How to build the .exe file
