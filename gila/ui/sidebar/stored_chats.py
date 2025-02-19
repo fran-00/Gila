@@ -44,6 +44,7 @@ class StoredChats(QObject):
             self.placeholder_label.hide()
 
     def create_chats_list(self):
+        os.makedirs("storage/saved_data", exist_ok=True)
         chats = os.listdir("storage/saved_data")
         # Create a list of tuples (file, data_creazione)
         chat_files_with_dates = []
