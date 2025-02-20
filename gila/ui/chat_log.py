@@ -146,6 +146,10 @@ class Chat(QObject):
         self.gila_image.show()
         self.start_chat_button.show()
 
+    def convert_markdown_to_html(self, md_text):
+        """Converts Markdown to HTML"""
+        return markdown.markdown(md_text, extensions=["fenced_code", "codehilite"])
+
     @Slot(str)
     def get_response_message_slot(self, response):
         """ Slot
@@ -155,7 +159,9 @@ class Chat(QObject):
         """
         self.prompt_layout.send_button.setEnabled(True)
         QApplication.restoreOverrideCursor()
-        self.log_widget.append(f"<b>Gila</b>: {response}")
+
+        formatted_response = self.convert_markdown_to_html(response)
+        self.log_widget.append(f"<b>Gila</b>: {formatted_response}")
 
     @Slot(dict)
     def get_response_info_slot(self, response_info):
