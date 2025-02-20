@@ -1,6 +1,7 @@
 import os
 import pickle
 
+import markdown
 import tiktoken
 
 from PySide6.QtCore import QObject, Signal, Slot

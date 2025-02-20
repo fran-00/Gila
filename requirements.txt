@@ -36,6 +36,7 @@ jiter==0.5.0
 jmespath==1.0.1
 jsonpath-python==1.0.6
 lxml==5.3.0
+Markdown==3.7
 mistralai==1.0.3
 mypy-extensions==1.0.0
 openai==1.44.0
@@ -79,3 +80,4 @@ typing_extensions==4.12.2
 tzdata==2024.1
 uritemplate==4.1.1
 urllib3==2.2.2
+wheel==0.45.1
