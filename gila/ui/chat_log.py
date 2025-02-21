@@ -162,6 +162,7 @@ class Chat(QObject):
     def on_show_chatlog(self):
         """ Shows chat widget and start chat button on call """
         self.title.show()
+        self.generate_chat_html()
         self.log_widget.show()
         for label in self.chatlog_info_labels:
             label.show()
