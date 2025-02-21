@@ -211,7 +211,7 @@ class Chat(QObject):
 
     def chatlog_has_text(self):
         """ Returns True if log_widget has text, else False """
-        return bool(self.log_widget.toPlainText())
+        return bool(self.chat_history)
 
     def chatlog_has_changed(self, chat_id):
         file_path = f'storage/saved_data/{chat_id}.pk'
@@ -226,7 +226,7 @@ class Chat(QObject):
 
     def get_chat_log(self):
         """ Returns all current chat text """
-        return self.log_widget.toHtml()
+        return self.chat_history
 
     def on_starting_a_new_chat(self):
         """ Sends a signal to start a new chat """
