@@ -6,8 +6,17 @@ import tiktoken
 
 from PySide6.QtCore import QObject, Signal, Slot
 from PySide6.QtGui import QPixmap, Qt
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QTextEdit,
-                               QPushButton, QLabel, QSizePolicy, QApplication)
+from PySide6.QtWebEngineWidgets import QWebEngineView
+from PySide6.QtWidgets import (
+    QWidget,
+    QVBoxLayout,
+    QHBoxLayout,
+    QTextEdit,
+    QPushButton,
+    QLabel,
+    QSizePolicy,
+    QApplication
+)
 
 
 class Tokenizer:
@@ -32,9 +41,8 @@ class Chat(QObject):
         self.window = window
         self.widget_container = QWidget(objectName="chat_container")
 
-        self.log_widget = QTextEdit()
-        self.log_widget.setReadOnly(True)
-        self.log_widget.ensureCursorVisible()
+        self.log_widget = QWebEngineView()
+        self.chat_history = []
         self.prompt_layout = Prompt(self)
         self.tokenizer = Tokenizer()
 
