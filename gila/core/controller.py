@@ -152,7 +152,8 @@ class Controller(QObject):
                 self.view.sidebar.stored_chats.add_stored_chat_button(self.model.manager.client.chat_id)
                 self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
             self.main_thread.stop()
-            self.view.chat.log_widget.clear()
+            self.view.chat.chat_history = []
+            self.view.chat.generate_chat_html()
             self.model.client.on_chat_reset()
             self.model.manager.stream_stopped = True
             self.update_status_bar.emit("The conversation has been closed.")
