@@ -1,19 +1,100 @@
 body {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     background-color: #000000;
     color: #ffffff;
     padding: 10px;
 }
 
-.user {
-    color: #b8b8b8;
+.user-wrapper {
+    margin-left: 20%;
+    background-color: #202020;
+    border-radius: 10px;
 }
 
-.ai {
+.user-wrapper .prompt {
+    color: #e4e4e4;
+    padding: 10px;
+}
+
+.ai-wrapper .response {
     color: #ffffff;
 }
 
-pre {
-    background-color: #333;
-    padding: 10px;
+/* CODE SNIPPETS */
+.hljs {
+    display: block;
+    overflow-x: auto;
+    background: #1e1e2e;
+    color: #f8f8f2;
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+.hljs-comment,
+.hljs-quote {
+    color: #7c7c7c;
+    font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+    color: #cc99cd;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-name,
+.hljs-type,
+.hljs-attribute,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+    color: #f0c674;
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-class .hljs-title {
+    color: #d54e53;
+}
+
+/* Stili per le funzioni */
+.hljs-function .hljs-title,
+.hljs-title.function_ {
+    color: #8abeb7;
+}
+
+/* Stili per le classi */
+.hljs-class .hljs-title {
+    color: #e78c45;
+}
+
+.hljs-number {
+    color: #de935f;
+}
+
+.hljs-operator,
+.hljs-punctuation,
+.hljs-subst {
+    color: #ffffff;
+}
+
+.hljs-regexp,
+.hljs-link,
+.hljs-meta,
+.hljs-meta .hljs-string {
+    color: #b5bd68;
+}
+
+.hljs-deletion {
+    background: #d54e53;
+    color: #ffffff;
+}
+
+.hljs-addition {
+    background: #b9ca4a;
+    color: #ffffff;
 }
