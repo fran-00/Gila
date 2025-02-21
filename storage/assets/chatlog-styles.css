@@ -1,0 +1,19 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.user {
+    color: #b8b8b8;
+}
+
+.ai {
+    color: #ffffff;
+}
+
+pre {
+    background-color: #333;
+    padding: 10px;
+}
