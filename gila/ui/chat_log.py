@@ -188,7 +188,9 @@ class Chat(QObject):
 
     def convert_markdown_to_html(self, md_text):
         """Converts Markdown to HTML"""
-        return markdown.markdown(md_text, extensions=["fenced_code", "codehilite"])
+        return markdown.markdown(
+            md_text, extensions=["fenced_code", "codehilite", "tables"]
+        )
 
     @Slot(str)
     def get_response_message_slot(self, response):
