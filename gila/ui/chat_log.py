@@ -147,7 +147,11 @@ class Chat(QObject):
             # Shows a cursor spinning wheel when waiting for response
             QApplication.setOverrideCursor(Qt.WaitCursor)
             # Append user prompt to log view window
-            self.chat_history.append(f"<p class='user'><b>Tu</b>:<br><br>{prompt}</p>")
+            self.chat_history.append(f"""
+                <div class='user-wrapper'>
+                    <p class='prompt'>{prompt}</p>
+                </div>
+            """)
         else:
             self.update_status_bar_from_chatlog.emit(
                 "It is not possible to send an empty message.")
@@ -197,7 +201,11 @@ class Chat(QObject):
         QApplication.restoreOverrideCursor()
 
         formatted_response = self.convert_markdown_to_html(response)
-        self.chat_history.append(f"<p class='ai'><b>Gila:</b>{formatted_response}</p>")
+        self.chat_history.append(f"""
+            <div class='ai-wrapper'>
+                <p class='response'>{formatted_response}</p>
+            </div>
+        """)
         self.generate_chat_html()
 
     @Slot(dict)
