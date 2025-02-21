@@ -41,7 +41,7 @@ class Chat(QObject):
         self.window = window
         self.widget_container = QWidget(objectName="chat_container")
 
-        self.log_widget = QWebEngineView()
+        self.log_widget = CustomWebView()
         self.chat_history = []
         self.prompt_layout = Prompt(self)
         self.tokenizer = Tokenizer()
@@ -239,6 +239,12 @@ class CustomTextEdit(QTextEdit):
             self.returnPressed.emit()
         else:
             super().keyPressEvent(event)
+
+
+class CustomWebView(QWebEngineView):
+    def __init__(self):
+        super().__init__()
+        self.setContextMenuPolicy(Qt.NoContextMenu)
 
 
 class Prompt:
