@@ -48,6 +48,34 @@ class Chat(QObject):
 
         self.on_chat_container()
 
+    def generate_chat_html(self):
+        """ Updates chat log by generating an HTML page that includes chat 
+            history and applies custom styling from a CSS file
+        """
+        chat_content = "".join(self.chat_history)
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        css_path = os.path.join(BASE_DIR, "storage", "assets", "chatlog-styles.css")
+        css_content = ""
+        if os.path.exists(css_path):
+            with open(css_path, "r", encoding="utf-8") as f:
+                css_content = f.read()
+        html_template = f"""
+            <html>
+                <head>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+                    <script>hljs.highlightAll();</script>
+                </head>
+                <style>
+                    {css_content}
+                </style>
+                <body>
+                    {chat_content}
+                </body>
+            </html>
+        """
+        self.log_widget.setHtml(html_template)
+
     def on_chat_container(self):
         """ Creates Chat layout and calls methods that adds widgets """
         chat_layout = QVBoxLayout(self.widget_container)
