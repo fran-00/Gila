@@ -218,10 +218,8 @@ class Chat(QObject):
         if os.path.isfile(file_path):
             with open(file_path, 'rb') as file:
                 saved_data = pickle.load(file)
-            chat_log = saved_data[chat_id]["chat_log"]
-            if self.log_widget.toPlainText() == chat_log:
-                return False
-            return True
+            saved_chat_history = saved_data[chat_id]["chat_log"]
+            return self.chat_history != saved_chat_history
         return True
 
     def get_chat_log(self):
