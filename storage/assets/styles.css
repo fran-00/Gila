@@ -95,17 +95,3 @@ QPushButton#toggle_sidebar_button:hover {
     background-color: #f1bc2e;
     color: #11111b;
 }
-
-QScrollBar {
-    background: #2c2c2c;
-    width: 10px;
-}
-
-QScrollBar::handle {
-    background-color: #f1bc2e;
-}
-
-QScrollBar::add-page, QScrollBar::sub-page, QScrollBar::add-line, QScrollBar::sub-line {
-    background: #2c2c2c;
-    border: none;
-}

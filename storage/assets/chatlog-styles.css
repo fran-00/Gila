@@ -20,6 +20,20 @@ body {
     color: #ffffff;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #555555;
+}
+::-webkit-scrollbar-thumb {
+    background: #f1bc2e;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #fde49e;
+}
+
 /* CODE SNIPPETS */
 .hljs {
     display: block;
