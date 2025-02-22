@@ -36,7 +36,7 @@ class MistralClient(APIClient):
     def validate_api_key(self, api_key):
         test = Mistral(api_key)
         try:
-            test.generate(prompt='test')
+            test.chat.complete(model = self.llm, messages=[{"role": "user", "content": "test"}])
             return True
         except ValueError as e:
             return False
