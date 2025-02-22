@@ -93,8 +93,8 @@ class Chat(QObject):
         self.title.setAlignment(Qt.AlignCenter)
         chat_layout.addWidget(self.title)
         chat_layout.addLayout(self.on_chatlog_info_layout())
-        chat_layout.addWidget(self.log_widget, stretch=7)
-        chat_layout.addLayout(self.prompt_layout.on_prompt_layout(), stretch=3)
+        chat_layout.addWidget(self.log_widget, stretch=8)
+        chat_layout.addLayout(self.prompt_layout.on_prompt_layout(), stretch=2)
         chat_layout.addLayout(self.on_prompt_info_layout())
         chat_layout.addLayout(self.on_start_layout())
 
