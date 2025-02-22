@@ -9,20 +9,29 @@ class GoogleClient(APIClient):
     def __init__(self, llm):
         super().__init__(llm)
         self.company = "GOOGLE"
-        self.model = genai.GenerativeModel(self.llm)
         self.chat_history = []
-        self.chat_messages = self.model.start_chat(history=self.chat_history)
 
     def submit_api_key(self):
-        genai.configure(api_key=self.get_api_key())
+        self.client = genai.Client(api_key=self.get_api_key())
+        self.chat = self.client.chats.create(model=self.llm)
 
     def submit_prompt(self, prompt):
         try:
-            response = self.chat_messages.send_message(prompt, stream=False)
-            response_text = "".join(chunk.text for chunk in response)
-            response_info = {"total_tokens": response.usage_metadata.candidates_token_count}
-            return True, response_text, response_info
-        except GoogleAPIError as e:
+            response = self.chat.send_message(
+                message=prompt,
+                config=types.GenerateContentConfig(
+                    max_output_tokens=self.max_tokens,
+                    temperature=self.temperature,
+                ),
+            )
+            response_info = {
+                "Prompt tokens": response.usage_metadata.prompt_token_count,
+                "Completion tokens": response.usage_metadata.candidates_token_count,
+                "Total tokens": response.usage_metadata.total_token_count,
+            }
+            self.chat_history = self.chat._curated_history
+            return True, response.text, response_info
+        except ValueError as e:
             return False, e.message, None
 
     def on_chat_reset(self):
