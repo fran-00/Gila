@@ -1,5 +1,5 @@
 QWidget {
-    background-color: #000000;
+    background-color: #11111b;
     color: #ffffff;
     font-family: 'Gill Sans', sans-serif;
     font-size: 14px;
@@ -7,8 +7,8 @@ QWidget {
 }
 
 QPushButton {
-    background-color: #ffee00;
-    color: #000000;
+    background-color: #f1bc2e;
+    color: #11111b;
     padding: 6px 0px;
     font-size: 14px;
     font-weight: 700;
@@ -16,15 +16,15 @@ QPushButton {
 
 QPushButton:hover {
     background-color: #ffffff;
-    color: #000000;
+    color: #11111b;
 }
 
 QDialog {
-    background-color: #000000;
+    background-color: #11111b;
 }
 
 QLabel {
-    background-color: #000000;
+    background-color: #11111b;
 }
 
 QLabel#modal_text {
@@ -32,7 +32,7 @@ QLabel#modal_text {
 }
 
 QLabel.slider_value_label {
-    color: #ffee00;
+    color: #f1bc2e;
     font-size: 9px;
     font-weight: 600;
 }
@@ -42,29 +42,29 @@ QFrame.line_separator {
 }
 
 QSlider::groove:horizontal {
-    background: #343c51;
+    background: #2c2c2c;
     border: 1px solid #fff;
     height: 10px;
     border-radius: 5px;
 }
 
 QSlider::handle:horizontal {
-    background: #ffee00;
+    background: hsl(56, 100%, 50%);
     width: 20px;
     margin: -5px 0;
     border-radius: 10px;
 }
 
 QScrollBar {
-    background: #343c51;
+    background: #2c2c2c;
     width: 10px;
 }
 
 QScrollBar::handle {
-    background-color: #ffee00;
+    background-color: #f1bc2e;
 }
 
 QScrollBar::add-page, QScrollBar::sub-page, QScrollBar::add-line, QScrollBar::sub-line {
-    background: #343c51;
+    background: #2c2c2c;
     border: none;
 }

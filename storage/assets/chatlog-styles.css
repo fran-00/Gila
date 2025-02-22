@@ -1,18 +1,18 @@
 body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    background-color: #000000;
+    background-color: #11111b;
     color: #ffffff;
     padding: 10px;
 }
 
 .user-wrapper {
     margin-left: 20%;
-    background-color: #202020;
+    background-color: #333231;
     border-radius: 10px;
 }
 
 .user-wrapper .prompt {
-    color: #e4e4e4;
+    color: #ffffff;
     padding: 10px;
 }
 
@@ -24,15 +24,15 @@ body {
 .hljs {
     display: block;
     overflow-x: auto;
-    background: #1e1e2e;
-    color: #f8f8f2;
+    background: #242323;
+    color: #f7f7f7;
     padding: 0.5em;
     border-radius: 5px;
 }
 
 .hljs-comment,
 .hljs-quote {
-    color: #7c7c7c;
+    color: #b8b8b8;
     font-style: italic;
 }
 
@@ -41,7 +41,7 @@ body {
 .hljs-literal,
 .hljs-section,
 .hljs-link {
-    color: #cc99cd;
+    color: #feceff;
 }
 
 .hljs-string,
@@ -52,28 +52,28 @@ body {
 .hljs-symbol,
 .hljs-bullet,
 .hljs-addition {
-    color: #f0c674;
+    color: #ffe0a1;
 }
 
 .hljs-variable,
 .hljs-template-variable,
 .hljs-class .hljs-title {
-    color: #d54e53;
+    color: #ff8a8e;
 }
 
 /* Stili per le funzioni */
 .hljs-function .hljs-title,
 .hljs-title.function_ {
-    color: #8abeb7;
+    color: #c5fff7;
 }
 
 /* Stili per le classi */
 .hljs-class .hljs-title {
-    color: #e78c45;
+    color: #ffb277;
 }
 
 .hljs-number {
-    color: #de935f;
+    color: #afd2ff;
 }
 
 .hljs-operator,
@@ -86,7 +86,7 @@ body {
 .hljs-link,
 .hljs-meta,
 .hljs-meta .hljs-string {
-    color: #b5bd68;
+    color: #a7f146;
 }
 
 .hljs-deletion {
@@ -95,6 +95,6 @@ body {
 }
 
 .hljs-addition {
-    background: #b9ca4a;
+    background: #ddff00;
     color: #ffffff;
 }
