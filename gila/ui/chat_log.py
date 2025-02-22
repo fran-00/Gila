@@ -42,7 +42,7 @@ class Chat(QObject):
         self.widget_container = QWidget(objectName="chat_container")
 
         self.log_widget = CustomWebView()
-        self.chat_history = []
+        self.chat_html_logs = []
         self.prompt_layout = Prompt(self)
         self.tokenizer = Tokenizer()
 
@@ -52,7 +52,7 @@ class Chat(QObject):
         """ Updates chat log by generating an HTML page that includes chat 
             history and applies custom styling from a CSS file
         """
-        chat_content = "".join(self.chat_history)
+        chat_content = "".join(self.chat_html_logs)
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         css_path = os.path.join(BASE_DIR, "storage", "assets", "chatlog-styles.css")
         css_content = ""
@@ -147,7 +147,7 @@ class Chat(QObject):
             # Shows a cursor spinning wheel when waiting for response
             QApplication.setOverrideCursor(Qt.WaitCursor)
             # Append user prompt to log view window
-            self.chat_history.append(f"""
+            self.chat_html_logs.append(f"""
                 <div class='user-wrapper'>
                     <p class='prompt'>{prompt}</p>
                 </div>
@@ -203,7 +203,7 @@ class Chat(QObject):
         QApplication.restoreOverrideCursor()
 
         formatted_response = self.convert_markdown_to_html(response)
-        self.chat_history.append(f"""
+        self.chat_html_logs.append(f"""
             <div class='ai-wrapper'>
                 <p class='response'>{formatted_response}</p>
             </div>
@@ -221,20 +221,20 @@ class Chat(QObject):
 
     def chatlog_has_text(self):
         """ Returns True if log_widget has text, else False """
-        return bool(self.chat_history)
+        return bool(self.chat_html_logs)
 
     def chatlog_has_changed(self, chat_id):
         file_path = f'storage/saved_data/{chat_id}.pk'
         if os.path.isfile(file_path):
             with open(file_path, 'rb') as file:
                 saved_data = pickle.load(file)
-            saved_chat_history = saved_data[chat_id]["chat_log"]
-            return self.chat_history != saved_chat_history
+            saved_chat_html_logs = saved_data[chat_id]["chat_log"]
+            return self.chat_html_logs != saved_chat_html_logs
         return True
 
     def get_chat_log(self):
         """ Returns all current chat text """
-        return self.chat_history
+        return self.chat_html_logs
 
     def on_starting_a_new_chat(self):
         """ Sends a signal to start a new chat """

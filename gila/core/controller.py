@@ -152,7 +152,7 @@ class Controller(QObject):
                 self.view.sidebar.stored_chats.add_stored_chat_button(self.model.manager.client.chat_id)
                 self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
             self.main_thread.stop()
-            self.view.chat.chat_history = []
+            self.view.chat.chat_html_logs = []
             self.view.chat.generate_chat_html()
             self.model.client.on_chat_reset()
             self.model.manager.stream_stopped = True
@@ -261,7 +261,7 @@ class Controller(QObject):
         """
         self.chat_stopped_from_sidebar_slot()
         self.loading_saved_chat_id_to_manager.emit(chat_id)
-        self.view.chat.chat_history = self.view.sidebar.stored_chats.chatlog
+        self.view.chat.chat_html_logs = self.view.sidebar.stored_chats.chatlog
         self.new_chat_started_slot()
 
     @Slot()
