@@ -98,7 +98,7 @@ class Chat(QObject):
         chat_layout.addWidget(self.log_widget, stretch=8)
         chat_layout.addLayout(self.prompt_layout.on_prompt_layout(), stretch=2)
         chat_layout.addLayout(self.on_prompt_info_layout())
-        chat_layout.addLayout(self.on_start_layout())
+        chat_layout.addLayout(self.on_start_layout(), stretch=1000)
 
     def update_chat_title(self):
         self.title.setText(f"{self.window.sidebar.current_settings.current_llm}")
