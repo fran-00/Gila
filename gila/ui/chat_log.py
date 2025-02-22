@@ -185,8 +185,7 @@ class Chat(QObject):
             label.show()
         self.num_of_words.show()
         self.num_of_tokens.show()
-        self.gila_image.hide()
-        self.start_chat_button.hide()
+        self.start_inner_widget.hide()
 
     def on_hide_chatlog(self):
         """ Hides chat widget and start chat button on call """
@@ -196,8 +195,7 @@ class Chat(QObject):
             label.hide()
         self.num_of_words.hide()
         self.num_of_tokens.hide()
-        self.gila_image.show()
-        self.start_chat_button.show()
+        self.start_inner_widget.show()
 
     def convert_markdown_to_html(self, md_text):
         """Converts Markdown to HTML"""
