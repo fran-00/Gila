@@ -36,7 +36,6 @@ class GoogleClient(APIClient):
             return False, e.message, None
 
     def on_chat_reset(self):
-        self.chat = self.client.chats.create(model=self.llm)
         self.chat_history = []
         self.chat_custom_name = None
         self.generate_chat_id()
