@@ -49,7 +49,7 @@ QSlider::groove:horizontal {
 }
 
 QSlider::handle:horizontal {
-    background: hsl(56, 100%, 50%);
+    background: #f1bc2e;
     width: 20px;
     margin: -5px 0;
     border-radius: 10px;
