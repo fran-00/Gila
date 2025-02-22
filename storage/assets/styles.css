@@ -7,10 +7,6 @@ QWidget {
     border-radius: 2px;
 }
 
-QVBoxLayout#start_inner_container {
-    background-color: #11111b;
-}
-
 QWidget#sidebar_container {
     background-color: #2c2c2c;
 }
@@ -26,18 +22,6 @@ QWidget#rename_button:hover{
 
 QWidget#delete_button:hover {
     background-color: #ac0000;
-}
-
-QWidget#prompt_box_widget {
-    background-color: #11111b;
-}
-
-QWidget#current_settings_widget {
-    background-color: #11111b;
-}
-
-QWidget#stored_chats_widget {
-    background-color: #11111b;
 }
 
 QWidget#chat_container {
@@ -65,10 +49,6 @@ QLabel#settings_label {
 
 QLabel.chatlog_info_labels {
     padding-left: 2px;
-}
-
-QWidget#start_image {
-    background-color: #11111b;
 }
 
 QLabel#placeholder_label {
