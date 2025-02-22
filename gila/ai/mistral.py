@@ -1,4 +1,4 @@
-from mistralai import Mistral
+import mistralai
 from .api_client import APIClient
 
 
@@ -10,7 +10,7 @@ class MistralClient(APIClient):
         self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
 
     def submit_api_key(self):
-        self.client = Mistral(api_key=self.get_api_key())
+        self.client = mistralai.Mistral(api_key=self.get_api_key())
 
     def submit_prompt(self, prompt):
         self.chat_history.append({"role": "user", "content": prompt})
@@ -34,9 +34,9 @@ class MistralClient(APIClient):
         self.generate_chat_id()
 
     def validate_api_key(self, api_key):
-        test = Mistral(api_key)
+        test = mistralai.Mistral(api_key)
         try:
             test.chat.complete(model = self.llm, messages=[{"role": "user", "content": "test"}])
             return True
-        except ValueError as e:
+        except mistralai.models.sdkerror.SDKError as e:
             return False
