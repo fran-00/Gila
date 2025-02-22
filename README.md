@@ -35,10 +35,10 @@ To run from source, you'll need **Conda** and **Git** installed in your system. 
 git clone https://github.com/fran-00/gila.git
 ```
 
-Create a new virtual environment with *Python 3.12* using **conda** and activate it:
+Create a new virtual environment with *Python 3.13.2* using **conda** and activate it:
 
 ```shell
-conda create --name gila python=3.12
+conda create --name gila python=3.13.2
 conda activate gila
 ```
 
