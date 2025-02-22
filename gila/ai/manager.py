@@ -38,7 +38,7 @@ COMPANIES = {
     "ANTHROPIC": AnthropicClient("claude-3-sonnet-20240229"),
     "COHERE": CohereClient("command"),
     "GOOGLE": GoogleClient("gemini-1.5-flash"),
-    "MISTRAL": CohereClient("mistral-large-latest"),
+    "MISTRAL": MistralClient("mistral-large-latest"),
     "OPENAI": OpenAIClient("gpt-4o-mini"),
 }
 
