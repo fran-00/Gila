@@ -155,8 +155,8 @@ class ChangeSettingsModal(Modal):
             "GPT-4 Turbo": (4096, 2),
             "GPT-4o": (4096, 2),
             "GPT-4o mini": (16384, 2),
-            "Mistral Large": (8000, 1),
-            "Mistral Nemo": (8000, 1),
+            "Mistral Small": (8000, 1),
+            "Pixtral": (8000, 1),
         }
         default_tokens = (4096, 2)
         max_tokens, max_temp = limits.get(llm, default_tokens)

@@ -17,8 +17,8 @@ Currently supported large language models:
 - GPT-4 Turbo
 - GPT-4o
 - GPT-4o mini
-- Mistral Large
-- Mistral Nemo
+- Mistral Small
+- Pixtral
 
 Currently supported text-to-image models:
 

@@ -27,8 +27,8 @@ class CurrentSettings(QObject):
             "GPT-4 Turbo",
             "GPT-4o",
             "GPT-4o mini",
-            "Mistral Large",
-            "Mistral Nemo"
+            "Mistral Small",
+            "Pixtral"
         ]
         self.widget_container = QWidget(objectName="current_settings_widget")
         self.on_current_settings_layout()

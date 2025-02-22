@@ -30,15 +30,15 @@ AVAILABLE_MODELS = {
     "GPT-4 Turbo": OpenAIClient("gpt-4-turbo"),
     "GPT-4o": OpenAIClient("gpt-4o"),
     "GPT-4o mini": OpenAIClient("gpt-4o-mini"),
-    "Mistral Large": MistralClient("mistral-large-latest"),
-    "Mistral Nemo": MistralClient("open-mistral-nemo"),
+    "Mistral Small": MistralClient("mistral-small-latest"),
+    "Pixtral": MistralClient("pixtral-12b-2409"),
 }
 
 COMPANIES = {
     "ANTHROPIC": AnthropicClient("claude-3-sonnet-20240229"),
     "COHERE": CohereClient("command"),
     "GOOGLE": GoogleClient("gemini-2.0-flash"),
-    "MISTRAL": MistralClient("mistral-large-latest"),
+    "MISTRAL": MistralClient("mistral-small-latest"),
     "OPENAI": OpenAIClient("gpt-4o-mini"),
 }
 
