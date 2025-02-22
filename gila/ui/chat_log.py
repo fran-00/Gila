@@ -5,17 +5,19 @@ import markdown
 import tiktoken
 
 from PySide6.QtCore import QObject, Signal, Slot
-from PySide6.QtGui import QPixmap, Qt
+from PySide6.QtGui import QAction, QPixmap, Qt
+from PySide6.QtWebEngineCore import QWebEnginePage
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import (
-    QWidget,
-    QVBoxLayout,
+    QApplication,
     QHBoxLayout,
-    QTextEdit,
-    QPushButton,
     QLabel,
+    QMenu,
+    QPushButton,
     QSizePolicy,
-    QApplication
+    QTextEdit,
+    QVBoxLayout,
+    QWidget,
 )
 
 
@@ -264,7 +266,21 @@ class CustomTextEdit(QTextEdit):
 class CustomWebView(QWebEngineView):
     def __init__(self):
         super().__init__()
-        self.setContextMenuPolicy(Qt.NoContextMenu)
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.show_custom_menu)
+
+    def show_custom_menu(self, pos):
+        menu = QMenu(self)
+
+        copy_action = QAction("Copy", self)
+        copy_action.setShortcut("Ctrl+C")
+        copy_action.triggered.connect(self.copy_selected_text)
+
+        menu.addAction(copy_action)
+        menu.exec(self.mapToGlobal(pos))
+
+    def copy_selected_text(self):
+        self.page().triggerAction(QWebEnginePage.Copy)
 
 
 class Prompt:
