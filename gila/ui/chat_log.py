@@ -103,15 +103,16 @@ class Chat(QObject):
     def on_start_layout(self):
         """ Creates Start layout with a button to start new chat """
         start_layout = QVBoxLayout()
+        self.start_inner_widget = QWidget()
+        start_inner_layout = QVBoxLayout(self.start_inner_widget)
         self.gila_image = QLabel(objectName="start_image")
         self.gila_image.setPixmap(QPixmap("storage/assets/icons/gila_logo.svg"))
         self.start_chat_button = QPushButton("New Chat")
         self.start_chat_button.clicked.connect(
             lambda: self.on_starting_a_new_chat())
-        start_layout.addWidget(self.gila_image, alignment=Qt.AlignmentFlag.AlignCenter)
-        start_layout.addWidget(self.start_chat_button)
-        start_layout.setStretch(0, 1)
-        start_layout.setStretch(1, 1)
+        start_inner_layout.addWidget(self.gila_image, alignment=Qt.AlignmentFlag.AlignCenter)
+        start_inner_layout.addWidget(self.start_chat_button)
+        start_layout.addWidget(self.start_inner_widget, stretch=1000)
         return start_layout
 
     def update_chat_title(self):
