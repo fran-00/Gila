@@ -23,15 +23,35 @@ body {
 ::-webkit-scrollbar {
     width: 10px;
 }
+
 ::-webkit-scrollbar-track {
     background: #555555;
 }
+
 ::-webkit-scrollbar-thumb {
     background: #f1bc2e;
     border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background: #fde49e;
+}
+
+/* TABLES */
+table {
+    margin: 0 auto;
+}
+
+th {
+    padding: 8px;
+    background-color: #555555;
+}
+
+td {
+    padding: 8px;
+    border-bottom: 1px solid #585858;
+    border-left: 1px solid #585858;
+    border-right: 1px solid #585858;
 }
 
 /* CODE SNIPPETS */
