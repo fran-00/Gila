@@ -1,5 +1,5 @@
-import google.generativeai as genai
-from google.api_core.exceptions import InvalidArgument, GoogleAPIError
+from google import genai
+from google.genai import types
 
 from .api_client import APIClient
 
@@ -31,11 +31,11 @@ class GoogleClient(APIClient):
         self.generate_chat_id()
 
     def validate_api_key(self, api_key):
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-pro')
         try:
-            model.generate_text("test")
+            genai.Client(api_key=api_key).models.generate_content(
+                model=self.llm,
+                contents="test"
+            )
             return True
-        except InvalidArgument as e:
-            print(e)
-            return False
+        except genai.errors.ClientError as e:
+            return False, e.message, None
