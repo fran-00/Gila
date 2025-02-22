@@ -27,7 +27,7 @@ class View(QMainWindow):
         super().__init__()
         self.setWindowTitle("Gila")
         self.setWindowIcon(QIcon("storage/assets/icons/gila_logo.svg"))
-        self.resize(800, 600)
+        self.resize(1024, 768)
         self.setStyleSheet(self.load_css_file())
         self.create_layout()
 
