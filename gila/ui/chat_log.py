@@ -105,13 +105,14 @@ class Chat(QObject):
         start_layout = QVBoxLayout()
         self.start_inner_widget = QWidget()
         start_inner_layout = QVBoxLayout(self.start_inner_widget)
-        self.gila_image = QLabel(objectName="start_image")
-        self.gila_image.setPixmap(QPixmap("storage/assets/icons/gila_logo.svg"))
-        self.start_chat_button = QPushButton("New Chat")
-        self.start_chat_button.clicked.connect(
-            lambda: self.on_starting_a_new_chat())
-        start_inner_layout.addWidget(self.gila_image, alignment=Qt.AlignmentFlag.AlignCenter)
-        start_inner_layout.addWidget(self.start_chat_button)
+        gila_image = QLabel(objectName="start_image")
+        gila_image.setPixmap(QPixmap("storage/assets/icons/gila_logo.svg"))
+        start_chat_button = QPushButton("New Chat")
+        start_chat_button.clicked.connect(
+            lambda: self.on_starting_a_new_chat()
+        )
+        start_inner_layout.addWidget(gila_image, alignment=Qt.AlignmentFlag.AlignCenter)
+        start_inner_layout.addWidget(start_chat_button)
         start_layout.addWidget(self.start_inner_widget, stretch=1000)
         return start_layout
 
