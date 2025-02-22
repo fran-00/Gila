@@ -100,6 +100,20 @@ class Chat(QObject):
         chat_layout.addLayout(self.on_prompt_info_layout())
         chat_layout.addLayout(self.on_start_layout(), stretch=1000)
 
+    def on_start_layout(self):
+        """ Creates Start layout with a button to start new chat """
+        start_layout = QVBoxLayout()
+        self.gila_image = QLabel(objectName="start_image")
+        self.gila_image.setPixmap(QPixmap("storage/assets/icons/gila_logo.svg"))
+        self.start_chat_button = QPushButton("New Chat")
+        self.start_chat_button.clicked.connect(
+            lambda: self.on_starting_a_new_chat())
+        start_layout.addWidget(self.gila_image, alignment=Qt.AlignmentFlag.AlignCenter)
+        start_layout.addWidget(self.start_chat_button)
+        start_layout.setStretch(0, 1)
+        start_layout.setStretch(1, 1)
+        return start_layout
+
     def update_chat_title(self):
         self.title.setText(f"{self.window.sidebar.current_settings.current_llm}")
 
@@ -134,20 +148,6 @@ class Chat(QObject):
     def tokens_counter(self):
         num_tokens = self.tokenizer.get_num_of_tokens(self.prompt_layout.prompt_box.toPlainText())
         self.num_of_tokens.setText(f"Tokens: {num_tokens}")
-
-    def on_start_layout(self):
-        """ Creates Start layout with a button to start new chat """
-        start_layout = QVBoxLayout()
-        self.gila_image = QLabel(objectName="start_image")
-        self.gila_image.setPixmap(QPixmap("storage/assets/icons/gila_logo.svg"))
-        self.start_chat_button = QPushButton("New Chat")
-        self.start_chat_button.clicked.connect(
-            lambda: self.on_starting_a_new_chat())
-        start_layout.addWidget(self.gila_image, alignment=Qt.AlignmentFlag.AlignCenter)
-        start_layout.addWidget(self.start_chat_button)
-        start_layout.setStretch(0, 1)
-        start_layout.setStretch(1, 1)
-        return start_layout
 
     def process_prompt(self, prompt):
         """ Process user prompt, appends it to chatlog and sends it as a Signal
