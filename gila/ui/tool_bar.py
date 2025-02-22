@@ -1,9 +1,6 @@
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import QToolBar, QFileDialog
 
-from docx import Document
-from reportlab.pdfgen.canvas import Canvas
-
 
 class ToolBar(QToolBar):
 
@@ -64,16 +61,8 @@ class ToolBar(QToolBar):
         self.window.manage_api_keys_modal.exec_()
 
     def export_chatlog(self):
-        options = QFileDialog.Options()
-        # options |= QFileDialog.DontUseNativeDialog
-        # file_types = "File di testo (*.txt);;Documento Word (*.docx);;Documento PDF (*.pdf)"
-        file_types = "File di testo (*.txt);;Documento Word (*.docx)"
-        file_name, _ = QFileDialog.getSaveFileName(self, "Export Chat", "", file_types, options=options)
-        if file_name:
-            if file_name.endswith(".txt"):
-                self.save_txt(file_name)
-            elif file_name.endswith(".docx"):
-                self.save_docx(file_name)
+        # TODO:
+        pass
 
     def save_txt(self, file_name):
         with open(file_name, "w") as file:
@@ -81,18 +70,12 @@ class ToolBar(QToolBar):
             file.write(text)
 
     def save_docx(self, file_name):
-        document = Document()
-        text = self.window.chat.log_widget.toPlainText()
-        document.add_paragraph(text)
-        document.save(file_name)
+        # TODO:
+        pass
 
     def save_pdf(self, file_name):
-        # FIXME: è tutto storto, sistemalo
-        text = self.window.chat.log_widget.toHtml()
-        canvas = Canvas(file_name)
-        canvas.setFont("Times-Roman", 12)
-        canvas.drawString(100, 750, text)
-        canvas.save()
+        # TODO:
+        pass
 
     def open_info_modal(self):
         self.window.about_gila_modal.exec_()
