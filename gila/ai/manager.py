@@ -23,9 +23,9 @@ AVAILABLE_MODELS = {
     "Command R+": CohereClient("command-r-plus"),
     "DALL-E-2": OpenAIClient("dall-e-2"),
     "DALL-E-3": OpenAIClient("dall-e-3"),
+    "Gemini 2.0 Flash": GoogleClient("gemini-2.0-flash"),
     "Gemini 1.5 Flash": GoogleClient("gemini-1.5-flash"),
     "Gemini 1.5 Pro": GoogleClient("gemini-1.5-pro"),
-    "Gemini 1.0 Pro": GoogleClient("gemini-1.0-pro"),
     "GPT-4": OpenAIClient("gpt-4"),
     "GPT-4 Turbo": OpenAIClient("gpt-4-turbo"),
     "GPT-4o": OpenAIClient("gpt-4o"),
@@ -37,7 +37,7 @@ AVAILABLE_MODELS = {
 COMPANIES = {
     "ANTHROPIC": AnthropicClient("claude-3-sonnet-20240229"),
     "COHERE": CohereClient("command"),
-    "GOOGLE": GoogleClient("gemini-1.5-flash"),
+    "GOOGLE": GoogleClient("gemini-2.0-flash"),
     "MISTRAL": MistralClient("mistral-large-latest"),
     "OPENAI": OpenAIClient("gpt-4o-mini"),
 }

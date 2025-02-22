@@ -10,9 +10,9 @@ Currently supported large language models:
 - Command
 - Command R
 - Command R+
-- Gemini 1.0 Pro
-- Gemini 1.5 Pro
+- Gemini 2.0 Flash
 - Gemini 1.5 Flash
+- Gemini 1.5 Pro
 - GPT-4
 - GPT-4 Turbo
 - GPT-4o
