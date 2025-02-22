@@ -15,7 +15,9 @@ class ManageAPIKeysModal(Modal):
         self.api_keys = {
             "OpenAi": False,
             "Google": False,
-            "Cohere": False
+            "Cohere": False,
+            "Mistral": False,
+            "Anthropic": False
         }
         self.on_modal_layout()
 
