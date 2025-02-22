@@ -35,6 +35,7 @@ class ChangeSettingsModal(Modal):
         self.llms_combobox = QComboBox()
         for llm in self.current_settings.llms:
             self.llms_combobox.addItem(llm)
+        self.llms_combobox.setCurrentIndex(-1)
         self.modal_layout.addWidget(select_llm_label)
         self.modal_layout.addWidget(self.llms_combobox)
 
