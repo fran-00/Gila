@@ -43,5 +43,5 @@ class CohereClient(APIClient):
         try:
             test_co.generate(prompt='test')
             return True
-        except cohere.CohereError as e:
+        except cohere.errors.unauthorized_error.UnauthorizedError as e:
             return False
