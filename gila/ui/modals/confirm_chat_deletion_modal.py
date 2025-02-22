@@ -7,7 +7,7 @@ class ConfirmChatDeletionModal(Modal):
 
     def __init__(self, window, parent_class):
         super().__init__(window)
-        self.setWindowTitle("Cancellazione Chat")
+        self.setWindowTitle("Delete saved chat")
         self.on_modal_layout()
         self.parent_class = parent_class
 

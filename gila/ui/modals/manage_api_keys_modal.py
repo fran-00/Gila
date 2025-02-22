@@ -11,7 +11,7 @@ class ManageAPIKeysModal(Modal):
 
     def __init__(self, window):
         super().__init__(window)
-        self.setWindowTitle("Gestisci Chiavi API")
+        self.setWindowTitle("Manage API Keys")
         self.api_keys = {
             "OpenAi": False,
             "Google": False,
