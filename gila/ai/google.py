@@ -43,11 +43,6 @@ class GoogleClient(APIClient):
         }
         return ai_response, response_info
 
-    def on_chat_reset(self):
-        self.chat_history = []
-        self.chat_custom_name = None
-        self.generate_chat_id()
-
     def validate_api_key(self, api_key):
         base_endpoint = self._get_endpoint()
         endpoint= f"{base_endpoint}/{self.llm}:generateContent?key={api_key}"

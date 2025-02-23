@@ -33,8 +33,3 @@ class AnthropicClient(APIClient):
             "Total tokens": None
         }
         return ai_response, response_info
-
-    def on_chat_reset(self):
-        self.chat_history = []
-        self.chat_custom_name = None
-        self.generate_chat_id()
