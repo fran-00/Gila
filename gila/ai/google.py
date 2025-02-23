@@ -11,18 +11,16 @@ class GoogleClient(APIClient):
     def _get_endpoint(self):
         return "https://generativelanguage.googleapis.com/v1beta/models"
 
-    def submit_prompt(self, prompt):
-        self.chat_history.append({
-            "role":"user",
-            "parts":[{
-                "text": prompt
-            }]
-        })
+    def _format_user_message(self, prompt):
+        return {"role": "user", "parts": [{"text": prompt}]}
+
+    def _format_ai_message(self, ai_response):
+        return {"role": "model", "parts": [{"text": ai_response}]}
+
+    def _get_request_params(self):
         base_endpoint = self._get_endpoint()
-        endpoint= f"{base_endpoint}/{self.llm}:generateContent?key={self.api_key}"
-        headers = {
-            "Content-Type": "application/json",
-        }
+        endpoint = f"{base_endpoint}/{self.llm}:generateContent?key={self.api_key}"
+        headers = {"Content-Type": "application/json"}
         data = {
             "contents": [self.chat_history],
             "generationConfig": {
@@ -30,18 +28,7 @@ class GoogleClient(APIClient):
                 "maxOutputTokens": self.max_tokens,
             }
         }
-        try:
-            response = self.send_request(headers=headers, endpoint=endpoint, data=data)
-            ai_response, response_info = self._extract_response_data(response)
-            self.chat_history.append({
-                "role": "model",
-                "parts":[{
-                    "text": ai_response
-                }]
-            })
-            return True, ai_response, response_info
-        except KeyError as e:
-            return False, str(e), None
+        return {"headers": headers, "endpoint": endpoint, "data": data}
 
     def _extract_response_data(self, response):
         ai_response = response["candidates"][0]["content"]["parts"][0]["text"]
