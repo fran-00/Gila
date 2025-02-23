@@ -67,3 +67,8 @@ class APIClient(ABC):
     def _get_endpoint(self):
         """Method to implement to return the correct endpoint"""
         pass
+
+    @abstractmethod
+    def _extract_response_data(self, response):
+        """Method to implement in subclasses to extract ai_response and response_info."""
+        pass
