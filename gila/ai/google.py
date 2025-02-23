@@ -59,5 +59,5 @@ class GoogleClient(APIClient):
                 "parts":[{"text": "test"}]
             }]
         }
-        response = self.send_request(headers=headers, endpoint=endpoint, data=data)
+        response = self._send_request(headers=headers, endpoint=endpoint, data=data)
         return False if "error" in response else True

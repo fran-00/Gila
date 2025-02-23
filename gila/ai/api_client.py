@@ -38,7 +38,7 @@ class APIClient(ABC):
     def generate_chat_id(self):
         self.chat_id = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
 
-    def send_request(self, endpoint, headers, data):
+    def _send_request(self, endpoint, headers, data):
         try:
             response = requests.post(f"{endpoint}", headers=headers, json=data)
             response.raise_for_status()
@@ -93,7 +93,7 @@ class APIClient(ABC):
             "messages": [{"role": "user", "content": "test"}],
             "max_tokens": 5,
         }
-        response = self.send_request(headers=headers, data=data)
+        response = self._send_request(headers=headers, data=data)
         return False if "error" in response else True
 
     def submit_prompt(self, prompt):
@@ -104,7 +104,7 @@ class APIClient(ABC):
         params = self._get_request_params()
 
         try:
-            response = self.send_request(**params)
+            response = self._send_request(**params)
             ai_response, response_info = self._extract_response_data(response)
             self.chat_history.append(self._format_ai_message(ai_response))
 
