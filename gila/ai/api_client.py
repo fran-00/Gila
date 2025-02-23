@@ -57,6 +57,15 @@ class APIClient(ABC):
         except requests.RequestException as e:
             return {"error": str(e)}
 
+    def build_default_request_data(self):
+        """Creates the body of the 'data' request with default values."""
+        return {
+            "model": self.llm,
+            "messages": self.chat_history,
+            "temperature": self.temperature,
+            "max_tokens": self.max_tokens
+        }
+
     @abstractmethod
     def _get_endpoint(self):
         """Method to implement to return the correct endpoint"""
