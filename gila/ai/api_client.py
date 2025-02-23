@@ -74,3 +74,16 @@ class APIClient(ABC):
     def _extract_response_data(self, response):
         """Method to implement in subclasses to extract ai_response and response_info."""
         pass
+
+    def validate_api_key(self, api_key):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {api_key}"
+        }
+        data = {
+            "model": self.llm,
+            "messages": [{"role": "user", "content": "test"}],
+            "max_tokens": 5,
+        }
+        response = self.send_request(headers=headers, data=data)
+        return False if "error" in response else True
