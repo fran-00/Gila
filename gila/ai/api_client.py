@@ -2,11 +2,12 @@ import os
 import requests
 import random
 import string
+from abc import ABC, abstractmethod
 
 from dotenv import load_dotenv
 
 
-class APIClient:
+class APIClient(ABC):
 
     def __init__(self, llm=None):
         self.llm = llm
