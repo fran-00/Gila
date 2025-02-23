@@ -16,17 +16,20 @@ class MistralClient(APIClient):
         self.chat_history.append({"role": "user", "content": prompt})
         try:
             response = self.send_request()
-            response_info = {
-                "Prompt tokens": response.get("usage", {}).get("prompt_tokens", 0),
-                "Completion tokens": response.get("usage", {}).get("completion_tokens", 0),
-                "Total tokens": response.get("usage", {}).get("total_tokens", 0),
-            }
-            ai_response = response["choices"][0]["message"]["content"]
+            ai_response, response_info = self._extract_response_data(response)
             self.chat_history.append({"role": "assistant", "content": ai_response})
-
             return True, ai_response, response_info
         except KeyError as e:
             return False, str(e), None
+
+    def _extract_response_data(self, response):
+        ai_response = response["choices"][0]["message"]["content"]
+        response_info = {
+            "Prompt tokens": response.get("usage", {}).get("prompt_tokens", 0),
+            "Completion tokens": response.get("usage", {}).get("completion_tokens", 0),
+            "Total tokens": response.get("usage", {}).get("total_tokens", 0),
+        }
+        return ai_response, response_info
 
     def on_chat_reset(self):
         self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]

@@ -17,17 +17,20 @@ class CohereClient(APIClient):
         self.chat_history.append({"role": "user", "content": prompt})
         try:
             response = self.send_request()
-            response_info = {
-                "Prompt tokens": response.get("usage", {}).get("tokens", {}).get("input_tokens", 0),
-                "Completion tokens": response.get("usage", {}).get("tokens", {}).get("output_tokens", 0),
-                "Total tokens": None
-            }
-            ai_response = response["message"]["content"][0]["text"]
+            ai_response, response_info = self._extract_response_data(response)
             self.chat_history.append({"role": "assistant", "content": ai_response})
-
             return True, ai_response, response_info
         except KeyError as e:
             return False, str(e), None
+
+    def _extract_response_data(self, response):
+        ai_response = response["message"]["content"][0]["text"]
+        response_info = {
+            "Prompt tokens": response.get("usage", {}).get("tokens", {}).get("input_tokens", 0),
+            "Completion tokens": response.get("usage", {}).get("tokens", {}).get("output_tokens", 0),
+            "Total tokens": None
+        }
+        return ai_response, response_info
 
     def on_chat_reset(self):
         self.chat_history = []
