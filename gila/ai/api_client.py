@@ -87,3 +87,31 @@ class APIClient(ABC):
         }
         response = self.send_request(headers=headers, data=data)
         return False if "error" in response else True
+
+    def submit_prompt(self, prompt):
+        """Handles prompt submission."""
+        self.chat_history.append(self._format_user_message(prompt))
+
+        # Get request parameters (allows overrides for specific clients)
+        params = self._get_request_params()
+
+        try:
+            response = self.send_request(**params)
+            ai_response, response_info = self._extract_response_data(response)
+            self.chat_history.append(self._format_ai_message(ai_response))
+
+            return True, ai_response, response_info
+        except KeyError as e:
+            return False, str(e), None
+
+    def _format_user_message(self, prompt):
+        """Defines how the user message should be formatted. Override if needed."""
+        return {"role": "user", "content": prompt}
+
+    def _format_ai_message(self, ai_response):
+        """Defines how the AI response should be formatted. Override if needed."""
+        return {"role": "assistant", "content": ai_response}
+
+    def _get_request_params(self):
+        """Override to customize headers, endpoint, or data if necessary."""
+        return {}
