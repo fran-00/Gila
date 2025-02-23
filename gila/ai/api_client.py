@@ -84,6 +84,7 @@ class APIClient(ABC):
         pass
 
     def validate_api_key(self, api_key):
+        endpoint = self._get_endpoint()
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {api_key}"
@@ -93,7 +94,7 @@ class APIClient(ABC):
             "messages": [{"role": "user", "content": "test"}],
             "max_tokens": 5,
         }
-        response = self._send_request(headers=headers, data=data)
+        response = self._send_request(endpoint=endpoint, headers=headers, data=data)
         return False if "error" in response else True
 
     def submit_prompt(self, prompt):
