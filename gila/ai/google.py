@@ -56,3 +56,17 @@ class GoogleClient(APIClient):
         self.chat_history = []
         self.chat_custom_name = None
         self.generate_chat_id()
+
+    def validate_api_key(self, api_key):
+        base_endpoint = self._get_endpoint()
+        endpoint= f"{base_endpoint}/{self.llm}:generateContent?key={api_key}"
+        headers = {
+            "Content-Type": "application/json",
+        }
+        data = {
+            "contents": [{
+                "parts":[{"text": "test"}]
+            }]
+        }
+        response = self.send_request(headers=headers, endpoint=endpoint, data=data)
+        return False if "error" in response else True
