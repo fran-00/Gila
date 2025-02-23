@@ -1,4 +1,5 @@
 import os
+import re
 import pickle
 
 import markdown
@@ -217,6 +218,8 @@ class Chat(QObject):
         QApplication.restoreOverrideCursor()
 
         formatted_response = self.convert_markdown_to_html(response)
+        if self.window.sidebar.current_settings.current_llm in ["DALL-E-2", "DALL-E-3"]:
+            formatted_response = f"<img src='{response}' class='image'>"
         self.chat_html_logs.append(f"""
             <div class='ai-wrapper'>
                 <p class='response'>{formatted_response}</p>
