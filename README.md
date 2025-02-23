@@ -3,22 +3,22 @@
 This is an AI chatbot client made with Python and PySide6.
 Currently supported large language models:
 
+- GPT-4o mini
+- GPT-4o
+- GPT-4
+- GPT-4 Turbo
+- Gemini 2.0 Flash
+- Gemini 1.5 Flash
+- Gemini 1.5 Pro
+- Mistral Small
+- Pixtral
+- Command
+- Command R
+- Command R+
 - Claude 3 Haiku
 - Claude 3 Opus
 - Claude 3 Sonnet
 - Claude 3.5 Sonnet
-- Command
-- Command R
-- Command R+
-- Gemini 2.0 Flash
-- Gemini 1.5 Flash
-- Gemini 1.5 Pro
-- GPT-4
-- GPT-4 Turbo
-- GPT-4o
-- GPT-4o mini
-- Mistral Small
-- Pixtral
 
 Currently supported text-to-image models:
 

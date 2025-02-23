@@ -14,24 +14,24 @@ from .anthropic import AnthropicClient
 
 
 AVAILABLE_MODELS = {
+    "GPT-4o mini": OpenAIClient("gpt-4o-mini"),
+    "GPT-4o": OpenAIClient("gpt-4o"),
+    "GPT-4": OpenAIClient("gpt-4"),
+    "GPT-4 Turbo": OpenAIClient("gpt-4-turbo"),
+    "Gemini 2.0 Flash": GoogleClient("gemini-2.0-flash"),
+    "Gemini 1.5 Flash": GoogleClient("gemini-1.5-flash"),
+    "Gemini 1.5 Pro": GoogleClient("gemini-1.5-pro"),
+    "Mistral Small": MistralClient("mistral-small-latest"),
+    "Pixtral": MistralClient("pixtral-12b-2409"),
+    "Command": CohereClient("command"),
+    "Command R": CohereClient("command-r"),
+    "Command R+": CohereClient("command-r-plus"),
     "Claude 3 Haiku": AnthropicClient("claude-3-haiku-20240307"),
     "Claude 3 Opus": AnthropicClient("claude-3-opus-20240229"),
     "Claude 3 Sonnet": AnthropicClient("claude-3-sonnet-20240229"),
     "Claude 3.5 Sonnet": AnthropicClient("claude-3-5-sonnet-20240620"),
-    "Command": CohereClient("command"),
-    "Command R": CohereClient("command-r"),
-    "Command R+": CohereClient("command-r-plus"),
     "DALL-E-2": OpenAIClient("dall-e-2"),
     "DALL-E-3": OpenAIClient("dall-e-3"),
-    "Gemini 2.0 Flash": GoogleClient("gemini-2.0-flash"),
-    "Gemini 1.5 Flash": GoogleClient("gemini-1.5-flash"),
-    "Gemini 1.5 Pro": GoogleClient("gemini-1.5-pro"),
-    "GPT-4": OpenAIClient("gpt-4"),
-    "GPT-4 Turbo": OpenAIClient("gpt-4-turbo"),
-    "GPT-4o": OpenAIClient("gpt-4o"),
-    "GPT-4o mini": OpenAIClient("gpt-4o-mini"),
-    "Mistral Small": MistralClient("mistral-small-latest"),
-    "Pixtral": MistralClient("pixtral-12b-2409"),
 }
 
 COMPANIES = {

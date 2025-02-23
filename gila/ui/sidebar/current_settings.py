@@ -11,24 +11,24 @@ class CurrentSettings(QObject):
         self.current_temperature = None
         self.current_max_tokens = None
         self.llms = [
+            "GPT-4o mini",
+            "GPT-4o",
+            "GPT-4",
+            "GPT-4 Turbo",
+            "Gemini 2.0 Flash",
+            "Gemini 1.5 Flash",
+            "Gemini 1.5 Pro",
+            "Mistral Small",
+            "Pixtral",
+            "Command",
+            "Command R",
+            "Command R+",
             "Claude 3 Haiku",
             "Claude 3 Opus",
             "Claude 3 Sonnet",
             "Claude 3.5 Sonnet",
-            "Command",
-            "Command",
-            "Command R+",
             "DALL-E-2",
             "DALL-E-3",
-            "Gemini 2.0 Flash",
-            "Gemini 1.5 Flash",
-            "Gemini 1.5 Pro",
-            "GPT-4",
-            "GPT-4 Turbo",
-            "GPT-4o",
-            "GPT-4o mini",
-            "Mistral Small",
-            "Pixtral"
         ]
         self.widget_container = QWidget(objectName="current_settings_widget")
         self.on_current_settings_layout()
