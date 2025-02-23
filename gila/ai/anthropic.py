@@ -12,12 +12,18 @@ class AnthropicClient(APIClient):
         return "https://api.anthropic.com/v1/messages"
 
     def _get_request_params(self):
+        endpoint = self._get_endpoint()
         headers = {
             "content-type": "application/json",
             "anthropic-version": "2023-06-01",
             "x-api-key": f"{self.api_key}"
         }
-        return {"headers": headers}
+        data = self._build_default_request_data()
+        return {
+            "endpoint": endpoint,
+            "headers": headers,
+            "data": data,
+        }
 
     def _extract_response_data(self, response):
         ai_response = response["content"][0]["text"]
