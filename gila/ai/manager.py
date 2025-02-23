@@ -90,7 +90,7 @@ class AIManager(QObject):
         API key of the said company is present on the storage/api_keys.json file.
         Returns a boolean with response"""
         if self.client.check_if_api_key(self.client.company) is True:
-            self.client.submit_api_key()
+            self.client.get_api_key()
             return True
         return False
 
