@@ -21,37 +21,41 @@ class OpenAIClient(APIClient):
 
     def on_chat_completions(self, prompt):
         self.chat_history.append({"role": "user", "content": prompt})
+        endpoint = "https://api.openai.com/v1/chat/completions"
+        data = {
+            "model": self.llm,
+            "messages": self.chat_history,
+            "temperature": self.temperature,
+            "max_tokens": self.max_tokens
+        }
         try:
-            response = openai.OpenAI().chat.completions.create(
-                model=self.llm,
-                messages=self.chat_history,
-                temperature=self.temperature,
-                max_tokens=self.max_tokens
-            )
+            response = self.send_request(endpoint, data)
             response_info = {
-                "Prompt tokens": response.usage.prompt_tokens,
-                "Completion tokens": response.usage.completion_tokens,
-                "Total tokens": response.usage.total_tokens,
+                "Prompt tokens": response.get("usage", {}).get("prompt_tokens", 0),
+                "Completion tokens": response.get("usage", {}).get("completion_tokens", 0),
+                "Total tokens": response.get("usage", {}).get("total_tokens", 0),
             }
-            ai_response = response.choices[0].message.content
+            ai_response = response["choices"][0]["message"]["content"]
             self.chat_history.append({"role": "assistant", "content": ai_response})
+            
             return True, ai_response, response_info
-        except openai.APIError as e:
-            return False, e.message, None
+        except KeyError as e:
+            return False, str(e), None
 
     def on_image_generations(self, prompt):
+        endpoint = "https://api.openai.com/v1/images/generations"
+        data = {
+            "model": self.llm,
+            "prompt": prompt,
+            "n": 1,
+            "size": "256x256"
+        }
         try:
-            response = openai.OpenAI().images.generate(
-                model=self.llm,
-                prompt=prompt,
-                size="1024x1024",
-                quality="standard",
-                n=1,
-            )
-            ai_response = response.data[0].url
-            return True, ai_response, None
-        except openai.APIError as e:
-            return False, e.message, None
+            response = self.send_request(endpoint, data)
+            image_url = response["data"][0]["url"]
+            return True, image_url, None
+        except KeyError as e:
+            return False, str(e), None
 
     def on_chat_reset(self):
         self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
