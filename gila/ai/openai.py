@@ -16,6 +16,9 @@ class OpenAIClient(APIClient):
         else:
             return self.on_chat_completions(prompt)
 
+    def _get_endpoint(self):
+        return "https://api.openai.com/v1/chat/completions"
+
     def on_chat_completions(self, prompt):
         self.chat_history.append({"role": "user", "content": prompt})
         endpoint = "https://api.openai.com/v1/chat/completions"

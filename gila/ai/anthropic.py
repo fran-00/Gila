@@ -10,6 +10,9 @@ class AnthropicClient(APIClient):
         self.chat_history = []
         self.client = anthropic.Anthropic(api_key=self.get_api_key())
 
+    def _get_endpoint(self):
+        return "https://api.anthropic.com/v1/messages"
+
     def submit_prompt(self, prompt):
         self.chat_history.append(
             {"role": "user", "content": {"type": "text", "text": prompt}}

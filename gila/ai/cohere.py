@@ -10,6 +10,9 @@ class CohereClient(APIClient):
         self.company = "COHERE"
         self.chat_history = []
 
+    def _get_endpoint(self):
+        return "https://api.cohere.com/v2/chat"
+
     def submit_prompt(self, prompt):
         self.chat_history.append({"role": "user", "content": prompt})
         endpoint = "https://api.cohere.com/v2/chat"

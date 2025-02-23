@@ -14,6 +14,9 @@ class GoogleClient(APIClient):
         self.chat = self.client.chats.create(model=self.llm)
         self.chat._curated_history = self.chat_history
 
+    def _get_endpoint(self):
+        pass
+
     def submit_prompt(self, prompt):
         try:
             response = self.chat.send_message(
