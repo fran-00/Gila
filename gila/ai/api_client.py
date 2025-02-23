@@ -54,8 +54,15 @@ class APIClient(ABC):
         except requests.RequestException as e:
             return {"error": str(e)}
 
+    def build_default_request_headers(self):
+        """Creates request headers with default values."""
+        return {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.api_key}"
+        }
+
     def build_default_request_data(self):
-        """Creates the body of the 'data' request with default values."""
+        """Creates request data with default values."""
         return {
             "model": self.llm,
             "messages": self.chat_history,
