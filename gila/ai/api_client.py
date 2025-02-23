@@ -1,4 +1,5 @@
 import os
+import requests
 import random
 import string
 
@@ -35,3 +36,15 @@ class APIClient:
 
     def generate_chat_id(self):
         self.chat_id = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+
+    def send_request(self, endpoint, data):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.api_key}"
+        }
+        try:
+            response = requests.post(f"{endpoint}", headers=headers, json=data)
+            response.raise_for_status()
+            return response.json()
+        except requests.RequestException as e:
+            return {"error": str(e)}
