@@ -11,16 +11,6 @@ class CohereClient(APIClient):
     def _get_endpoint(self):
         return "https://api.cohere.com/v2/chat"
 
-    def submit_prompt(self, prompt):
-        self.chat_history.append({"role": "user", "content": prompt})
-        try:
-            response = self.send_request()
-            ai_response, response_info = self._extract_response_data(response)
-            self.chat_history.append({"role": "assistant", "content": ai_response})
-            return True, ai_response, response_info
-        except KeyError as e:
-            return False, str(e), None
-
     def _extract_response_data(self, response):
         ai_response = response["message"]["content"][0]["text"]
         response_info = {

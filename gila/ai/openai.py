@@ -8,12 +8,6 @@ class OpenAIClient(APIClient):
         self.company = "OPENAI"
         self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
 
-    def submit_prompt(self, prompt):
-        if self.llm_name in ["DALL-E-2", "DALL-E-3"]:
-            return self.on_image_generations(prompt)
-        else:
-            return self.on_chat_completions(prompt)
-
     def _get_endpoint(self):
         return "https://api.openai.com/v1/chat/completions"
 
