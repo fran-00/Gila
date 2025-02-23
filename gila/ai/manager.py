@@ -12,6 +12,7 @@ from .cohere import CohereClient
 from .deepseek import DeepSeekClient
 from .mistral import MistralClient
 from .anthropic import AnthropicClient
+from .arli import ArliClient
 
 
 AVAILABLE_MODELS = {
@@ -39,6 +40,7 @@ AVAILABLE_MODELS = {
 
 COMPANIES = {
     "ANTHROPIC": AnthropicClient("claude-3-sonnet-20240229"),
+    "ARLI": ArliClient("Llama-3.3-70B-Instruct"),
     "COHERE": CohereClient("command"),
     "DEEPSEEK": DeepSeekClient("deepseek-chat"),
     "GOOGLE": GoogleClient("gemini-2.0-flash"),
