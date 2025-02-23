@@ -1,6 +1,3 @@
-from google import genai
-from google.genai import types
-
 from .api_client import APIClient
 
 
@@ -10,34 +7,50 @@ class GoogleClient(APIClient):
         super().__init__(llm)
         self.company = "GOOGLE"
         self.chat_history = []
-        self.client = genai.Client(api_key=self.get_api_key())
-        self.chat = self.client.chats.create(model=self.llm)
-        self.chat._curated_history = self.chat_history
 
     def _get_endpoint(self):
-        pass
+        return "https://generativelanguage.googleapis.com/v1beta/models"
 
     def submit_prompt(self, prompt):
-        try:
-            response = self.chat.send_message(
-                message=prompt,
-                config=types.GenerateContentConfig(
-                    max_output_tokens=self.max_tokens,
-                    temperature=self.temperature,
-                ),
-            )
-            response_info = {
-                "Prompt tokens": response.usage_metadata.prompt_token_count,
-                "Completion tokens": response.usage_metadata.candidates_token_count,
-                "Total tokens": response.usage_metadata.total_token_count,
+        self.chat_history.append({
+            "role":"user",
+            "parts":[{
+                "text": prompt
+            }]
+        })
+        base_endpoint = self._get_endpoint()
+        endpoint= f"{base_endpoint}/{self.llm}:generateContent?key={self.api_key}"
+        headers = {
+            "Content-Type": "application/json",
+        }
+        data = {
+            "contents": [self.chat_history],
+            "generationConfig": {
+                "temperature": self.temperature,
+                "maxOutputTokens": self.max_tokens,
             }
-            self.chat_history = self.chat._curated_history
-            return True, response.text, response_info
-        except ValueError as e:
-            return False, e.message, None
+        }
+        try:
+            response = self.send_request(headers=headers, endpoint=endpoint, data=data)
+            ai_response, response_info = self._extract_response_data(response)
+            self.chat_history.append({
+                "role": "model",
+                "parts":[{
+                    "text": ai_response
+                }]
+            })
+            return True, ai_response, response_info
+        except KeyError as e:
+            return False, str(e), None
 
     def _extract_response_data(self, response):
-        pass
+        ai_response = response["candidates"][0]["content"]["parts"][0]["text"]
+        response_info = {
+            "Prompt tokens": response.get("usageMetadata", {}).get("promptTokenCount", 0),
+            "Completion tokens": response.get("usageMetadata", {}).get("candidatesTokenCount", 0),
+            "Total tokens": response.get("usageMetadata", {}).get("totalTokenCount", 0),
+        }
+        return ai_response, response_info
 
     def on_chat_reset(self):
         self.chat_history = []
