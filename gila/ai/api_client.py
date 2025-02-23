@@ -43,13 +43,10 @@ class APIClient(ABC):
             "Content-Type": "application/json",
             "Authorization": f"Bearer {self.api_key}"
         }
-        endpoint = self._get_endpoint()
-        data = {
-            "model": self.llm,
-            "messages": self.chat_history,
-            "temperature": self.temperature,
-            "max_tokens": self.max_tokens
-        }
+        if endpoint is None:
+            endpoint = self._get_endpoint()
+        if data is None:
+            data = self.build_default_request_data()
         try:
             response = requests.post(f"{endpoint}", headers=headers, json=data)
             response.raise_for_status()
