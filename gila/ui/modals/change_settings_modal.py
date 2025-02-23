@@ -153,6 +153,8 @@ class ChangeSettingsModal(Modal):
             "Command": (4000, 1),
             "Command R": (4000, 1),
             "Command R+": (4000, 1),
+            "Llama70B": (8196, 1),
+            "Qwen2.5-32B": (8000, 1),
             "Claude 3 Haiku": (4096, 1),
             "Claude 3 Opus": (4096, 1),
             "Claude 3 Sonnet": (4096, 1),

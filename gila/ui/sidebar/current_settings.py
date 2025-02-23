@@ -25,6 +25,8 @@ class CurrentSettings(QObject):
             "Command",
             "Command R",
             "Command R+",
+            "Llama70B",
+            "Qwen2.5-32B",
             "Claude 3 Haiku",
             "Claude 3 Opus",
             "Claude 3 Sonnet",

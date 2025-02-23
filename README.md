@@ -14,6 +14,8 @@ Currently supported large language models:
 - DeepSeek-R1
 - Mistral Small
 - Pixtral
+- Llama70B
+- Qwen2.5-32B
 - Command
 - Command R
 - Command R+

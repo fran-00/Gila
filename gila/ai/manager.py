@@ -30,6 +30,8 @@ AVAILABLE_MODELS = {
     "Command": CohereClient("command"),
     "Command R": CohereClient("command-r"),
     "Command R+": CohereClient("command-r-plus"),
+    "Llama70B": ArliClient("Llama-3.3-70B-Instruct"),
+    "Qwen2.5-32B": ArliClient("Qwen2.5-32B-Instruct"),
     "Claude 3 Haiku": AnthropicClient("claude-3-haiku-20240307"),
     "Claude 3 Opus": AnthropicClient("claude-3-opus-20240229"),
     "Claude 3 Sonnet": AnthropicClient("claude-3-sonnet-20240229"),

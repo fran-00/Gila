@@ -18,7 +18,8 @@ class ManageAPIKeysModal(Modal):
             "DeepSeek": False,
             "Cohere": False,
             "Mistral": False,
-            "Anthropic": False
+            "Anthropic": False,
+            "Arli": False,
         }
         self.on_modal_layout()
 
