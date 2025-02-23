@@ -14,24 +14,27 @@ class CohereClient(APIClient):
         self.co = cohere.Client(self.get_api_key())
 
     def submit_prompt(self, prompt):
+        self.chat_history.append({"role": "user", "content": prompt})
+        endpoint = "https://api.cohere.com/v2/chat"
+        data = {
+            "model": self.llm,
+            "messages": self.chat_history,
+            "temperature": self.temperature,
+            "max_tokens": self.max_tokens
+        }
         try:
-            response = self.co.chat(
-                model=self.llm,
-                message=prompt,
-                chat_history=self.chat_history,
-                temperature=self.temperature,
-                max_tokens=self.max_tokens
-            )
-            answer = response.text
-            response_info = None
-            user_message = {"role": "User", "message": prompt}
-            bot_message = {"role": "Chatbot", "message": answer}
+            response = self.send_request(endpoint, data)
+            response_info = {
+                "Prompt tokens": response.get("usage", {}).get("tokens", {}).get("input_tokens", 0),
+                "Completion tokens": response.get("usage", {}).get("tokens", {}).get("output_tokens", 0),
+                "Total tokens": None
+            }
+            ai_response = response["message"]["content"][0]["text"]
+            self.chat_history.append({"role": "assistant", "content": ai_response})
 
-            self.chat_history.append(user_message)
-            self.chat_history.append(bot_message)
-            return True, answer, response_info
-        except cohere.error.CohereConnectionError as e:
-            return False, e.message, None
+            return True, ai_response, response_info
+        except KeyError as e:
+            return False, str(e), None
 
     def on_chat_reset(self):
         self.chat_history = []
