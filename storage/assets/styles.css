@@ -75,6 +75,7 @@ QLineEdit {
     background-color: #2c2c2c;
     padding: 5px;
     color: #FFF;
+    border-radius: 2px;
 }
 
 QLineEdit:hover {
@@ -102,6 +103,13 @@ QPushButton#toggle_sidebar_button {
 QPushButton#toggle_sidebar_button:hover {
     background-color: #f1bc2e;
     color: #11111b;
+}
+
+/* QComboBox */
+QComboBox {
+    background-color: #2c2c2c;
+    padding: 5px;
+    border-radius: 2px;
 }
 
 /* QDialog */
