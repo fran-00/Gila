@@ -10,23 +10,30 @@ class MistralClient(APIClient):
         self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
 
     def submit_api_key(self):
-        self.client = mistralai.Mistral(api_key=self.get_api_key())
+        self.get_api_key()
 
     def submit_prompt(self, prompt):
         self.chat_history.append({"role": "user", "content": prompt})
+        endpoint = "https://api.mistral.ai/v1/chat/completions"
+        data = {
+            "model": self.llm,
+            "messages": self.chat_history,
+            "temperature": self.temperature,
+            "max_tokens": self.max_tokens
+        }
         try:
-            response = self.client.chat.complete(
-                model = self.llm,
-                messages = self.chat_history,
-                temperature=self.temperature,
-                max_tokens=self.max_tokens
-            )
-            answer = response.choices[0].message.content
-            response_info = None
-            self.chat_history.append({"role": "assistant", "content": answer})
-            return True, answer, response_info
-        except ValueError as e:
-            return False, e.message, None
+            response = self.send_request(endpoint, data)
+            response_info = {
+                "Prompt tokens": response.get("usage", {}).get("prompt_tokens", 0),
+                "Completion tokens": response.get("usage", {}).get("completion_tokens", 0),
+                "Total tokens": response.get("usage", {}).get("total_tokens", 0),
+            }
+            ai_response = response["choices"][0]["message"]["content"]
+            self.chat_history.append({"role": "assistant", "content": ai_response})
+
+            return True, ai_response, response_info
+        except KeyError as e:
+            return False, str(e), None
 
     def on_chat_reset(self):
         self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
