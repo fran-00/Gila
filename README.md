@@ -1,6 +1,6 @@
 # GILA - AI Chatbot
 
-This is an AI chatbot client made with Python and PySide6.
+Gila is AI chatbot client made with Python and PySide6.
 Currently supported large language models:
 
 - GPT-4o mini
@@ -52,22 +52,25 @@ Install project's required packages via pip:
 pip install -r requirements.txt
 ```
 
-Now you need an OpenAI, Google and Cohere API Keys. Once you got them, store them on a *.env* file like this:
-
-```python
-ANTHROPIC_API_KEY='XXXXXXX'
-COHERE_API_KEY='XXXXXXX'
-GOOGLE_API_KEY='XXXXXXX'
-MISTRAL_API_KEY='XXXXXXX'
-OPENAI_API_KEY='XXXXXXX'
-
-```
-
-Put this file on the project root dir and you're ready! Now you can run the program as a Python package:
+Now you can run Gila:
 
 ```shell
 python -m gila
 ```
+
+## API Keys
+
+When you select an LLM from the settings and start a new chat, if you have not set the API Key required to use that LLM, a window will appear asking you to enter it. Depending on the LLM you have chosen, you will need to obtain an API key from a specific platform. Below are links to the pages where you can create API keys for the models used in Gila: to access these pages you must have an account first. Please note that in some cases there are costs associated with using API keys, although some platforms offer free plans to try out their services.
+
+- [OpenAI](https://platform.openai.com/settings/organization/general): GPT-4o mini, GPT-4o, GPT-4, GPT-4 Turbo, DALL-E-2, DALL-E-3
+- [Google](https://aistudio.google.com/app/apikey): Gemini 2.0 Flash, Gemini 1.5 Flash, Gemini 1.5 Pro
+- [DeepSeek](https://platform.deepseek.com/api_keys): DeepSeek-V3, DeepSeek-R1
+- [Mistral](https://console.mistral.ai/api-keys): Mistral Small, Pixtral
+- [ArliAI](https://www.arliai.com/account): Llama70B, Qwen2.5-32B
+- [Cohere](https://dashboard.cohere.com/api-keys): Command, Command R, Command R+
+- [Anthropic](https://console.anthropic.com/settings/keys): Claude 3 Haiku, Claude 3 Opus, Claude 3 Sonnet, Claude 3.5 Sonnet
+
+If valid, the entered API keys will be saved in a **.env** file in the root of the project and will be read by Gila as environmental variables.
 
 ## How to build the .exe file
 
@@ -78,13 +81,6 @@ pyinstaller build.spec
 ```
 
 You will find **gila.exe** executable file inside *dist* directory: remember to copy *storage* folder there before distributing it!
-
-## Notes
-
-APIs do have rate limits. To know more:
-
-- [OpenAI](https://platform.openai.com/docs/guides/rate-limits/rate-limits)
-- [Gemini Models](https://ai.google.dev/models/gemini)
 
 ## TODO List
 
