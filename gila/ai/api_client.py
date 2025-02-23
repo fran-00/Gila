@@ -38,15 +38,10 @@ class APIClient(ABC):
     def generate_chat_id(self):
         self.chat_id = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
 
-    def send_request(self, endpoint=None, data=None):
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.api_key}"
-        }
-        if endpoint is None:
-            endpoint = self._get_endpoint()
-        if data is None:
-            data = self.build_default_request_data()
+    def send_request(self, headers=None, endpoint=None, data=None):
+        endpoint = endpoint or self._get_endpoint()
+        headers = headers or self.build_default_request_headers()
+        data = data or self.build_default_request_data()
         try:
             response = requests.post(f"{endpoint}", headers=headers, json=data)
             response.raise_for_status()
