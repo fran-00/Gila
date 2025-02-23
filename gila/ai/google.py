@@ -10,8 +10,6 @@ class GoogleClient(APIClient):
         super().__init__(llm)
         self.company = "GOOGLE"
         self.chat_history = []
-
-    def submit_api_key(self):
         self.client = genai.Client(api_key=self.get_api_key())
         self.chat = self.client.chats.create(model=self.llm)
         self.chat._curated_history = self.chat_history

@@ -10,9 +10,6 @@ class OpenAIClient(APIClient):
         self.company = "OPENAI"
         self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
 
-    def submit_api_key(self):
-        openai.api_key = self.get_api_key()
-
     def submit_prompt(self, prompt):
         if self.llm_name in ["DALL-E-2", "DALL-E-3"]:
             return self.on_image_generations(prompt)

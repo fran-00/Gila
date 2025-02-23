@@ -8,8 +8,6 @@ class AnthropicClient(APIClient):
         super().__init__(llm)
         self.company = "ANTHROPIC"
         self.chat_history = []
-
-    def submit_api_key(self):
         self.client = anthropic.Anthropic(api_key=self.get_api_key())
 
     def submit_prompt(self, prompt):

@@ -9,9 +9,6 @@ class MistralClient(APIClient):
         self.company = "MISTRAL"
         self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
 
-    def submit_api_key(self):
-        self.get_api_key()
-
     def submit_prompt(self, prompt):
         self.chat_history.append({"role": "user", "content": prompt})
         endpoint = "https://api.mistral.ai/v1/chat/completions"
