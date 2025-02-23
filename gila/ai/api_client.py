@@ -49,3 +49,8 @@ class APIClient(ABC):
             return response.json()
         except requests.RequestException as e:
             return {"error": str(e)}
+
+    @abstractmethod
+    def _get_endpoint(self):
+        """Method to implement to return the correct endpoint"""
+        pass
