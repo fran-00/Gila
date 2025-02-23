@@ -1,4 +1,3 @@
-import mistralai
 from .api_client import APIClient
 
 
@@ -35,11 +34,3 @@ class MistralClient(APIClient):
         self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
         self.chat_custom_name = None
         self.generate_chat_id()
-
-    def validate_api_key(self, api_key):
-        test = mistralai.Mistral(api_key)
-        try:
-            test.chat.complete(model = self.llm, messages=[{"role": "user", "content": "test"}])
-            return True
-        except mistralai.models.sdkerror.SDKError as e:
-            return False

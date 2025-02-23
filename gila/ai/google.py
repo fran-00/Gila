@@ -43,13 +43,3 @@ class GoogleClient(APIClient):
         self.chat_history = []
         self.chat_custom_name = None
         self.generate_chat_id()
-
-    def validate_api_key(self, api_key):
-        try:
-            genai.Client(api_key=api_key).models.generate_content(
-                model=self.llm,
-                contents="test"
-            )
-            return True
-        except genai.errors.ClientError as e:
-            return False, e.message, None

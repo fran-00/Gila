@@ -1,5 +1,3 @@
-import openai
-
 from .api_client import APIClient
 
 
@@ -57,12 +55,3 @@ class OpenAIClient(APIClient):
         self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
         self.chat_custom_name = None
         self.generate_chat_id()
-
-    def validate_api_key(self, api_key):
-        openai.api_key = api_key
-        try:
-            openai.models.list()
-            return True
-        except openai.AuthenticationError as e:
-            print(e)
-            return False

@@ -1,5 +1,3 @@
-import cohere
-
 from .api_client import APIClient
 
 
@@ -36,11 +34,3 @@ class CohereClient(APIClient):
         self.chat_history = []
         self.chat_custom_name = None
         self.generate_chat_id()
-
-    def validate_api_key(self, api_key):
-        test_co = cohere.Client(api_key)
-        try:
-            test_co.generate(prompt='test')
-            return True
-        except cohere.errors.unauthorized_error.UnauthorizedError as e:
-            return False
