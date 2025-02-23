@@ -11,20 +11,13 @@ class AnthropicClient(APIClient):
     def _get_endpoint(self):
         return "https://api.anthropic.com/v1/messages"
 
-    def submit_prompt(self, prompt):
-        self.chat_history.append({"role": "user", "content": prompt})
+    def _get_request_params(self):
         headers = {
             "content-type": "application/json",
             "anthropic-version": "2023-06-01",
             "x-api-key": f"{self.api_key}"
         }
-        try:
-            response = self.send_request(headers=headers)
-            ai_response, response_info = self._extract_response_data(response)
-            self.chat_history.append({"role": "assistant", "content": ai_response})
-            return True, ai_response, response_info
-        except KeyError as e:
-            return False, str(e), None
+        return {"headers": headers}
 
     def _extract_response_data(self, response):
         ai_response = response["content"][0]["text"]
