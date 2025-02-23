@@ -13,7 +13,7 @@ class Modal(QDialog):
 
     def load_css_file(self):
         """ Loads CSS File to apply style to Modal Window """
-        with open("storage/assets/modal-styles.css", "r") as file:
+        with open("storage/assets/styles.css", "r") as file:
             return file.read()
 
     def on_modal_text(self):
