@@ -8,15 +8,6 @@ class GoogleClient(APIClient):
         self.company = "GOOGLE"
         self.chat_history = []
 
-    def _get_endpoint(self):
-        return "https://generativelanguage.googleapis.com/v1beta/models"
-
-    def _format_user_message(self, prompt):
-        return {"role": "user", "parts": [{"text": prompt}]}
-
-    def _format_ai_message(self, ai_response):
-        return {"role": "model", "parts": [{"text": ai_response}]}
-
     def _get_request_params(self):
         base_endpoint = self._get_endpoint()
         endpoint = f"{base_endpoint}/{self.llm}:generateContent?key={self.api_key}"
@@ -28,7 +19,20 @@ class GoogleClient(APIClient):
                 "maxOutputTokens": self.max_tokens,
             }
         }
-        return {"headers": headers, "endpoint": endpoint, "data": data}
+        return {
+            "headers": headers,
+            "endpoint": endpoint,
+            "data": data
+        }
+
+    def _get_endpoint(self):
+        return "https://generativelanguage.googleapis.com/v1beta/models"
+
+    def _format_user_message(self, prompt):
+        return {"role": "user", "parts": [{"text": prompt}]}
+
+    def _format_ai_message(self, ai_response):
+        return {"role": "model", "parts": [{"text": ai_response}]}
 
     def _extract_response_data(self, response):
         ai_response = response["candidates"][0]["content"]["parts"][0]["text"]
