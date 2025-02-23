@@ -9,6 +9,7 @@ from PySide6.QtCore import QObject, Slot, Signal
 from .openai import OpenAIClient, OpenAIDalleClient
 from .google import GoogleClient
 from .cohere import CohereClient
+from .deepseek import DeepSeekClient
 from .mistral import MistralClient
 from .anthropic import AnthropicClient
 
@@ -37,6 +38,7 @@ AVAILABLE_MODELS = {
 COMPANIES = {
     "ANTHROPIC": AnthropicClient("claude-3-sonnet-20240229"),
     "COHERE": CohereClient("command"),
+    "DEEPSEEK": DeepSeekClient("deepseek-chat"),
     "GOOGLE": GoogleClient("gemini-2.0-flash"),
     "MISTRAL": MistralClient("mistral-small-latest"),
     "OPENAI": OpenAIClient("gpt-4o-mini"),
