@@ -11,16 +11,6 @@ class OpenAIClient(APIClient):
     def _get_endpoint(self):
         return "https://api.openai.com/v1/chat/completions"
 
-    def on_chat_completions(self, prompt):
-        self.chat_history.append({"role": "user", "content": prompt})
-        try:
-            response = self.send_request()
-            ai_response, response_info = self._extract_response_data(response)
-            self.chat_history.append({"role": "assistant", "content": ai_response})
-            return True, ai_response, response_info
-        except KeyError as e:
-            return False, str(e), None
-
     def _extract_response_data(self, response):
         ai_response = response["choices"][0]["message"]["content"]
         response_info = {
@@ -39,7 +29,7 @@ class OpenAIClient(APIClient):
             "size": "256x256"
         }
         try:
-            response = self.send_request(endpoint, data)
+            response = self._send_request(endpoint, data)
             image_url = response["data"][0]["url"]
             return True, image_url, None
         except KeyError as e:
