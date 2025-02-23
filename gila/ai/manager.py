@@ -6,7 +6,7 @@ from datetime import datetime
 
 from PySide6.QtCore import QObject, Slot, Signal
 
-from .openai import OpenAIClient
+from .openai import OpenAIClient, OpenAIDalleClient
 from .google import GoogleClient
 from .cohere import CohereClient
 from .mistral import MistralClient
@@ -30,8 +30,8 @@ AVAILABLE_MODELS = {
     "Claude 3 Opus": AnthropicClient("claude-3-opus-20240229"),
     "Claude 3 Sonnet": AnthropicClient("claude-3-sonnet-20240229"),
     "Claude 3.5 Sonnet": AnthropicClient("claude-3-5-sonnet-20240620"),
-    "DALL-E-2": OpenAIClient("dall-e-2"),
-    "DALL-E-3": OpenAIClient("dall-e-3"),
+    "DALL-E-2": OpenAIDalleClient("dall-e-2"),
+    "DALL-E-3": OpenAIDalleClient("dall-e-3"),
 }
 
 COMPANIES = {
