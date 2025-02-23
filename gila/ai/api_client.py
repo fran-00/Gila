@@ -78,10 +78,15 @@ class APIClient(ABC):
         """Method to implement to return the correct endpoint"""
         pass
 
-    @abstractmethod
     def _extract_response_data(self, response):
-        """Method to implement in subclasses to extract ai_response and response_info."""
-        pass
+        """Extracts ai_response and response_info. Override if needed."""
+        ai_response = response["choices"][0]["message"]["content"]
+        response_info = {
+            "Prompt tokens": response.get("usage", {}).get("prompt_tokens", 0),
+            "Completion tokens": response.get("usage", {}).get("completion_tokens", 0),
+            "Total tokens": response.get("usage", {}).get("total_tokens", 0),
+        }
+        return ai_response, response_info
 
     def validate_api_key(self, api_key):
         endpoint = self._get_endpoint()
