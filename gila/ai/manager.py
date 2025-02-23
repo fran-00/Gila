@@ -22,6 +22,8 @@ AVAILABLE_MODELS = {
     "Gemini 2.0 Flash": GoogleClient("gemini-2.0-flash"),
     "Gemini 1.5 Flash": GoogleClient("gemini-1.5-flash"),
     "Gemini 1.5 Pro": GoogleClient("gemini-1.5-pro"),
+    "DeepSeek-V3": DeepSeekClient("deepseek-chat"),
+    "DeepSeek-R1": DeepSeekClient("deepseek-reasoner"),
     "Mistral Small": MistralClient("mistral-small-latest"),
     "Pixtral": MistralClient("pixtral-12b-2409"),
     "Command": CohereClient("command"),

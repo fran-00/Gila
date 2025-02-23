@@ -18,6 +18,8 @@ class CurrentSettings(QObject):
             "Gemini 2.0 Flash",
             "Gemini 1.5 Flash",
             "Gemini 1.5 Pro",
+            "DeepSeek-V3",
+            "DeepSeek-R1",
             "Mistral Small",
             "Pixtral",
             "Command",
