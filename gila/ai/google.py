@@ -36,6 +36,9 @@ class GoogleClient(APIClient):
         except ValueError as e:
             return False, e.message, None
 
+    def _extract_response_data(self, response):
+        pass
+
     def on_chat_reset(self):
         self.chat_history = []
         self.chat_custom_name = None
