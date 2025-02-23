@@ -104,9 +104,8 @@ APIs do have rate limits. To know more:
 - [x] Find a way to exit the main thread if the chat is taking too long to respond.
 - [x] Fix the gila monster image visible when opening the program not remaining aligned to the center when the window is resized.
 - [x] Add chat formatting.
-- [ ] Add specific settings for images generation models like Dall-E 2 and 3 ([size, quality and quantity](https://platform.openai.com/docs/guides/images/generations)).
-- [ ] Add image generation to AI Clients that supports it and internal image rendering.
-- [ ] Add logic to display model-generated images directly in the chat log.
+- [x] Add logic to display model-generated images directly in the chat log.
+- [ ] Add specific settings for images generation models like Dall-E 2 and 3.
 - [ ] Fix .pdf files created when chat is exported.
 - [ ] Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/)?
 - [ ] Improve errors and exceptions management.
