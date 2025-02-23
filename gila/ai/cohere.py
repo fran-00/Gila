@@ -15,15 +15,8 @@ class CohereClient(APIClient):
 
     def submit_prompt(self, prompt):
         self.chat_history.append({"role": "user", "content": prompt})
-        endpoint = "https://api.cohere.com/v2/chat"
-        data = {
-            "model": self.llm,
-            "messages": self.chat_history,
-            "temperature": self.temperature,
-            "max_tokens": self.max_tokens
-        }
         try:
-            response = self.send_request(endpoint, data)
+            response = self.send_request()
             response_info = {
                 "Prompt tokens": response.get("usage", {}).get("tokens", {}).get("input_tokens", 0),
                 "Completion tokens": response.get("usage", {}).get("tokens", {}).get("output_tokens", 0),

@@ -21,15 +21,8 @@ class OpenAIClient(APIClient):
 
     def on_chat_completions(self, prompt):
         self.chat_history.append({"role": "user", "content": prompt})
-        endpoint = "https://api.openai.com/v1/chat/completions"
-        data = {
-            "model": self.llm,
-            "messages": self.chat_history,
-            "temperature": self.temperature,
-            "max_tokens": self.max_tokens
-        }
         try:
-            response = self.send_request(endpoint, data)
+            response = self.send_request()
             response_info = {
                 "Prompt tokens": response.get("usage", {}).get("prompt_tokens", 0),
                 "Completion tokens": response.get("usage", {}).get("completion_tokens", 0),
