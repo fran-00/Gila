@@ -38,10 +38,7 @@ class APIClient(ABC):
     def generate_chat_id(self):
         self.chat_id = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
 
-    def send_request(self, headers=None, endpoint=None, data=None):
-        endpoint = endpoint or self._get_endpoint()
-        headers = headers or self.build_default_request_headers()
-        data = data or self.build_default_request_data()
+    def send_request(self, endpoint, headers, data):
         try:
             response = requests.post(f"{endpoint}", headers=headers, json=data)
             response.raise_for_status()
@@ -49,14 +46,25 @@ class APIClient(ABC):
         except requests.RequestException as e:
             return {"error": str(e)}
 
-    def build_default_request_headers(self):
+    def _get_request_params(self):
+        """Override to customize headers, endpoint, or data if necessary."""
+        endpoint = self._get_endpoint()
+        headers = self._build_default_request_headers()
+        data = self._build_default_request_data()
+        return {
+            "endpoint": endpoint,
+            "headers": headers,
+            "data": data,
+        }
+
+    def _build_default_request_headers(self):
         """Creates request headers with default values."""
         return {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {self.api_key}"
         }
 
-    def build_default_request_data(self):
+    def _build_default_request_data(self):
         """Creates request data with default values."""
         return {
             "model": self.llm,
@@ -111,7 +119,3 @@ class APIClient(ABC):
     def _format_ai_message(self, ai_response):
         """Defines how the AI response should be formatted. Override if needed."""
         return {"role": "assistant", "content": ai_response}
-
-    def _get_request_params(self):
-        """Override to customize headers, endpoint, or data if necessary."""
-        return {}
