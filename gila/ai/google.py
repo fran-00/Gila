@@ -27,6 +27,9 @@ class GoogleClient(APIClient):
     def _get_endpoint(self):
         return "https://generativelanguage.googleapis.com/v1beta/models"
 
+    def _set_system_message(self):
+        return []
+
     def _format_user_message(self, prompt):
         return {"role": "user", "parts": [{"text": prompt}]}
 
