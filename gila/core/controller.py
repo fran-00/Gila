@@ -62,7 +62,7 @@ class Controller(QObject):
         # Connect VIEW's signals to CONTROLLER's slots
         self.view.window_closed_signal_to_controller.connect(
             self.window_was_closed_slot)
-        self.view.sidebar.change_settings_modal.new_settings_to_controller.connect(
+        self.view.sidebar.change_settings.new_settings_to_controller.connect(
             self.new_settings_to_manager)
         self.view.sidebar.stop_chat_to_controller.connect(
             self.chat_stopped_from_sidebar_slot)
