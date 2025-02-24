@@ -1,3 +1,5 @@
+import json
+
 from PySide6.QtCore import QObject, Signal
 from PySide6.QtGui import Qt
 from PySide6.QtWidgets import (
@@ -39,6 +41,7 @@ class ChangeSettings(QObject):
         self.on_system_message()
         self.on_confirm_button()
         self.llms_combobox.currentTextChanged.connect(self.update_sliders_values)
+        self.load_settings_from_json()
 
 
     def on_llms_combobox(self):
@@ -201,3 +204,27 @@ class ChangeSettings(QObject):
         line.setMaximumHeight(1)
         self.parent_class.window.assign_css_class(line, "line_separator")
         layout.addWidget(line)
+
+    def load_settings_from_json(self):
+        """Loads the saved settings from the JSON file and sets values"""
+        try:
+            with open("storage/saved_settings.json", "r") as file:
+                settings = json.load(file)
+            
+            # Sets saved llm
+            index = self.llms_combobox.findText(settings["llm_name"])
+            if index != -1:
+                self.llms_combobox.setCurrentIndex(index)
+            
+            # Sets temperature e max_tokens
+            self.temperature_slider.setValue(int(settings["temperature"] * 10))
+            self.tokens_slider.setValue(int(settings["max_tokens"]))
+
+            # # Sets system_message (WIP)
+            # self.system_message_input.setText(settings["system_message"])
+
+            # Update parameter limits based on the selected model
+            self.update_sliders_values()
+
+        except (FileNotFoundError, json.JSONDecodeError):
+            return
