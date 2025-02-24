@@ -14,7 +14,7 @@ class APIClient(ABC):
         self.llm_name = None
         self.temperature = None
         self.max_tokens = None
-        self.chat_history = None
+        self.system_message = None
         self.api_key = None
         self.chat_id = None
         self.chat_date = None
@@ -130,3 +130,9 @@ class APIClient(ABC):
         self.chat_history = []
         self.chat_custom_name = None
         self.generate_chat_id()
+
+    def _set_system_message(self):
+        """Include an optional message that sets the behavior and context for
+        the AI assistant. Override if needed.
+        """
+        return [{"role": "system", "content": self.system_message}] if self.system_message else []
