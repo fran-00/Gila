@@ -5,24 +5,30 @@
         body {
             font-family: 'Gill Sans MT', sans-serif;
         }
+
         h1 {
             text-align: center;
             color: #f1bc2e;
         }
+
         .table_container {
             width: 80%;
             margin: 0 auto;
             text-align: center;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #f1bc2e;
             padding: 8px;
             text-align: left;
         }
+
         thead th {
             background-color: #003757;
             color: #f1bc2e;
@@ -46,6 +52,34 @@
             In order to use the program, you need to obtain at least an <b>API key</b>: this is a unique code that is assigned to an application or web service to allow access and interaction with the provider. Once you have entered an API key into the program, you can start a new conversation with one of the available language models.
             Using some services involves costs.
         </p>
+        <h3>Tokens</h3>
+        <p>
+            <b>Tokens</b> are minimal units of character sequences in a text. Large language models analyze a text by dividing it into tokens and from the statistical relationships that exist between the character sequences they are able to produce a coherent text in response. <b>In English a token is equivalent to about 4 characters.</b>
+            <br><br>
+            The program will show the number of tokens used for a given conversation: how many tokens constitute the question, how many tokens the prompt and response consist of, and the total number of tokens. Before sending a message, the program will show you an estimate of the number of tokens you are adding, but this may not be accurate because the division of words into tokens varies depending on the model.
+        </p>
+        <h3>The Sidebar</h3>
+        <p>
+            From the sidebar you can see two tabs: <b>Saved Chats</b> and <b>Settings</b>.
+        </p>
+        <h4>
+            Saved Chats
+        </h4>
+        <p>
+            Conversations are automatically saved in the sidebar: the name assigned is a simple 10-letter ID that serves to uniquely identify the conversation, but it is possible to rename them to distinguish them more easily. You can also delete them.
+        </p>
+        <h4>
+            Settings
+        </h4>
+        <p>
+            You can change conversation settings such as model, temperature, maximum tokens and system message. The settings will automatically be applied every time you start a new chat.
+        </p>
+        <ul>
+            <li><b>Model</b> - Here you can choose the language model to chat with from a drop-down menu. If you select a model that depends on a service for which you have not entered an API key, the program will ask you to enter one when you start a new conversation.</li>
+            <li><b>Temperature</b> - Represents the model's degree of <b>creativity</b>: a higher temperature means more creative and unpredictable responses. Setting high values for this parameter can give strange results...</li>
+            <li><b>Max Tokens</b> - The maximum number of tokens to generate before stopping. Any model can stop before reaching this maximum number and decides autonomously how many tokens to use. Different models have different maximum values for this parameter: the upper value of the bar will automatically change every time you select a new model.</li>
+            <li><b>System Message</b> - An optional instruction that guides the AI's behavior and context to make the output more effective. With this message you can define AI's personality, set rules and restrictions, provide task guidelines... For example, you might ask to roleplay a character from a book or to only talk in rhymes. You could achieve the same results with a simple direct request in the chat, but a system message is usually more effective.</li>
+        </ul>
         <h3>The toolbar</h3>
         <p>
             From the toolbar you can perform these actions:
@@ -53,28 +87,13 @@
         <ol>
             <li>Export the current conversation as a <i>.txt</i> or <i>.docx</i> file.</li>
             <li>Add <b>API keys</b> to communicate with services.</li>
-            <li>Change conversation settings such as model, temperature, and maximum tokens that can be used in a reply.</li>
             <li>Open this window with program information.</li>
         </ol>
-        <h3>Saved chats</h3>
-        <p>
-            Conversations are automatically saved in the sidebar: the name assigned is a simple 10-letter ID that serves to uniquely identify the conversation, but it is possible to rename them to distinguish them more easily and delete them.
-        </p>
-        <h3>Temperature</h3>
-        <p>
-            Temperature is a value that represents the model's degree of <b>creativity</b>: a higher temperature means more creative and unpredictable responses. You can change the temperature value from the settings window.
-        </p>
-        <h3>Tokens</h3>
-        <p>
-            <b>Tokens</b> are minimal units of character sequences in a text. Large language models (like GPT) analyze a text by dividing it into tokens and starting from the statistical relationships that exist between the character sequences they are able to produce a coherent text in response. <b>In English a token is equivalent to about 4 characters.</b>
-            <br><br>
-            The program will show the number of tokens used for a given conversation: how many tokens constitute the question, how many tokens constitute the answer and the total number of tokens.
-        </p>
     </div>
     <hr>
     <div>
         <h2>Issues</h2>
-        <p> 
+        <p>
             It may happen that the program crashes, especially due to connection problems with the web services needed for it to work: in this case, just close Gila and restart it.
         </p>
     </div>
