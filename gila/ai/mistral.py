@@ -11,7 +11,3 @@ class MistralClient(APIClient):
     def _get_endpoint(self):
         return "https://api.mistral.ai/v1/chat/completions"
 
-    def on_chat_reset(self):
-        self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
-        self.chat_custom_name = None
-        self.generate_chat_id()
