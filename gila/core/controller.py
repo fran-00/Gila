@@ -5,7 +5,7 @@ class Controller(QObject):
     user_prompt_to_model = Signal(str)
     response_message_to_chatlog = Signal(str)
     response_info_to_chatlog = Signal(dict)
-    new_settings_to_manager = Signal(str, float, int)
+    new_settings_to_manager = Signal(str, float, int, str)
     new_chat_started_to_model = Signal()
     update_status_bar = Signal(str)
     missing_api_key_to_view = Signal(str)
@@ -123,8 +123,8 @@ class Controller(QObject):
         self.user_prompt_to_model.emit(user_prompt)
         self.update_status_bar.emit("I'm sending the message...")
 
-    @Slot(str, float, int)
-    def settings_changed_from_sidebar_slot(self, new_client, new_temperature, new_max_tokens):
+    @Slot(str, float, int, str)
+    def settings_changed_from_sidebar_slot(self, new_client, new_temperature, new_max_tokens, new_system_message):
         """ Slot
         Connected to new settings sidebar signal
             - view.sidebar.new_settings_to_controller
@@ -132,7 +132,7 @@ class Controller(QObject):
             - new_settings_to_manager (model.manager.set_new_client_slot)
             - update_status_bar (view.status_bar.on_status_update_slot)
         """
-        self.new_settings_to_manager.emit(new_client, new_temperature, new_max_tokens)
+        self.new_settings_to_manager.emit(new_client, new_temperature, new_max_tokens, new_system_message)
         self.update_status_bar.emit(f"You have selected {new_client} with {new_temperature} temperature.")
 
     @Slot()
@@ -174,6 +174,7 @@ class Controller(QObject):
             self.model.manager.client.llm_name = self.model.manager.next_client[1]
             self.model.manager.client.temperature = self.model.manager.next_temperature
             self.model.manager.client.max_tokens = self.model.manager.next_max_tokens
+            self.model.manager.client.system_message = self.model.manager.next_system_message
             self.model.manager.client.on_chat_reset()
             self.model.manager.next_client = None
         # Update settings label on the sidebar
