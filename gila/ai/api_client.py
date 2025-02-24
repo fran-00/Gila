@@ -15,6 +15,7 @@ class APIClient(ABC):
         self.temperature = None
         self.max_tokens = None
         self.system_message = None
+        self.chat_history = self._set_system_message()
         self.api_key = None
         self.chat_id = None
         self.chat_date = None
@@ -127,7 +128,7 @@ class APIClient(ABC):
         return {"role": "assistant", "content": ai_response}
 
     def on_chat_reset(self):
-        self.chat_history = []
+        self.chat_history = self._set_system_message()
         self.chat_custom_name = None
         self.generate_chat_id()
 
