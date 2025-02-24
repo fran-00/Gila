@@ -61,6 +61,7 @@ class AIManager(QObject):
         self.next_client = None
         self.next_temperature = None
         self.next_max_tokens = None
+        self.next_system_message = None
         self.get_saved_settings()
 
     def get_saved_settings(self):
@@ -102,11 +103,11 @@ class AIManager(QObject):
             return True
         return False
 
-    @Slot(str, float, int)
-    def set_new_settings_slot(self, new_llm, new_temperature, new_max_tokens):
+    @Slot(str, float, int, str)
+    def set_new_settings_slot(self, new_llm, new_temperature, new_max_tokens, new_system_message):
         """Slot
         Connected to one signal:
-            - controller.selected_client_to_manager
+            - controller.new_settings_to_manager
         When triggered, takes new llm name and sets new client on call
 
         next_client is a tuple because the first element is the class instance,
@@ -117,6 +118,7 @@ class AIManager(QObject):
         self.next_client = selected_llm, new_llm
         self.next_temperature = new_temperature / 10
         self.next_max_tokens = new_max_tokens
+        self.next_system_message = new_system_message
 
     @Slot(str)
     def api_key_slot(self, api_key, company_name):
