@@ -6,10 +6,13 @@ class OpenAIClient(APIClient):
     def __init__(self, llm):
         super().__init__(llm)
         self.company = "OPENAI"
-        self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
 
     def _get_endpoint(self):
         return "https://api.openai.com/v1/chat/completions"
+
+    def _set_system_message(self):
+        """Required role for system message is <developer>"""
+        return [{"role": "developer", "content": self.system_message}]
 
 
 class OpenAIDalleClient(APIClient):
