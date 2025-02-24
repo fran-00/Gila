@@ -7,7 +7,6 @@ from PySide6.QtWidgets import (
     QFrame,
     QHBoxLayout,
     QLabel,
-    QPushButton,
     QScrollArea,
     QSlider,
     QTextEdit,
@@ -39,10 +38,16 @@ class ChangeSettings(QObject):
         self.on_max_tokens_slider()
         self.add_line_separator(self.change_settings_layout)
         self.on_system_message()
-        self.on_confirm_button()
         self.llms_combobox.currentTextChanged.connect(self.update_sliders_values)
+        self.on_settings_changed()
         self.load_settings_from_json()
 
+    def on_settings_changed(self):
+        """Connects settings widgets to send_new_settings_to_controller signal"""
+        self.llms_combobox.currentIndexChanged.connect(self.send_new_settings_to_controller)
+        self.temperature_slider.valueChanged.connect(self.send_new_settings_to_controller)
+        self.tokens_slider.valueChanged.connect(self.send_new_settings_to_controller)
+        self.system_message_input.textChanged.connect(self.send_new_settings_to_controller)
 
     def on_llms_combobox(self):
         """ Creates ComboBox with llms list """
@@ -140,12 +145,6 @@ class ChangeSettings(QObject):
         system_message_layout.addWidget(system_message_label)
         system_message_layout.addWidget(self.system_message_input)
         self.change_settings_layout.addLayout(system_message_layout)
-
-    def on_confirm_button(self):
-        """ Creates button to confirm llm selection """
-        confirm_button = QPushButton("Confirm")
-        confirm_button.clicked.connect(self.send_new_settings_to_controller)
-        self.change_settings_layout.addWidget(confirm_button)
 
     def send_new_settings_to_controller(self):
         """ Sends new settings to controller: signal is triggered when
