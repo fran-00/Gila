@@ -127,6 +127,10 @@ class APIClient(ABC):
         """Defines how the AI response should be formatted. Override if needed."""
         return {"role": "assistant", "content": ai_response}
 
+    def set_chat_history(self):
+        """"""
+        self.chat_history = self._set_system_message()
+
     def on_chat_reset(self):
         self.chat_history = self._set_system_message()
         self.chat_custom_name = None

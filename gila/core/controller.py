@@ -177,6 +177,7 @@ class Controller(QObject):
             self.model.manager.client.system_message = self.model.manager.next_system_message
             self.model.manager.client.on_chat_reset()
             self.model.manager.next_client = None
+        self.model.manager.client.set_chat_history()
         # Update settings label on the sidebar
         self.view.sidebar.current_settings.update_settings_label(
             self.model.manager.on_current_settings())
