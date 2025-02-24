@@ -12,7 +12,10 @@ class GoogleClient(APIClient):
         endpoint = f"{base_endpoint}/{self.llm}:generateContent?key={self.api_key}"
         headers = {"Content-Type": "application/json"}
         data = {
-            "contents": [self.chat_history],
+            "system_instruction":
+                {"parts": {
+                    "text": self.system_message if self.system_message else ""}},
+            "contents": self.chat_history,
             "generationConfig": {
                 "temperature": self.temperature,
                 "maxOutputTokens": self.max_tokens,
