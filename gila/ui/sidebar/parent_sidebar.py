@@ -2,8 +2,8 @@ from PySide6.QtCore import QObject, Signal, Slot
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton
 
 from .stored_chats import StoredChats
+from .change_settings import ChangeSettings
 from .current_settings import CurrentSettings
-from ..modals.change_settings_modal import ChangeSettingsModal
 
 
 class Sidebar(QObject):
@@ -16,7 +16,7 @@ class Sidebar(QObject):
         self.widget_container.setFixedWidth(300)
         self.stored_chats = StoredChats(self)
         self.current_settings = CurrentSettings(self.widget_container)
-        self.change_settings_modal = ChangeSettingsModal(self.window, self.current_settings)
+        self.change_settings = ChangeSettings(self, self.current_settings)
         self.on_sidebar_container()
 
     def on_sidebar_container(self):
