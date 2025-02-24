@@ -71,6 +71,7 @@ class AIManager(QObject):
                 "llm_name": "GPT-4o mini",
                 "temperature": 1.0,
                 "max_tokens": 4096,
+                "system_message": "You are an helpful assistant.",
             }
             with open(file_path, "w") as f:
                 json.dump(default_data, f)
@@ -82,6 +83,7 @@ class AIManager(QObject):
             self.client.llm_name = llm_name
             self.client.temperature = data.get("temperature")
             self.client.max_tokens = data.get("max_tokens")
+            self.client.system_message = data.get("system_message")
         self.client.generate_chat_id()
 
     def update_saved_settings(self):
@@ -90,6 +92,7 @@ class AIManager(QObject):
             data["llm_name"] = self.client.llm_name
             data["temperature"] = self.client.temperature
             data["max_tokens"] = self.client.max_tokens
+            data["system_message"] = self.client.system_message
 
         with open("storage/saved_settings.json", "w") as file:
             json.dump(data, file, indent=4)
@@ -160,6 +163,7 @@ class AIManager(QObject):
         self.client.max_tokens = chat["max_tokens"]
         self.client.chat_history = chat["chat_history"]
         self.client.chat_date = chat["chat_date"]
+        self.client.system_message = chat["system_message"]
 
     def on_current_settings(self):
         """Return current client's settings"""
@@ -170,6 +174,7 @@ class AIManager(QObject):
             self.client.temperature,
             self.client.max_tokens,
             self.client.chat_date,
+            self.client.system_message,
         )
 
     def save_api_key(self, api_key, company_name):
@@ -195,6 +200,7 @@ class AIManager(QObject):
                 "chat_date": date,
                 "chat_history": self.client.chat_history,
                 "chat_log": None,
+                "system_message": self.client.sytem_message,
             }
         }
         with open(f"storage/saved_data/{self.client.chat_id}.pk", "wb") as file:
