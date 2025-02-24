@@ -1,7 +1,14 @@
 from PySide6.QtCore import Signal
 from PySide6.QtGui import Qt
-from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QLabel, QComboBox, 
-                               QPushButton, QSlider, QWidget)
+from PySide6.QtWidgets import (
+    QComboBox,
+    QHBoxLayout,
+    QLabel,
+    QPushButton,
+    QSlider,
+    QTextEdit,
+    QVBoxLayout,
+)
 
 from .parent_modal import Modal
 
@@ -118,6 +125,15 @@ class ChangeSettingsModal(Modal):
     def on_max_tokens_slider_changed(self):
         selected_max_tokens_value = self.tokens_slider.value()
         self.max_tokens_current_value_label.setText(str(selected_max_tokens_value))
+
+    def on_system_message(self):
+        system_message_label = QLabel("System Message")
+        self.system_message_input = QTextEdit(objectName="system_message_widget")
+        self.system_message_input.setMinimumSize(300, 100)
+        system_message_layout = QVBoxLayout()
+        system_message_layout.addWidget(system_message_label)
+        system_message_layout.addWidget(self.system_message_input)
+        self.modal_layout.addLayout(system_message_layout)
 
     def on_confirm_button(self):
         """ Creates button to confirm llm selection """
