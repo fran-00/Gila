@@ -14,7 +14,7 @@ from .parent_modal import Modal
 
 
 class ChangeSettingsModal(Modal):
-    new_settings_to_controller = Signal(str, float, int)
+    new_settings_to_controller = Signal(str, float, int, str)
 
     def __init__(self, window, current_settings):
         super().__init__(window)
@@ -151,7 +151,13 @@ class ChangeSettingsModal(Modal):
         selected_llm = self.llms_combobox.currentText()
         selected_temperature = self.temperature_slider.value()
         selected_max_tokens = self.tokens_slider.value()
-        self.new_settings_to_controller.emit(selected_llm, selected_temperature, selected_max_tokens)
+        selected_system_message = self.system_message_input.toPlainText()
+        self.new_settings_to_controller.emit(
+            selected_llm,
+            selected_temperature,
+            selected_max_tokens,
+            selected_system_message
+        )
 
     def update_sliders_values(self):
         """ Adjusts token limits and temperature range, based on a given model. """
