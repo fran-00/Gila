@@ -199,7 +199,7 @@ class Controller(QObject):
                 self.missing_api_key_to_view.emit(self.model.manager.client.company)
             else:
                 self.view.on_show_chatlog_and_prompt_line()
-                self.view.sidebar.current_settings.on_show_widgets()
+                self.view.sidebar.current_settings.on_show_sidebar_settings_label()
                 self.view.sidebar.on_show_sidebar_new_chat_button()
             self.model.running = True
             self.main_thread.model.run()

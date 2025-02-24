@@ -33,7 +33,7 @@ class Sidebar(QObject):
         sidebar_layout.addWidget(self.current_settings.widget_container)
         sidebar_layout.addWidget(self.on_new_chat_button())
 
-        self.current_settings.on_hide_widgets()
+        self.current_settings.on_hide_sidebar_settings_label()
         # Hide sidebar's new_chat button cause on startup there's the main start button insead
         self.on_hide_sidebar_new_chat_button()
 

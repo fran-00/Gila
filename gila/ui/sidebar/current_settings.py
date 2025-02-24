@@ -61,10 +61,10 @@ class CurrentSettings(QObject):
             </div>"""
         self.current_settings_label.setText(settings_string)
 
-    def on_show_widgets(self):
+    def on_show_sidebar_settings_label(self):
         """ Shows settings label on call """
         self.widget_container.show()
 
-    def on_hide_widgets(self):
+    def on_hide_sidebar_settings_label(self):
         """ Hides settings label on call """
         self.widget_container.hide()
