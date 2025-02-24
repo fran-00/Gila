@@ -210,19 +210,16 @@ class ChangeSettings(QObject):
         try:
             with open("storage/saved_settings.json", "r") as file:
                 settings = json.load(file)
-            
+
             # Sets saved llm
             index = self.llms_combobox.findText(settings["llm_name"])
             if index != -1:
                 self.llms_combobox.setCurrentIndex(index)
-            
             # Sets temperature e max_tokens
             self.temperature_slider.setValue(int(settings["temperature"] * 10))
             self.tokens_slider.setValue(int(settings["max_tokens"]))
-
-            # # Sets system_message (WIP)
-            # self.system_message_input.setText(settings["system_message"])
-
+            # # Sets system_message
+            self.system_message_input.setText(settings["system_message"])
             # Update parameter limits based on the selected model
             self.update_sliders_values()
 
