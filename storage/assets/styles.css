@@ -70,6 +70,10 @@ QTextEdit#prompt_box_widget {
     font-weight: 300;
 }
 
+QTextEdit#system_message_widget {
+    background-color: #2c2c2c;
+}
+
 /* QLineEdit used in modals */
 QLineEdit {
     background-color: #2c2c2c;
