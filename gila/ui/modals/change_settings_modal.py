@@ -33,6 +33,8 @@ class ChangeSettingsModal(Modal):
         self.on_temperature_slider()
         self.add_line_separator(self.modal_layout)
         self.on_max_tokens_slider()
+        self.add_line_separator(self.modal_layout)
+        self.on_system_message()
         self.on_confirm_button()
         self.llms_combobox.currentTextChanged.connect(self.update_sliders_values)
 
