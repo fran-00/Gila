@@ -34,6 +34,8 @@ class Sidebar(QObject):
         sidebar_layout.addWidget(self.on_new_chat_button())
 
         self.current_settings.on_hide_widgets()
+        # Hide sidebar's new_chat button cause on startup there's the main start button insead
+        self.on_hide_sidebar_new_chat_button()
 
     def on_new_chat_button(self):
         """Creates a button to start a new chat"""
@@ -45,10 +47,10 @@ class Sidebar(QObject):
         """Sends a signal to stop current chat, connected to New Chat button"""
         self.stop_chat_to_controller.emit()
 
-    def on_show_widgets(self):
+    def on_show_sidebar_new_chat_button(self):
         """ Shows new chat button on call """
         self.new_chat_button.show()
 
-    def on_hide_widgets(self):
+    def on_hide_sidebar_new_chat_button(self):
         """ Hides new chat button on call """
         self.new_chat_button.hide()
