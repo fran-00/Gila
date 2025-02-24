@@ -10,7 +10,6 @@ class ToolBar(QToolBar):
         self.set_icons()
         self.on_save_chatlog_action()
         self.on_manage_api_keys_action()
-        self.on_chat_settings_action()
         self.on_open_info_modal_action()
 
     def on_save_chatlog_action(self):
@@ -25,12 +24,6 @@ class ToolBar(QToolBar):
         api_keys_action.setStatusTip('Manage API Keys')
         api_keys_action.triggered.connect(self.open_api_keys_modal)
         self.addAction(api_keys_action)
-
-    def on_chat_settings_action(self):
-        chat_settings_action = QAction(self.settings_icon, "&Edit chat settings", self)
-        chat_settings_action.setStatusTip('Edit chat settings')
-        chat_settings_action.triggered.connect(self.open_change_settings_modal)
-        self.addAction(chat_settings_action)
 
     def on_open_info_modal_action(self):
         info_action = QAction(self.info_icon, "&About Gila", self)
