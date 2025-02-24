@@ -200,7 +200,7 @@ class AIManager(QObject):
                 "chat_date": date,
                 "chat_history": self.client.chat_history,
                 "chat_log": None,
-                "system_message": self.client.sytem_message,
+                "system_message": self.client.system_message,
             }
         }
         with open(f"storage/saved_data/{self.client.chat_id}.pk", "wb") as file:
