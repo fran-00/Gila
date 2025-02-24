@@ -6,7 +6,6 @@ class CohereClient(APIClient):
     def __init__(self, llm):
         super().__init__(llm)
         self.company = "COHERE"
-        self.chat_history = []
 
     def _get_endpoint(self):
         return "https://api.cohere.com/v2/chat"

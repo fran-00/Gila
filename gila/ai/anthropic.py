@@ -6,7 +6,6 @@ class AnthropicClient(APIClient):
     def __init__(self, llm):
         super().__init__(llm)
         self.company = "ANTHROPIC"
-        self.chat_history = []
 
     def _get_endpoint(self):
         return "https://api.anthropic.com/v1/messages"

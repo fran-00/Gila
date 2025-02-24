@@ -15,7 +15,7 @@ class APIClient(ABC):
         self.temperature = None
         self.max_tokens = None
         self.system_message = None
-        self.chat_history = self._set_system_message()
+        self.chat_history = []
         self.api_key = None
         self.chat_id = None
         self.chat_date = None

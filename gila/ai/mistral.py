@@ -6,7 +6,6 @@ class MistralClient(APIClient):
     def __init__(self, llm):
         super().__init__(llm)
         self.company = "MISTRAL"
-        self.chat_history = [{"role": "system", "content": "You are an helpful assistant."}]
 
     def _get_endpoint(self):
         return "https://api.mistral.ai/v1/chat/completions"

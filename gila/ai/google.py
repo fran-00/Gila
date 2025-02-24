@@ -6,7 +6,6 @@ class GoogleClient(APIClient):
     def __init__(self, llm):
         super().__init__(llm)
         self.company = "GOOGLE"
-        self.chat_history = []
 
     def _get_request_params(self):
         base_endpoint = self._get_endpoint()
