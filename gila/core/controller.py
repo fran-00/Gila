@@ -36,7 +36,7 @@ class Controller(QObject):
         self.model.response_info_signal_to_controller.connect(
             self.response_info_slot)
         self.model.start_chat_to_controller.connect(
-            self.new_chat_started_slot)
+            self.chat_started_slot)
         self.model.connection_error_to_controller.connect(
             self.connection_error_slot)
         self.model.generic_error_to_controller.connect(
@@ -71,7 +71,7 @@ class Controller(QObject):
         self.view.chat.user_prompt_signal_to_controller.connect(
             self.user_prompt_slot)
         self.view.chat.start_new_chat_to_controller.connect(
-            self.new_chat_started_slot)
+            self.chat_started_slot)
         self.view.add_api_key_modal.api_key_to_controller.connect(
             self.api_key_from_modal_slot)
 
@@ -159,7 +159,7 @@ class Controller(QObject):
             self.update_status_bar.emit("The conversation has been closed.")
 
     @Slot()
-    def new_chat_started_slot(self):
+    def chat_started_slot(self):
         """ Slot
         Connected to two signals:
             - view.chat.start_new_chat_to_controller
@@ -267,7 +267,7 @@ class Controller(QObject):
         self.chat_stopped_from_sidebar_slot()
         self.loading_saved_chat_id_to_manager.emit(chat_id)
         self.view.chat.chat_html_logs = self.view.sidebar.stored_chats.chatlog
-        self.new_chat_started_slot()
+        self.chat_started_slot()
 
     @Slot()
     def window_was_closed_slot(self):
