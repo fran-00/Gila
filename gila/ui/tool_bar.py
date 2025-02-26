@@ -65,6 +65,9 @@ class ToolBar(QToolBar):
 
     def save_pdf(self, file_path):
         self.window.chat.log_widget.page().printToPdf(file_path)
+        self.window.chat.update_status_bar_from_chatlog.emit(
+            f"Chat exported as PDF to {file_path}"
+        )
 
     def convert_html_to_text(self):
         html_content = ''.join(self.window.chat.chat_html_logs)
@@ -81,6 +84,9 @@ class ToolBar(QToolBar):
         formatted_text = self.convert_html_to_text()
         with open(file_path, "w", encoding="utf-8") as file:
             file.write("\n".join(formatted_text))
+        self.window.chat.update_status_bar_from_chatlog.emit(
+            f"Chat exported as TXT to {file_path}"
+        )
 
     def save_docx(self, file_path):
         formatted_text = self.convert_html_to_text()
@@ -88,6 +94,9 @@ class ToolBar(QToolBar):
         for line in formatted_text:
             doc.add_paragraph(line)
         doc.save(file_path)
+        self.window.chat.update_status_bar_from_chatlog.emit(
+            f"Chat exported as DOCX to {file_path}"
+        )
 
     def open_info_modal(self):
         self.window.about_gila_modal.exec_()
