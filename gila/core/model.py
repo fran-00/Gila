@@ -20,7 +20,7 @@ class MainThread(QThread):
 class Model(QObject):
     response_message_signal_to_controller = Signal(str)
     response_info_signal_to_controller = Signal(dict)
-    start_new_chat_to_controller = Signal()
+    start_chat_to_controller = Signal()
     connection_error_to_controller = Signal()
     generic_error_to_controller = Signal(str)
     update_found_to_controller = Signal()
@@ -39,7 +39,7 @@ class Model(QObject):
             if not self.running:
                 break
             if self.manager.stream_stopped is True:
-                self.start_new_chat_to_controller.emit()
+                self.start_chat_to_controller.emit()
                 break
             self.handle_client_response()
 
