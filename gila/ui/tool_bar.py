@@ -77,9 +77,9 @@ class ToolBar(QToolBar):
         return formatted_text
 
     def save_txt(self, file_name):
-        with open(file_name, "w") as file:
-            text = self.window.chat.log_widget.toPlainText()
-            file.write(text)
+        formatted_text = self.convert_html_to_text()
+        with open(file_name, "w", encoding="utf-8") as file:
+            file.write("\n".join(formatted_text))
 
     def save_docx(self, file_name):
         # TODO:
