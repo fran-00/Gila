@@ -168,27 +168,23 @@ class Controller(QObject):
             - update_status_bar (view.status_bar.on_status_update_slot)
             - missing_api_key_to_view (view.add_api_key_modal_slot)
         """
-        # Check if manager has changed the client: if so, update setting accordingly
-        if self.model.manager.next_client:
-            self.model.manager.client = self.model.manager.next_client[0]
-            self.model.manager.client.llm_name = self.model.manager.next_client[1]
-            self.model.manager.client.temperature = self.model.manager.next_temperature
-            self.model.manager.client.max_tokens = self.model.manager.next_max_tokens
-            self.model.manager.client.system_message = self.model.manager.next_system_message
-            self.model.manager.client.on_chat_reset()
-            self.model.manager.next_client = None
-        # If chat is new and not loaded, calls set_chat_history to set system message
-        if not self.model.manager.client.is_loaded:
-            self.model.manager.client.set_chat_history()
+        if self.model.manager.client.is_loaded:
+            self.on_loaded_chat()
+        else:
+            self.on_new_chat()
+
         # Update settings label on the sidebar
         self.view.sidebar.current_settings.update_settings_label(
             self.model.manager.on_current_settings())
-        self.view.sidebar.change_settings.update_current_settings(
-            self.model.manager.on_current_settings())
+        # Set current settings on saved_settings.json
         self.model.manager.update_saved_settings()
+        # Update settings tab values on the sidebar
         self.view.sidebar.change_settings.load_settings_from_json()
+        # Update chat title
         self.view.chat.update_chat_title()
+        # TODO: whe should save response info to show them if chat is loaded
         self.view.chat.on_response_info_labels_reset()
+        # Set the current chat id
         self.view.sidebar.stored_chats.current_chat_id = self.model.manager.client.chat_id
         # If there is connection, start a new conversation
         if self.model.manager.check_internet_connection():
@@ -209,6 +205,23 @@ class Controller(QObject):
         self.view.on_hide_chatlog_and_prompt_line()
         self.view.warning_modal.on_no_internet_connection_label()
         self.view.warning_modal.exec_()
+
+    def on_loaded_chat(self):
+        pass
+
+    def on_new_chat(self):
+        """Check if manager has changed the client: if so, update setting accordingly"""
+        if self.model.manager.next_client:
+            self.model.manager.client = self.model.manager.next_client[0]
+            self.model.manager.client.llm_name = self.model.manager.next_client[1]
+            self.model.manager.client.temperature = self.model.manager.next_temperature
+            self.model.manager.client.max_tokens = self.model.manager.next_max_tokens
+            self.model.manager.client.system_message = self.model.manager.next_system_message
+            # TODO: check if this is needed
+            self.model.manager.client.on_chat_reset()
+            self.model.manager.next_client = None
+        # If chat is new we need to call set_chat_history to set system message
+        self.model.manager.client.set_chat_history()
 
     @Slot(str, str)
     def api_key_from_modal_slot(self, api_key, company_name):
