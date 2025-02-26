@@ -167,6 +167,7 @@ class AIManager(QObject):
         self.client.chat_history = chat["chat_history"]
         self.client.chat_date = chat["chat_date"]
         self.client.system_message = chat["system_message"]
+        self.client.last_response_info = chat["last_response_info"]
 
     def on_current_settings(self):
         """Return current client's settings"""
