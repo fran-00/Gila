@@ -189,7 +189,6 @@ class Controller(QObject):
         # If there is connection, start a new conversation
         if self.model.manager.check_internet_connection():
             self.model.manager.stream_stopped = False
-            self.update_status_bar.emit("New conversation started.")
             # Check if API Key is valid. if it is, show chatlog and run the thread
             if self.model.manager.on_api_key() is False:
                 self.missing_api_key_to_view.emit(self.model.manager.client.company)
@@ -207,10 +206,11 @@ class Controller(QObject):
         self.view.warning_modal.exec_()
 
     def on_loaded_chat(self):
-        pass
+        self.update_status_bar.emit("Saved conversation loaded.")
 
     def on_new_chat(self):
         """Check if manager has changed the client: if so, update setting accordingly"""
+        self.update_status_bar.emit("New conversation started.")
         if self.model.manager.next_client:
             self.model.manager.client = self.model.manager.next_client[0]
             self.model.manager.client.llm_name = self.model.manager.next_client[1]
