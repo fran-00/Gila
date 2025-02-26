@@ -67,6 +67,11 @@ QLabel#max_tokens_current_value_label {
     font-size: 11px;
 }
 
+QLabel.setting_name {
+    font-weight: 600;
+    padding: 8px 0;
+}
+
 /* QTextEdit for Chat Prompt */
 QTextEdit#prompt_box_widget {
     font-family: 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
