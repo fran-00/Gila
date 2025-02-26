@@ -284,6 +284,7 @@ class Controller(QObject):
         self.chat_stopped_from_sidebar_slot()
         self.loading_saved_chat_id_to_manager.emit(chat_id)
         self.view.chat.chat_html_logs = self.view.sidebar.stored_chats.chatlog
+        self.response_info_to_chatlog.emit(self.model.manager.client.last_response_info)
         self.chat_started_slot()
 
     @Slot()
