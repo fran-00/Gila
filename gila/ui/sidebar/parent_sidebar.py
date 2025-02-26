@@ -13,7 +13,7 @@ class Sidebar(QObject):
         super().__init__()
         self.window = window
         self.widget_container = QWidget(objectName="sidebar_container")
-        self.widget_container.setFixedWidth(300)
+        self.widget_container.setFixedWidth(350)
 
         self.stored_chats = StoredChats(self)
         self.current_settings = CurrentSettings(self.widget_container)
