@@ -54,17 +54,17 @@ class ToolBar(QToolBar):
         options = QFileDialog.Options()
         # options |= QFileDialog.DontUseNativeDialog
         file_types = "Text File (*.txt);;PDF Document (*.pdf);;Word Document (*.docx)"
-        file_name, _ = QFileDialog.getSaveFileName(self, "Export Chat", "", file_types, options=options)
-        if file_name:
-            if file_name.endswith(".pdf"):
-                self.save_pdf(file_name)
-            elif file_name.endswith(".txt"):
-                self.save_txt(file_name)
-            elif file_name.endswith(".docx"):
-                self.save_docx(file_name)
+        file_path, _ = QFileDialog.getSaveFileName(self, "Export Chat", "", file_types, options=options)
+        if file_path:
+            if file_path.endswith(".pdf"):
+                self.save_pdf(file_path)
+            elif file_path.endswith(".txt"):
+                self.save_txt(file_path)
+            elif file_path.endswith(".docx"):
+                self.save_docx(file_path)
 
-    def save_pdf(self, file_name):
-        self.window.chat.log_widget.page().printToPdf(file_name)
+    def save_pdf(self, file_path):
+        self.window.chat.log_widget.page().printToPdf(file_path)
 
     def convert_html_to_text(self):
         html_content = ''.join(self.window.chat.chat_html_logs)
@@ -77,17 +77,17 @@ class ToolBar(QToolBar):
             formatted_text.append(f"Assistant: {response.get_text()}\n")
         return formatted_text
 
-    def save_txt(self, file_name):
+    def save_txt(self, file_path):
         formatted_text = self.convert_html_to_text()
-        with open(file_name, "w", encoding="utf-8") as file:
+        with open(file_path, "w", encoding="utf-8") as file:
             file.write("\n".join(formatted_text))
 
-    def save_docx(self, file_name):
+    def save_docx(self, file_path):
         formatted_text = self.convert_html_to_text()
         doc = Document()
         for line in formatted_text:
             doc.add_paragraph(line)
-        doc.save(file_name)
+        doc.save(file_path)
 
     def open_info_modal(self):
         self.window.about_gila_modal.exec_()
