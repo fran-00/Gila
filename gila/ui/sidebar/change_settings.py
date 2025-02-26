@@ -23,14 +23,17 @@ class ChangeSettings(QObject):
         self.parent_class = parent_class
         self.current_settings = current_settings
         self.widget_container = QWidget(objectName="change_settings_widget")
+        self.on_scroll_area()
         self.on_change_settings_layout()
-    
-    def on_change_settings_layout(self):
-        self.change_settings_layout = QVBoxLayout(self.widget_container)
-        self.change_settings_layout.setAlignment(Qt.Alignment.AlignTop)
+
+    def on_scroll_area(self):
         self.scroll_area = QScrollArea()
         self.scroll_area.setWidget(self.widget_container)
         self.scroll_area.setWidgetResizable(True)
+
+    def on_change_settings_layout(self):
+        self.change_settings_layout = QVBoxLayout(self.widget_container)
+        self.change_settings_layout.setAlignment(Qt.Alignment.AlignTop)
         self.on_llms_combobox()
         self.add_line_separator(self.change_settings_layout)
         self.on_temperature_slider()
