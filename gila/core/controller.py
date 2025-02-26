@@ -182,8 +182,6 @@ class Controller(QObject):
         self.view.sidebar.change_settings.load_settings_from_json()
         # Update chat title
         self.view.chat.update_chat_title()
-        # TODO: whe should save response info to show them if chat is loaded
-        self.view.chat.on_response_info_labels_reset()
         # Set the current chat id
         self.view.sidebar.stored_chats.current_chat_id = self.model.manager.client.chat_id
         # If there is connection, start a new conversation
@@ -214,6 +212,9 @@ class Controller(QObject):
     def on_new_chat(self):
         """Check if manager has changed the client: if so, update setting accordingly"""
         self.update_status_bar.emit("New conversation started.")
+        # Get saved response info to show them if chat is loaded
+        self.view.chat.on_response_info_labels_reset()
+        # Set the new client, if user has chosen a new one
         if self.model.manager.next_client:
             self.model.manager.client = self.model.manager.next_client[0]
             self.model.manager.client.llm_name = self.model.manager.next_client[1]
