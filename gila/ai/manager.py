@@ -6,7 +6,7 @@ from datetime import datetime
 
 from PySide6.QtCore import QObject, Slot, Signal
 
-from clients import (
+from .clients import (
     AnthropicClient,
     ArliClient,
     CohereClient,
