@@ -6,13 +6,16 @@ from datetime import datetime
 
 from PySide6.QtCore import QObject, Slot, Signal
 
-from .openai import OpenAIClient, OpenAIDalleClient
-from .google import GoogleClient
-from .cohere import CohereClient
-from .deepseek import DeepSeekClient
-from .mistral import MistralClient
-from .anthropic import AnthropicClient
-from .arli import ArliClient
+from clients import (
+    AnthropicClient,
+    ArliClient,
+    CohereClient,
+    DeepSeekClient,
+    GoogleClient,
+    MistralClient,
+    OpenAIClient,
+    OpenAIDalleClient
+)
 
 
 AVAILABLE_MODELS = {
