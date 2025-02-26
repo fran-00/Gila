@@ -55,6 +55,7 @@ class ChangeSettings(QObject):
     def on_llms_combobox(self):
         """ Creates ComboBox with llms list """
         select_llm_label = QLabel("Model")
+        self.parent_class.window.assign_css_class(select_llm_label, "setting_name")
         select_llm_label.setAlignment(Qt.Alignment.AlignCenter)
         self.llms_combobox = QComboBox()
         for llm in self.current_settings.llms:
@@ -66,6 +67,7 @@ class ChangeSettings(QObject):
     def on_temperature_slider(self):
         # Create widgets and slider's sub-layout
         select_temperature_label = QLabel("Temperature")
+        self.parent_class.window.assign_css_class(select_temperature_label, "setting_name")
         select_temperature_label.setAlignment(Qt.Alignment.AlignCenter)
         temperature_slider_layout = QHBoxLayout()
         min_temperature_label = QLabel("0")
@@ -105,6 +107,7 @@ class ChangeSettings(QObject):
         """
         # Create widgets and slider's sub-layout
         select_tokens_label = QLabel("Max Tokens")
+        self.parent_class.window.assign_css_class(select_tokens_label, "setting_name")
         select_tokens_label.setAlignment(Qt.Alignment.AlignCenter)
         tokens_slider_layout = QHBoxLayout()
         min_tokens_label = QLabel("150")
@@ -141,9 +144,9 @@ class ChangeSettings(QObject):
 
     def on_system_message(self):
         system_message_label = QLabel("System Message")
+        self.parent_class.window.assign_css_class(system_message_label, "setting_name")
         system_message_label.setAlignment(Qt.Alignment.AlignCenter)
         self.system_message_input = QTextEdit(objectName="system_message_widget")
-        self.system_message_input.setMinimumSize(50, 50)
         system_message_layout = QVBoxLayout()
         system_message_layout.addWidget(system_message_label)
         system_message_layout.addWidget(self.system_message_input)
