@@ -53,7 +53,7 @@ class ToolBar(QToolBar):
     def export_chatlog(self):
         options = QFileDialog.Options()
         # options |= QFileDialog.DontUseNativeDialog
-        file_types = "Documento PDF (*.pdf);;File di testo (*.txt);;Documento Word (*.docx)"
+        file_types = "Text File (*.txt);;PDF Document (*.pdf);;Word Document (*.docx)"
         file_name, _ = QFileDialog.getSaveFileName(self, "Export Chat", "", file_types, options=options)
         if file_name:
             if file_name.endswith(".pdf"):
