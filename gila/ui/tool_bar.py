@@ -1,6 +1,8 @@
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import QToolBar, QFileDialog
 
+from bs4 import BeautifulSoup
+
 
 class ToolBar(QToolBar):
 
@@ -62,6 +64,17 @@ class ToolBar(QToolBar):
 
     def save_pdf(self, file_name):
         self.window.chat.log_widget.page().printToPdf(file_name)
+
+    def convert_html_to_text(self):
+        html_content = ''.join(self.window.chat.chat_html_logs)
+        soup = BeautifulSoup(html_content, "html.parser")
+        prompts = soup.find_all("p", class_="prompt")
+        responses = soup.find_all("p", class_="response")
+        formatted_text = []
+        for prompt, response in zip(prompts, responses):
+            formatted_text.append(f"You: {prompt.get_text()}")
+            formatted_text.append(f"Assistant: {response.get_text()}\n")
+        return formatted_text
 
     def save_txt(self, file_name):
         with open(file_name, "w") as file:
