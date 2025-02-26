@@ -58,8 +58,13 @@ QLabel#modal_text {
 
 QLabel.slider_value_label {
     color: #f1bc2e;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 600;
+}
+
+QLabel#temperature_current_value_label,
+QLabel#max_tokens_current_value_label {
+    font-size: 11px;
 }
 
 /* QTextEdit for Chat Prompt */
