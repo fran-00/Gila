@@ -133,8 +133,12 @@ class APIClient(ABC):
         self.chat_history = self._set_system_message()
 
     def on_chat_reset(self):
+        """This method is called by the controller whenever a chat is interrupted
+        either by loading a saved one or starting a new one. In the first case,
+        manager.restore_chat_from_id_slot will set it back to True """
         self.chat_history = self._set_system_message()
         self.chat_custom_name = None
+        self.is_loaded = False
         self.generate_chat_id()
 
     def _set_system_message(self):
