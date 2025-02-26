@@ -48,8 +48,20 @@ class ToolBar(QToolBar):
         self.window.manage_api_keys_modal.exec_()
 
     def export_chatlog(self):
-        # TODO:
-        pass
+        options = QFileDialog.Options()
+        # options |= QFileDialog.DontUseNativeDialog
+        file_types = "Documento PDF (*.pdf);;File di testo (*.txt);;Documento Word (*.docx)"
+        file_name, _ = QFileDialog.getSaveFileName(self, "Export Chat", "", file_types, options=options)
+        if file_name:
+            if file_name.endswith(".pdf"):
+                self.save_pdf(file_name)
+            elif file_name.endswith(".txt"):
+                self.save_txt(file_name)
+            elif file_name.endswith(".docx"):
+                self.save_docx(file_name)
+
+    def save_pdf(self, file_name):
+        self.window.chat.log_widget.page().printToPdf(file_name)
 
     def save_txt(self, file_name):
         with open(file_name, "w") as file:
@@ -57,10 +69,6 @@ class ToolBar(QToolBar):
             file.write(text)
 
     def save_docx(self, file_name):
-        # TODO:
-        pass
-
-    def save_pdf(self, file_name):
         # TODO:
         pass
 
