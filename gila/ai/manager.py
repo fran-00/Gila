@@ -101,7 +101,7 @@ class AIManager(QObject):
             json.dump(data, file, indent=4)
 
     def on_api_key(self):
-        """Called by Controller's new_chat_started_slot, asks client to check if
+        """Called by Controller's chat_started_slot, asks client to check if
         API key of the said company is present on the storage/api_keys.json file.
         Returns a boolean with response"""
         if self.client.check_if_api_key(self.client.company) is True:
@@ -118,7 +118,7 @@ class AIManager(QObject):
 
         next_client is a tuple because the first element is the class instance,
         while the second element is the name of the selected client: you can see
-        the reason for this in controller.new_chat_started_slot method
+        the reason for this in controller.chat_started_slot method
         """
         selected_llm = AVAILABLE_MODELS.get(new_llm)
         self.next_client = selected_llm, new_llm
