@@ -160,3 +160,20 @@ QScrollBar::add-page, QScrollBar::sub-page, QScrollBar::add-line, QScrollBar::su
     background: #2c2c2c;
     border: none;
 }
+
+/* QTab */
+QTabBar::tab {
+    background: #2c2c2c;
+    color: #9e9e9e;
+    font-weight: 600;
+    padding: 5px 10px;
+    border: 2px solid #11111b;
+    border-bottom: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+QTabBar::tab:selected {
+    background: #000;
+    color: #f1bc2e;
+}
