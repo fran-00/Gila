@@ -187,7 +187,7 @@ class AIManager(QObject):
 
     def check_internet_connection(self):
         try:
-            requests.head("http://www.google.com/", timeout=1)
+            requests.head("http://www.google.com/", timeout=3)
             return True
         except requests.ConnectionError:
             return False
