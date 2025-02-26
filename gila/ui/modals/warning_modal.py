@@ -20,7 +20,7 @@ class WarningModal(Modal):
         self.modal_text.setText(message)
 
     def on_no_internet_connection_label(self):
-        self.modal_text.setText("Your computer is not connected to the internet, please check your connection and try again.")
+        self.modal_text.setText("You are offline, please check your connection and try again.")
 
     def on_key_is_valid_label(self):
         self.modal_text.setText("The API key is valid and has been successfully registered!")
