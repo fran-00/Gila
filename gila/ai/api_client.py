@@ -21,6 +21,7 @@ class APIClient(ABC):
         self.chat_date = None
         self.chat_custom_name = None
         self.is_loaded = False
+        self.last_response_info = None
 
     def check_if_api_key(self, company_name):
         """ Reads .env file to get API Key, if any """
@@ -114,6 +115,7 @@ class APIClient(ABC):
         try:
             response = self._send_request(**params)
             ai_response, response_info = self._extract_response_data(response)
+            self.last_response_info = response_info
             self.chat_history.append(self._format_ai_message(ai_response))
 
             return True, ai_response, response_info
