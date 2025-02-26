@@ -13,8 +13,8 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from ..modals.rename_chat_modal import RenameChatModal
-from ..modals.confirm_chat_deletion_modal import ConfirmChatDeletionModal
+from ..modals import RenameChatModal
+from ..modals import ConfirmChatDeletionModal
 
 
 class StoredChats(QObject):
