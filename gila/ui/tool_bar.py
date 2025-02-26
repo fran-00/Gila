@@ -2,6 +2,7 @@ from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import QToolBar, QFileDialog
 
 from bs4 import BeautifulSoup
+from docx import Document
 
 
 class ToolBar(QToolBar):
@@ -82,8 +83,11 @@ class ToolBar(QToolBar):
             file.write("\n".join(formatted_text))
 
     def save_docx(self, file_name):
-        # TODO:
-        pass
+        formatted_text = self.convert_html_to_text()
+        doc = Document()
+        for line in formatted_text:
+            doc.add_paragraph(line)
+        doc.save(file_name)
 
     def open_info_modal(self):
         self.window.about_gila_modal.exec_()
