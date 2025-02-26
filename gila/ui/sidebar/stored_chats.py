@@ -4,8 +4,14 @@ import pickle
 
 from PySide6.QtCore import QObject, Signal
 from PySide6.QtGui import Qt, QIcon
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, 
-                               QPushButton, QScrollArea, QLabel)
+from PySide6.QtWidgets import (
+    QLabel,
+    QHBoxLayout,
+    QPushButton,
+    QScrollArea,
+    QVBoxLayout,
+    QWidget,
+)
 
 from ..modals.rename_chat_modal import RenameChatModal
 from ..modals.confirm_chat_deletion_modal import ConfirmChatDeletionModal

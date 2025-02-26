@@ -1,17 +1,25 @@
 from PySide6.QtCore import Signal, Slot
 from PySide6.QtGui import QPixmap, QIcon
-from PySide6.QtWidgets import (QMainWindow, QWidget, QGridLayout, 
-                               QSplashScreen, QPushButton, QSizePolicy)
+from PySide6.QtWidgets import (
+    QGridLayout, 
+    QMainWindow,
+    QPushButton,
+    QSizePolicy,
+    QSplashScreen,
+    QWidget,
+)
 
 from .status_bar import StatusBar
 from .tool_bar import ToolBar
 from .chat_log import Chat
 from .sidebar.parent_sidebar import Sidebar
-from .modals.add_api_key_modal import AddAPIKeyModal
-from .modals.manage_api_keys_modal import ManageAPIKeysModal
-from .modals.warning_modal import WarningModal
-from .modals.about_gila_modal import AboutGilaModal
-from .modals.update_found_modal import UpdateFoundModal
+from .modals import (
+    AboutGilaModal,
+    AddAPIKeyModal,
+    ManageAPIKeysModal,
+    UpdateFoundModal,
+    WarningModal,
+)
 
 
 class LoadingScreen(QSplashScreen):
