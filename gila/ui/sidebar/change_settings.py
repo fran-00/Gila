@@ -73,8 +73,8 @@ class ChangeSettings(QObject):
         # Adjust labels settings and width
         self.temperature_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
         min_temperature_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
-        min_temperature_label.setFixedWidth(15)
-        self.max_temperature_label.setFixedWidth(15)
+        min_temperature_label.setFixedWidth(25)
+        self.max_temperature_label.setFixedWidth(25)
         temperature_slider_layout.setStretchFactor(min_temperature_label, 0)
         temperature_slider_layout.setStretchFactor(self.temperature_slider, 1)
         temperature_slider_layout.setStretchFactor(self.max_temperature_label, 0)
@@ -111,8 +111,8 @@ class ChangeSettings(QObject):
         # Adjust labels settings and width
         self.max_tokens_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
         min_tokens_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
-        min_tokens_label.setFixedWidth(15)
-        self.max_tokens_label.setFixedWidth(15)
+        min_tokens_label.setFixedWidth(25)
+        self.max_tokens_label.setFixedWidth(25)
         tokens_slider_layout.setStretchFactor(min_tokens_label, 0)
         tokens_slider_layout.setStretchFactor(self.tokens_slider, 1)
         tokens_slider_layout.setStretchFactor(self.max_tokens_label, 0)
