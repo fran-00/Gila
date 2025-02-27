@@ -1,12 +1,11 @@
 import os
-import re
 import pickle
 
 import markdown
 import tiktoken
 
-from PySide6.QtCore import QObject, Signal, Slot
-from PySide6.QtGui import QAction, QPixmap, Qt
+from PySide6.QtCore import QObject, QSize, Signal, Slot
+from PySide6.QtGui import QAction, QIcon, QPixmap, Qt
 from PySide6.QtWebEngineCore import QWebEnginePage
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import (
