@@ -1,5 +1,5 @@
 from PySide6.QtCore import Signal, Slot
-from PySide6.QtGui import QPixmap, QIcon
+from PySide6.QtGui import QFontDatabase, QIcon, QPixmap
 from PySide6.QtWidgets import (
     QGridLayout, 
     QMainWindow,
@@ -36,6 +36,7 @@ class View(QMainWindow):
         self.setWindowTitle("Gila")
         self.setWindowIcon(QIcon("storage/assets/icons/gila_logo.svg"))
         self.resize(1024, 768)
+        self.load_custom_fonts()
         self.setStyleSheet(self.load_css_file())
         self.create_layout()
 
@@ -107,3 +108,6 @@ class View(QMainWindow):
 
     def assign_css_class(self, widget, class_name):
         widget.setProperty("class", class_name)
+
+    def load_custom_fonts(self):
+        QFontDatabase.addApplicationFont("storage/assets/fonts/BrunoAceSC-Regular.ttf")
