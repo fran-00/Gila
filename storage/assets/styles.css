@@ -49,6 +49,8 @@ QLabel#chat_title_label {
 
 QLabel.chatlog_info_labels {
     padding-left: 2px;
+    font-size: 14px;
+    color: #b3b3b3;
 }
 
 QLabel#placeholder_label {
