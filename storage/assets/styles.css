@@ -41,8 +41,10 @@ QLabel#gila_title {
 }
 
 QLabel#chat_title_label {
-    font-size: 20px;
+    font-family: 'Bruno Ace SC';
+    font-size: 25px;
     font-weight: 600;
+    padding: 5px 0;
 }
 
 QLabel.chatlog_info_labels {
