@@ -35,6 +35,7 @@ QLabel {
 }
 
 QLabel#gila_title {
+    font-family: 'Bruno Ace SC';
     font-size: 100px;
     font-weight: 600;
 }
