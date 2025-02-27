@@ -121,7 +121,6 @@ class Controller(QObject):
             - update_status_bar (view.status_bar.on_status_update_slot)
         """
         self.user_prompt_to_model.emit(user_prompt)
-        self.update_status_bar.emit("I'm sending the message...")
 
     @Slot(str, float, int, str)
     def settings_changed_from_sidebar_slot(self, new_client, new_temperature, new_max_tokens, new_system_message):
