@@ -114,12 +114,15 @@ class APIClient(ABC):
 
         try:
             response = self._send_request(**params)
+            if "error" in response:
+                raise Exception(response["error"])
+
             ai_response, response_info = self._extract_response_data(response)
             self.last_response_info = response_info
             self.chat_history.append(self._format_ai_message(ai_response))
 
             return True, ai_response, response_info
-        except KeyError as e:
+        except Exception as e:
             return False, str(e), None
 
     def _format_user_message(self, prompt):
