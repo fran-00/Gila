@@ -275,7 +275,12 @@ class Prompt:
         self.prompt_box.setFocus()
         prompt_layout.addWidget(self.prompt_box)
         # Adds send button
-        self.send_button = QPushButton("Submit", objectName="enter_button")
+        self.send_button = QPushButton(objectName="enter_button")
+        pixmap = QPixmap("storage/assets/icons/send-message.png")
+        pixmap = pixmap.scaled(QSize(30, 30))
+        send_icon = QIcon(pixmap)
+        self.send_button.setIcon(send_icon)
+        self.send_button.setIconSize(QSize(30, 30))
         self.send_button.setFixedWidth(50)
         self.send_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.send_button.clicked.connect(
