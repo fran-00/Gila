@@ -158,16 +158,17 @@ class Chat(QObject):
             to controller
         """
         if prompt != "":
-            self.prompt_layout.send_button.setEnabled(False)
-            self.user_prompt_signal_to_controller.emit(prompt)
-            # Shows a cursor spinning wheel when waiting for response
-            QApplication.setOverrideCursor(Qt.WaitCursor)
-            # Append user prompt to log view window
             self.chat_html_logs.append(f"""
                 <div class='user-wrapper'>
                     <p class='prompt'>{prompt}</p>
                 </div>
             """)
+            self.generate_chat_html()
+            self.prompt_layout.send_button.setEnabled(False)
+            # Shows a cursor spinning wheel when waiting for response
+            QApplication.setOverrideCursor(Qt.WaitCursor)
+            # Send the signal with user prompt
+            self.user_prompt_signal_to_controller.emit(prompt)
         else:
             self.update_status_bar_from_chatlog.emit(
                 "It is not possible to send an empty message.")
