@@ -62,7 +62,7 @@ class View(QMainWindow):
         self.on_hide_chatlog_and_prompt_line()
 
     def on_toggle_sidebar_button(self):
-        self.toggle_sidebar_button = QPushButton("<", objectName="toggle_sidebar_button")
+        self.toggle_sidebar_button = QPushButton("‹", objectName="toggle_sidebar_button")
         self.toggle_sidebar_button.setFixedWidth(10)
         self.toggle_sidebar_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.toggle_sidebar_button.clicked.connect(self.toggle_sidebar)
@@ -71,9 +71,9 @@ class View(QMainWindow):
     def toggle_sidebar(self):
         self.sidebar.widget_container.setVisible(not self.sidebar.widget_container.isVisible())
         if self.sidebar.widget_container.isVisible():
-            self.toggle_sidebar_button.setText("<")
+            self.toggle_sidebar_button.setText("‹")
         else:
-            self.toggle_sidebar_button.setText(">")
+            self.toggle_sidebar_button.setText("›")
 
     def load_css_file(self):
         """ Loads CSS File to apply style window """

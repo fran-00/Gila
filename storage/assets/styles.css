@@ -115,6 +115,7 @@ QPushButton:hover {
 }
 
 QPushButton#toggle_sidebar_button {
+    font-size: 30px;
     background-color: #2c2c2c;
     color: #ffffff;
 }
