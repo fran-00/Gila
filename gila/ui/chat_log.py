@@ -4,7 +4,7 @@ import pickle
 import markdown
 import tiktoken
 
-from PySide6.QtCore import QObject, QSize, Signal, Slot
+from PySide6.QtCore import QObject, QSize, Signal, Slot, QTimer
 from PySide6.QtGui import QAction, QIcon, QPixmap, Qt
 from PySide6.QtWebEngineCore import QWebEnginePage
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -163,15 +163,25 @@ class Chat(QObject):
                     <p class='prompt'>{prompt}</p>
                 </div>
             """)
+            # Update html page with new user prompt
             self.generate_chat_html()
+            # Disable button
             self.prompt_layout.send_button.setEnabled(False)
             # Shows a cursor spinning wheel when waiting for response
             QApplication.setOverrideCursor(Qt.WaitCursor)
-            # Send the signal with user prompt
-            self.user_prompt_signal_to_controller.emit(prompt)
+            # Shows a message in the status bar
+            self.update_status_bar_from_chatlog.emit("I'm sending the message...")
+            # Send the signal with user prompt with a delay of 0.1 seconds
+            self.timer = QTimer()
+            self.timer.setSingleShot(True)
+            self.timer.timeout.connect(lambda: self._send_delayed_prompt_signal(prompt))
+            self.timer.start(100)
         else:
             self.update_status_bar_from_chatlog.emit(
                 "It is not possible to send an empty message.")
+
+    def _send_delayed_prompt_signal(self, prompt):
+        self.user_prompt_signal_to_controller.emit(prompt)
 
     def add_log_to_saved_chat_data(self, chat_id):
         with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
