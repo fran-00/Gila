@@ -111,3 +111,4 @@ class View(QMainWindow):
 
     def load_custom_fonts(self):
         QFontDatabase.addApplicationFont("storage/assets/fonts/BrunoAceSC-Regular.ttf")
+        QFontDatabase.addApplicationFont("storage/assets/fonts/Geologica-VariableFont.ttf")
