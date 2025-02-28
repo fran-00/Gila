@@ -175,6 +175,7 @@ class ChangeSettings(QObject):
             "GPT-4o": (4096, 2),
             "GPT-4": (8192, 2),
             "GPT-4 Turbo": (4096, 2),
+            "GPT-4.5 preview": (16384, 2),
             "Gemini 2.0 Flash": (8192, 2),
             "Gemini 1.5 Flash": (8192, 2),
             "Gemini 1.5 Pro": (8192, 2),

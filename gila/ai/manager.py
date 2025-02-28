@@ -23,6 +23,7 @@ AVAILABLE_MODELS = {
     "GPT-4o": OpenAIClient("gpt-4o"),
     "GPT-4": OpenAIClient("gpt-4"),
     "GPT-4 Turbo": OpenAIClient("gpt-4-turbo"),
+    "GPT-4.5 preview": OpenAIClient("gpt-4.5-preview"),
     "Gemini 2.0 Flash": GoogleClient("gemini-2.0-flash"),
     "Gemini 1.5 Flash": GoogleClient("gemini-1.5-flash"),
     "Gemini 1.5 Pro": GoogleClient("gemini-1.5-pro"),

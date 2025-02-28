@@ -7,6 +7,7 @@ Currently supported large language models:
 - GPT-4o
 - GPT-4
 - GPT-4 Turbo
+- GPT-4.5 preview
 - Gemini 2.0 Flash
 - Gemini 1.5 Flash
 - Gemini 1.5 Pro
