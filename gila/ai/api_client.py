@@ -22,6 +22,10 @@ class APIClient(ABC):
         self.chat_custom_name = None
         self.is_loaded = False
         self.last_response_info = None
+        # For DALL-E 2 and 3
+        self.image_size = None
+        self.image_quality = None
+        self.image_quantity = None
 
     def check_if_api_key(self, company_name):
         """ Reads .env file to get API Key, if any """
