@@ -46,7 +46,7 @@ class ChangeSettings(QObject):
         self.add_line_separator(self.change_settings_layout)
         self.on_system_message_settings()
         self.on_image_quantity_settings()
-        self.llms_combobox.currentTextChanged.connect(self.update_sliders_values)
+        self.llms_combobox.currentTextChanged.connect(self.change_needed_settings)
         self.on_settings_changed()
         self.load_settings_from_json()
 
@@ -195,7 +195,7 @@ class ChangeSettings(QObject):
             selected_system_message
         )
 
-    def update_sliders_values(self):
+    def change_needed_settings(self):
         """ Adjusts token limits and temperature range, based on a given model. """
         self.selected_llm = self.llms_combobox.currentText()
         limits = {
@@ -277,7 +277,7 @@ class ChangeSettings(QObject):
             # # Sets system_message
             self.system_message_input.setText(settings["system_message"])
             # Update parameter limits based on the selected model
-            self.update_sliders_values()
+            self.change_needed_settings()
 
         except (FileNotFoundError, json.JSONDecodeError):
             return
