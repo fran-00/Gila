@@ -18,7 +18,7 @@ from PySide6.QtWidgets import (
 
 
 class ChangeSettings(QObject):
-    new_settings_to_controller = Signal(str, float, int, str)
+    new_settings_to_controller = Signal(str, float, int, str, str, str, int)
 
     def __init__(self, parent_class, current_settings):
         super().__init__()
@@ -301,15 +301,21 @@ class ChangeSettings(QObject):
         """ Sends new settings to controller: signal is triggered when
             Confirm Button is pressed
         """
-        self.selected_llm = self.llms_combobox.currentText()
+        selected_llm = self.llms_combobox.currentText()
         selected_temperature = self.temperature_slider.value()
         selected_max_tokens = self.tokens_slider.value()
         selected_system_message = self.system_message_input.toPlainText()
+        selected_image_size = self.size_group.checkedButton().text() if self.size_group.checkedButton() else None
+        selected_image_quality = self.quality_group.checkedButton().text() if self.quality_group.checkedButton() else None
+        selected_image_quantity = self.image_quantity_slider.value()
         self.new_settings_to_controller.emit(
-            self.selected_llm,
+            selected_llm,
             selected_temperature,
             selected_max_tokens,
-            selected_system_message
+            selected_system_message,
+            selected_image_size,
+            selected_image_quality,
+            selected_image_quantity
         )
 
     def change_needed_settings(self):
@@ -413,3 +419,6 @@ class ChangeSettings(QObject):
         self.temperature_slider.valueChanged.connect(self.send_new_settings_to_controller)
         self.tokens_slider.valueChanged.connect(self.send_new_settings_to_controller)
         self.system_message_input.textChanged.connect(self.send_new_settings_to_controller)
+        self.size_group.buttonClicked.connect(self.send_new_settings_to_controller)
+        self.quality_group.buttonClicked.connect(self.send_new_settings_to_controller)
+        self.image_quantity_slider.valueChanged.connect(self.send_new_settings_to_controller)
