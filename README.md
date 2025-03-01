@@ -106,8 +106,8 @@ You will find **gila.exe** executable file inside *dist* directory: remember to 
 - [x] Fix the gila monster image visible when opening the program not remaining aligned to the center when the window is resized.
 - [x] Add chat formatting.
 - [x] Add logic to display model-generated images directly in the chat log.
-- [ ] Add specific settings for images generation models like Dall-E 2 and 3.
-- [ ] Fix .pdf files created when chat is exported.
+- [x] Add specific settings for images generation models like Dall-E 2 and 3.
+- [x] Fix .pdf files created when chat is exported.
+- [x] Improve errors and exceptions management.
 - [ ] Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/)?
-- [ ] Improve errors and exceptions management.
 - [ ] Main thread must stop if API is taking too long to respond to prevent GUI freezing.
