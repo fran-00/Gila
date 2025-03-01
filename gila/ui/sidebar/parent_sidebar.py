@@ -2,7 +2,7 @@ from PySide6.QtCore import QObject, Signal
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QTabWidget
 
 from .stored_chats import StoredChats
-from .change_settings import SettingsHandler
+from .settings_handler import SettingsHandler
 from .current_settings import CurrentSettings
 
 
