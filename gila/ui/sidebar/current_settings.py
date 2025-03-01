@@ -8,8 +8,6 @@ class CurrentSettings(QObject):
         super().__init__()
         self.parent_widget = parent_widget
         self.current_llm = None
-        self.current_temperature = None
-        self.current_max_tokens = None
         self.llms = [
             "GPT-4o mini",
             "GPT-4o",
@@ -52,14 +50,30 @@ class CurrentSettings(QObject):
         self.current_temperature = settings[3]
         self.current_max_tokens = settings[4]
         self.current_chat_date = settings[5]
-        settings_string = f"""<div>
-            <b>ID</b>: {self.chat_id}<br>
-            <b>Name</b>: {self.chat_custom_name if self.chat_custom_name is not None else 'Name not set'}<br>
-            <b>Model</b>: {self.current_llm}<br>
-            <b>Temperature</b>: {self.current_temperature}<br>
-            <b>Max tokens</b>: {self.current_max_tokens}<br>
-            <b>Last message</b>: {self.current_chat_date if self.current_chat_date is not None else 'Just created'}
-            </div>"""
+        self.current_image_size = settings[7]
+        self.current_image_quality = settings[8]
+        self.current_image_quantity = settings[9]
+
+        common = (
+            f"<b>ID</b>: {self.chat_id}<br>"
+            f"<b>Name</b>: {self.chat_custom_name or 'Name not set'}<br>"
+            f"<b>Model</b>: {self.current_llm}<br>"
+        )
+
+        if self.current_llm not in ["DALL-E 2", "DALL-E 3"]:
+            extra = (
+                f"<b>Temperature</b>: {self.current_temperature}<br>"
+                f"<b>Max tokens</b>: {self.current_max_tokens}<br>"
+            )
+        else:
+            extra = (
+                f"<b>Size</b>: {self.current_image_size}<br>"
+                f"<b>Quality</b>: {self.current_image_quality}<br>"
+                f"<b>N. of images</b>: {self.current_image_quantity}<br>"
+            )
+
+        last_message = f"<b>Last message</b>: {self.current_chat_date or 'Just created'}"
+        settings_string = f"<div>{common}{extra}{last_message}</div>"
         self.current_settings_label.setText(settings_string)
 
     def on_show_sidebar_settings_label(self):
