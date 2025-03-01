@@ -32,8 +32,8 @@ class CurrentSettings(QObject):
             "Claude 3 Opus",
             "Claude 3 Sonnet",
             "Claude 3.5 Sonnet",
-            "DALL-E-2",
-            "DALL-E-3",
+            "DALL-E 2",
+            "DALL-E 3",
         ]
         self.widget_container = QWidget(objectName="current_settings_widget")
         self.on_current_settings_layout()

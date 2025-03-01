@@ -219,8 +219,8 @@ class ChangeSettings(QObject):
             "Claude 3 Opus": (4096, 1),
             "Claude 3 Sonnet": (4096, 1),
             "Claude 3.5 Sonnet": (8192, 1),
-            "DALL-E-2": (0, 0),
-            "DALL-E-3": (0, 0),
+            "DALL-E 2": (0, 0),
+            "DALL-E 3": (0, 0),
         }
         default_tokens = (4096, 2)
         max_tokens, max_temp = limits.get(llm, default_tokens)

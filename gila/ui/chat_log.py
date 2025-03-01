@@ -228,7 +228,7 @@ class Chat(QObject):
         QApplication.restoreOverrideCursor()
 
         formatted_response = self.convert_markdown_to_html(response)
-        if self.window.sidebar.current_settings.current_llm in ["DALL-E-2", "DALL-E-3"]:
+        if self.window.sidebar.current_settings.current_llm in ["DALL-E 2", "DALL-E 3"]:
             formatted_response = f"<div class='img-wrapper'><img src='{response}' class='img'></div>"
         self.chat_html_logs.append(f"""
             <div class='ai-wrapper'>

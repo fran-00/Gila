@@ -40,8 +40,8 @@ AVAILABLE_MODELS = {
     "Claude 3 Opus": AnthropicClient("claude-3-opus-20240229"),
     "Claude 3 Sonnet": AnthropicClient("claude-3-sonnet-20240229"),
     "Claude 3.5 Sonnet": AnthropicClient("claude-3-5-sonnet-20240620"),
-    "DALL-E-2": OpenAIDalleClient("dall-e-2"),
-    "DALL-E-3": OpenAIDalleClient("dall-e-3"),
+    "DALL-E 2": OpenAIDalleClient("dall-e-2"),
+    "DALL-E 3": OpenAIDalleClient("dall-e-3"),
 }
 
 COMPANIES = {
