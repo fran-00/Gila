@@ -184,12 +184,12 @@ class ChangeSettings(QObject):
         """ Sends new settings to controller: signal is triggered when
             Confirm Button is pressed
         """
-        selected_llm = self.llms_combobox.currentText()
+        self.selected_llm = self.llms_combobox.currentText()
         selected_temperature = self.temperature_slider.value()
         selected_max_tokens = self.tokens_slider.value()
         selected_system_message = self.system_message_input.toPlainText()
         self.new_settings_to_controller.emit(
-            selected_llm,
+            self.selected_llm,
             selected_temperature,
             selected_max_tokens,
             selected_system_message
@@ -197,7 +197,7 @@ class ChangeSettings(QObject):
 
     def update_sliders_values(self):
         """ Adjusts token limits and temperature range, based on a given model. """
-        llm = self.llms_combobox.currentText()
+        self.selected_llm = self.llms_combobox.currentText()
         limits = {
             "GPT-4o mini": (16384, 2),
             "GPT-4o": (4096, 2),
@@ -224,8 +224,7 @@ class ChangeSettings(QObject):
             "DALL-E 3": (0, 0),
         }
         default_tokens = (4096, 2)
-        max_tokens, max_temp = limits.get(llm, default_tokens)
-        
+        max_tokens, max_temp = limits.get(self.selected_llm, default_tokens)
         self.tokens_slider.setMaximum(max_tokens)
         self.max_tokens_label.setText(str(max_tokens))
         self.temperature_slider.setMaximum(20 if max_temp == 2 else 10)
