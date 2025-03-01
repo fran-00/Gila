@@ -351,24 +351,29 @@ class ChangeSettings(QObject):
     def check_if_image(self):
         if self.selected_llm in ["DALL-E 2", "DALL-E 3"]:
             self.on_show_image_settings()
-            self.checkbox_1024x1024.setChecked(True)
-            self.checkbox_standard.setChecked(True)
         else:
             self.on_hide_image_settings()
+
+        selected_size_button = self.size_group.checkedButton()
         if self.selected_llm in ["DALL-E 2"]:
             self.image_quantity_inner_widget.show()
             self.checkbox_256x256.show()
             self.checkbox_512x512.show()
             self.checkbox_1024x1792.hide()
             self.checkbox_1792x1024.hide()
-            self.checkbox_hd.hide()
-        if self.selected_llm in ["DALL-E 3"]:
+            self.image_quality_inner_widget.hide()
+            if selected_size_button in [self.checkbox_1024x1792, self.checkbox_1792x1024]:
+                self.checkbox_1024x1024.setChecked(True)
+
+        elif self.selected_llm in ["DALL-E 3"]:
             self.image_quantity_inner_widget.hide()
             self.checkbox_256x256.hide()
             self.checkbox_512x512.hide()
             self.checkbox_1024x1792.show()
             self.checkbox_1792x1024.show()
             self.checkbox_hd.show()
+            if selected_size_button in [self.checkbox_256x256, self.checkbox_512x512]:
+                self.checkbox_1024x1024.setChecked(True)
 
     def load_settings_from_json(self):
         """Loads the saved settings from the JSON file and sets values"""
