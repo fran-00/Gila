@@ -5,7 +5,7 @@ class Controller(QObject):
     user_prompt_to_model = Signal(str)
     response_message_to_chatlog = Signal(str)
     response_info_to_chatlog = Signal(dict)
-    new_settings_to_manager = Signal(str, float, int, str)
+    new_settings_to_manager = Signal(str, float, int, str, str, str, int)
     new_chat_started_to_model = Signal()
     update_status_bar = Signal(str)
     missing_api_key_to_view = Signal(str)
@@ -122,8 +122,17 @@ class Controller(QObject):
         """
         self.user_prompt_to_model.emit(user_prompt)
 
-    @Slot(str, float, int, str)
-    def settings_changed_from_sidebar_slot(self, new_client, new_temperature, new_max_tokens, new_system_message):
+    @Slot(str, float, int, str, str, str, int)
+    def settings_changed_from_sidebar_slot(
+        self,
+        new_client,
+        new_temperature,
+        new_max_tokens,
+        new_system_message,
+        new_image_size,
+        new_image_quality,
+        new_image_quantity
+    ):
         """ Slot
         Connected to new settings sidebar signal
             - view.sidebar.new_settings_to_controller
@@ -131,8 +140,16 @@ class Controller(QObject):
             - new_settings_to_manager (model.manager.set_new_client_slot)
             - update_status_bar (view.status_bar.on_status_update_slot)
         """
-        self.new_settings_to_manager.emit(new_client, new_temperature, new_max_tokens, new_system_message)
-        self.update_status_bar.emit(f"You have selected {new_client} with {new_temperature} temperature.")
+        self.new_settings_to_manager.emit(
+            new_client,
+            new_temperature,
+            new_max_tokens,
+            new_system_message,
+            new_image_size,
+            new_image_quality,
+            new_image_quantity
+        )
+        self.update_status_bar.emit(f"You have selected {new_client}.")
 
     @Slot()
     def chat_stopped_from_sidebar_slot(self):
@@ -220,6 +237,9 @@ class Controller(QObject):
             self.model.manager.client.temperature = self.model.manager.next_temperature
             self.model.manager.client.max_tokens = self.model.manager.next_max_tokens
             self.model.manager.client.system_message = self.model.manager.next_system_message
+            self.model.manager.client.image_size = self.model.manager.next_image_size
+            self.model.manager.client.image_quality = self.model.manager.next_image_quality
+            self.model.manager.client.image_quantity = self.model.manager.next_image_quantity
             # TODO: check if this is needed
             self.model.manager.client.on_chat_reset()
             self.model.manager.next_client = None
