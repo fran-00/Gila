@@ -44,7 +44,7 @@ class ChangeSettings(QObject):
         self.on_max_tokens_settings()
         self.on_image_quality_settings()
         self.add_line_separator(self.change_settings_layout)
-        self.on_system_message()
+        self.on_system_message_settings()
         self.llms_combobox.currentTextChanged.connect(self.update_sliders_values)
         self.on_settings_changed()
         self.load_settings_from_json()
@@ -160,15 +160,22 @@ class ChangeSettings(QObject):
         selected_max_tokens_value = self.tokens_slider.value()
         self.max_tokens_current_value_label.setText(str(selected_max_tokens_value))
 
-    def on_system_message(self):
+    def on_system_message_settings(self):
+        """ Widget to adjust system message setting """
+        # Create inner widget and layout to contain system message
+        self.system_message_inner_widget = QWidget()
+        system_message_inner_layout = QVBoxLayout(self.system_message_inner_widget)
+        # Create system message label
         system_message_label = QLabel("System Message")
         self.parent_class.window.assign_css_class(system_message_label, "setting_name")
         system_message_label.setAlignment(Qt.Alignment.AlignCenter)
+        # Create system message QTextEdit
         self.system_message_input = QTextEdit(objectName="system_message_widget")
-        system_message_layout = QVBoxLayout()
-        system_message_layout.addWidget(system_message_label)
-        system_message_layout.addWidget(self.system_message_input)
-        self.change_settings_layout.addLayout(system_message_layout)
+        # Add label and QTextEdit widget to system message inner layout
+        system_message_inner_layout.addWidget(system_message_label)
+        system_message_inner_layout.addWidget(self.system_message_input)
+        # Add system message inner widget to main layout
+        self.change_settings_layout.addWidget(self.system_message_inner_widget)
 
     def send_new_settings_to_controller(self):
         """ Sends new settings to controller: signal is triggered when
