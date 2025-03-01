@@ -49,6 +49,8 @@ class ChangeSettings(QObject):
         self.on_settings_changed()
         self.load_settings_from_json()
 
+        self.on_hide_image_settings()
+
     def on_settings_changed(self):
         """Connects settings widgets to send_new_settings_to_controller signal"""
         self.llms_combobox.currentIndexChanged.connect(self.send_new_settings_to_controller)
@@ -311,3 +313,17 @@ class ChangeSettings(QObject):
         image_quality_inner_layout.addWidget(self.checkbox_hd)
         # Add image quality inner widget to main layout
         self.change_settings_layout.addWidget(self.image_quality_inner_widget)
+
+    def on_show_image_settings(self):
+        self.image_size_inner_widget.show()
+        self.image_quality_inner_widget.show()
+        self.temperature_inner_widget.hide()
+        self.max_tokens_inner_widget.hide()
+        self.system_message_inner_widget.hide()
+
+    def on_hide_image_settings(self):
+        self.image_size_inner_widget.hide()
+        self.image_quality_inner_widget.hide()
+        self.temperature_inner_widget.show()
+        self.max_tokens_inner_widget.show()
+        self.system_message_inner_widget.show()
