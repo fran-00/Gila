@@ -17,7 +17,7 @@ from PySide6.QtWidgets import (
 )
 
 
-class ChangeSettings(QObject):
+class SettingsHandler(QObject):
     new_settings_to_controller = Signal(str, float, int, str, str, str, int)
 
     def __init__(self, parent_class, current_settings):

@@ -2,7 +2,7 @@ from PySide6.QtCore import QObject, Signal
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QTabWidget
 
 from .stored_chats import StoredChats
-from .change_settings import ChangeSettings
+from .change_settings import SettingsHandler
 from .current_settings import CurrentSettings
 
 
@@ -17,7 +17,7 @@ class Sidebar(QObject):
 
         self.stored_chats = StoredChats(self)
         self.current_settings = CurrentSettings(self.widget_container)
-        self.change_settings = ChangeSettings(self, self.current_settings)
+        self.change_settings = SettingsHandler(self, self.current_settings)
 
         self.on_sidebar_container()
 
