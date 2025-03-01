@@ -36,7 +36,7 @@ class ChangeSettings(QObject):
         self.change_settings_layout.setAlignment(Qt.Alignment.AlignTop)
         self.on_llms_combobox()
         self.add_line_separator(self.change_settings_layout)
-        self.on_temperature_slider()
+        self.on_temperature_settings()
         self.on_image_size_checkboxes()
         self.add_line_separator(self.change_settings_layout)
         self.on_max_tokens_slider()
@@ -65,12 +65,17 @@ class ChangeSettings(QObject):
         self.change_settings_layout.addWidget(select_llm_label)
         self.change_settings_layout.addWidget(self.llms_combobox)
 
-    def on_temperature_slider(self):
-        # Create widgets and slider's sub-layout
+    def on_temperature_settings(self):
+        """ Widget to adjust temperature settings """
+        # Create inner widget and layout to contain temperature settings
+        self.temperature_inner_widget = QWidget()
+        temperature_inner_layout = QVBoxLayout(self.temperature_inner_widget)
+        # Create temperature label
         select_temperature_label = QLabel("Temperature")
         self.parent_class.window.assign_css_class(select_temperature_label, "setting_name")
         select_temperature_label.setAlignment(Qt.Alignment.AlignCenter)
-        temperature_slider_layout = QHBoxLayout()
+        # Create widgets and slider's sub-layout
+        temperature_slider_sub_layout = QHBoxLayout()
         min_temperature_label = QLabel("0")
         self.max_temperature_label = QLabel("1")
         self.temperature_slider = QSlider(Qt.Horizontal)
@@ -78,11 +83,11 @@ class ChangeSettings(QObject):
         # Adjust labels settings and width
         self.temperature_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
         min_temperature_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
-        min_temperature_label.setFixedWidth(30)
-        self.max_temperature_label.setFixedWidth(30)
-        temperature_slider_layout.setStretchFactor(min_temperature_label, 0)
-        temperature_slider_layout.setStretchFactor(self.temperature_slider, 1)
-        temperature_slider_layout.setStretchFactor(self.max_temperature_label, 0)
+        min_temperature_label.setFixedWidth(20)
+        self.max_temperature_label.setFixedWidth(20)
+        temperature_slider_sub_layout.setStretchFactor(min_temperature_label, 0)
+        temperature_slider_sub_layout.setStretchFactor(self.temperature_slider, 1)
+        temperature_slider_sub_layout.setStretchFactor(self.max_temperature_label, 0)
         self.parent_class.window.assign_css_class(min_temperature_label, "slider_value_label")
         self.parent_class.window.assign_css_class(self.max_temperature_label, "slider_value_label")
         # Adjust slider's settings
@@ -90,16 +95,19 @@ class ChangeSettings(QObject):
         self.temperature_slider.setMaximum(10)
         self.temperature_slider.setTickInterval(1)
         self.temperature_slider.setSingleStep(1)
-        self.temperature_slider.valueChanged.connect(self.on_temperature_slider_changed)
-        # Add widgets and slider's layout to modal's layout
-        self.change_settings_layout.addWidget(select_temperature_label)
-        temperature_slider_layout.addWidget(min_temperature_label)
-        temperature_slider_layout.addWidget(self.temperature_slider)
-        temperature_slider_layout.addWidget(self.max_temperature_label)
-        self.change_settings_layout.addLayout(temperature_slider_layout)
-        self.change_settings_layout.addWidget(self.temperature_current_value_label)
+        self.temperature_slider.valueChanged.connect(self.on_temperature_settings_changed)
+        # Add widgets and slider to temperature slider sub layout
+        temperature_slider_sub_layout.addWidget(min_temperature_label)
+        temperature_slider_sub_layout.addWidget(self.temperature_slider)
+        temperature_slider_sub_layout.addWidget(self.max_temperature_label)
+        # Add label, slider sub layout and current value to temperature inner layout
+        temperature_inner_layout.addWidget(select_temperature_label)
+        temperature_inner_layout.addLayout(temperature_slider_sub_layout)
+        temperature_inner_layout.addWidget(self.temperature_current_value_label)
+        # Add temperture inner widget to main layout
+        self.change_settings_layout.addWidget(self.temperature_inner_widget)
 
-    def on_temperature_slider_changed(self):
+    def on_temperature_settings_changed(self):
         selected_temperature_value = self.temperature_slider.value() / 10
         self.temperature_current_value_label.setText(str(selected_temperature_value))
 
