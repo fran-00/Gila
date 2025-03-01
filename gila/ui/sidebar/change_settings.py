@@ -225,10 +225,33 @@ class ChangeSettings(QObject):
         }
         default_tokens = (4096, 2)
         max_tokens, max_temp = limits.get(self.selected_llm, default_tokens)
+        self.check_if_image()
         self.tokens_slider.setMaximum(max_tokens)
         self.max_tokens_label.setText(str(max_tokens))
         self.temperature_slider.setMaximum(20 if max_temp == 2 else 10)
         self.max_temperature_label.setText(str(max_temp))
+
+    def check_if_image(self):
+        if self.selected_llm in ["DALL-E 2", "DALL-E 3"]:
+            self.on_show_image_settings()
+            self.checkbox_1024x1024.setChecked(True)
+            self.checkbox_standard.setChecked(True)
+        else:
+            self.on_hide_image_settings()
+        if self.selected_llm in ["DALL-E 2"]:
+            self.image_quantity_inner_widget.show()
+            self.checkbox_256x256.show()
+            self.checkbox_512x512.show()
+            self.checkbox_1024x1792.hide()
+            self.checkbox_1792x1024.hide()
+            self.checkbox_hd.hide()
+        if self.selected_llm in ["DALL-E 3"]:
+            self.image_quantity_inner_widget.hide()
+            self.checkbox_256x256.hide()
+            self.checkbox_512x512.hide()
+            self.checkbox_1024x1792.show()
+            self.checkbox_1792x1024.show()
+            self.checkbox_hd.show()
 
     def add_line_separator(self, layout):
         line = QFrame()
