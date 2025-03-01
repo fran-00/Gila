@@ -42,6 +42,7 @@ class ChangeSettings(QObject):
         self.on_image_size_settings()
         self.add_line_separator(self.change_settings_layout)
         self.on_max_tokens_settings()
+        self.on_image_quality_settings()
         self.add_line_separator(self.change_settings_layout)
         self.on_system_message()
         self.llms_combobox.currentTextChanged.connect(self.update_sliders_values)
@@ -280,3 +281,26 @@ class ChangeSettings(QObject):
         image_size_inner_layout.addWidget(self.checkbox_1792x1024)
         # Add image size inner widget to main layout
         self.change_settings_layout.addWidget(self.image_size_inner_widget)
+
+    def on_image_quality_settings(self):
+        """ Widget to adjust image quality settings """
+        # Create inner widget and layout to contain image quality settings
+        self.image_quality_inner_widget = QWidget()
+        image_quality_inner_layout = QVBoxLayout(self.image_quality_inner_widget)
+        # Create image quality label
+        select_image_quality_label = QLabel("Image Quality")
+        self.parent_class.window.assign_css_class(select_image_quality_label, "setting_name")
+        select_image_quality_label.setAlignment(Qt.Alignment.AlignCenter)
+        # Create widget's button group with checkboxes
+        self.quality_group = QButtonGroup(self)
+        self.quality_group.setExclusive(True)
+        self.checkbox_standard = QCheckBox("Standard")
+        self.checkbox_hd = QCheckBox("HD")
+        self.quality_group.addButton(self.checkbox_standard)
+        self.quality_group.addButton(self.checkbox_hd)
+        # Add label and checkboxes to image quality inner layout
+        image_quality_inner_layout.addWidget(select_image_quality_label)
+        image_quality_inner_layout.addWidget(self.checkbox_standard)
+        image_quality_inner_layout.addWidget(self.checkbox_hd)
+        # Add image quality inner widget to main layout
+        self.change_settings_layout.addWidget(self.image_quality_inner_widget)
