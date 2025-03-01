@@ -390,6 +390,17 @@ class ChangeSettings(QObject):
             self.tokens_slider.setValue(int(settings["max_tokens"]))
             # # Sets system_message
             self.system_message_input.setText(settings["system_message"])
+
+            image_size = settings.get("image_size", "")
+            for button in self.size_group.buttons(): 
+                if button.text() == image_size:
+                    button.setChecked(True)
+                    break
+            image_quality = settings.get("image_quality", "")
+            for button in self.quality_group.buttons(): 
+                if button.text() == image_quality:
+                    button.setChecked(True)
+                    break
             # Update parameter limits based on the selected model
             self.change_needed_settings()
 
