@@ -343,10 +343,11 @@ class ChangeSettings(QObject):
             "Claude 3 Opus": (4096, 1),
             "Claude 3 Sonnet": (4096, 1),
             "Claude 3.5 Sonnet": (8192, 1),
-            "DALL-E 2": (0, 0),
-            "DALL-E 3": (0, 0),
+            # WARNING, they must values supported by other models!
+            "DALL-E 2": (4096, 1),
+            "DALL-E 3": (4096, 1),
         }
-        default_tokens = (4096, 2)
+        default_tokens = (4096, 1)
         max_tokens, max_temp = limits.get(self.selected_llm, default_tokens)
         self.check_if_image()
         self.tokens_slider.setMaximum(max_tokens)
