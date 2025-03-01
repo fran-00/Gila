@@ -66,6 +66,9 @@ class AIManager(QObject):
         self.next_temperature = None
         self.next_max_tokens = None
         self.next_system_message = None
+        self.next_image_size = None
+        self.next_image_quality = None
+        self.next_image_quantity = None
         self.get_saved_settings()
 
     def get_saved_settings(self):
@@ -76,6 +79,9 @@ class AIManager(QObject):
                 "temperature": 1.0,
                 "max_tokens": 4096,
                 "system_message": "You are an helpful assistant.",
+                "image_size": "1024x1024",
+                "image_quality": "standard",
+                "image_quantity": 1,
             }
             with open(file_path, "w") as f:
                 json.dump(default_data, f)
@@ -88,6 +94,10 @@ class AIManager(QObject):
             self.client.temperature = data.get("temperature")
             self.client.max_tokens = data.get("max_tokens")
             self.client.system_message = data.get("system_message")
+            self.client.image_size = data.get("image_size")
+            self.client.image_quality = data.get("image_quality")
+            self.client.image_quantity = data.get("image_quantity")
+
         self.client.generate_chat_id()
 
     def update_saved_settings(self):
@@ -97,6 +107,9 @@ class AIManager(QObject):
             data["temperature"] = self.client.temperature
             data["max_tokens"] = self.client.max_tokens
             data["system_message"] = self.client.system_message
+            data["image_size"] = self.client.image_size
+            data["image_quality"] = self.client.image_quality
+            data["image_quantity"] = self.client.image_quantity
 
         with open("storage/saved_settings.json", "w") as file:
             json.dump(data, file, indent=4)
@@ -110,8 +123,17 @@ class AIManager(QObject):
             return True
         return False
 
-    @Slot(str, float, int, str)
-    def set_new_settings_slot(self, new_llm, new_temperature, new_max_tokens, new_system_message):
+    @Slot(str, float, int, str, str, str, int)
+    def set_new_settings_slot(
+        self,
+        new_llm,
+        new_temperature,
+        new_max_tokens,
+        new_system_message,
+        new_image_size,
+        new_image_quality,
+        new_image_quantity
+    ):
         """Slot
         Connected to one signal:
             - controller.new_settings_to_manager
@@ -126,6 +148,9 @@ class AIManager(QObject):
         self.next_temperature = new_temperature / 10
         self.next_max_tokens = new_max_tokens
         self.next_system_message = new_system_message
+        self.next_image_size = new_image_size
+        self.next_image_quality = new_image_quality
+        self.next_image_quantity = new_image_quantity
 
     @Slot(str)
     def api_key_slot(self, api_key, company_name):
@@ -169,6 +194,9 @@ class AIManager(QObject):
         self.client.chat_date = chat["chat_date"]
         self.client.system_message = chat["system_message"]
         self.client.last_response_info = chat["last_response_info"]
+        self.client.image_size = chat["image_size"]
+        self.client.image_quality = chat["image_quality"]
+        self.client.image_quantity = chat["image_quantity"]
 
     def on_current_settings(self):
         """Return current client's settings"""
@@ -180,6 +208,9 @@ class AIManager(QObject):
             self.client.max_tokens,
             self.client.chat_date,
             self.client.system_message,
+            self.client.image_size,
+            self.client.image_quality,
+            self.client.image_quantity,
         )
 
     def save_api_key(self, api_key, company_name):
@@ -207,6 +238,9 @@ class AIManager(QObject):
                 "chat_log": None,
                 "system_message": self.client.system_message,
                 "last_response_info": self.client.last_response_info,
+                "image_size": self.client.image_size,
+                "image_quality": self.client.image_quality,
+                "image_quantity": self.client.image_quantity,
             }
         }
         with open(f"storage/saved_data/{self.client.chat_id}.pk", "wb") as file:
