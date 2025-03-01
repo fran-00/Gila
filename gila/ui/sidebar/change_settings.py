@@ -37,6 +37,7 @@ class ChangeSettings(QObject):
         self.on_llms_combobox()
         self.add_line_separator(self.change_settings_layout)
         self.on_temperature_slider()
+        self.on_image_size_checkboxes()
         self.add_line_separator(self.change_settings_layout)
         self.on_max_tokens_slider()
         self.add_line_separator(self.change_settings_layout)
@@ -231,3 +232,35 @@ class ChangeSettings(QObject):
 
         except (FileNotFoundError, json.JSONDecodeError):
             return
+
+    def on_image_size_checkboxes(self):
+        self.image_size_inner_widget = QWidget()
+        image_size_inner_layout = QVBoxLayout(self.image_size_inner_widget)
+
+        select_image_size_label = QLabel("Image Size")
+        self.parent_class.window.assign_css_class(select_image_size_label, "setting_name")
+        select_image_size_label.setAlignment(Qt.Alignment.AlignCenter)
+
+        self.size_group = QButtonGroup(self)
+        self.size_group.setExclusive(True)  
+
+        self.checkbox_256x256 = QCheckBox("256x256")
+        self.checkbox_512x512 = QCheckBox("512x512")
+        self.checkbox_1024x1024 = QCheckBox("1024x1024")
+        self.checkbox_1024x1792 = QCheckBox("1024x1792")
+        self.checkbox_1792x1024 = QCheckBox("1792x1024")
+
+        self.size_group.addButton(self.checkbox_256x256)
+        self.size_group.addButton(self.checkbox_512x512)
+        self.size_group.addButton(self.checkbox_1024x1024)
+        self.size_group.addButton(self.checkbox_1024x1792)
+        self.size_group.addButton(self.checkbox_1792x1024)
+
+        image_size_inner_layout.addWidget(select_image_size_label)
+        image_size_inner_layout.addWidget(self.checkbox_256x256)
+        image_size_inner_layout.addWidget(self.checkbox_512x512)
+        image_size_inner_layout.addWidget(self.checkbox_1024x1024)
+        image_size_inner_layout.addWidget(self.checkbox_1024x1792)
+        image_size_inner_layout.addWidget(self.checkbox_1792x1024)
+
+        self.change_settings_layout.addWidget(self.image_size_inner_widget)
