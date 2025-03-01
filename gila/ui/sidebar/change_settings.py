@@ -45,6 +45,7 @@ class ChangeSettings(QObject):
         self.on_image_quality_settings()
         self.add_line_separator(self.change_settings_layout)
         self.on_system_message_settings()
+        self.on_image_quantity_settings()
         self.llms_combobox.currentTextChanged.connect(self.update_sliders_values)
         self.on_settings_changed()
         self.load_settings_from_json()
@@ -258,6 +259,51 @@ class ChangeSettings(QObject):
 
         except (FileNotFoundError, json.JSONDecodeError):
             return
+
+    def on_image_quantity_settings(self):
+        """ Widget to adjust image quantity settings """
+        # Create inner widget and layout to contain max tokens settings
+        self.image_quantity_inner_widget = QWidget()
+        image_quantity_inner_layout = QVBoxLayout(self.image_quantity_inner_widget)
+        # Create max_tokens label
+        select_image_quantity_label = QLabel("Number of images")
+        self.parent_class.window.assign_css_class(select_image_quantity_label, "setting_name")
+        select_image_quantity_label.setAlignment(Qt.Alignment.AlignCenter)
+        # Create widgets and slider's sub-layout
+        image_quantity_slider_sub_layout = QHBoxLayout()
+        min_image_quantity_label = QLabel("1")
+        max_image_quantity_label = QLabel("10")
+        self.image_quantity_slider = QSlider(Qt.Horizontal)
+        self.max_image_quantity_current_value_label = QLabel("1", objectName="max_quantity_current_value_label")
+        # Adjust labels settings and width
+        self.max_image_quantity_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
+        min_image_quantity_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
+        min_image_quantity_label.setFixedWidth(20)
+        max_image_quantity_label.setFixedWidth(20)
+        image_quantity_slider_sub_layout.setStretchFactor(min_image_quantity_label, 0)
+        image_quantity_slider_sub_layout.setStretchFactor(self.image_quantity_slider, 1)
+        image_quantity_slider_sub_layout.setStretchFactor(max_image_quantity_label, 0)
+        self.parent_class.window.assign_css_class(min_image_quantity_label, "slider_value_label")
+        self.parent_class.window.assign_css_class(max_image_quantity_label, "slider_value_label")
+        # Adjust slider's settings
+        self.image_quantity_slider.setMinimum(1)
+        self.image_quantity_slider.setMaximum(10)
+        self.image_quantity_slider.setTickInterval(1)
+        self.image_quantity_slider.setSingleStep(1)
+        self.image_quantity_slider.valueChanged.connect(self.on_image_quantity_settings_changed)
+        # Add widgets and slider to image quantity slider sub layout
+        image_quantity_slider_sub_layout.addWidget(min_image_quantity_label)
+        image_quantity_slider_sub_layout.addWidget(self.image_quantity_slider)
+        image_quantity_slider_sub_layout.addWidget(max_image_quantity_label)
+        # Add label, slider sub layout and current value to max tokens inner layout
+        image_quantity_inner_layout.addWidget(select_image_quantity_label)
+        image_quantity_inner_layout.addLayout(image_quantity_slider_sub_layout)
+        image_quantity_inner_layout.addWidget(self.max_image_quantity_current_value_label)
+        # Add temperture inner widget to main layout
+        self.change_settings_layout.addWidget(self.image_quantity_inner_widget)
+
+    def on_image_quantity_settings_changed(self):
+        self.max_image_quantity_current_value_label.setText(str(self.image_quantity_slider.value()))
 
     def on_image_size_settings(self):
         """ Widget to adjust image size settings """
