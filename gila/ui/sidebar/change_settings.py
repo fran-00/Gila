@@ -43,14 +43,14 @@ class ChangeSettings(QObject):
         self.add_line_separator(self.change_settings_layout)
         self.on_max_tokens_settings()
         self.on_image_quality_settings()
+        self.on_image_quantity_settings()
         self.add_line_separator(self.change_settings_layout)
         self.on_system_message_settings()
-        self.on_image_quantity_settings()
         self.llms_combobox.currentTextChanged.connect(self.change_needed_settings)
         self.on_settings_changed()
         self.load_settings_from_json()
 
-        self.on_hide_image_settings()
+        self.check_if_image()
 
     def on_llms_settings(self):
         """ Creates ComboBox with llms list """
