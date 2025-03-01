@@ -39,7 +39,7 @@ class ChangeSettings(QObject):
         self.on_temperature_settings()
         self.on_image_size_checkboxes()
         self.add_line_separator(self.change_settings_layout)
-        self.on_max_tokens_slider()
+        self.on_max_tokens_settings()
         self.add_line_separator(self.change_settings_layout)
         self.on_system_message()
         self.llms_combobox.currentTextChanged.connect(self.update_sliders_values)
@@ -111,14 +111,17 @@ class ChangeSettings(QObject):
         selected_temperature_value = self.temperature_slider.value() / 10
         self.temperature_current_value_label.setText(str(selected_temperature_value))
 
-    def on_max_tokens_slider(self):
-        """
-        """
-        # Create widgets and slider's sub-layout
+    def on_max_tokens_settings(self):
+        """ Widget to adjust max tokens settings """
+        # Create inner widget and layout to contain max tokens settings
+        self.max_tokens_inner_widget = QWidget()
+        max_tokens_inner_layout = QVBoxLayout(self.max_tokens_inner_widget)
+        # Create max_tokens label
         select_tokens_label = QLabel("Max Tokens")
         self.parent_class.window.assign_css_class(select_tokens_label, "setting_name")
         select_tokens_label.setAlignment(Qt.Alignment.AlignCenter)
-        tokens_slider_layout = QHBoxLayout()
+        # Create widgets and slider's sub-layout
+        tokens_slider_sub_layout = QHBoxLayout()
         min_tokens_label = QLabel("150")
         self.max_tokens_label = QLabel("4096")
         self.tokens_slider = QSlider(Qt.Horizontal)
@@ -126,11 +129,11 @@ class ChangeSettings(QObject):
         # Adjust labels settings and width
         self.max_tokens_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
         min_tokens_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
-        min_tokens_label.setFixedWidth(30)
-        self.max_tokens_label.setFixedWidth(30)
-        tokens_slider_layout.setStretchFactor(min_tokens_label, 0)
-        tokens_slider_layout.setStretchFactor(self.tokens_slider, 1)
-        tokens_slider_layout.setStretchFactor(self.max_tokens_label, 0)
+        min_tokens_label.setFixedWidth(20)
+        self.max_tokens_label.setFixedWidth(20)
+        tokens_slider_sub_layout.setStretchFactor(min_tokens_label, 0)
+        tokens_slider_sub_layout.setStretchFactor(self.tokens_slider, 1)
+        tokens_slider_sub_layout.setStretchFactor(self.max_tokens_label, 0)
         self.parent_class.window.assign_css_class(min_tokens_label, "slider_value_label")
         self.parent_class.window.assign_css_class(self.max_tokens_label, "slider_value_label")
         # Adjust slider's settings
@@ -138,16 +141,19 @@ class ChangeSettings(QObject):
         self.tokens_slider.setMaximum(4096)
         self.tokens_slider.setTickInterval(100)
         self.tokens_slider.setSingleStep(100)
-        self.tokens_slider.valueChanged.connect(self.on_max_tokens_slider_changed)
-        # Add widgets and slider's layout to modal's layout
-        self.change_settings_layout.addWidget(select_tokens_label)
-        tokens_slider_layout.addWidget(min_tokens_label)
-        tokens_slider_layout.addWidget(self.tokens_slider)
-        tokens_slider_layout.addWidget(self.max_tokens_label)
-        self.change_settings_layout.addLayout(tokens_slider_layout)
-        self.change_settings_layout.addWidget(self.max_tokens_current_value_label)
+        self.tokens_slider.valueChanged.connect(self.on_max_tokens_settings_changed)
+        # Add widgets and slider to max_tokens slider sub layout
+        tokens_slider_sub_layout.addWidget(min_tokens_label)
+        tokens_slider_sub_layout.addWidget(self.tokens_slider)
+        tokens_slider_sub_layout.addWidget(self.max_tokens_label)
+        # Add label, slider sub layout and current value to max tokens inner layout
+        max_tokens_inner_layout.addWidget(select_tokens_label)
+        max_tokens_inner_layout.addLayout(tokens_slider_sub_layout)
+        max_tokens_inner_layout.addWidget(self.max_tokens_current_value_label)
+        # Add temperture inner widget to main layout
+        self.change_settings_layout.addWidget(self.max_tokens_inner_widget)
 
-    def on_max_tokens_slider_changed(self):
+    def on_max_tokens_settings_changed(self):
         selected_max_tokens_value = self.tokens_slider.value()
         self.max_tokens_current_value_label.setText(str(selected_max_tokens_value))
 
