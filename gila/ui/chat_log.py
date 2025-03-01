@@ -2,7 +2,6 @@ import os
 import pickle
 
 import markdown
-import tiktoken
 
 from PySide6.QtCore import QObject, QSize, Signal, Slot, QTimer
 from PySide6.QtGui import QIcon, QPixmap, Qt
@@ -16,19 +15,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from .utils.custom_qt import CustomTextEdit, CustomWebView
-
-
-class Tokenizer:
-
-    def __init__(self):
-        pass
-
-    def get_num_of_tokens(self, text):
-        encoding = tiktoken.get_encoding("cl100k_base")
-        encoding.encode(text)
-        num_tokens = len(encoding.encode(text))
-        return num_tokens
+from .utils import CustomTextEdit, CustomWebView, Tokenizer
 
 
 class Chat(QObject):
