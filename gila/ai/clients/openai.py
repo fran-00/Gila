@@ -29,9 +29,11 @@ class OpenAIDalleClient(APIClient):
         data = {
             "model": self.llm,
             "prompt": prompt,
-            "n": 1,
-            "size": "256x256"
+            "size": self.image_size,
         }
+        if self.llm in ["dall-e-2"]:
+            data['n'] = self.image_quantity
+            data['quality'] = self.image_quality.lower()
         return {
             "endpoint": endpoint,
             "headers": headers,
@@ -42,7 +44,6 @@ class OpenAIDalleClient(APIClient):
         params = self._get_request_params(prompt)
         try:
             response = self._send_request(**params)
-            print(response)
             ai_response, response_info = self._extract_response_data(response)
 
             return True, ai_response, response_info
