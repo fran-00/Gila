@@ -385,6 +385,7 @@ class ChangeSettings(QObject):
     def on_show_image_settings(self):
         self.image_size_inner_widget.show()
         self.image_quality_inner_widget.show()
+        self.image_quantity_inner_widget.show()
         self.temperature_inner_widget.hide()
         self.max_tokens_inner_widget.hide()
         self.system_message_inner_widget.hide()
@@ -392,6 +393,7 @@ class ChangeSettings(QObject):
     def on_hide_image_settings(self):
         self.image_size_inner_widget.hide()
         self.image_quality_inner_widget.hide()
+        self.image_quantity_inner_widget.hide()
         self.temperature_inner_widget.show()
         self.max_tokens_inner_widget.show()
         self.system_message_inner_widget.show()
