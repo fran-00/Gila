@@ -36,7 +36,7 @@ class ChangeSettings(QObject):
     def on_change_settings_layout(self):
         self.change_settings_layout = QVBoxLayout(self.widget_container)
         self.change_settings_layout.setAlignment(Qt.Alignment.AlignTop)
-        self.on_llms_combobox()
+        self.on_llms_settings()
         self.add_line_separator(self.change_settings_layout)
         self.on_temperature_settings()
         self.on_image_size_settings()
@@ -52,14 +52,7 @@ class ChangeSettings(QObject):
 
         self.on_hide_image_settings()
 
-    def on_settings_changed(self):
-        """Connects settings widgets to send_new_settings_to_controller signal"""
-        self.llms_combobox.currentIndexChanged.connect(self.send_new_settings_to_controller)
-        self.temperature_slider.valueChanged.connect(self.send_new_settings_to_controller)
-        self.tokens_slider.valueChanged.connect(self.send_new_settings_to_controller)
-        self.system_message_input.textChanged.connect(self.send_new_settings_to_controller)
-
-    def on_llms_combobox(self):
+    def on_llms_settings(self):
         """ Creates ComboBox with llms list """
         select_llm_label = QLabel("Model")
         self.parent_class.window.assign_css_class(select_llm_label, "setting_name")
@@ -180,6 +173,130 @@ class ChangeSettings(QObject):
         # Add system message inner widget to main layout
         self.change_settings_layout.addWidget(self.system_message_inner_widget)
 
+    def on_image_size_settings(self):
+        """ Widget to adjust image size settings """
+        # Create inner widget and layout to contain image size settings
+        self.image_size_inner_widget = QWidget()
+        image_size_inner_layout = QVBoxLayout(self.image_size_inner_widget)
+        # Create image size label
+        select_image_size_label = QLabel("Image Size")
+        self.parent_class.window.assign_css_class(select_image_size_label, "setting_name")
+        select_image_size_label.setAlignment(Qt.Alignment.AlignCenter)
+        # Create widget's button group with all checkboxes
+        self.size_group = QButtonGroup(self)
+        self.size_group.setExclusive(True)  
+        self.checkbox_256x256 = QCheckBox("256x256")
+        self.checkbox_512x512 = QCheckBox("512x512")
+        self.checkbox_1024x1024 = QCheckBox("1024x1024")
+        self.checkbox_1024x1792 = QCheckBox("1024x1792")
+        self.checkbox_1792x1024 = QCheckBox("1792x1024")
+        self.size_group.addButton(self.checkbox_256x256)
+        self.size_group.addButton(self.checkbox_512x512)
+        self.size_group.addButton(self.checkbox_1024x1024)
+        self.size_group.addButton(self.checkbox_1024x1792)
+        self.size_group.addButton(self.checkbox_1792x1024)
+        # Add label and checkboxes to image size inner layout
+        image_size_inner_layout.addWidget(select_image_size_label)
+        image_size_inner_layout.addWidget(self.checkbox_256x256)
+        image_size_inner_layout.addWidget(self.checkbox_512x512)
+        image_size_inner_layout.addWidget(self.checkbox_1024x1024)
+        image_size_inner_layout.addWidget(self.checkbox_1024x1792)
+        image_size_inner_layout.addWidget(self.checkbox_1792x1024)
+        # Add image size inner widget to main layout
+        self.change_settings_layout.addWidget(self.image_size_inner_widget)
+
+    def on_image_quality_settings(self):
+        """ Widget to adjust image quality settings """
+        # Create inner widget and layout to contain image quality settings
+        self.image_quality_inner_widget = QWidget()
+        image_quality_inner_layout = QVBoxLayout(self.image_quality_inner_widget)
+        # Create image quality label
+        select_image_quality_label = QLabel("Image Quality")
+        self.parent_class.window.assign_css_class(select_image_quality_label, "setting_name")
+        select_image_quality_label.setAlignment(Qt.Alignment.AlignCenter)
+        # Create widget's button group with checkboxes
+        self.quality_group = QButtonGroup(self)
+        self.quality_group.setExclusive(True)
+        self.checkbox_standard = QCheckBox("Standard")
+        self.checkbox_hd = QCheckBox("HD")
+        self.quality_group.addButton(self.checkbox_standard)
+        self.quality_group.addButton(self.checkbox_hd)
+        # Add label and checkboxes to image quality inner layout
+        image_quality_inner_layout.addWidget(select_image_quality_label)
+        image_quality_inner_layout.addWidget(self.checkbox_standard)
+        image_quality_inner_layout.addWidget(self.checkbox_hd)
+        # Add image quality inner widget to main layout
+        self.change_settings_layout.addWidget(self.image_quality_inner_widget)
+
+    def on_image_quantity_settings(self):
+        """ Widget to adjust image quantity settings """
+        # Create inner widget and layout to contain max tokens settings
+        self.image_quantity_inner_widget = QWidget()
+        image_quantity_inner_layout = QVBoxLayout(self.image_quantity_inner_widget)
+        # Create max_tokens label
+        select_image_quantity_label = QLabel("Number of images")
+        self.parent_class.window.assign_css_class(select_image_quantity_label, "setting_name")
+        select_image_quantity_label.setAlignment(Qt.Alignment.AlignCenter)
+        # Create widgets and slider's sub-layout
+        image_quantity_slider_sub_layout = QHBoxLayout()
+        min_image_quantity_label = QLabel("1")
+        max_image_quantity_label = QLabel("10")
+        self.image_quantity_slider = QSlider(Qt.Horizontal)
+        self.max_image_quantity_current_value_label = QLabel("1", objectName="max_quantity_current_value_label")
+        # Adjust labels settings and width
+        self.max_image_quantity_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
+        min_image_quantity_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
+        min_image_quantity_label.setFixedWidth(20)
+        max_image_quantity_label.setFixedWidth(20)
+        image_quantity_slider_sub_layout.setStretchFactor(min_image_quantity_label, 0)
+        image_quantity_slider_sub_layout.setStretchFactor(self.image_quantity_slider, 1)
+        image_quantity_slider_sub_layout.setStretchFactor(max_image_quantity_label, 0)
+        self.parent_class.window.assign_css_class(min_image_quantity_label, "slider_value_label")
+        self.parent_class.window.assign_css_class(max_image_quantity_label, "slider_value_label")
+        # Adjust slider's settings
+        self.image_quantity_slider.setMinimum(1)
+        self.image_quantity_slider.setMaximum(10)
+        self.image_quantity_slider.setTickInterval(1)
+        self.image_quantity_slider.setSingleStep(1)
+        self.image_quantity_slider.valueChanged.connect(self.on_image_quantity_settings_changed)
+        # Add widgets and slider to image quantity slider sub layout
+        image_quantity_slider_sub_layout.addWidget(min_image_quantity_label)
+        image_quantity_slider_sub_layout.addWidget(self.image_quantity_slider)
+        image_quantity_slider_sub_layout.addWidget(max_image_quantity_label)
+        # Add label, slider sub layout and current value to max tokens inner layout
+        image_quantity_inner_layout.addWidget(select_image_quantity_label)
+        image_quantity_inner_layout.addLayout(image_quantity_slider_sub_layout)
+        image_quantity_inner_layout.addWidget(self.max_image_quantity_current_value_label)
+        # Add temperture inner widget to main layout
+        self.change_settings_layout.addWidget(self.image_quantity_inner_widget)
+
+    def on_image_quantity_settings_changed(self):
+        self.max_image_quantity_current_value_label.setText(str(self.image_quantity_slider.value()))
+
+    def add_line_separator(self, layout):
+        line = QFrame()
+        line.setFrameShape(QFrame.HLine)
+        line.setFrameShadow(QFrame.Sunken)
+        line.setMaximumHeight(1)
+        self.parent_class.window.assign_css_class(line, "line_separator")
+        layout.addWidget(line)
+
+    def on_show_image_settings(self):
+        self.image_size_inner_widget.show()
+        self.image_quality_inner_widget.show()
+        self.image_quantity_inner_widget.show()
+        self.temperature_inner_widget.hide()
+        self.max_tokens_inner_widget.hide()
+        self.system_message_inner_widget.hide()
+
+    def on_hide_image_settings(self):
+        self.image_size_inner_widget.hide()
+        self.image_quality_inner_widget.hide()
+        self.image_quantity_inner_widget.hide()
+        self.temperature_inner_widget.show()
+        self.max_tokens_inner_widget.show()
+        self.system_message_inner_widget.show()
+
     def send_new_settings_to_controller(self):
         """ Sends new settings to controller: signal is triggered when
             Confirm Button is pressed
@@ -253,14 +370,6 @@ class ChangeSettings(QObject):
             self.checkbox_1792x1024.show()
             self.checkbox_hd.show()
 
-    def add_line_separator(self, layout):
-        line = QFrame()
-        line.setFrameShape(QFrame.HLine)
-        line.setFrameShadow(QFrame.Sunken)
-        line.setMaximumHeight(1)
-        self.parent_class.window.assign_css_class(line, "line_separator")
-        layout.addWidget(line)
-
     def load_settings_from_json(self):
         """Loads the saved settings from the JSON file and sets values"""
         try:
@@ -282,118 +391,9 @@ class ChangeSettings(QObject):
         except (FileNotFoundError, json.JSONDecodeError):
             return
 
-    def on_image_quantity_settings(self):
-        """ Widget to adjust image quantity settings """
-        # Create inner widget and layout to contain max tokens settings
-        self.image_quantity_inner_widget = QWidget()
-        image_quantity_inner_layout = QVBoxLayout(self.image_quantity_inner_widget)
-        # Create max_tokens label
-        select_image_quantity_label = QLabel("Number of images")
-        self.parent_class.window.assign_css_class(select_image_quantity_label, "setting_name")
-        select_image_quantity_label.setAlignment(Qt.Alignment.AlignCenter)
-        # Create widgets and slider's sub-layout
-        image_quantity_slider_sub_layout = QHBoxLayout()
-        min_image_quantity_label = QLabel("1")
-        max_image_quantity_label = QLabel("10")
-        self.image_quantity_slider = QSlider(Qt.Horizontal)
-        self.max_image_quantity_current_value_label = QLabel("1", objectName="max_quantity_current_value_label")
-        # Adjust labels settings and width
-        self.max_image_quantity_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
-        min_image_quantity_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
-        min_image_quantity_label.setFixedWidth(20)
-        max_image_quantity_label.setFixedWidth(20)
-        image_quantity_slider_sub_layout.setStretchFactor(min_image_quantity_label, 0)
-        image_quantity_slider_sub_layout.setStretchFactor(self.image_quantity_slider, 1)
-        image_quantity_slider_sub_layout.setStretchFactor(max_image_quantity_label, 0)
-        self.parent_class.window.assign_css_class(min_image_quantity_label, "slider_value_label")
-        self.parent_class.window.assign_css_class(max_image_quantity_label, "slider_value_label")
-        # Adjust slider's settings
-        self.image_quantity_slider.setMinimum(1)
-        self.image_quantity_slider.setMaximum(10)
-        self.image_quantity_slider.setTickInterval(1)
-        self.image_quantity_slider.setSingleStep(1)
-        self.image_quantity_slider.valueChanged.connect(self.on_image_quantity_settings_changed)
-        # Add widgets and slider to image quantity slider sub layout
-        image_quantity_slider_sub_layout.addWidget(min_image_quantity_label)
-        image_quantity_slider_sub_layout.addWidget(self.image_quantity_slider)
-        image_quantity_slider_sub_layout.addWidget(max_image_quantity_label)
-        # Add label, slider sub layout and current value to max tokens inner layout
-        image_quantity_inner_layout.addWidget(select_image_quantity_label)
-        image_quantity_inner_layout.addLayout(image_quantity_slider_sub_layout)
-        image_quantity_inner_layout.addWidget(self.max_image_quantity_current_value_label)
-        # Add temperture inner widget to main layout
-        self.change_settings_layout.addWidget(self.image_quantity_inner_widget)
-
-    def on_image_quantity_settings_changed(self):
-        self.max_image_quantity_current_value_label.setText(str(self.image_quantity_slider.value()))
-
-    def on_image_size_settings(self):
-        """ Widget to adjust image size settings """
-        # Create inner widget and layout to contain image size settings
-        self.image_size_inner_widget = QWidget()
-        image_size_inner_layout = QVBoxLayout(self.image_size_inner_widget)
-        # Create image size label
-        select_image_size_label = QLabel("Image Size")
-        self.parent_class.window.assign_css_class(select_image_size_label, "setting_name")
-        select_image_size_label.setAlignment(Qt.Alignment.AlignCenter)
-        # Create widget's button group with all checkboxes
-        self.size_group = QButtonGroup(self)
-        self.size_group.setExclusive(True)  
-        self.checkbox_256x256 = QCheckBox("256x256")
-        self.checkbox_512x512 = QCheckBox("512x512")
-        self.checkbox_1024x1024 = QCheckBox("1024x1024")
-        self.checkbox_1024x1792 = QCheckBox("1024x1792")
-        self.checkbox_1792x1024 = QCheckBox("1792x1024")
-        self.size_group.addButton(self.checkbox_256x256)
-        self.size_group.addButton(self.checkbox_512x512)
-        self.size_group.addButton(self.checkbox_1024x1024)
-        self.size_group.addButton(self.checkbox_1024x1792)
-        self.size_group.addButton(self.checkbox_1792x1024)
-        # Add label and checkboxes to image size inner layout
-        image_size_inner_layout.addWidget(select_image_size_label)
-        image_size_inner_layout.addWidget(self.checkbox_256x256)
-        image_size_inner_layout.addWidget(self.checkbox_512x512)
-        image_size_inner_layout.addWidget(self.checkbox_1024x1024)
-        image_size_inner_layout.addWidget(self.checkbox_1024x1792)
-        image_size_inner_layout.addWidget(self.checkbox_1792x1024)
-        # Add image size inner widget to main layout
-        self.change_settings_layout.addWidget(self.image_size_inner_widget)
-
-    def on_image_quality_settings(self):
-        """ Widget to adjust image quality settings """
-        # Create inner widget and layout to contain image quality settings
-        self.image_quality_inner_widget = QWidget()
-        image_quality_inner_layout = QVBoxLayout(self.image_quality_inner_widget)
-        # Create image quality label
-        select_image_quality_label = QLabel("Image Quality")
-        self.parent_class.window.assign_css_class(select_image_quality_label, "setting_name")
-        select_image_quality_label.setAlignment(Qt.Alignment.AlignCenter)
-        # Create widget's button group with checkboxes
-        self.quality_group = QButtonGroup(self)
-        self.quality_group.setExclusive(True)
-        self.checkbox_standard = QCheckBox("Standard")
-        self.checkbox_hd = QCheckBox("HD")
-        self.quality_group.addButton(self.checkbox_standard)
-        self.quality_group.addButton(self.checkbox_hd)
-        # Add label and checkboxes to image quality inner layout
-        image_quality_inner_layout.addWidget(select_image_quality_label)
-        image_quality_inner_layout.addWidget(self.checkbox_standard)
-        image_quality_inner_layout.addWidget(self.checkbox_hd)
-        # Add image quality inner widget to main layout
-        self.change_settings_layout.addWidget(self.image_quality_inner_widget)
-
-    def on_show_image_settings(self):
-        self.image_size_inner_widget.show()
-        self.image_quality_inner_widget.show()
-        self.image_quantity_inner_widget.show()
-        self.temperature_inner_widget.hide()
-        self.max_tokens_inner_widget.hide()
-        self.system_message_inner_widget.hide()
-
-    def on_hide_image_settings(self):
-        self.image_size_inner_widget.hide()
-        self.image_quality_inner_widget.hide()
-        self.image_quantity_inner_widget.hide()
-        self.temperature_inner_widget.show()
-        self.max_tokens_inner_widget.show()
-        self.system_message_inner_widget.show()
+    def on_settings_changed(self):
+        """Connects settings widgets to send_new_settings_to_controller signal"""
+        self.llms_combobox.currentIndexChanged.connect(self.send_new_settings_to_controller)
+        self.temperature_slider.valueChanged.connect(self.send_new_settings_to_controller)
+        self.tokens_slider.valueChanged.connect(self.send_new_settings_to_controller)
+        self.system_message_input.textChanged.connect(self.send_new_settings_to_controller)
