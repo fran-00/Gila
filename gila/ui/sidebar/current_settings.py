@@ -66,10 +66,11 @@ class CurrentSettings(QObject):
                 f"<b>Max tokens</b>: {self.current_max_tokens}<br>"
             )
         else:
+            num_images = 1 if self.current_llm == "DALL-E 3" else self.current_image_quantity
             extra = (
                 f"<b>Size</b>: {self.current_image_size}<br>"
                 f"<b>Quality</b>: {self.current_image_quality}<br>"
-                f"<b>N. of images</b>: {self.current_image_quantity}<br>"
+                f"<b>N. of images</b>: {num_images}<br>"
             )
 
         last_message = f"<b>Last message</b>: {self.current_chat_date or 'Just created'}"
