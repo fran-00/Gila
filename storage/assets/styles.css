@@ -40,6 +40,10 @@ QLabel#gila_title {
     font-weight: 600;
 }
 
+QLabel#settings_label {
+    font-size: 14px;
+}
+
 QLabel#chat_title_label {
     font-family: 'Bruno Ace SC';
     font-size: 25px;
