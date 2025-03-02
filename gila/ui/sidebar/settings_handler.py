@@ -69,6 +69,7 @@ class SettingsHandler(QObject):
         # Create inner widget and layout to contain temperature settings
         self.temperature_inner_widget = QWidget()
         temperature_inner_layout = QVBoxLayout(self.temperature_inner_widget)
+        temperature_inner_layout.setContentsMargins(0, 0, 0, 0)
         # Create temperature label
         select_temperature_label = QLabel("Temperature")
         self.parent_class.window.assign_css_class(select_temperature_label, "setting_name")
@@ -82,8 +83,8 @@ class SettingsHandler(QObject):
         # Adjust labels settings and width
         self.temperature_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
         min_temperature_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
-        min_temperature_label.setFixedWidth(20)
-        self.max_temperature_label.setFixedWidth(20)
+        min_temperature_label.setFixedWidth(30)
+        self.max_temperature_label.setFixedWidth(30)
         temperature_slider_sub_layout.setStretchFactor(min_temperature_label, 0)
         temperature_slider_sub_layout.setStretchFactor(self.temperature_slider, 1)
         temperature_slider_sub_layout.setStretchFactor(self.max_temperature_label, 0)
@@ -115,6 +116,7 @@ class SettingsHandler(QObject):
         # Create inner widget and layout to contain max tokens settings
         self.max_tokens_inner_widget = QWidget()
         max_tokens_inner_layout = QVBoxLayout(self.max_tokens_inner_widget)
+        max_tokens_inner_layout.setContentsMargins(0, 0, 0, 0)
         # Create max_tokens label
         select_tokens_label = QLabel("Max Tokens")
         self.parent_class.window.assign_css_class(select_tokens_label, "setting_name")
@@ -128,8 +130,8 @@ class SettingsHandler(QObject):
         # Adjust labels settings and width
         self.max_tokens_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
         min_tokens_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
-        min_tokens_label.setFixedWidth(20)
-        self.max_tokens_label.setFixedWidth(20)
+        min_tokens_label.setFixedWidth(30)
+        self.max_tokens_label.setFixedWidth(30)
         tokens_slider_sub_layout.setStretchFactor(min_tokens_label, 0)
         tokens_slider_sub_layout.setStretchFactor(self.tokens_slider, 1)
         tokens_slider_sub_layout.setStretchFactor(self.max_tokens_label, 0)
@@ -161,6 +163,7 @@ class SettingsHandler(QObject):
         # Create inner widget and layout to contain system message
         self.system_message_inner_widget = QWidget()
         system_message_inner_layout = QVBoxLayout(self.system_message_inner_widget)
+        system_message_inner_layout.setContentsMargins(0, 0, 0, 0)
         # Create system message label
         system_message_label = QLabel("System Message")
         self.parent_class.window.assign_css_class(system_message_label, "setting_name")
@@ -178,6 +181,7 @@ class SettingsHandler(QObject):
         # Create inner widget and layout to contain image size settings
         self.image_size_inner_widget = QWidget()
         image_size_inner_layout = QVBoxLayout(self.image_size_inner_widget)
+        image_size_inner_layout.setContentsMargins(0, 0, 0, 0)
         # Create image size label
         select_image_size_label = QLabel("Image Size")
         self.parent_class.window.assign_css_class(select_image_size_label, "setting_name")
@@ -210,6 +214,7 @@ class SettingsHandler(QObject):
         # Create inner widget and layout to contain image quality settings
         self.image_quality_inner_widget = QWidget()
         image_quality_inner_layout = QVBoxLayout(self.image_quality_inner_widget)
+        image_quality_inner_layout.setContentsMargins(0, 0, 0, 0)
         # Create image quality label
         select_image_quality_label = QLabel("Image Quality")
         self.parent_class.window.assign_css_class(select_image_quality_label, "setting_name")
@@ -233,6 +238,7 @@ class SettingsHandler(QObject):
         # Create inner widget and layout to contain max tokens settings
         self.image_quantity_inner_widget = QWidget()
         image_quantity_inner_layout = QVBoxLayout(self.image_quantity_inner_widget)
+        image_quantity_inner_layout.setContentsMargins(0, 0, 0, 0)
         # Create max_tokens label
         select_image_quantity_label = QLabel("Number of images")
         self.parent_class.window.assign_css_class(select_image_quantity_label, "setting_name")
@@ -246,8 +252,8 @@ class SettingsHandler(QObject):
         # Adjust labels settings and width
         self.max_image_quantity_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
         min_image_quantity_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
-        min_image_quantity_label.setFixedWidth(20)
-        max_image_quantity_label.setFixedWidth(20)
+        min_image_quantity_label.setFixedWidth(30)
+        max_image_quantity_label.setFixedWidth(30)
         image_quantity_slider_sub_layout.setStretchFactor(min_image_quantity_label, 0)
         image_quantity_slider_sub_layout.setStretchFactor(self.image_quantity_slider, 1)
         image_quantity_slider_sub_layout.setStretchFactor(max_image_quantity_label, 0)
