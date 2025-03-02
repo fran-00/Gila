@@ -213,7 +213,7 @@ class Chat(QObject):
         QApplication.restoreOverrideCursor()
 
         formatted_response = self.convert_markdown_to_html(response)
-        if self.window.sidebar.current_settings.current_llm in ["DALL-E 2", "DALL-E 3"]:
+        if self.window.sidebar.current_settings.current_llm in ["DALL-E 2", "DALL-E 3"] and not "error" in response.lower():
             urls = response.split(", ")
             if len(urls) > 1:
                 formatted_response = "<div class='img-grid'>" + "".join(
