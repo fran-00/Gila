@@ -17,7 +17,7 @@ body {
     white-space: pre-wrap;
     max-width: 100%;
     overflow-wrap: break-word;
-    overflow-x: auto; 
+    overflow-x: auto;
 }
 
 .ai-wrapper .response {
@@ -102,6 +102,10 @@ td {
 .hljs-section,
 .hljs-link {
     color: #feceff;
+}
+
+.hljs-built_in {
+    color: #f9ffab;
 }
 
 .hljs-string,
