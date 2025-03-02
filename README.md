@@ -25,10 +25,10 @@ Currently supported large language models:
 - Command
 - Aya Expanse 8B
 - Aya Expanse 32B
-- Claude 3 Haiku
+- Claude 3.7 Sonnet
+- Claude 3.5 Sonnet v2
+- Claude 3.5 Haiku
 - Claude 3 Opus
-- Claude 3 Sonnet
-- Claude 3.5 Sonnet
 
 Currently supported text-to-image models:
 
@@ -74,7 +74,7 @@ When you select an LLM from the settings and start a new chat, if you have not s
 - [Mistral](https://console.mistral.ai/api-keys): Mistral Small, Mistral Nemo, Pixtral, Codestral Mamba
 - [Arli AI](https://www.arliai.com/account): Llama70B, Qwen2.5-32B
 - [Cohere](https://dashboard.cohere.com/api-keys): Command R7B, Command R+, Command R, Command, Aya Expanse 8B, Aya Expanse 32B
-- [Anthropic](https://console.anthropic.com/settings/keys): Claude 3 Haiku, Claude 3 Opus, Claude 3 Sonnet, Claude 3.5 Sonnet
+- [Anthropic](https://console.anthropic.com/settings/keys): Claude 3.7 Sonnet, Claude 3.5 Sonnet v2, Claude 3.5 Haiku, Claude 3 Opus
 
 If valid, the entered API keys will be saved in a **.env** file in the root of the project and will be read by Gila as environmental variables.
 
