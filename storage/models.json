@@ -1,27 +1,177 @@
 {
-    "GPT-4o mini": [16384, 2],
-    "GPT-4o": [4096, 2],
-    "GPT-4": [8192, 2],
-    "GPT-4 Turbo": [4096, 2],
-    "GPT-4.5 preview": [16384, 2],
-    "Gemini 2.0 Flash": [8192, 2],
-    "Gemini 1.5 Flash": [8192, 2],
-    "Gemini 1.5 Pro": [8192, 2],
-    "DeepSeek-V3": [8192, 2],
-    "DeepSeek-R1": [8192, 2],
-    "Mistral Small": [32000, 1],
-    "Pixtral": [131000, 1],
-    "Mistral Nemo": [131000, 1],
-    "Codestral Mamba": [256000, 1],
-    "Command": [4000, 1],
-    "Command R": [4000, 1],
-    "Command R+": [4000, 1],
-    "Llama70B": [8196, 1],
-    "Qwen2.5-32B": [8000, 1],
-    "Claude 3 Haiku": [4096, 1],
-    "Claude 3 Opus": [4096, 1],
-    "Claude 3 Sonnet": [4096, 1],
-    "Claude 3.5 Sonnet": [8192, 1],
-    "DALL-E 2": [4096, 1],
-    "DALL-E 3": [4096, 1]
+    "GPT-4o mini": {
+      "limits": [16384, 2],
+      "client": {
+        "class": "OpenAIClient",
+        "model": ["gpt-4o-mini"]
+      }
+    },
+    "GPT-4o": {
+      "limits": [4096, 2],
+      "client": {
+        "class": "OpenAIClient",
+        "model": ["gpt-4o"]
+      }
+    },
+    "GPT-4": {
+      "limits": [8192, 2],
+      "client": {
+        "class": "OpenAIClient",
+        "model": ["gpt-4"]
+      }
+    },
+    "GPT-4 Turbo": {
+      "limits": [4096, 2],
+      "client": {
+        "class": "OpenAIClient",
+        "model": ["gpt-4-turbo"]
+      }
+    },
+    "GPT-4.5 preview": {
+      "limits": [16384, 2],
+      "client": {
+        "class": "OpenAIClient",
+        "model": ["gpt-4.5-preview"]
+      }
+    },
+    "Gemini 2.0 Flash": {
+      "limits": [8192, 2],
+      "client": {
+        "class": "GoogleClient",
+        "model": ["gemini-2.0-flash"]
+      }
+    },
+    "Gemini 1.5 Flash": {
+      "limits": [8192, 2],
+      "client": {
+        "class": "GoogleClient",
+        "model": ["gemini-1.5-flash"]
+      }
+    },
+    "Gemini 1.5 Pro": {
+      "limits": [8192, 2],
+      "client": {
+        "class": "GoogleClient",
+        "model": ["gemini-1.5-pro"]
+      }
+    },
+    "DeepSeek-V3": {
+      "limits": [8192, 2],
+      "client": {
+        "class": "DeepSeekClient",
+        "model": ["deepseek-chat"]
+      }
+    },
+    "DeepSeek-R1": {
+      "limits": [8192, 2],
+      "client": {
+        "class": "DeepSeekClient",
+        "model": ["deepseek-reasoner"]
+      }
+    },
+    "Mistral Small": {
+      "limits": [32000, 1],
+      "client": {
+        "class": "MistralClient",
+        "model": ["mistral-small-latest"]
+      }
+    },
+    "Mistral Nemo": {
+      "limits": [131000, 1],
+      "client": {
+        "class": "MistralClient",
+        "model": ["open-mistral-nemo"]
+      }
+    },
+    "Pixtral": {
+      "limits": [131000, 1],
+      "client": {
+        "class": "MistralClient",
+        "model": ["pixtral-12b-2409"]
+      }
+    },
+    "Codestral Mamba": {
+      "limits": [256000, 1],
+      "client": {
+        "class": "MistralClient",
+        "model": ["open-codestral-mamba"]
+      }
+    },
+    "Command": {
+      "limits": [4000, 1],
+      "client": {
+        "class": "CohereClient",
+        "model": ["command"]
+      }
+    },
+    "Command R": {
+      "limits": [4000, 1],
+      "client": {
+        "class": "CohereClient",
+        "model": ["command-r"]
+      }
+    },
+    "Command R+": {
+      "limits": [4000, 1],
+      "client": {
+        "class": "CohereClient",
+        "model": ["command-r-plus"]
+      }
+    },
+    "Llama70B": {
+      "limits": [8196, 1],
+      "client": {
+        "class": "ArliClient",
+        "model": ["Llama-3.3-70B-Instruct"]
+      }
+    },
+    "Qwen2.5-32B": {
+      "limits": [8000, 1],
+      "client": {
+        "class": "ArliClient",
+        "model": ["Qwen2.5-32B-Instruct"]
+      }
+    },
+    "Claude 3 Haiku": {
+      "limits": [4096, 1],
+      "client": {
+        "class": "AnthropicClient",
+        "model": ["claude-3-haiku-20240307"]
+      }
+    },
+    "Claude 3 Opus": {
+      "limits": [4096, 1],
+      "client": {
+        "class": "AnthropicClient",
+        "model": ["claude-3-opus-20240229"]
+      }
+    },
+    "Claude 3 Sonnet": {
+      "limits": [4096, 1],
+      "client": {
+        "class": "AnthropicClient",
+        "model": ["claude-3-sonnet-20240229"]
+      }
+    },
+    "Claude 3.5 Sonnet": {
+      "limits": [8192, 1],
+      "client": {
+        "class": "AnthropicClient",
+        "model": ["claude-3-5-sonnet-20240620"]
+      }
+    },
+    "DALL-E 2": {
+      "limits": [4096, 1],
+      "client": {
+        "class": "OpenAIDalleClient",
+        "model": ["dall-e-2"]
+      }
+    },
+    "DALL-E 3": {
+      "limits": [4096, 1],
+      "client": {
+        "class": "OpenAIDalleClient",
+        "model": ["dall-e-3"]
+      }
+    }
   }
