@@ -7,9 +7,28 @@ from PySide6.QtWidgets import QFileDialog, QMenu, QTextEdit
 
 
 class CustomTextEdit(QTextEdit):
+    """Custom text edit widget that extends QTextEdit to handle specific events.
+
+    This class is used to manage the text box for entering prompts in the chat
+    application.
+    """
     returnPressed = Signal()
 
     def keyPressEvent(self, event):
+        """Handle key press events to emit the returnPressed signal.
+        
+        Ensure that prompts can be submitted when the return or enter key is
+        pressed, which is a behavior that, by default, is typically only
+        available in QLineEdit widgets.
+
+        If the pressed key is the return or enter key, this method emits 
+        the `returnPressed` signal. For all other keys, it calls the 
+        superclass implementation to ensure normal behavior.
+
+        Args:
+            event (QKeyEvent): The key event containing information about 
+                               the key press.
+        """
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
             self.returnPressed.emit()
         else:
@@ -32,6 +51,11 @@ class CustomTextEdit(QTextEdit):
 
 
 class CustomWebView(QWebEngineView):
+    """Custom web view that extends QWebEngineView to implement a context menu.
+
+    This class sets up a custom context menu for the web view, allowing 
+    users to interact with specific elements in the rendered web content. 
+    """
     def __init__(self):
         super().__init__()
         self.setContextMenuPolicy(Qt.CustomContextMenu)
