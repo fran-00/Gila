@@ -1,5 +1,6 @@
 import os
 import pickle
+import html
 import bleach
 
 import markdown
@@ -156,8 +157,7 @@ class Chat(QObject):
 
         This method performs the following actions:
         - Checks if the prompt is not empty.
-        - Sanitizes the prompt to allow only certain HTML tags and attributes
-          using bleach library.
+        - Sanitizes the prompt using html.escape and bleach library.
         - Appends the sanitized prompt to the chat log in HTML format.
         - Updates the HTML page to reflect the new user prompt.
         - Disables the send button to prevent multiple submissions.
@@ -172,12 +172,8 @@ class Chat(QObject):
             prompt (str): The user input prompt to be processed.
         """
         if prompt != "":
-            allowed_tags = [
-                'b', 'i', 'u', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li', 
-                'span', 'div', 'code'
-            ]
-            allowed_attributes = {'a': ['href', 'title']}
-            sanitized_prompt = bleach.clean(prompt, tags=allowed_tags, attributes=allowed_attributes, strip=True)
+            escaped_prompt = html.escape(prompt)
+            sanitized_prompt = bleach.clean(escaped_prompt)
 
             self.chat_html_logs.append(f"""
                 <div class='user-wrapper'>
