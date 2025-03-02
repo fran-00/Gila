@@ -1,3 +1,5 @@
+import json
+
 from PySide6.QtCore import QObject
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
 
@@ -8,35 +10,18 @@ class CurrentSettings(QObject):
         super().__init__()
         self.parent_widget = parent_widget
         self.current_llm = None
-        self.llms = [
-            "GPT-4o mini",
-            "GPT-4o",
-            "GPT-4",
-            "GPT-4 Turbo",
-            "GPT-4.5 preview",
-            "Gemini 2.0 Flash",
-            "Gemini 1.5 Flash",
-            "Gemini 1.5 Pro",
-            "DeepSeek-V3",
-            "DeepSeek-R1",
-            "Mistral Small",
-            "Mistral Nemo",
-            "Pixtral",
-            "Codestral Mamba",
-            "Command",
-            "Command R",
-            "Command R+",
-            "Llama70B",
-            "Qwen2.5-32B",
-            "Claude 3 Haiku",
-            "Claude 3 Opus",
-            "Claude 3 Sonnet",
-            "Claude 3.5 Sonnet",
-            "DALL-E 2",
-            "DALL-E 3",
-        ]
+        self.llms = self.get_models_from_json()
         self.widget_container = QWidget(objectName="current_settings_widget")
         self.on_current_settings_layout()
+
+    def get_models_from_json(self):
+        try:
+            with open('storage/models.json', 'r') as file:
+                limits = json.load(file)
+                return list(limits.keys())
+        except FileNotFoundError:
+            print("File models.json not found.")
+            return []
 
     def on_current_settings_layout(self):
         current_settings_layout = QVBoxLayout(self.widget_container)

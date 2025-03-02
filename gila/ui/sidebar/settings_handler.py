@@ -330,41 +330,22 @@ class SettingsHandler(QObject):
     def change_needed_settings(self):
         """ Adjusts token limits and temperature range, based on a given model. """
         self.selected_llm = self.llms_combobox.currentText()
-        limits = {
-            "GPT-4o mini": (16384, 2),
-            "GPT-4o": (4096, 2),
-            "GPT-4": (8192, 2),
-            "GPT-4 Turbo": (4096, 2),
-            "GPT-4.5 preview": (16384, 2),
-            "Gemini 2.0 Flash": (8192, 2),
-            "Gemini 1.5 Flash": (8192, 2),
-            "Gemini 1.5 Pro": (8192, 2),
-            "DeepSeek-V3": (8192, 2),
-            "DeepSeek-R1": (8192, 2),
-            "Mistral Small": (32000, 1),
-            "Pixtral": (131000, 1),
-            "Mistral Nemo": (131000, 1),
-            "Codestral Mamba": (256000, 1),
-            "Command": (4000, 1),
-            "Command R": (4000, 1),
-            "Command R+": (4000, 1),
-            "Llama70B": (8196, 1),
-            "Qwen2.5-32B": (8000, 1),
-            "Claude 3 Haiku": (4096, 1),
-            "Claude 3 Opus": (4096, 1),
-            "Claude 3 Sonnet": (4096, 1),
-            "Claude 3.5 Sonnet": (8192, 1),
-            # WARNING, they must values supported by other models!
-            "DALL-E 2": (4096, 1),
-            "DALL-E 3": (4096, 1),
-        }
-        default_tokens = (4096, 1)
+        limits = self.get_limits_from_json()
+        default_tokens = [4096, 1]
         max_tokens, max_temp = limits.get(self.selected_llm, default_tokens)
         self.check_if_image()
         self.tokens_slider.setMaximum(max_tokens)
         self.max_tokens_label.setText(str(max_tokens))
         self.temperature_slider.setMaximum(20 if max_temp == 2 else 10)
         self.max_temperature_label.setText(str(max_temp))
+
+    def get_limits_from_json(self):
+        try:
+            with open('storage/models.json', 'r') as file:
+                return json.load(file)
+        except FileNotFoundError:
+            print("File models.json not found.")
+            return {}
 
     def check_if_image(self):
         if self.selected_llm in ["DALL-E 2", "DALL-E 3"]:
