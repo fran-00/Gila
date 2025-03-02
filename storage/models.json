@@ -97,11 +97,18 @@
         "model": ["open-codestral-mamba"]
       }
     },
-    "Command": {
+    "Command R7B": {
       "limits": [4000, 1],
       "client": {
         "class": "CohereClient",
-        "model": ["command"]
+        "model": ["command-r7b-12-2024"]
+      }
+    },
+    "Command R+": {
+      "limits": [4000, 1],
+      "client": {
+        "class": "CohereClient",
+        "model": ["command-r-plus"]
       }
     },
     "Command R": {
@@ -111,11 +118,25 @@
         "model": ["command-r"]
       }
     },
-    "Command R+": {
+    "Command": {
       "limits": [4000, 1],
       "client": {
         "class": "CohereClient",
-        "model": ["command-r-plus"]
+        "model": ["command"]
+      }
+    },
+    "Aya Expanse 8B": {
+      "limits": [4000, 1],
+      "client": {
+        "class": "CohereClient",
+        "model": ["c4ai-aya-expanse-8b"]
+      }
+    },
+    "Aya Expanse 32B": {
+      "limits": [4000, 1],
+      "client": {
+        "class": "CohereClient",
+        "model": ["c4ai-aya-expanse-32b"]
       }
     },
     "Llama70B": {

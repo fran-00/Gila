@@ -19,9 +19,12 @@ Currently supported large language models:
 - Codestral Mamba
 - Llama70B
 - Qwen2.5-32B
-- Command
-- Command R
+- Command R7B
 - Command R+
+- Command R
+- Command
+- Aya Expanse 8B
+- Aya Expanse 32B
 - Claude 3 Haiku
 - Claude 3 Opus
 - Claude 3 Sonnet
@@ -70,7 +73,7 @@ When you select an LLM from the settings and start a new chat, if you have not s
 - [DeepSeek](https://platform.deepseek.com/api_keys): DeepSeek-V3, DeepSeek-R1
 - [Mistral](https://console.mistral.ai/api-keys): Mistral Small, Mistral Nemo, Pixtral, Codestral Mamba
 - [Arli AI](https://www.arliai.com/account): Llama70B, Qwen2.5-32B
-- [Cohere](https://dashboard.cohere.com/api-keys): Command, Command R, Command R+
+- [Cohere](https://dashboard.cohere.com/api-keys): Command R7B, Command R+, Command R, Command, Aya Expanse 8B, Aya Expanse 32B
 - [Anthropic](https://console.anthropic.com/settings/keys): Claude 3 Haiku, Claude 3 Opus, Claude 3 Sonnet, Claude 3.5 Sonnet
 
 If valid, the entered API keys will be saved in a **.env** file in the root of the project and will be read by Gila as environmental variables.
