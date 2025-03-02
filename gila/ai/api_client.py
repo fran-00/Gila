@@ -118,8 +118,9 @@ class APIClient(ABC):
 
         try:
             response = self._send_request(**params)
-            if "error" in response:
-                raise Exception(response["error"])
+            error_message = response.get("error")
+            if error_message:
+                raise Exception(error_message)
 
             ai_response, response_info = self._extract_response_data(response)
             self.last_response_info = response_info
