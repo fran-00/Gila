@@ -44,10 +44,12 @@ class OpenAIDalleClient(APIClient):
         params = self._get_request_params(prompt)
         try:
             response = self._send_request(**params)
+            error_message = response.get("error")
+            if error_message:
+                raise Exception(error_message)
             ai_response, response_info = self._extract_response_data(response)
-
             return True, ai_response, response_info
-        except KeyError as e:
+        except Exception as e:
             return False, str(e), None
 
     def _extract_response_data(self, response):
