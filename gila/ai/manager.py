@@ -18,32 +18,15 @@ from .clients import (
 )
 
 
-AVAILABLE_MODELS = {
-    "GPT-4o mini": OpenAIClient("gpt-4o-mini"),
-    "GPT-4o": OpenAIClient("gpt-4o"),
-    "GPT-4": OpenAIClient("gpt-4"),
-    "GPT-4 Turbo": OpenAIClient("gpt-4-turbo"),
-    "GPT-4.5 preview": OpenAIClient("gpt-4.5-preview"),
-    "Gemini 2.0 Flash": GoogleClient("gemini-2.0-flash"),
-    "Gemini 1.5 Flash": GoogleClient("gemini-1.5-flash"),
-    "Gemini 1.5 Pro": GoogleClient("gemini-1.5-pro"),
-    "DeepSeek-V3": DeepSeekClient("deepseek-chat"),
-    "DeepSeek-R1": DeepSeekClient("deepseek-reasoner"),
-    "Mistral Small": MistralClient("mistral-small-latest"),
-    "Mistral Nemo": MistralClient("open-mistral-nemo"),
-    "Pixtral": MistralClient("pixtral-12b-2409"),
-    "Codestral Mamba": MistralClient("open-codestral-mamba"),
-    "Command": CohereClient("command"),
-    "Command R": CohereClient("command-r"),
-    "Command R+": CohereClient("command-r-plus"),
-    "Llama70B": ArliClient("Llama-3.3-70B-Instruct"),
-    "Qwen2.5-32B": ArliClient("Qwen2.5-32B-Instruct"),
-    "Claude 3 Haiku": AnthropicClient("claude-3-haiku-20240307"),
-    "Claude 3 Opus": AnthropicClient("claude-3-opus-20240229"),
-    "Claude 3 Sonnet": AnthropicClient("claude-3-sonnet-20240229"),
-    "Claude 3.5 Sonnet": AnthropicClient("claude-3-5-sonnet-20240620"),
-    "DALL-E 2": OpenAIDalleClient("dall-e-2"),
-    "DALL-E 3": OpenAIDalleClient("dall-e-3"),
+CLASS_MAP = {
+    "OpenAIClient": OpenAIClient,
+    "GoogleClient": GoogleClient,
+    "AnthropicClient": AnthropicClient,
+    "ArliClient": ArliClient,
+    "CohereClient": CohereClient,
+    "DeepSeekClient": DeepSeekClient,
+    "MistralClient": MistralClient,
+    "OpenAIDalleClient": OpenAIDalleClient
 }
 
 COMPANIES = {
@@ -55,6 +38,32 @@ COMPANIES = {
     "MISTRAL": MistralClient("mistral-small-latest"),
     "OPENAI": OpenAIClient("gpt-4o-mini"),
 }
+
+def load_available_models_from_json():
+    try:
+        with open('storage/models.json', 'r') as file:
+            models_data = json.load(file)
+
+        available_models = {}
+        for model_name, data in models_data.items():
+            client_info = data.get("client")
+            if client_info:
+                class_name = client_info.get("class")
+                params = client_info.get("model", [])
+                client_class = CLASS_MAP.get(class_name)
+                if client_class:
+                    available_models[model_name] = client_class(*params)
+                else:
+                    print(f"Classe {class_name} non trovata per il modello {model_name}.")
+            else:
+                print(f"Nessuna informazione client per il modello {model_name}.")
+        return available_models
+
+    except FileNotFoundError:
+        print("File models.json not found.")
+        return {}
+
+AVAILABLE_MODELS = load_available_models_from_json()
 
 
 class AIManager(QObject):
