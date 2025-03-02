@@ -449,7 +449,7 @@ class Prompt:
         Args:
             user_prompt (str): An optional prompt string to be processed.
         """
-        prompt = self.prompt_box.toPlainText().strip() if user_prompt == "none" else user_prompt
+        prompt = self.prompt_box.toPlainText().rstrip() if user_prompt == "none" else user_prompt
         self.clear_prompt_box()
         return self.chatlog.process_prompt(prompt)
 
