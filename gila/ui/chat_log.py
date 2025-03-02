@@ -37,8 +37,14 @@ class Chat(QObject):
         self.on_chat_container()
 
     def generate_chat_html(self):
-        """ Updates chat log by generating an HTML page that includes chat 
-            history and applies custom styling from a CSS file
+        """Generate an HTML page to update the chat log, including chat history 
+        and custom styling from a CSS file.
+
+        The method constructs an HTML template that incorporates the chat logs 
+        stored in `self.chat_html_logs`, applies styles from a CSS file located 
+        in the assets directory, and includes scripts for syntax highlighting 
+        and automatic scrolling to the latest message. The final HTML is set to
+        the chat log widget for display.
         """
         chat_content = "".join(self.chat_html_logs)
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -75,7 +81,7 @@ class Chat(QObject):
         self.log_widget.setHtml(html_template)
 
     def on_chat_container(self):
-        """ Creates Chat layout and calls methods that adds widgets """
+        """Create the chat layout and adds various widgets to the chat interface."""
         chat_layout = QVBoxLayout(self.widget_container)
         self.title = QLabel("GILA", objectName="chat_title_label")
         self.title.setAlignment(Qt.AlignCenter)
@@ -87,7 +93,7 @@ class Chat(QObject):
         chat_layout.addLayout(self.on_start_layout(), stretch=1000)
 
     def on_start_layout(self):
-        """ Creates Start layout with a button to start new chat """
+        """Create the start layout with a button to initiate a new chat."""
         start_layout = QVBoxLayout()
         self.start_inner_widget = QWidget()
         start_inner_layout = QVBoxLayout(self.start_inner_widget)
@@ -105,9 +111,11 @@ class Chat(QObject):
         return start_layout
 
     def update_chat_title(self):
+        """Update the chat title to reflect the currently selected LLM setting."""
         self.title.setText(f"{self.window.sidebar.current_settings.current_llm}")
 
     def on_prompt_info_layout(self):
+        """Create a horizontal layout for displaying prompt information."""
         self.prompt_info_layout = QHBoxLayout()
         self.num_of_words = QLabel("Words: 0")
         self.num_of_tokens = QLabel("Tokens: 0")
@@ -118,6 +126,7 @@ class Chat(QObject):
         return self.prompt_info_layout
 
     def on_chatlog_info_layout(self):
+        """Create a horizontal layout for displaying chat log information labels."""
         self.chatlog_info_layout = QHBoxLayout()
         self.first_label = QLabel("")
         self.second_label = QLabel("")
@@ -131,17 +140,36 @@ class Chat(QObject):
         return self.chatlog_info_layout
 
     def words_counter(self):
+        """Count the number of words in the prompt box and updates the display."""
         text = self.prompt_layout.prompt_box.toPlainText()
         word_count = len(text.split())
         self.num_of_words.setText(f"Words: {word_count}")
 
     def tokens_counter(self):
+        """Count the number of tokens in the prompt box and updates the display."""
         num_tokens = self.tokenizer.get_num_of_tokens(self.prompt_layout.prompt_box.toPlainText())
         self.num_of_tokens.setText(f"Tokens: {num_tokens}")
 
     def process_prompt(self, prompt):
-        """ Process user prompt, appends it to chatlog and sends it as a Signal
-            to controller
+        """Process the user prompt, appends it to the chat log, and sends it
+        as a signal to the controller.
+
+        This method performs the following actions:
+        - Checks if the prompt is not empty.
+        - Sanitizes the prompt to allow only certain HTML tags and attributes
+          using bleach library.
+        - Appends the sanitized prompt to the chat log in HTML format.
+        - Updates the HTML page to reflect the new user prompt.
+        - Disables the send button to prevent multiple submissions.
+        - Changes the cursor to a wait cursor while processing the prompt.
+        - Displays a message in the status bar indicating that the message is being sent.
+        - Sends the user prompt as a signal after a delay of 0.1 seconds using a timer.
+
+        If the prompt is empty, a message is emitted to the status bar indicating that 
+        an empty message cannot be sent.
+
+        Args:
+            prompt (str): The user input prompt to be processed.
         """
         if prompt != "":
             allowed_tags = [
@@ -174,9 +202,24 @@ class Chat(QObject):
                 "It is not possible to send an empty message.")
 
     def _send_delayed_prompt_signal(self, prompt):
+        """Emit the user prompt signal to the controller.
+
+        Private method called after a delay to send the processed user 
+        prompt to the controller.
+
+        Args:
+            prompt (str): The user input prompt to be sent to the controller.
+        """
         self.user_prompt_signal_to_controller.emit(prompt)
 
     def add_log_to_saved_chat_data(self, chat_id):
+        """Add the current chat log to the saved chat data for a specific chat ID.
+
+        Opens the saved chat data file corresponding to the provided `chat_id` 
+        and loads its contents using the `pickle` module, updates the chat log
+        entry in the loaded data with the current chat log and saves the updated
+        data back to the same file.
+        """
         with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
             saved_data = pickle.load(file)
         saved_data[chat_id]["chat_log"] = self.get_chat_log()
@@ -184,7 +227,15 @@ class Chat(QObject):
             pickle.dump(saved_data, file)
 
     def on_show_chatlog(self):
-        """ Shows chat widget and start chat button on call """
+        """Display the chat widget and the start chat button.
+    
+        Called to reveal the chat interface components:
+        - The chat title.
+        - The chat log widget.
+        - Information labels for the chat log (word and token counts).
+
+        Generates the HTML for the chat log and hides the start inner widget.
+        """
         self.title.show()
         self.generate_chat_html()
         self.log_widget.show()
@@ -195,7 +246,13 @@ class Chat(QObject):
         self.start_inner_widget.hide()
 
     def on_hide_chatlog(self):
-        """ Hides chat widget and start chat button on call """
+        """Hide the chat widget and displays the start chat button.
+    
+        Called to conceal the chat interface components:
+        - The chat title.
+        - The chat log widget.
+        - Information labels for the chat log (word and token counts).
+        """
         self.title.hide()
         self.log_widget.hide()
         for label in self.chatlog_info_labels:
@@ -205,7 +262,18 @@ class Chat(QObject):
         self.start_inner_widget.show()
 
     def convert_markdown_to_html(self, md_text):
-        """Converts Markdown to HTML"""
+        """Convert Markdown text to HTML.
+
+        Takes a string containing Markdown-formatted text and converts it to HTML
+        using markdown library with specified extensions for fenced code blocks,
+        syntax highlighting, and tables.
+
+        Args:
+            md_text (str): The Markdown text to be converted.
+
+        Returns:
+            str: The converted HTML representation of the Markdown text.
+        """
         return markdown.markdown(
             md_text, extensions=["fenced_code", "codehilite", "tables"]
         )
@@ -214,8 +282,24 @@ class Chat(QObject):
     def get_response_message_slot(self, response):
         """ Slot
         Connected to one signal:
-            - controller.response_message_to_chatlog
-        Adds API response to Chat Log
+        - controller.response_message_to_chatlog
+
+        Handle the response message from the controller and updates the chat log.
+
+        This method performs the following actions::
+        - Enables the send button for the prompt layout.
+        - Restores the cursor to its default state.
+        - Converts the response message from Markdown to HTML.
+        - If the current LLM is DALL-E 2 or DALL-E 3 and the response does not
+          contain an error, processes the response as image URLs.
+        - Sanitizes the formatted response to allow only certain HTML tags and
+          attributes.
+        - Appends the sanitized response to the chat log in HTML format.
+        - Updates the HTML page to reflect the new AI response.
+
+        Args:
+            response (str): The response message from the API to be processed
+                            and displayed.
         """
         self.prompt_layout.send_button.setEnabled(True)
         QApplication.restoreOverrideCursor()
@@ -247,10 +331,31 @@ class Chat(QObject):
 
     @Slot(dict)
     def get_response_info_slot(self, response_info):
+        """Slot
+        Connected to one signal:
+        - controller.response_info_to_chatlog
+
+        Update the chat log information labels with response data.
+
+        This slot receives a dictionary containing response information and 
+        updates the corresponding chat log information labels. It iterates 
+        through the items in the dictionary and sets the text of each label 
+        to display the key-value pairs.
+
+        Args:
+            response_info (dict): A dictionary containing response information 
+                                  where keys represent the label names and values
+                                  represent the corresponding data.
+        """
         for i, (key, value) in enumerate(response_info.items()):
             self.chatlog_info_labels[i].setText(f"{key}: {value}")
 
     def on_response_info_labels_reset(self):
+        """Reset the chat log information labels to empty text.
+
+        Iterates through the chat log information labels and sets their text to
+        an empty string.
+        """
         for label in self.chatlog_info_labels:
             label.setText("")
 
@@ -259,6 +364,19 @@ class Chat(QObject):
         return bool(self.chat_html_logs)
 
     def chatlog_has_changed(self, chat_id):
+        """Check if the current chat log has changed compared to the saved chat data.
+
+        This method verifies if the chat log associated with the given `chat_id` 
+        has been modified since it was last saved. It loads the saved chat data 
+        from a file and compares the current chat log with the saved logs.
+
+        Args:
+            chat_id (str): The unique identifier for the chat to be checked.
+
+        Returns:
+            bool: True if the current chat log is different from the saved log, 
+                  False if they are the same or if the saved data file does not exist.
+        """
         file_path = f'storage/saved_data/{chat_id}.pk'
         if os.path.isfile(file_path):
             with open(file_path, 'rb') as file:
@@ -268,11 +386,11 @@ class Chat(QObject):
         return True
 
     def get_chat_log(self):
-        """ Returns all current chat text """
+        """Return all current chat text"""
         return self.chat_html_logs
 
     def on_starting_a_new_chat(self):
-        """ Sends a signal to start a new chat """
+        """Send a signal to controller to start a new chat"""
         self.start_new_chat_to_controller.emit()
 
 
@@ -285,7 +403,13 @@ class Prompt:
         self.prompt_box.textChanged.connect(self.chatlog.tokens_counter)
 
     def on_prompt_layout(self):
-        """ Creates prompt layout with prompt box and a button """
+        """Create the layout for the prompt input area.
+
+        This method initializes a horizontal box layout that contains a prompt
+        box for user input (focused on initialization and connected to handle
+        the return key press) and a send button that triggers the handling of
+        the user prompt when clicked.
+        """
         prompt_layout = QHBoxLayout(objectName="prompt_layout")
         # Adds prompt box
         self.prompt_box.returnPressed.connect(
@@ -307,22 +431,41 @@ class Prompt:
         return prompt_layout
 
     def handle_user_prompt(self, user_prompt):
-        """ Gets user prompt from prompt box and calls process_prompt method from chatlog """
+        """ Get the user prompt from the prompt box and process it.
+
+        Retrieves the text from the prompt box, stripping any leading 
+        or trailing whitespace. If the `user_prompt` argument is "none", it 
+        uses the text from the prompt box; otherwise, it uses the provided 
+        `user_prompt`.
+        
+        The comparison to "none" is intentional because `on_prompt_layout`
+        method connects the prompt box's return key press and the send button's
+        click event to this method, passing "none" as the argument.
+        This means that when the button is clicked OR the return key is pressed,
+        the text from the prompt box should be processed.
+
+        After retrieving the prompt, it clears the prompt box 
+        and calls the `process_prompt` method from the chat log to handle 
+        the user input.
+
+        Args:
+            user_prompt (str): An optional prompt string to be processed.
+        """
         prompt = self.prompt_box.toPlainText().strip() if user_prompt == "none" else user_prompt
         self.clear_prompt_box()
         return self.chatlog.process_prompt(prompt)
 
     def clear_prompt_box(self):
-        """ Clear prompt layout on call """
+        """Clear prompt layout"""
         self.prompt_box.clear()
         self.prompt_box.setFocus()
 
     def on_show_prompt_layout(self):
-        """ Shows prompt layout and send button on call """
+        """Show prompt layout and send button"""
         self.prompt_box.show()
         self.send_button.show()
 
     def on_hide_prompt_layout(self):
-        """ Hides prompt layout and send button on call """
+        """Hide prompt layout and send button"""
         self.prompt_box.hide()
         self.send_button.hide()
