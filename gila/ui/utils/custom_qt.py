@@ -25,6 +25,16 @@ class CustomWebView(QWebEngineView):
         self._last_context_menu_pos = None
 
     def show_custom_menu(self, pos):
+        """Display a custom context menu at the specified position.
+
+        This method is triggered when a context menu is requested. It stores 
+        the position of the menu and executes a JavaScript snippet to check 
+        if the element under the cursor is an image. If it is, the image's 
+        source URL is retrieved for further actions.
+
+        Args:
+            pos (QPoint): The position where the context menu is requested.
+        """
         self._last_context_menu_pos = pos
         # Detects if the element under the cursor is an image
         js = f"""
@@ -36,6 +46,21 @@ class CustomWebView(QWebEngineView):
         self.page().runJavaScript(js, self.handle_context_menu_data)
 
     def handle_context_menu_data(self, result):
+        """Handle the context menu actions based on the element clicked.
+
+        Creates a context menu with options based on the user's right-click
+        action. It includes a "copy" action for copying selected text. If the
+        clicked element is an image (indicated by a non-null result), it adds
+        an option to save the image.
+
+        Displays the context menu at the last known position of the right-click
+        event, converting the local position to a global position for proper
+        menu placement.
+        
+        Args:
+            result (str or None): The source URL of the image if the clicked 
+                                  element is an image; otherwise, None.
+        """
         menu = QMenu(self)
 
         copy_action = QAction("Copy", self)
@@ -53,9 +78,27 @@ class CustomWebView(QWebEngineView):
         menu.exec(self.mapToGlobal(self._last_context_menu_pos))
 
     def copy_selected_text(self):
+        """Copy the selected text from the web page to the clipboard.
+
+        This method triggers the copy action on the current page, allowing 
+        the user to copy any selected text directly from the web content.
+        """
         self.page().triggerAction(QWebEnginePage.Copy)
 
     def save_image(self, image_url):
+        """Save an image from the provided URL to a specified file location.
+
+        Validates the given image URL and prompts the user to select a file
+        location and name for saving the image. If the URL is valid, it
+        initiates a network request to download the image and connects the
+        download completion signal to handle the saved file.
+
+        If the user selects a file path and the download finishes successfully, 
+        the image is saved to the specified location.
+
+        Args:
+            image_url (str): The URL of the image to be saved.
+        """
         url = QUrl(image_url)
         if not url.isValid():
             return
@@ -72,7 +115,17 @@ class CustomWebView(QWebEngineView):
             reply.finished.connect(lambda: self.on_download_finished(reply, file_path))
 
     def on_download_finished(self, reply, file_path):
-        # Read downloaded data and save them
+        """Handle the completion of the image download and saves the file.
+
+        Called when the download of an image is finished: reads the downloaded
+        data from the network reply and saves it to the specified file path.
+        After saving, it cleans up the reply object to free resources.
+
+        Args:
+            reply (QNetworkReply): The network reply object containing the 
+                                   downloaded image data.
+            file_path (str): The file path where the image should be saved.
+        """
         data = reply.readAll()
         with open(file_path, "wb") as f:
             f.write(bytes(data))
