@@ -40,23 +40,43 @@ COMPANIES = {
 }
 
 def load_available_models_from_json():
+    """Load model data from the JSON file and recreate client instances.
+
+    The JSON file must have the following structure for each model:
+
+        {
+            "Readable Model Name": {
+                "limits": [max_tokens, max_temperature],
+                "client": {
+                    "class": "ClassName",
+                    "model": ["model-name"]
+                }
+            },
+            ...
+        }
+
+    Returns:
+        dict: A dictionary where the keys are the model names and the values
+        are the corresponding client instances. If the JSON file is not found,
+        an empty dictionary is returned.
+    """
     try:
         with open('storage/models.json', 'r') as file:
             models_data = json.load(file)
 
         available_models = {}
         for model_name, data in models_data.items():
-            client_info = data.get("client")
-            if client_info:
-                class_name = client_info.get("class")
-                params = client_info.get("model", [])
+            client_data = data.get("client")
+            if client_data:
+                class_name = client_data.get("class")
+                params = client_data.get("model", [])
                 client_class = CLASS_MAP.get(class_name)
                 if client_class:
                     available_models[model_name] = client_class(*params)
                 else:
-                    print(f"Classe {class_name} non trovata per il modello {model_name}.")
+                    print(f"Class {class_name} not found for {model_name}.")
             else:
-                print(f"Nessuna informazione client per il modello {model_name}.")
+                print(f"Data not found for model {model_name}.")
         return available_models
 
     except FileNotFoundError:
