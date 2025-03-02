@@ -1,5 +1,6 @@
 import os
 import pickle
+import bleach
 
 import markdown
 
@@ -143,9 +144,16 @@ class Chat(QObject):
             to controller
         """
         if prompt != "":
+            allowed_tags = [
+                'b', 'i', 'u', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li', 
+                'span', 'div', 'code'
+            ]
+            allowed_attributes = {'a': ['href', 'title']}
+            sanitized_prompt = bleach.clean(prompt, tags=allowed_tags, attributes=allowed_attributes, strip=True)
+
             self.chat_html_logs.append(f"""
                 <div class='user-wrapper'>
-                    <p class='prompt'>{prompt}</p>
+                    <p class='prompt'>{sanitized_prompt}</p>
                 </div>
             """)
             # Update html page with new user prompt
@@ -222,9 +230,17 @@ class Chat(QObject):
             else:
                 formatted_response = f"<div class='img-wrapper'><img src='{response}' class='img'></div>"
 
+        allowed_tags = [
+            'b', 'i', 'u', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li',
+            'span', 'div', 'code', 'pre', 'table', 'tr', 'th', 'td', 'thead',
+            'tbody', 'tfoot', 'caption'
+        ]
+        allowed_attributes = {'a': ['href', 'title']}
+        sanitized_response = bleach.clean(formatted_response, tags=allowed_tags, attributes=allowed_attributes, strip=True)
+
         self.chat_html_logs.append(f"""
             <div class='ai-wrapper'>
-                <p class='response'>{formatted_response}</p>
+                <p class='response'>{sanitized_response}</p>
             </div>
         """)
         self.generate_chat_html()
