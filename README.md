@@ -14,7 +14,9 @@ Currently supported large language models:
 - DeepSeek-V3
 - DeepSeek-R1
 - Mistral Small
+- Mistral Nemo
 - Pixtral
+- Codestral Mamba
 - Llama70B
 - Qwen2.5-32B
 - Command
@@ -66,7 +68,7 @@ When you select an LLM from the settings and start a new chat, if you have not s
 - [OpenAI](https://platform.openai.com/settings/organization/general): GPT-4o mini, GPT-4o, GPT-4, GPT-4 Turbo, DALL-E 2, DALL-E 3
 - [Google](https://aistudio.google.com/app/apikey): Gemini 2.0 Flash, Gemini 1.5 Flash, Gemini 1.5 Pro
 - [DeepSeek](https://platform.deepseek.com/api_keys): DeepSeek-V3, DeepSeek-R1
-- [Mistral](https://console.mistral.ai/api-keys): Mistral Small, Pixtral
+- [Mistral](https://console.mistral.ai/api-keys): Mistral Small, Mistral Nemo, Pixtral, Codestral Mamba
 - [Arli AI](https://www.arliai.com/account): Llama70B, Qwen2.5-32B
 - [Cohere](https://dashboard.cohere.com/api-keys): Command, Command R, Command R+
 - [Anthropic](https://console.anthropic.com/settings/keys): Claude 3 Haiku, Claude 3 Opus, Claude 3 Sonnet, Claude 3.5 Sonnet
