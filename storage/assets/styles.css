@@ -138,6 +138,16 @@ QComboBox::drop-down {
     background: url(storage/assets/icons/down-arrow.svg) no-repeat center center;
 }
 
+/* QCheckBox */
+QCheckBox {
+    font-size: 14px;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #f1bc2e;
+    border-radius: 5px;
+}
+
 /* QDialog */
 QDialog {
     background-color: #11111b;
