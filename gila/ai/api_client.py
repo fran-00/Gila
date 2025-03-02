@@ -62,9 +62,6 @@ class APIClient(ABC):
         This method creates a chat ID by randomly selecting 10 characters from 
         the set of ASCII letters and digits. The generated ID is assigned to 
         the instance's chat_id attribute.
-
-        Notes:
-            The generated chat ID is intended to be unique for each chat session.
         """
         self.chat_id = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
 
@@ -72,8 +69,8 @@ class APIClient(ABC):
         """Send a POST request to the specified endpoint with the given headers
         and data.
 
-        This private method constructs and sends a POST request to the provided
-        endpoint. It includes the specified headers and data in JSON format.
+        Constructs and sends a POST request to the provided endpoint and includes
+        the specified headers and data in JSON format.
         If the request is successful, it returns the JSON response. If an error
         occurs during the request, it catches the exception and returns a
         dictionary containing the error message.
@@ -81,7 +78,8 @@ class APIClient(ABC):
         Parameters:
             endpoint (str): The URL of the endpoint to send the request to.
             headers (dict): A dictionary of HTTP headers to include in the request.
-            data (dict): The data to be sent in the body of the request, serialized as JSON.
+            data (dict): The data to be sent in the body of the request,
+                         serialized as JSON.
 
         Returns:
             dict: The JSON response from the server or an error message.
@@ -97,9 +95,9 @@ class APIClient(ABC):
         """Retrieve the parameters for a request, including the endpoint,
         headers, and data.
 
-        This method can be overridden to customize the HTTP request parameters
-        as needed. By default, it constructs the endpoint, headers, and data
-        using helper methods and returns them in a dictionary.
+        This can be overridden to customize the HTTP request parameters as needed.
+        By default, it constructs the endpoint, headers, and data using helper
+        methods and returns them in a dictionary.
 
         Returns:
             dict: A dictionary containing the request parameters with the keys:
@@ -119,7 +117,7 @@ class APIClient(ABC):
     def _build_default_request_headers(self):
         """Create and return the default request headers.
 
-        This method constructs a dictionary of HTTP headers to be used in requests. 
+        Constructs a dictionary of HTTP headers to be used in requests. 
         By default, it includes the content type as "application/json" and 
         an authorization header that contains the API key.
 
@@ -136,16 +134,17 @@ class APIClient(ABC):
     def _build_default_request_data(self):
         """Create and return the default request data.
 
-        This method constructs a dictionary of data to be sent in the body of
-        the request. By default, it includes the model name, chat history,
-        temperature, and maximum tokens.
+        Constructs a dictionary of data to be sent in the body of the request.
+        By default, it includes the model name, chat history, temperature, and
+        maximum tokens.
 
         Returns:
             dict: A dictionary containing the default request data with the keys:
                 - model (str): The name of the language model being used.
                 - messages (list): The history of messages in the chat.
                 - temperature (float): The sampling temperature for the model.
-                - max_tokens (int): The maximum number of tokens to generate in the response.
+                - max_tokens (int): The maximum number of tokens to generate in
+                                    the response.
         """
         return {
             "model": self.llm,
@@ -162,11 +161,10 @@ class APIClient(ABC):
     def _extract_response_data(self, response):
         """Extract the AI response and response information from the API response.
 
-        This method retrieves the AI-generated response content and relevant
-        usage information from the provided response dictionary. It extracts
-        the response content from the first choice and gathers token usage
-        statistics. This method can be overridden to customize the extraction
-        process if needed.
+        Retrieves the AI-generated response content and relevant usage information
+        from the provided response dictionary. It extracts the response content
+        from the first choice and gathers token usage statistics.
+        This method can be overridden to customize the extraction process if needed.
 
         Parameters:
             response (dict): The response dictionary returned from the API.
@@ -190,10 +188,9 @@ class APIClient(ABC):
     def validate_api_key(self, api_key):
         """Validate the provided API key by sending a test request.
 
-        This method constructs a request with the given API key to check if it
-        is valid. It sends a test message to the API and evaluates the response.
-        If the response contains an error, the method returns False; otherwise,
-        it returns True.
+        Constructs a request with the given API key to check if it is valid.
+        It sends a test message to the API and evaluates the response: if the
+        response contains an error, the method returns False.
 
         Parameters:
             api_key (str): The API key to validate.
@@ -217,24 +214,22 @@ class APIClient(ABC):
     def submit_prompt(self, prompt):
         """Handle the submission of a user prompt to the AI model.
 
-        This method appends the formatted user message to the chat history,
-        retrieves the request parameters, and sends the request to the API.
-        If the response contains an error, it raises an exception. If the
-        request is successful, it extracts the AI response and updates the
-        chat history with the AI's message.
+        Appends the formatted user message to the chat history, retrieves the
+        request parameters, and sends the request to the API. If the response
+        contains an error, it raises an exception. If the request is successful,
+        extracts the AI response and updates the chat history with the AI's message.
 
         Parameters:
             prompt (str): The user's prompt to be submitted to the AI.
 
         Returns:
             tuple: A tuple containing:
-                - success (bool): True if the prompt submission was successful, False otherwise.
-                - ai_response (str or None): The AI's response if successful, or None if failed.
-                - response_info (dict or None): Information about the response if successful, or None if failed.
-
-        Notes:
-            If an error occurs during the request, the method returns the error
-            message as a string.
+                - success (bool): True if the prompt submission was successful,
+                                  False otherwise.
+                - ai_response (str or None): The AI's response if successful,
+                                             or None if failed.
+                - response_info (dict or None): Information about the response
+                                                if successful, or None if failed.
         """
         self.chat_history.append(self._format_user_message(prompt))
 
@@ -259,10 +254,9 @@ class APIClient(ABC):
         """
         Defines how the user message should be formatted for API submission.
 
-        This method formats the user's prompt into a dictionary with the appropriate
-        structure for the API request. By default, it includes the role of the
-        message as "user" and the content as the provided prompt. This method
-        can be overridden to customize the formatting as needed.
+        Formats the user's prompt into a dictionary with the appropriate structure
+        for the API request. This method can be overridden to customize the
+        formatting as needed.
 
         Parameters:
             prompt (str): The user's message to be formatted.
@@ -278,10 +272,9 @@ class APIClient(ABC):
         """
         Defines how the AI response should be formatted for API submission.
 
-        This method formats the AI's response into a dictionary with the
-        appropriate structure for the API request. By default, it includes the
-        role of the message as "assistant" and the content as the provided AI
-        response. This method can be overridden to customize the formatting as needed.
+        Formats the AI's response into a dictionary with the appropriate structure
+        for the API request. This method can be overridden to customize the
+        formatting as needed.
 
         Parameters:
             ai_response (str): The AI's response to be formatted.
@@ -296,20 +289,20 @@ class APIClient(ABC):
     def set_chat_history(self):
         """Initialize the chat history with the system message.
 
-        This method sets the chat history to the output of the _set_system_message
-        method, which includes the system message that defines the behavior and
-        context for the AI assistant.
+        Sets the chat history to the output of the _set_system_message method,
+        which includes the system message that defines the behavior and context
+        for the AI assistant.
         """
         self.chat_history = self._set_system_message()
 
     def on_chat_reset(self):
         """Reset the chat state when a chat is interrupted.
 
-        This method is called by the controller whenever a chat is interrupted, 
-        either by loading a saved chat or starting a new one. In the case of loading, 
+        Called by the controller whenever a chat is interrupted, either by
+        loading a saved chat or starting a new one. In the case of loading, 
         the manager's restore_chat_from_id_slot will set the loaded state to True. 
-        The method initializes the chat history with the system message, clears the 
-        custom chat name, sets the loaded state to False, and generates a new chat ID.
+        Initializes the chat history with the system message, clears the custom
+        chat name, sets the loaded state to False, and generates a new chat ID.
         """
         self.chat_history = self._set_system_message()
         self.chat_custom_name = None
@@ -320,9 +313,9 @@ class APIClient(ABC):
         """Include an optional message that sets the behavior and context for
         the AI assistant.
 
-        This method returns a list containing a system message formatted for the
-        API. If a system message is defined, it includes the role as "system"
-        and the content as the system message. If no system message is set, it
+        Returns a list containing a system message formatted for the API.
+        If a system message is defined, it includes the role as "system" and
+        the content as the system message. If no system message is set, it
         returns an empty list. This method can be overridden to customize the
         system message as needed.
 
