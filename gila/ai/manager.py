@@ -103,6 +103,27 @@ class AIManager(QObject):
         self.get_saved_settings()
 
     def get_saved_settings(self):
+        """Load saved settings from a JSON file, creating default settings if
+        the file does not exist.
+
+        The method checks for the existence of a settings file at "storage/saved_settings.json". 
+        If the file is not found, it creates the file with default settings. 
+        It then reads the settings from the file, initializes the client with the loaded parameters, 
+        and generates a chat ID for the client.
+
+        Attributes set on the client include:
+            - llm_name: The name of the language model.
+            - temperature: The sampling temperature for the model.
+            - max_tokens: The maximum number of tokens to generate.
+            - system_message: The system message to guide the assistant's behavior.
+            - image_size: The desired size for generated images.
+            - image_quality: The quality setting for generated images.
+            - image_quantity: The number of images to generate.
+
+        Raises:
+            FileNotFoundError: If the settings file cannot be created or accessed.
+            json.JSONDecodeError: If the settings file is not a valid JSON.
+        """
         file_path = "storage/saved_settings.json"
         if not os.path.exists(file_path):
             default_data = {
@@ -132,6 +153,25 @@ class AIManager(QObject):
         self.client.generate_chat_id()
 
     def update_saved_settings(self):
+        """Update the saved settings in the JSON file with the current client parameters.
+
+        The method reads the existing settings from "storage/saved_settings.json", 
+        updates the settings with the current values from the client attributes, 
+        and then writes the updated settings back to the file. 
+
+        Attributes updated include:
+            - llm_name: The name of the language model.
+            - temperature: The sampling temperature for the model.
+            - max_tokens: The maximum number of tokens to generate.
+            - system_message: The system message to guide the assistant's behavior.
+            - image_size: The desired size for generated images.
+            - image_quality: The quality setting for generated images.
+            - image_quantity: The number of images to generate.
+
+        Raises:
+            FileNotFoundError: If the settings file does not exist or cannot be accessed.
+            json.JSONDecodeError: If the settings file is not a valid JSON.
+        """
         with open("storage/saved_settings.json", "r") as f:
             data = json.load(f)
             data["llm_name"] = self.client.llm_name
@@ -146,9 +186,17 @@ class AIManager(QObject):
             json.dump(data, file, indent=4)
 
     def on_api_key(self):
-        """Called by Controller's chat_started_slot, asks client to check if
-        API key of the said company is present on the storage/api_keys.json file.
-        Returns a boolean with response"""
+        """Check if the API key for the specified company is present in the
+        storage/api_keys.json file.
+
+        This method is called by the controller's chat_started_slot. It asks the
+        client to verify the presence of the API key for the current company.
+        If the API key is found, it retrieves the key and returns True;
+        otherwise, it returns False.
+
+        Returns:
+            bool: True if the API key is present and retrieved, False otherwise.
+        """
         if self.client.check_if_api_key(self.client.company) is True:
             self.client.get_api_key()
             return True
@@ -165,14 +213,27 @@ class AIManager(QObject):
         new_image_quality,
         new_image_quantity
     ):
-        """Slot
+        """Slot 
         Connected to one signal:
             - controller.new_settings_to_manager
-        When triggered, takes new llm name and sets new client on call
 
-        next_client is a tuple because the first element is the class instance,
-        while the second element is the name of the selected client: you can see
-        the reason for this in controller.chat_started_slot method
+        When triggered, this method takes new settings for the language model
+        and updates the client configuration accordingly. It sets the new
+        language model, adjusts the temperature, and updates other parameters
+        related to the client's settings.
+
+        Parameters:
+            new_llm (str): The name of the new language model to be used.
+            new_temperature (float): The new sampling temperature for the model.
+            new_max_tokens (int): The new maximum number of tokens to generate.
+            new_system_message (str): The new system message for guiding the assistant's behavior.
+            new_image_size (str): The new desired size for generated images.
+            new_image_quality (str): The new quality setting for generated images.
+            new_image_quantity (int): The new number of images to generate.
+
+        Notes:
+            The next_client is a tuple containing the selected client instance
+            and its name, which is utilized in the controller.chat_started_slot method.
         """
         selected_llm = AVAILABLE_MODELS.get(new_llm)
         self.next_client = selected_llm, new_llm
@@ -188,10 +249,20 @@ class AIManager(QObject):
         """Slot
         Connected to one signal:
             - controller.api_key_to_manager
-        When triggered, if company_name is None, manager will send new API key
-        to the current client, else it will send it on the client based on that
-        company name. API key is then sent to client to check if is valid and
-        emits a boolean signal with response. If key is valid, calls save_api_key
+
+        When triggered, this method checks the validity of the provided API key. 
+        If the company_name is None, it sends the new API key to the current client; 
+        otherwise, it sends it to the client associated with the specified company name. 
+        The method then emits a boolean signal indicating whether the API key is valid. 
+        If the key is valid, it calls the save_api_key method to store it.
+
+        Parameters:
+            api_key (str): The API key to validate.
+            company_name (str): The name of the company associated with the API key.
+
+        Notes:
+            If the company_name is not found, the method defaults to using the
+            currently selected client.
         """
         client = COMPANIES.get(company_name.upper())
         if client is None:
@@ -208,7 +279,19 @@ class AIManager(QObject):
         """Slot
         Connected to one signal:
             - controller.loading_saved_chat_id_to_manager
-        Reads saved chats settings from file and applies them to client
+
+        When triggered, this method reads saved chat settings from a file and
+        applies them to the client. It loads the chat data associated with the
+        provided chat_id from a pickle file, updates the client's attributes
+        with the loaded data, and prepares the client for use with the restored chat.
+
+        Parameters:
+            chat_id (str): The unique identifier for the chat to restore.
+
+        Notes:
+            The method retrieves the client based on the language model name
+            stored in the chat data. It updates various client attributes
+            including chat history, system message, and other settings.
         """
         with open(f"storage/saved_data/{chat_id}.pk", "rb") as file:
             saved_data = pickle.load(file)
@@ -230,7 +313,24 @@ class AIManager(QObject):
         self.client.image_quantity = chat["image_quantity"]
 
     def on_current_settings(self):
-        """Return current client's settings"""
+        """Return the current settings of the client.
+
+        This method retrieves and returns a tuple containing various attributes
+        of the current client.
+
+        Returns:
+            tuple: A tuple containing the current client's settings in the following order:
+                - chat_id (str): The unique identifier for the chat.
+                - chat_custom_name (str): The custom name for the chat.
+                - llm_name (str): The name of the language model being used.
+                - temperature (float): The sampling temperature for the model.
+                - max_tokens (int): The maximum number of tokens to generate.
+                - chat_date (str): The date of the chat.
+                - system_message (str): The system message guiding the assistant's behavior.
+                - image_size (str): The size of generated images.
+                - image_quality (str): The quality setting for generated images.
+                - image_quantity (int): The number of images to generate.
+        """
         return (
             self.client.chat_id,
             self.client.chat_custom_name,
@@ -245,11 +345,33 @@ class AIManager(QObject):
         )
 
     def save_api_key(self, api_key, company_name):
-        """Saves validated API Key to api_keys.json file"""
+        """Save the validated API key to the .env file.
+
+        This method appends the API key for the specified company name to the
+        .env file in the format: COMPANY_NAME_api_key='API_KEY'. The company
+        name is converted to uppercase.
+
+        Parameters:
+            api_key (str): The validated API key to be saved.
+            company_name (str): The name of the company associated with the API key.
+
+        Notes:
+            The method opens the .env file in append mode to add the new API key
+            without overwriting existing data.
+        """
         with open(".env", "a") as file:
             file.write(f"\n{company_name.upper()}_API_KEY='{api_key}'")
 
     def check_internet_connection(self):
+        """Check the availability of an internet connection.
+
+        This method attempts to send a HEAD request to "http://www.google.com/" 
+        to verify if a connection can be established. If the request is successful, 
+        it returns True; otherwise, it catches a connection error and returns False.
+
+        Returns:
+            bool: True if the internet connection is available, False otherwise.
+        """
         try:
             requests.head("http://www.google.com/", timeout=3)
             return True
@@ -257,6 +379,16 @@ class AIManager(QObject):
             return False
 
     def save_current_chat(self):
+        """Save the current chat's settings and history to a pickle file.
+
+        This method creates a dictionary containing the current chat's attributes.
+        The data is then serialized and saved to a file named with the chat ID
+        in the "storage/saved_data" directory.
+        The chat date is formatted as "day-month-year hour:minute:second".
+
+        Notes:
+            The chat log is initialized as None in the saved data.
+        """
         date = datetime.now().strftime("%d-%m-%y %H:%M:%S")
         data = {
             self.client.chat_id: {
