@@ -77,8 +77,15 @@ class View(QMainWindow):
 
     def load_css_file(self):
         """ Loads CSS File to apply style window """
-        with open("storage/assets/styles.css", "r") as file:
-            return file.read()
+        try:
+            with open("storage/assets/styles.css", "r") as file:
+                return file.read()
+        except FileNotFoundError:
+            print("Error: CSS file not found.")
+            return ""
+        except IOError:
+            print("Error: An error occurred while reading the CSS file.")
+            return ""
 
     def on_hide_chatlog_and_prompt_line(self):
         """ Hides chat log and prompt box on call """
