@@ -17,8 +17,8 @@ class CurrentSettings(QObject):
     def get_models_from_json(self):
         try:
             with open('storage/models.json', 'r') as file:
-                limits = json.load(file)
-                return list(limits.keys())
+                models = json.load(file)
+                return list(models.keys())
         except FileNotFoundError:
             print("File models.json not found.")
             return []

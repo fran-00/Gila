@@ -342,7 +342,12 @@ class SettingsHandler(QObject):
     def get_limits_from_json(self):
         try:
             with open('storage/models.json', 'r') as file:
-                return json.load(file)
+                models_data = json.load(file)
+            limits = {}
+            for model_name, data in models_data.items():
+                limits[model_name] = data["limits"]
+            return limits
+
         except FileNotFoundError:
             print("File models.json not found.")
             return {}
