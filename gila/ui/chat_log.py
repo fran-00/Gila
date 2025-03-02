@@ -174,6 +174,8 @@ class Chat(QObject):
         if prompt != "":
             escaped_prompt = html.escape(prompt)
             sanitized_prompt = bleach.clean(escaped_prompt)
+            sanitized_prompt = sanitized_prompt.replace(" ", "&nbsp;")
+            sanitized_prompt = sanitized_prompt.replace("\n", "<br>")
 
             self.chat_html_logs.append(f"""
                 <div class='user-wrapper'>
