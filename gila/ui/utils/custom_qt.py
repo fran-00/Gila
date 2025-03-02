@@ -1,4 +1,4 @@
-from PySide6.QtCore import Signal, QUrl
+from PySide6.QtCore import Signal, QUrl, QMimeData
 from PySide6.QtGui import QAction, Qt
 from PySide6.QtWebEngineCore import QWebEnginePage
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -14,6 +14,21 @@ class CustomTextEdit(QTextEdit):
             self.returnPressed.emit()
         else:
             super().keyPressEvent(event)
+
+    def insertFromMimeData(self, source: QMimeData):
+        """Insert plain text from the provided MIME data source.
+
+        Prevent any text styling from being applied to text that is pasted into
+        the prompt box overriding the default behavior to check if the MIME data
+        contains text. If it does, the text is inserted as plain text into the
+        text edit.
+
+        Args:
+            source (QMimeData): The MIME data source containing the data to 
+                                be inserted.
+        """
+        if source.hasText():
+            self.insertPlainText(source.text())
 
 
 class CustomWebView(QWebEngineView):
