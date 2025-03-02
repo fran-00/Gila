@@ -82,32 +82,3 @@ pyinstaller build.spec
 ```
 
 You will find **gila.exe** executable file inside *dist* directory: remember to copy *storage* folder there before distributing it!
-
-## TODO List
-
-- [x] Add a Menu on the left side of screen to adjust settings (model and temperature) and start a new chat
-- [x] Sidebar must be hideable.
-- [x] Add a way to load API keys and create a .json file to store them
-- [x] Check Internet connection before every request to API, show a modal if client is not connected. Or/and change the color of chatlog to grey.
-- [x] Ensure that model is disconnected from client on window closing.
-- [x] Add a loading view on startup.
-- [x] Add the ability to continue a conversation and a list of past chat to ui.
-- [x] Add custom exceptions to handle as many kind of server's request errors as possible.
-- [x] Prompt line must be a QTextEdit widget instead of a QLineEdit widget.
-- [x] If user wants to export the current conversation, they must be able to choose file format between .txt, .docx and .pdf.
-- [x] User must not be able to send another prompt if the program is waiting for API response and there must be a "waiting" symbol, like a spinning wheel.
-- [x] User must be able to choose response length.
-- [x] Last used settings must be saved to an external file for future use, like the current llm, temperature and maximum number of tokens.
-- [x] Add the ability to change the lenght of the response.
-- [x] Add a token counter, at least for OpenAI. Use [tiktoken](https://github.com/openai/tiktoken).
-- [x] User must be able to rename stored chats.
-- [x] Chatlog must show the number of token used.
-- [x] Find a way to exit the main thread if the chat is taking too long to respond.
-- [x] Fix the gila monster image visible when opening the program not remaining aligned to the center when the window is resized.
-- [x] Add chat formatting.
-- [x] Add logic to display model-generated images directly in the chat log.
-- [x] Add specific settings for images generation models like Dall-E 2 and 3.
-- [x] Fix .pdf files created when chat is exported.
-- [x] Improve errors and exceptions management.
-- [ ] Add a way for the app to search for updates from the main branch of the repo using [gitpython](https://gitpython.readthedocs.io/en/stable/)?
-- [ ] Main thread must stop if API is taking too long to respond to prevent GUI freezing.
