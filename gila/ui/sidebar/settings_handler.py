@@ -79,7 +79,8 @@ class SettingsHandler(QObject):
         min_temperature_label = QLabel("0")
         self.max_temperature_label = QLabel("1")
         self.temperature_slider = QSlider(Qt.Horizontal)
-        self.temperature_current_value_label = QLabel("0", objectName="temperature_current_value_label")
+        self.temperature_current_value_label = QLabel("0")
+        self.parent_class.window.assign_css_class(self.temperature_current_value_label, "current_value_label")
         # Adjust labels settings and width
         self.temperature_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
         min_temperature_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
@@ -126,7 +127,8 @@ class SettingsHandler(QObject):
         min_tokens_label = QLabel("150")
         self.max_tokens_label = QLabel("4096")
         self.tokens_slider = QSlider(Qt.Horizontal)
-        self.max_tokens_current_value_label = QLabel("1000", objectName="max_tokens_current_value_label")
+        self.max_tokens_current_value_label = QLabel("1000")
+        self.parent_class.window.assign_css_class(self.max_tokens_current_value_label, "current_value_label")
         # Adjust labels settings and width
         self.max_tokens_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
         min_tokens_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
@@ -248,7 +250,8 @@ class SettingsHandler(QObject):
         min_image_quantity_label = QLabel("1")
         max_image_quantity_label = QLabel("10")
         self.image_quantity_slider = QSlider(Qt.Horizontal)
-        self.max_image_quantity_current_value_label = QLabel("1", objectName="max_quantity_current_value_label")
+        self.max_image_quantity_current_value_label = QLabel("1")
+        self.parent_class.window.assign_css_class(self.max_image_quantity_current_value_label, "current_value_label")
         # Adjust labels settings and width
         self.max_image_quantity_current_value_label.setAlignment(Qt.Alignment.AlignCenter)
         min_image_quantity_label.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)

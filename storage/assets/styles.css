@@ -67,8 +67,7 @@ QLabel.slider_value_label {
     font-weight: 600;
 }
 
-QLabel#temperature_current_value_label,
-QLabel#max_tokens_current_value_label {
+QLabel.current_value_label {
     font-size: 11px;
 }
 
@@ -137,7 +136,6 @@ QComboBox::drop-down {
     padding: 2px;
     border: none;
     background: url(storage/assets/icons/down-arrow.svg) no-repeat center center;
-    background-size: 16px 16px;
 }
 
 /* QDialog */
