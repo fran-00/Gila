@@ -23,6 +23,11 @@ class Controller(QObject):
         # self.model.check_for_updates()
 
     def connect_model(self):
+        """Connect the controller's signals to the model's slots and vice versa.
+
+        This method establishes the necessary signal-slot connections between
+        the controller and the model.
+        """
         # Connect CONTROLLER's signals to MODEL's slots
         self.user_prompt_to_model.connect(self.model.get_user_prompt_slot)
         self.new_settings_to_manager.connect(
@@ -47,6 +52,11 @@ class Controller(QObject):
             self.api_key_is_valid_slot)
 
     def connect_view(self):
+        """Connect the controller's signals to the view's slots and vice versa.
+
+        This method establishes the necessary signal-slot connections between
+        the controller and the view components.
+        """
         # Connect CONTROLLER's signals to VIEW's slots
         self.response_message_to_chatlog.connect(
             self.view.chat.get_response_message_slot)
@@ -81,6 +91,12 @@ class Controller(QObject):
 
     @Slot()
     def update_found_slot(self):
+        """Handle the event when an update is found.
+
+        This slot is triggered when an update is detected. It emits a status bar
+        update message indicating that an update has been found and displays a
+        modal dialog to inform the user about the available update.
+        """
         self.update_status_bar.emit("Update found.")
         self.view.update_found_modal.exec_()
 
@@ -89,11 +105,17 @@ class Controller(QObject):
         """ Slot
         Connected to one signal:
             - model.response_message_signal_to_controller
-        Emits two signals:
+        Emits:
             - response_message_to_chatlog (view.chat.get_response_message_slot)
             - update_status_bar (view.status_bar.on_status_update_slot)
 
-        Receive AI response from the MODEL and send it to CHATLOG
+        This slot is connected to the model's response_message_signal_to_controller
+        signal. Upon receiving an AI response, it emits the response to the chat
+        log and updates the status bar to indicate that a response has been received
+        and the application is waiting for a new message.
+
+        Parameters:
+            response_message (str): The AI response message to be processed.
         """
         self.response_message_to_chatlog.emit(response_message)
         self.update_status_bar.emit(
@@ -105,9 +127,15 @@ class Controller(QObject):
         Connected to one signal:
             - model.response_info_signal_to_controller
         Emits two signals:
-            - response_info_to_chatlog (view.chat.get_response_message_slot)
+            - response_info_to_chatlog (view.chat.get_response_message_slot) 
 
-        Receive response info from the MODEL and send it to SIDEBAR
+        Handles the reception of response information from the model.
+        Upon receiving response information, it emits the data to the sidebar
+        for display.
+
+        Parameters:
+            response_info (dict): A dictionary containing information about the
+                                  response, such as token usage.
         """
         self.response_info_to_chatlog.emit(response_info)
 
@@ -116,9 +144,17 @@ class Controller(QObject):
         """ Slot
         Connected to one signal:
             - view.chat.user_prompt_signal_to_controller
-        Emits two signals:
+        Emits:
             - user_prompt_to_model (model.get_user_prompt_slot)
             - update_status_bar (view.status_bar.on_status_update_slot)
+
+        Handle the reception of a user prompt from the chat view.
+
+        Upon receiving a user prompt, it emits the prompt to the model for processing 
+        and updates the status bar to say that a new user prompt has been received.
+
+        Parameters:
+            user_prompt (str): The user prompt inputted in the chat.
         """
         self.user_prompt_to_model.emit(user_prompt)
 
@@ -139,6 +175,19 @@ class Controller(QObject):
         Emits two signals:
             - new_settings_to_manager (model.manager.set_new_client_slot)
             - update_status_bar (view.status_bar.on_status_update_slot)
+
+        Handle the reception of new settings from the sidebar.
+        Upon receiving new settings, it emits the updated settings to the model's
+        manager for processing and updates the status bar.
+
+        Parameters:
+            new_client (str): The name of the newly selected client.
+            new_temperature (float): The new temperature setting for the model.
+            new_max_tokens (int): The new maximum tokens setting for the model.
+            new_system_message (str): The new system message for the model.
+            new_image_size (str): The new image size setting.
+            new_image_quality (str): The new image quality setting.
+            new_image_quantity (int): The new image quantity setting.
         """
         self.new_settings_to_manager.emit(
             new_client,
@@ -159,6 +208,18 @@ class Controller(QObject):
         Saves current chat, cleans log, resets chat and emits two signals:
             - chat_stopped_to_model (model.chat_stopped_slot)
             - update_status_bar (view.status_bar.on_status_update_slot)
+
+        Handles the stopping of a chat from the sidebar.
+
+        When triggered, it saves the current chat if necessary, cleans the chat
+        log, resets the chat state, and emits signals to indicate that the chat
+        has stopped.
+
+        Notes:
+            - The chat is saved only if there are changes in the chat log and
+              text present.
+            - The method updates the status bar to warn that the conversation
+              has been closed.
         """
         if self.model.manager.stream_stopped is not True:
             # Chat must be saved only if it's not empty and date must not be changed if chatlog is not changed
@@ -183,6 +244,22 @@ class Controller(QObject):
         Checks API Key and emits two signals:
             - update_status_bar (view.status_bar.on_status_update_slot)
             - missing_api_key_to_view (view.add_api_key_modal_slot)
+
+        Handle the event when a new chat is started.
+
+        This slot is connected to signals from both the view and the model indicating 
+        that a new chat has begun. It checks if the API key is valid and emits
+        signals to update the status bar or prompt the user for an API key if
+        necessary. If a loaded chat is present, it calls the on_loaded_chat method;
+        otherwise, it initializes a new chat with on_new_chat. The method updates
+        settings labels, saves current settings, and checks internet connectivity
+        before starting the chat.
+
+        Notes:
+            - If there is no internet connection, a warning modal is displayed
+              to the user.
+            - The UI elements related to the chat are shown or hidden based on
+              the connection status.
         """
         if self.model.manager.client.is_loaded:
             self.on_loaded_chat()
@@ -226,7 +303,23 @@ class Controller(QObject):
         self.update_status_bar.emit("Saved conversation loaded.")
 
     def on_new_chat(self):
-        """Check if manager has changed the client: if so, update setting accordingly"""
+        """Initialize a new chat session and updates settings if the client has
+        changed.
+
+        Called when a new conversation is started. It emits a status update
+        indicating that a new conversation has begun and resets the response
+        info labels in the chat view. If the user has selected a new client,
+        it updates the model's client settings accordingly.
+
+        If a new client is set, the method updates various parameters and resets
+        the chat state for the new client. Finally, it sets the chat history to
+        include the system message.
+
+        Notes:
+            - The method ensures that the chat history is initialized with the
+              system message for new chats.
+            - Any previous client settings are cleared when a new client is selected.
+        """
         self.update_status_bar.emit("New conversation started.")
         # Get saved response info to show them if chat is loaded
         self.view.chat.on_response_info_labels_reset()
@@ -253,9 +346,17 @@ class Controller(QObject):
             - view.modal.api_key_to_controller
         Emits one signal:
             - api_key_to_manager (model.manager.api_key_slot)
-        If company_name parameter is set by AddAPIKeyModal via process_api_key
-        method. If it is None, manager will send new API key to the current client,
-        else it will send it on the client based on that company name.
+
+        Handle the reception of an API key from the modal dialog.
+
+        This slot is connected to the view's api_key_to_controller signal. 
+        It receives the API key and the associated company name. If the company
+        name is provided, the method sends the API key to the model's manager
+        for the specified company; otherwise, it sends the API key to the current client.
+
+        Parameters:
+            api_key (str): The API key to be processed.
+            company_name (str): The name of the company associated with the API key.
         """
         self.api_key_to_manager.emit(api_key, company_name)
 
@@ -266,6 +367,15 @@ class Controller(QObject):
             - model.manager.api_key_is_valid_to_controller
         Emits one signal:
             - api_key_is_valid_to_view (view.modal.on_api_key_validation_slot)
+
+        Handle the validation status of an API key.
+
+        Upon receiving the validation result, it emits the status to the view's
+        modal for further processing, indicating whether the API key is valid
+        or not.
+
+        Parameters:
+            is_key_valid (bool): A boolean indicating the validity of the API key.
         """
         self.api_key_is_valid_to_view.emit(is_key_valid)
 
@@ -274,7 +384,13 @@ class Controller(QObject):
         """ Slot
         Connected to one signal:
             - model.connection_error_to_controller
-        Opens WarningLabel to warn user about internet connection.
+
+        Handle the event of a connection error.
+
+        This slot is connected to the model's connection_error_to_controller signal. 
+        When triggered, it emits a warning message to the chat log indicating that 
+        there is no internet connection, updates the status bar with the same message, 
+        and displays WarningLabel to inform the user about the connectivity issue.
         """
         self.response_message_to_chatlog.emit("<span style='color:#f00'>Nessuna connessione a internet!</span>")
         self.update_status_bar.emit("Nessuna connessione a internet.")
@@ -286,7 +402,16 @@ class Controller(QObject):
         """ Slot
         Connected to one signal:
             - model.generic_error_to_controller
-        Opens WarningLabel to warn user about internet connection.
+
+        Handle the event of a generic error.
+
+        When triggered, it emits a warning message to the chat log indicating that 
+        an error has occurred and updates the status bar with the same message. 
+        WarningLabel is displayed with the provided error message to inform 
+        the user about the issue.
+
+        Parameters:
+            error (str): A description of the error that occurred.
         """
         self.response_message_to_chatlog.emit("<span style='color:#f00'>An error has occurred! Try again!</span>")
         self.update_status_bar.emit("An error has occurred.")
@@ -298,7 +423,16 @@ class Controller(QObject):
         """ Slot
         Connected to one signal:
             - view.sidebar.stored_chats.loading_saved_chat_id_to_controller
-        Sends chat_id to manager
+
+        Handle the loading of a saved chat using its chat ID.
+
+        When triggered, it stops the current chat, sends the chat ID to the
+        model's manager, updates the chat logs in the view, and emits the last
+        response information to the chat log. Finally, it starts the chat with
+        the loaded data. 
+
+        Parameters:
+            chat_id (str): The unique identifier of the chat to be loaded.
         """
         self.chat_stopped_from_sidebar_slot()
         self.loading_saved_chat_id_to_manager.emit(chat_id)
@@ -310,6 +444,18 @@ class Controller(QObject):
     def window_was_closed_slot(self):
         """ Slot
         Connected to one signal:
+            - view.window_closed_signal_to_controller
+
+        Handle the event when the application window is closed.
+
+        When triggered, it checks if the chat log has any text. If it does, it
+        saves the current chat and adds the log to the saved chat data. If the
+        model is currently running, it stops the main thread and updates the
+        running state to False.
+
+        Notes:
+            - This method ensures that any ongoing chat is saved before the
+              application is closed.
         """
         if self.view.chat.chatlog_has_text():
             self.model.manager.save_current_chat()
