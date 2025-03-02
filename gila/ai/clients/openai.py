@@ -51,7 +51,8 @@ class OpenAIDalleClient(APIClient):
             return False, str(e), None
 
     def _extract_response_data(self, response):
-        ai_response = response["data"][0]["url"]
+        urls = [item["url"] for item in response["data"]]
+        ai_response = urls[0] if len(urls) == 1 else ", ".join(urls)
         response_info = {
             "Prompt tokens": None,
             "Completion tokens": None,
