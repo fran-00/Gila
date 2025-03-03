@@ -2,25 +2,34 @@ import json
 import re
 import subprocess
 
-from PySide6.QtCore import QThread, QObject, Signal, Slot, QEventLoop
+from PySide6.QtCore import QObject, QThread, Signal, Slot
 
 
-class MainThread(QThread):
-    def __init__(self, model):
+class PromptWorker(QObject):
+    finished = Signal(bool, str, dict)
+    error = Signal(str)
+
+    def __init__(self, manager, prompt):
         super().__init__()
-        self.model = model
+        self.manager = manager
+        self.prompt = prompt
 
-    def run(self):
-        self.model.run()
-
-    def stop(self):
-        self.model.stop()
+    @Slot()
+    def process(self):
+        try:
+            client = self.manager.client
+            ai_response = client.submit_prompt(self.prompt)
+            no_errors = ai_response[0]
+            response_message = ai_response[1]
+            response_info = ai_response[2]
+            self.finished.emit(no_errors, response_message, response_info)
+        except Exception as e:
+            self.error.emit(str(e))
 
 
 class Model(QObject):
     response_message_signal_to_controller = Signal(str)
     response_info_signal_to_controller = Signal(dict)
-    start_chat_to_controller = Signal()
     connection_error_to_controller = Signal()
     generic_error_to_controller = Signal(str)
     update_found_to_controller = Signal()
@@ -28,76 +37,37 @@ class Model(QObject):
     def __init__(self, manager):
         self.manager = manager
         super().__init__()
-        self.running = False
 
-    def run(self):
-        """
-        Starts the event loop for processing client interactions.
-
-        Initializes the event loop and continuously executes it as long as the
-        model is running. Within the loop, it checks for the running state and
-        whether the stream has been stopped. If the stream is stopped, it emits
-        a signal to indicate that the chat has started and breaks the loop.
-        Otherwise, it processes the client response.
-        """
-        self.event_loop = QEventLoop()
-        self.client = self.manager.client
-
-        while self.running:
-            self.event_loop.exec()
-            if not self.running:
-                break
-            if self.manager.stream_stopped is True:
-                self.start_chat_to_controller.emit()
-                break
-            self.handle_client_response()
-
-    def handle_client_response(self):
-        """Process the response from the AI client after submitting a prompt.
-
-        Calls the client's `submit_prompt` method with the current
-        prompt and handles the response. It checks for errors in the response
-        and emits the appropriate signals based on the outcome.
-
-        If the response indicates no errors, it emits the response message and 
-        response information to the controller. If there is an error, it checks if 
-        the error message contains "connection" to emit a connection error signal; 
-        otherwise, it emits a generic error signal with the error message.
-        """
-        ai_response = self.client.submit_prompt(self.prompt)
-        no_errors = ai_response[0]
-        response_message = ai_response[1]
-        response_info = ai_response[2]
-        if no_errors is True:
+    @Slot(bool, str, dict)
+    def handle_worker_finished(self, no_errors, response_message, response_info):
+        if no_errors:
             self.response_message_signal_to_controller.emit(response_message)
             self.response_info_signal_to_controller.emit(response_info)
-        elif no_errors is False:
+        else:
             if "Connection" in response_message:
                 self.connection_error_to_controller.emit()
             else:
                 self.generic_error_to_controller.emit(response_message)
 
-    def stop(self):
-        """Stop the event loop and exits the running thread.
-
-        Called to terminate the event loop by calling `exit()` on the event loop
-        instance. It stops the model's execution and allows the thread to finish.
-        """
-        self.event_loop.exit()
-
     @Slot(str)
     def get_user_prompt_slot(self, prompt):
-        """Slot
-        Connected to one signal:
-            - controller.user_prompt_to_model
+        self.worker_thread = QThread()
+        self.worker = PromptWorker(self.manager, prompt.lower())
+        self.worker.moveToThread(self.worker_thread)
 
-        Get the user prompt and stops the event loop.
+        self.worker_thread.started.connect(self.worker.process)
+        self.worker.finished.connect(self.handle_worker_finished)
+        self.worker.error.connect(self.handle_worker_error)
 
-        When triggered, it stores the user prompt (converted to lowercase) 
-        and exits the event loop, allowing the model to process the prompt.
-        """
-        self.prompt = prompt.lower()
-        self.event_loop.exit()
+        self.worker.finished.connect(self.worker_thread.quit)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.worker_thread.finished.connect(self.worker_thread.deleteLater)
+
+        self.worker_thread.start()
+
+    @Slot(str)
+    def handle_worker_error(self, error_message):
+        self.generic_error_to_controller.emit(error_message)
 
     def check_for_updates(self):
         """Check for updates in the GitHub repository.

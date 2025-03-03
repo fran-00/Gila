@@ -13,11 +13,10 @@ class Controller(QObject):
     api_key_is_valid_to_view = Signal(bool)
     loading_saved_chat_id_to_manager = Signal(str)
 
-    def __init__(self, model, view, thread):
+    def __init__(self, model, view):
         super().__init__()
         self.model = model
         self.view = view
-        self.main_thread = thread
         self.connect_model()
         self.connect_view()
         # self.model.check_for_updates()
@@ -40,8 +39,6 @@ class Controller(QObject):
             self.response_message_slot)
         self.model.response_info_signal_to_controller.connect(
             self.response_info_slot)
-        self.model.start_chat_to_controller.connect(
-            self.chat_started_slot)
         self.model.connection_error_to_controller.connect(
             self.connection_error_slot)
         self.model.generic_error_to_controller.connect(
@@ -73,7 +70,7 @@ class Controller(QObject):
         self.view.window_closed_signal_to_controller.connect(
             self.window_was_closed_slot)
         self.view.sidebar.change_settings.new_settings_to_controller.connect(
-            self.new_settings_to_manager)
+            self.settings_changed_from_sidebar_slot)
         self.view.sidebar.stop_chat_to_controller.connect(
             self.chat_stopped_from_sidebar_slot)
         self.view.sidebar.stored_chats.loading_saved_chat_id_to_controller.connect(
@@ -88,17 +85,6 @@ class Controller(QObject):
         # Connect ChatLog to Status Bar
         self.view.chat.update_status_bar_from_chatlog.connect(
             self.view.status_bar.on_status_update_slot)
-
-    @Slot()
-    def update_found_slot(self):
-        """Handle the event when an update is found.
-
-        This slot is triggered when an update is detected. It emits a status bar
-        update message indicating that an update has been found and displays a
-        modal dialog to inform the user about the available update.
-        """
-        self.update_status_bar.emit("Update found.")
-        self.view.update_found_modal.exec_()
 
     @Slot(str)
     def response_message_slot(self, response_message):
@@ -140,7 +126,7 @@ class Controller(QObject):
 
     @Slot(str)
     def user_prompt_slot(self, user_prompt):
-        """ Slot
+        """Slot
         Connected to one signal:
         - view.chat.user_prompt_signal_to_controller
         Emits:
@@ -158,21 +144,12 @@ class Controller(QObject):
         self.user_prompt_to_model.emit(user_prompt)
 
     @Slot(str, float, int, str, str, str, int)
-    def settings_changed_from_sidebar_slot(
-        self,
-        new_client,
-        new_temperature,
-        new_max_tokens,
-        new_system_message,
-        new_image_size,
-        new_image_quality,
-        new_image_quantity
-    ):
-        """ Slot
+    def settings_changed_from_sidebar_slot(self, *args):
+        """Slot
         Connected to new settings sidebar signal
         - view.sidebar.new_settings_to_controller
         Emits two signals:
-        - new_settings_to_manager (model.manager.set_new_client_slot)
+        - new_settings_to_manager (model.manager.set_new_settings_slot)
         - update_status_bar (view.status_bar.on_status_update_slot)
 
         Handle the reception of new settings from the sidebar.
@@ -188,20 +165,12 @@ class Controller(QObject):
             new_image_quality (str): The new image quality setting.
             new_image_quantity (int): The new image quantity setting.
         """
-        self.new_settings_to_manager.emit(
-            new_client,
-            new_temperature,
-            new_max_tokens,
-            new_system_message,
-            new_image_size,
-            new_image_quality,
-            new_image_quantity
-        )
-        self.update_status_bar.emit(f"You have selected {new_client}.")
+        self.new_settings_to_manager.emit(*args)
+        self.update_status_bar.emit(f"You have selected {args[0]}.")
 
     @Slot()
     def chat_stopped_from_sidebar_slot(self):
-        """ Slot
+        """Slot
         Connected to stopping signal from Sidebar:
         - view.sidebar.stop_chat_to_controller
         Saves current chat, cleans log, resets chat and emits two signals:
@@ -216,26 +185,24 @@ class Controller(QObject):
         been closed. The chat is saved only if there are changes in the chat log
         and there is text.
         """
-        if self.model.manager.stream_stopped is not True:
-            # Chat must be saved only if it's not empty and date must not be changed if chatlog is not changed
-            if self.view.chat.chatlog_has_changed(self.model.manager.client.chat_id) and self.view.chat.chatlog_has_text():
-                self.model.manager.save_current_chat()
-                # Adds a new saved_chat_button passing chat_id as argument
-                self.view.sidebar.stored_chats.add_stored_chat_button(self.model.manager.client.chat_id)
-                self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
-            self.main_thread.stop()
-            self.view.chat.chat_html_logs = []
-            self.view.chat.generate_chat_html()
-            self.model.client.on_chat_reset()
-            self.model.manager.stream_stopped = True
-            self.update_status_bar.emit("The conversation has been closed.")
+        # Chat must be saved only if it's not empty and date must not be changed if chatlog is not changed
+        if self.view.chat.chatlog_has_changed(self.model.manager.client.chat_id) and self.view.chat.chatlog_has_text():
+            self.model.manager.save_current_chat()
+            # Adds a new saved_chat_button passing chat_id as argument
+            self.view.sidebar.stored_chats.add_stored_chat_button(self.model.manager.client.chat_id)
+            self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
+        self.view.chat.chat_html_logs = []
+        self.view.chat.generate_chat_html()
+        self.model.manager.client.on_chat_reset()
+        # Starts a new chat
+        self.update_status_bar.emit("New conversation started.")
+        self.chat_started_slot()
 
     @Slot()
     def chat_started_slot(self):
-        """ Slot
+        """Slot
         Connected to two signals:
         - view.chat.start_new_chat_to_controller
-        - model.start_chat_to_controller
         Checks API Key and emits two signals:
         - update_status_bar (view.status_bar.on_status_update_slot)
         - missing_api_key_to_view (view.add_api_key_modal_slot)
@@ -278,8 +245,6 @@ class Controller(QObject):
                 self.view.on_show_chatlog_and_prompt_line()
                 self.view.sidebar.current_settings.on_show_sidebar_settings_label()
                 self.view.sidebar.on_show_sidebar_new_chat_button()
-            self.model.running = True
-            self.main_thread.model.run()
             return
         # Open a modal that warns user about the lack of connection
         self.update_status_bar.emit("No internet connection.")
@@ -306,7 +271,6 @@ class Controller(QObject):
         the chat state for the new client. Finally, it sets the chat history to
         include the system message.
         """
-        self.update_status_bar.emit("New conversation started.")
         # Get saved response info to show them if chat is loaded
         self.view.chat.on_response_info_labels_reset()
         # Set the new client, if user has chosen a new one
@@ -327,7 +291,7 @@ class Controller(QObject):
 
     @Slot(str, str)
     def api_key_from_modal_slot(self, api_key, company_name):
-        """ Slot
+        """Slot
         Connected to one signal:
         - view.modal.api_key_to_controller
         Emits one signal:
@@ -385,7 +349,7 @@ class Controller(QObject):
 
     @Slot(str)
     def generic_error_slot(self, error):
-        """ Slot
+        """Slot
         Connected to one signal:
             - model.generic_error_to_controller
 
@@ -406,7 +370,7 @@ class Controller(QObject):
 
     @Slot(str)
     def loading_saved_chat_id_slot(self, chat_id):
-        """ Slot
+        """Slot
         Connected to one signal:
         - view.sidebar.stored_chats.loading_saved_chat_id_to_controller
 
@@ -428,16 +392,14 @@ class Controller(QObject):
 
     @Slot()
     def window_was_closed_slot(self):
-        """ Slot
+        """Slot
         Connected to one signal:
         - view.window_closed_signal_to_controller
 
         Handle the event when the application window is closed.
 
         When triggered, it checks if the chat log has any text. If it does, it
-        saves the current chat and adds the log to the saved chat data. If the
-        model is currently running, it stops the main thread and updates the
-        running state to False.
+        saves the current chat and adds the log to the saved chat data.
 
         Notes:
             - This method ensures that any ongoing chat is saved before the
@@ -446,6 +408,16 @@ class Controller(QObject):
         if self.view.chat.chatlog_has_text():
             self.model.manager.save_current_chat()
             self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
-        if self.model.running:
-            self.main_thread.stop()
-            self.model.running = False
+
+    @Slot()
+    def update_found_slot(self):
+        """Handle the event when an update is found.
+
+        This slot is triggered when an update is detected. It emits a status bar
+        update message indicating that an update has been found and displays a
+        modal dialog to inform the user about the available update.
+        
+        Not yet implemented
+        """
+        self.update_status_bar.emit("Update found.")
+        self.view.update_found_modal.exec_()
