@@ -2,6 +2,7 @@ from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QVBoxLayout, QTextEdit
 
 from .parent_modal import Modal
+from ..utils import load_file
 
 
 class AboutGilaModal(Modal):
@@ -20,8 +21,7 @@ class AboutGilaModal(Modal):
 
     def on_about_text(self):
         """ Parse an HTML file to show info to user """
-        with open("storage/about.html", 'r') as file:
-            html_content = file.read()
+        html_content = load_file("storage/about.html", encoding="utf-8")
         self.text_edit = QTextEdit()
         self.text_edit.setHtml(html_content)
         self.text_edit.setReadOnly(True)

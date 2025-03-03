@@ -16,6 +16,8 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from ..utils import load_file
+
 
 class SettingsHandler(QObject):
     new_settings_to_controller = Signal(str, float, int, str, str, str, int)
@@ -340,17 +342,8 @@ class SettingsHandler(QObject):
         self.max_temperature_label.setText(str(max_temp))
 
     def get_limits_from_json(self):
-        try:
-            with open('storage/models.json', 'r') as file:
-                models_data = json.load(file)
-            limits = {}
-            for model_name, data in models_data.items():
-                limits[model_name] = data["limits"]
-            return limits
-
-        except FileNotFoundError:
-            print("File models.json not found.")
-            return {}
+        models_data = load_file("storage/models.json")
+        return {model_name: data["limits"] for model_name, data in models_data.items()} if models_data else {}
 
     def check_if_image(self):
         if self.selected_llm in ["DALL-E 2", "DALL-E 3"]:
@@ -380,36 +373,31 @@ class SettingsHandler(QObject):
                 self.checkbox_1024x1024.setChecked(True)
 
     def load_settings_from_json(self):
-        """Loads the saved settings from the JSON file and sets values"""
-        try:
-            with open("storage/saved_settings.json", "r") as file:
-                settings = json.load(file)
+        """Load the saved settings from the JSON file and sets values"""
+        settings = load_file("storage/saved_settings.json")
 
-            # Sets saved llm
-            index = self.llms_combobox.findText(settings["llm_name"])
-            if index != -1:
-                self.llms_combobox.setCurrentIndex(index)
-            # Sets temperature e max_tokens
-            self.temperature_slider.setValue(int(settings["temperature"] * 10))
-            self.tokens_slider.setValue(int(settings["max_tokens"]))
-            # # Sets system_message
-            self.system_message_input.setText(settings["system_message"])
+        # Sets saved llm
+        index = self.llms_combobox.findText(settings["llm_name"])
+        if index != -1:
+            self.llms_combobox.setCurrentIndex(index)
+        # Sets temperature e max_tokens
+        self.temperature_slider.setValue(int(settings["temperature"] * 10))
+        self.tokens_slider.setValue(int(settings["max_tokens"]))
+        # # Sets system_message
+        self.system_message_input.setText(settings["system_message"])
 
-            image_size = settings.get("image_size", "")
-            for button in self.size_group.buttons(): 
-                if button.text() == image_size:
-                    button.setChecked(True)
-                    break
-            image_quality = settings.get("image_quality", "")
-            for button in self.quality_group.buttons(): 
-                if button.text() == image_quality:
-                    button.setChecked(True)
-                    break
-            # Update parameter limits based on the selected model
-            self.change_needed_settings()
-
-        except (FileNotFoundError, json.JSONDecodeError):
-            return
+        image_size = settings.get("image_size", "")
+        for button in self.size_group.buttons(): 
+            if button.text() == image_size:
+                button.setChecked(True)
+                break
+        image_quality = settings.get("image_quality", "")
+        for button in self.quality_group.buttons(): 
+            if button.text() == image_quality:
+                button.setChecked(True)
+                break
+        # Update parameter limits based on the selected model
+        self.change_needed_settings()
 
     def on_settings_changed(self):
         """Connects settings widgets to send_new_settings_to_controller signal"""
