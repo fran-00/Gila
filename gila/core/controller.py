@@ -150,11 +150,10 @@ class Controller(QObject):
         - view.sidebar.new_settings_to_controller
         Emits two signals:
         - new_settings_to_manager (model.manager.set_new_settings_slot)
-        - update_status_bar (view.status_bar.on_status_update_slot)
 
         Handle the reception of new settings from the sidebar.
         Upon receiving new settings, it emits the updated settings to the model's
-        manager for processing and updates the status bar.
+        manager for processing.
 
         Parameters:
             new_client (str): The name of the newly selected client.
@@ -166,7 +165,6 @@ class Controller(QObject):
             new_image_quantity (int): The new image quantity setting.
         """
         self.new_settings_to_manager.emit(*args)
-        self.update_status_bar.emit(f"{args[0]} model selected.")
 
     @Slot()
     def chat_stopped_from_sidebar_slot(self):
