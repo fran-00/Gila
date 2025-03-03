@@ -313,8 +313,7 @@ class Chat(QObject):
                             and displayed.
         """
         self.prompt_layout.send_button.setEnabled(True)
-        QApplication.restoreOverrideCursor()
-
+        self.chat_html_logs = [msg for msg in self.chat_html_logs if "spinner-wrapper" not in msg]
         formatted_response = self.convert_markdown_to_html(response)
         if self.window.sidebar.current_settings.current_llm in ["DALL-E 2", "DALL-E 3"] and not "error" in response.lower():
             urls = response.split(", ")
