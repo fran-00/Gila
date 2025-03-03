@@ -64,6 +64,12 @@ body {
     max-height: 100%;
 }
 
+.spinner-wrapper {
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
 /* TABLES */
 table {
     margin: 0 auto;
