@@ -16,7 +16,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from ..utils import load_file
+from ..utils import FileHandler as FH
 
 
 class SettingsHandler(QObject):
@@ -342,7 +342,7 @@ class SettingsHandler(QObject):
         self.max_temperature_label.setText(str(max_temp))
 
     def get_limits_from_json(self):
-        models_data = load_file("storage/models.json")
+        models_data = FH.load_file("storage/models.json")
         return {model_name: data["limits"] for model_name, data in models_data.items()} if models_data else {}
 
     def check_if_image(self):
@@ -374,7 +374,7 @@ class SettingsHandler(QObject):
 
     def load_settings_from_json(self):
         """Load the saved settings from the JSON file and sets values"""
-        settings = load_file("storage/saved_settings.json")
+        settings = FH.load_file("storage/saved_settings.json")
 
         # Sets saved llm
         index = self.llms_combobox.findText(settings["llm_name"])

@@ -1,7 +1,7 @@
 from PySide6.QtCore import QObject
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
 
-from ..utils import load_file
+from ..utils import FileHandler as FH
 
 
 class CurrentSettings(QObject):
@@ -15,7 +15,7 @@ class CurrentSettings(QObject):
         self.on_current_settings_layout()
 
     def get_models_from_json(self):
-        return list(load_file("storage/models.json").keys())
+        return list(FH.load_file("storage/models.json").keys())
 
     def on_current_settings_layout(self):
         current_settings_layout = QVBoxLayout(self.widget_container)

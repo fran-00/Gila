@@ -1,7 +1,7 @@
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QDialog, QPushButton, QLabel, QFrame
 
-from ..utils import load_file
+from ..utils import FileHandler as FH
 
 
 class Modal(QDialog):
@@ -15,7 +15,7 @@ class Modal(QDialog):
 
     def load_css_file(self):
         """ Loads CSS File to apply style to Modal Window """
-        return load_file("storage/assets/css/styles.css", encoding="utf-8")
+        return FH.load_file("storage/assets/css/styles.css", encoding="utf-8")
 
     def on_modal_text(self):
         self.modal_text = QLabel("Message to overwrite.", objectName="modal_text")

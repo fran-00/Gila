@@ -15,7 +15,7 @@ from PySide6.QtWidgets import (
 
 from ..modals import RenameChatModal
 from ..modals import ConfirmChatDeletionModal
-from ..utils import load_file
+from ..utils import FileHandler as FH
 
 
 class StoredChats(QObject):
@@ -57,7 +57,7 @@ class StoredChats(QObject):
         chat_files_with_dates = []
         for chat_file in chats:
             chat_id = re.sub(r'\.pk$', '', chat_file)
-            saved_data = load_file(f'storage/saved_data/{chat_file}', mode="rb")
+            saved_data = FH.load_file(f'storage/saved_data/{chat_file}', mode="rb")
             chat_date = saved_data[chat_id]["chat_date"]
             chat_files_with_dates.append((chat_file, chat_date))
         # Sorts the list based on file creation date
@@ -65,7 +65,7 @@ class StoredChats(QObject):
         # Calls add_stored_chat_button based on stored chats order
         for chat_file, _ in chat_files_with_dates:
             chat_id = re.sub(r'\.pk$', '', chat_file)
-            saved_data = load_file(f'storage/saved_data/{chat_file}', mode="rb")
+            saved_data = FH.load_file(f'storage/saved_data/{chat_file}', mode="rb")
             custom_name = saved_data[chat_id]["chat_custom_name"]
             self.add_stored_chat_button(chat_id, custom_name)
  
@@ -104,7 +104,7 @@ class StoredChats(QObject):
         # Checks if requested chat is already open. If so, ignores the loading
         if chat_id != self.current_chat_id:
             file_path = f'storage/saved_data/{chat_id}.pk'
-            saved_data = load_file(file_path, mode="rb")
+            saved_data = FH.load_file(file_path, mode="rb")
             chat = saved_data[chat_id]
             self.chatlog = chat["chat_log"]
             self.current_chat_id = chat_id
@@ -123,7 +123,7 @@ class StoredChats(QObject):
         button = self.widget_container.findChild(QPushButton, f"{self.chat_marked_for_renaming}_button")
         button.setText(new_name)
         file_path = f'storage/saved_data/{self.chat_marked_for_renaming}.pk'
-        saved_data = load_file(file_path, mode="rb")
+        saved_data = FH.load_file(file_path, mode="rb")
         saved_data[self.chat_marked_for_renaming]["chat_custom_name"] = new_name
         with open(file_path, 'wb') as file:
             pickle.dump(saved_data, file)

@@ -20,7 +20,7 @@ from .modals import (
     UpdateFoundModal,
     WarningModal,
 )
-from .utils import load_file
+from .utils import FileHandler as FH
 
 
 class LoadingScreen(QSplashScreen):
@@ -62,6 +62,7 @@ class View(QMainWindow):
         self.warning_modal = WarningModal(self)
         self.about_gila_modal = AboutGilaModal(self)
         self.update_found_modal = UpdateFoundModal(self)
+        self.file_handler = FH(self)
         self.addToolBar(self.toolbar)
         self.setStatusBar(self.status_bar)
         main_layout = QGridLayout(central_widget)
@@ -102,7 +103,7 @@ class View(QMainWindow):
         Returns:
             str: The contents of the CSS file as a string.
         """
-        return load_file("storage/assets/css/styles.css", encoding="utf-8")
+        return FH.load_file("storage/assets/css/styles.css", encoding="utf-8")
 
     def on_hide_chatlog_and_prompt_line(self):
         """Hide the chat log and prompt box.
