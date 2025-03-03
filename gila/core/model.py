@@ -38,29 +38,6 @@ class Model(QObject):
     def __init__(self, manager):
         self.manager = manager
         super().__init__()
-        self.running = False
-
-    def run(self):
-        """
-        Starts the event loop for processing client interactions.
-
-        Initializes the event loop and continuously executes it as long as the
-        model is running. Within the loop, it checks for the running state and
-        whether the stream has been stopped. If the stream is stopped, it emits
-        a signal to indicate that the chat has started and breaks the loop.
-        Otherwise, it processes the client response.
-        """
-        self.event_loop = QEventLoop()
-        self.client = self.manager.client
-
-        while self.running:
-            self.event_loop.exec()
-            if not self.running:
-                break
-            if self.manager.stream_stopped is True:
-                self.start_chat_to_controller.emit()
-                break
-            self.handle_client_response()
 
     def handle_client_response(self):
         """Process the response from the AI client after submitting a prompt.
