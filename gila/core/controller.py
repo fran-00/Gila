@@ -206,8 +206,10 @@ class Controller(QObject):
             self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
         self.view.chat.chat_html_logs = []
         self.view.chat.generate_chat_html()
-        self.model.client.on_chat_reset()
-        self.update_status_bar.emit("The conversation has been closed.")
+        self.model.manager.client.on_chat_reset()
+        # Starts a new chat
+        self.update_status_bar.emit("New conversation started.")
+        self.chat_started_slot()
 
     @Slot()
     def chat_started_slot(self):
@@ -283,7 +285,6 @@ class Controller(QObject):
         the chat state for the new client. Finally, it sets the chat history to
         include the system message.
         """
-        self.update_status_bar.emit("New conversation started.")
         # Get saved response info to show them if chat is loaded
         self.view.chat.on_response_info_labels_reset()
         # Set the new client, if user has chosen a new one
