@@ -182,12 +182,20 @@ class Chat(QObject):
                     <p class='prompt'>{sanitized_prompt}</p>
                 </div>
             """)
+            self.chat_html_logs.append(f"""
+                <div class='spinner-wrapper'>
+                    <div style="color: #f1bc2e" class="la-ball-atom la-2x">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            """)
             # Update html page with new user prompt
             self.generate_chat_html()
             # Disable button
             self.prompt_layout.send_button.setEnabled(False)
-            # Shows a cursor spinning wheel when waiting for response
-            QApplication.setOverrideCursor(Qt.WaitCursor)
             # Shows a message in the status bar
             self.update_status_bar_from_chatlog.emit("I'm sending the message...")
             # Send the signal with user prompt with a delay of 0.1 seconds
