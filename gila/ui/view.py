@@ -20,6 +20,7 @@ from .modals import (
     UpdateFoundModal,
     WarningModal,
 )
+from .utils import load_file
 
 
 class LoadingScreen(QSplashScreen):
@@ -100,20 +101,8 @@ class View(QMainWindow):
 
         Returns:
             str: The contents of the CSS file as a string.
-
-        Raises:
-            FileNotFoundError: If the CSS file does not exist at the specified path.
-            IOError: If an error occurs while reading the CSS file.
         """
-        try:
-            with open("storage/assets/css/styles.css", "r") as file:
-                return file.read()
-        except FileNotFoundError:
-            print("Error: CSS file not found.")
-            return ""
-        except IOError:
-            print("Error: An error occurred while reading the CSS file.")
-            return ""
+        return load_file("storage/assets/css/styles.css", encoding="utf-8")
 
     def on_hide_chatlog_and_prompt_line(self):
         """Hide the chat log and prompt box.
