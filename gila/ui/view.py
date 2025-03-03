@@ -62,7 +62,6 @@ class View(QMainWindow):
         self.warning_modal = WarningModal(self)
         self.about_gila_modal = AboutGilaModal(self)
         self.update_found_modal = UpdateFoundModal(self)
-        self.file_handler = FH(self)
         self.addToolBar(self.toolbar)
         self.setStatusBar(self.status_bar)
         main_layout = QGridLayout(central_widget)
