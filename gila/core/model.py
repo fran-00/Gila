@@ -65,12 +65,7 @@ class Model(QObject):
                 self.generic_error_to_controller.emit(response_message)
 
     def stop(self):
-        """Stop the event loop and exits the running thread.
-
-        Called to terminate the event loop by calling `exit()` on the event loop
-        instance. It stops the model's execution and allows the thread to finish.
-        """
-        self.event_loop.exit()
+        pass
 
     @Slot(str)
     def get_user_prompt_slot(self, prompt):
