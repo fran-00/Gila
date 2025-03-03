@@ -171,7 +171,7 @@ class Controller(QObject):
         Connected to new settings sidebar signal
         - view.sidebar.new_settings_to_controller
         Emits two signals:
-        - new_settings_to_manager (model.manager.set_new_client_slot)
+        - new_settings_to_manager (model.manager.set_new_settings_slot)
         - update_status_bar (view.status_bar.on_status_update_slot)
 
         Handle the reception of new settings from the sidebar.
