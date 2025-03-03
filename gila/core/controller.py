@@ -86,17 +86,6 @@ class Controller(QObject):
         self.view.chat.update_status_bar_from_chatlog.connect(
             self.view.status_bar.on_status_update_slot)
 
-    @Slot()
-    def update_found_slot(self):
-        """Handle the event when an update is found.
-
-        This slot is triggered when an update is detected. It emits a status bar
-        update message indicating that an update has been found and displays a
-        modal dialog to inform the user about the available update.
-        """
-        self.update_status_bar.emit("Update found.")
-        self.view.update_found_modal.exec_()
-
     @Slot(str)
     def response_message_slot(self, response_message):
         """Slot
@@ -137,7 +126,7 @@ class Controller(QObject):
 
     @Slot(str)
     def user_prompt_slot(self, user_prompt):
-        """ Slot
+        """Slot
         Connected to one signal:
         - view.chat.user_prompt_signal_to_controller
         Emits:
@@ -156,7 +145,7 @@ class Controller(QObject):
 
     @Slot(str, float, int, str, str, str, int)
     def settings_changed_from_sidebar_slot(self, *args):
-        """ Slot
+        """Slot
         Connected to new settings sidebar signal
         - view.sidebar.new_settings_to_controller
         Emits two signals:
@@ -181,7 +170,7 @@ class Controller(QObject):
 
     @Slot()
     def chat_stopped_from_sidebar_slot(self):
-        """ Slot
+        """Slot
         Connected to stopping signal from Sidebar:
         - view.sidebar.stop_chat_to_controller
         Saves current chat, cleans log, resets chat and emits two signals:
@@ -211,7 +200,7 @@ class Controller(QObject):
 
     @Slot()
     def chat_started_slot(self):
-        """ Slot
+        """Slot
         Connected to two signals:
         - view.chat.start_new_chat_to_controller
         Checks API Key and emits two signals:
@@ -302,7 +291,7 @@ class Controller(QObject):
 
     @Slot(str, str)
     def api_key_from_modal_slot(self, api_key, company_name):
-        """ Slot
+        """Slot
         Connected to one signal:
         - view.modal.api_key_to_controller
         Emits one signal:
@@ -360,7 +349,7 @@ class Controller(QObject):
 
     @Slot(str)
     def generic_error_slot(self, error):
-        """ Slot
+        """Slot
         Connected to one signal:
             - model.generic_error_to_controller
 
@@ -381,7 +370,7 @@ class Controller(QObject):
 
     @Slot(str)
     def loading_saved_chat_id_slot(self, chat_id):
-        """ Slot
+        """Slot
         Connected to one signal:
         - view.sidebar.stored_chats.loading_saved_chat_id_to_controller
 
@@ -403,16 +392,14 @@ class Controller(QObject):
 
     @Slot()
     def window_was_closed_slot(self):
-        """ Slot
+        """Slot
         Connected to one signal:
         - view.window_closed_signal_to_controller
 
         Handle the event when the application window is closed.
 
         When triggered, it checks if the chat log has any text. If it does, it
-        saves the current chat and adds the log to the saved chat data. If the
-        model is currently running, it stops the main thread and updates the
-        running state to False.
+        saves the current chat and adds the log to the saved chat data.
 
         Notes:
             - This method ensures that any ongoing chat is saved before the
@@ -421,3 +408,16 @@ class Controller(QObject):
         if self.view.chat.chatlog_has_text():
             self.model.manager.save_current_chat()
             self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
+
+    @Slot()
+    def update_found_slot(self):
+        """Handle the event when an update is found.
+
+        This slot is triggered when an update is detected. It emits a status bar
+        update message indicating that an update has been found and displays a
+        modal dialog to inform the user about the available update.
+        
+        Not yet implemented
+        """
+        self.update_status_bar.emit("Update found.")
+        self.view.update_found_modal.exec_()
