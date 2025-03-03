@@ -14,11 +14,17 @@ class PromptWorker(QObject):
         self.manager = manager
         self.prompt = prompt
 
-    def run(self):
-        self.model.run()
-
-    def stop(self):
-        self.model.stop()
+    @Slot()
+    def process(self):
+        try:
+            client = self.manager.client
+            ai_response = client.submit_prompt(self.prompt)
+            no_errors = ai_response[0]
+            response_message = ai_response[1]
+            response_info = ai_response[2]
+            self.finished.emit(no_errors, response_message, response_info)
+        except Exception as e:
+            self.error.emit(str(e))
 
 
 class Model(QObject):
