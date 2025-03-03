@@ -106,7 +106,7 @@ class View(QMainWindow):
             IOError: If an error occurs while reading the CSS file.
         """
         try:
-            with open("storage/assets/styles.css", "r") as file:
+            with open("storage/assets/css/styles.css", "r") as file:
                 return file.read()
         except FileNotFoundError:
             print("Error: CSS file not found.")

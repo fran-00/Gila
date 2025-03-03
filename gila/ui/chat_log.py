@@ -48,16 +48,12 @@ class Chat(QObject):
         the chat log widget for display.
         """
         chat_content = "".join(self.chat_html_logs)
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        css_path = os.path.join(BASE_DIR, "storage", "assets", "chatlog-styles.css")
-        spinner_css_path = os.path.join(BASE_DIR, "storage", "assets", "spinner.css")
-        css_content = ""
-        if os.path.exists(css_path):
-            with open(css_path, "r", encoding="utf-8") as f:
-                css_content = f.read()
-        if os.path.exists(spinner_css_path):
-            with open(spinner_css_path, "r", encoding="utf-8") as f:
-                spinner_css = f.read()
+
+        with open("storage/assets/css/chatlog-styles.css", "r", encoding="utf-8") as f:
+            css_content = f.read()
+        with open("storage/assets/css/spinner.css", "r", encoding="utf-8") as f:
+            spinner_css = f.read()
+
         html_template = f"""
             <html>
                 <head>
