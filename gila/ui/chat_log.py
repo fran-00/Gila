@@ -320,7 +320,7 @@ class Chat(QObject):
                 formatted_response = f"<div class='img-wrapper'><img src='{response}' class='img'></div>"
 
         allowed_tags = [
-            'b', 'i', 'u', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li',
+            'b', 'i', 'u', 'em', 'strong', 'p', 'br', 'ul', 'ol', 'li',
             'span', 'div', 'code', 'pre', 'table', 'tr', 'th', 'td', 'thead',
             'tbody', 'tfoot', 'caption'
         ]
