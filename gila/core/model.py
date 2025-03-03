@@ -39,26 +39,12 @@ class Model(QObject):
         self.manager = manager
         super().__init__()
 
-    def handle_client_response(self):
-        """Process the response from the AI client after submitting a prompt.
-
-        Calls the client's `submit_prompt` method with the current
-        prompt and handles the response. It checks for errors in the response
-        and emits the appropriate signals based on the outcome.
-
-        If the response indicates no errors, it emits the response message and 
-        response information to the controller. If there is an error, it checks if 
-        the error message contains "connection" to emit a connection error signal; 
-        otherwise, it emits a generic error signal with the error message.
-        """
-        ai_response = self.client.submit_prompt(self.prompt)
-        no_errors = ai_response[0]
-        response_message = ai_response[1]
-        response_info = ai_response[2]
-        if no_errors is True:
+    @Slot(bool, str, dict)
+    def handle_worker_finished(self, no_errors, response_message, response_info):
+        if no_errors:
             self.response_message_signal_to_controller.emit(response_message)
             self.response_info_signal_to_controller.emit(response_info)
-        elif no_errors is False:
+        else:
             if "Connection" in response_message:
                 self.connection_error_to_controller.emit()
             else:
