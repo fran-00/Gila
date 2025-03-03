@@ -60,28 +60,22 @@ def load_available_models_from_json():
         are the corresponding client instances. If the JSON file is not found,
         an empty dictionary is returned.
     """
-    try:
-        with open('storage/models.json', 'r') as file:
-            models_data = json.load(file)
+    with open('storage/models.json', 'r') as file:
+        models_data = json.load(file)
 
-        available_models = {}
-        for model_name, data in models_data.items():
-            client_data = data.get("client")
-            if client_data:
-                class_name = client_data.get("class")
-                params = client_data.get("model", [])
-                client_class = CLASS_MAP.get(class_name)
-                if client_class:
-                    available_models[model_name] = client_class(*params)
-                else:
-                    print(f"Class {class_name} not found for {model_name}.")
+    available_models = {}
+    for model_name, data in models_data.items():
+        if client_data := data.get("client"):
+            class_name = client_data.get("class")
+            params = client_data.get("model", [])
+            if client_class := CLASS_MAP.get(class_name):
+                available_models[model_name] = client_class(*params)
             else:
-                print(f"Data not found for model {model_name}.")
-        return available_models
+                print(f"Class {class_name} not found for {model_name}.")
+        else:
+            print(f"Data not found for model {model_name}.")
+    return available_models
 
-    except FileNotFoundError:
-        print("File models.json not found.")
-        return {}
 
 AVAILABLE_MODELS = load_available_models_from_json()
 
