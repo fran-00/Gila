@@ -50,10 +50,14 @@ class Chat(QObject):
         chat_content = "".join(self.chat_html_logs)
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         css_path = os.path.join(BASE_DIR, "storage", "assets", "chatlog-styles.css")
+        spinner_css_path = os.path.join(BASE_DIR, "storage", "assets", "spinner.css")
         css_content = ""
         if os.path.exists(css_path):
             with open(css_path, "r", encoding="utf-8") as f:
                 css_content = f.read()
+        if os.path.exists(spinner_css_path):
+            with open(spinner_css_path, "r", encoding="utf-8") as f:
+                spinner_css = f.read()
         html_template = f"""
             <html>
                 <head>
@@ -63,6 +67,7 @@ class Chat(QObject):
                 </head>
                 <style>
                     {css_content}
+                    {spinner_css}
                 </style>
                 <body>
                     {chat_content}
