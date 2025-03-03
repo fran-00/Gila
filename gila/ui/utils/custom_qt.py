@@ -14,6 +14,14 @@ class CustomTextEdit(QTextEdit):
     """
     returnPressed = Signal()
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.block_return = False
+
+    def set_return_blocked(self, blocked: bool):
+        """Enable or disable blocking of the return key."""
+        self.block_return = blocked
+
     def keyPressEvent(self, event):
         """Handle key press events to emit the returnPressed signal.
         
@@ -29,7 +37,7 @@ class CustomTextEdit(QTextEdit):
             event (QKeyEvent): The key event containing information about 
                                the key press.
         """
-        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+        if (event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter) and not self.block_return:
             self.returnPressed.emit()
         else:
             super().keyPressEvent(event)
