@@ -20,6 +20,5 @@ class FileHandler():
                     return f.read()
         except FileNotFoundError as e:
             print(e)
-            FileHandler.file_not_found_to_controller.emit(file_path)
         except Exception as e:
             print(f"An error occurred: {e}")
