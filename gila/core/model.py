@@ -5,10 +5,14 @@ import subprocess
 from PySide6.QtCore import QThread, QObject, Signal, Slot, QEventLoop
 
 
-class MainThread(QThread):
-    def __init__(self, model):
+class PromptWorker(QObject):
+    finished = Signal(bool, str, dict)
+    error = Signal(str)
+
+    def __init__(self, manager, prompt):
         super().__init__()
-        self.model = model
+        self.manager = manager
+        self.prompt = prompt
 
     def run(self):
         self.model.run()
