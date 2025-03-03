@@ -16,7 +16,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from .utils import CustomTextEdit, CustomWebView, Tokenizer
+from .utils import CustomTextEdit, CustomWebView, Tokenizer, load_file
 
 
 class Chat(QObject):
@@ -48,12 +48,9 @@ class Chat(QObject):
         """
         chat_content = "".join(self.chat_html_logs)
 
-        with open("storage/assets/css/chatlog-styles.css", "r", encoding="utf-8") as f:
-            css_content = f.read()
-        with open("storage/assets/css/spinner.css", "r", encoding="utf-8") as f:
-            spinner_css = f.read()
-        with open("storage/assets/js/scroller.js", "r", encoding="utf-8") as f:
-            js_content = f.read()
+        css_content = load_file("storage/assets/css/chatlog-styles.css", encoding="utf-8")
+        spinner_css = load_file("storage/assets/css/spinner.css", encoding="utf-8")
+        js_content = load_file("storage/assets/js/scroller.js", encoding="utf-8")
 
         html_template = f"""
             <html>
@@ -222,8 +219,8 @@ class Chat(QObject):
         entry in the loaded data with the current chat log and saves the updated
         data back to the same file.
         """
-        with open(f'storage/saved_data/{chat_id}.pk', 'rb') as file:
-            saved_data = pickle.load(file)
+        file_path = f"storage/saved_data/{chat_id}.pk"
+        saved_data = load_file(file_path, mode="rb")
         saved_data[chat_id]["chat_log"] = self.get_chat_log()
         with open(f'storage/saved_data/{chat_id}.pk', 'wb') as file:
             pickle.dump(saved_data, file)
@@ -383,8 +380,7 @@ class Chat(QObject):
         """
         file_path = f'storage/saved_data/{chat_id}.pk'
         if os.path.isfile(file_path):
-            with open(file_path, 'rb') as file:
-                saved_data = pickle.load(file)
+            saved_data = load_file(file_path, mode="rb")
             saved_chat_html_logs = saved_data[chat_id]["chat_log"]
             return self.chat_html_logs != saved_chat_html_logs
         return True
