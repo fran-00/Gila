@@ -8,7 +8,6 @@ import markdown
 from PySide6.QtCore import QObject, QSize, Signal, Slot, QTimer
 from PySide6.QtGui import QIcon, QPixmap, Qt
 from PySide6.QtWidgets import (
-    QApplication,
     QHBoxLayout,
     QLabel,
     QPushButton,
