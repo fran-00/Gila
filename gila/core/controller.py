@@ -198,19 +198,16 @@ class Controller(QObject):
         been closed. The chat is saved only if there are changes in the chat log
         and there is text.
         """
-        if self.model.manager.stream_stopped is not True:
-            # Chat must be saved only if it's not empty and date must not be changed if chatlog is not changed
-            if self.view.chat.chatlog_has_changed(self.model.manager.client.chat_id) and self.view.chat.chatlog_has_text():
-                self.model.manager.save_current_chat()
-                # Adds a new saved_chat_button passing chat_id as argument
-                self.view.sidebar.stored_chats.add_stored_chat_button(self.model.manager.client.chat_id)
-                self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
-            self.main_thread.stop()
-            self.view.chat.chat_html_logs = []
-            self.view.chat.generate_chat_html()
-            self.model.client.on_chat_reset()
-            self.model.manager.stream_stopped = True
-            self.update_status_bar.emit("The conversation has been closed.")
+        # Chat must be saved only if it's not empty and date must not be changed if chatlog is not changed
+        if self.view.chat.chatlog_has_changed(self.model.manager.client.chat_id) and self.view.chat.chatlog_has_text():
+            self.model.manager.save_current_chat()
+            # Adds a new saved_chat_button passing chat_id as argument
+            self.view.sidebar.stored_chats.add_stored_chat_button(self.model.manager.client.chat_id)
+            self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
+        self.view.chat.chat_html_logs = []
+        self.view.chat.generate_chat_html()
+        self.model.client.on_chat_reset()
+        self.update_status_bar.emit("The conversation has been closed.")
 
     @Slot()
     def chat_started_slot(self):
