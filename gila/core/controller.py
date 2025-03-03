@@ -257,8 +257,6 @@ class Controller(QObject):
                 self.view.on_show_chatlog_and_prompt_line()
                 self.view.sidebar.current_settings.on_show_sidebar_settings_label()
                 self.view.sidebar.on_show_sidebar_new_chat_button()
-            self.model.running = True
-            self.main_thread.model.run()
             return
         # Open a modal that warns user about the lack of connection
         self.update_status_bar.emit("No internet connection.")
