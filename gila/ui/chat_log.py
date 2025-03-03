@@ -53,6 +53,8 @@ class Chat(QObject):
             css_content = f.read()
         with open("storage/assets/css/spinner.css", "r", encoding="utf-8") as f:
             spinner_css = f.read()
+        with open("storage/assets/js/scroller.js", "r", encoding="utf-8") as f:
+            js_content = f.read()
 
         html_template = f"""
             <html>
@@ -68,14 +70,7 @@ class Chat(QObject):
                 <body>
                     {chat_content}
                     <script>
-                        function scrollToLatestMessage() {{
-                            let messages = document.getElementsByClassName('user-wrapper');
-                            if (messages.length > 0) {{
-                                let lastMessage = messages[messages.length - 1];
-                                lastMessage.scrollIntoView({{ behavior: 'smooth' }});
-                            }}
-                        }}
-                        scrollToLatestMessage();
+                        {js_content}
                     </script>
                 </body>
             </html>
