@@ -195,8 +195,9 @@ class Chat(QObject):
             """)
             # Update html page with new user prompt
             self.generate_chat_html()
-            # Disable button
+            # Disable button and return key to send prompts
             self.prompt_layout.send_button.setEnabled(False)
+            self.prompt_layout.prompt_box.set_return_blocked(True)
             # Shows a message in the status bar
             self.update_status_bar_from_chatlog.emit("I'm sending the message...")
             # Send the signal with user prompt with a delay of 0.1 seconds
@@ -308,7 +309,10 @@ class Chat(QObject):
             response (str): The response message from the API to be processed
                             and displayed.
         """
+        # Enable button and return key to send prompts
         self.prompt_layout.send_button.setEnabled(True)
+        self.prompt_layout.prompt_box.set_return_blocked(False)
+
         self.chat_html_logs = [msg for msg in self.chat_html_logs if "spinner-wrapper" not in msg]
         formatted_response = self.convert_markdown_to_html(response)
         if self.window.sidebar.current_settings.current_llm in ["DALL-E 2", "DALL-E 3"] and not "error" in response.lower():
