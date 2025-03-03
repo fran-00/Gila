@@ -37,8 +37,12 @@ class CustomTextEdit(QTextEdit):
             event (QKeyEvent): The key event containing information about 
                                the key press.
         """
-        if (event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter) and not self.block_return:
-            self.returnPressed.emit()
+        if event.key() in (Qt.Key_Return, Qt.Key_Enter):
+            # Insert newline when Shift + Enter is pressed
+            if event.modifiers() == Qt.ShiftModifier:
+                self.insertPlainText("\n")
+            elif not self.block_return:
+                self.returnPressed.emit()
         else:
             super().keyPressEvent(event)
 
