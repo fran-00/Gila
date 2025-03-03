@@ -428,6 +428,3 @@ class Controller(QObject):
         if self.view.chat.chatlog_has_text():
             self.model.manager.save_current_chat()
             self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
-        if self.model.running:
-            self.main_thread.stop()
-            self.model.running = False
