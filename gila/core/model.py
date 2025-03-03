@@ -2,7 +2,7 @@ import json
 import re
 import subprocess
 
-from PySide6.QtCore import QThread, QObject, Signal, Slot, QEventLoop
+from PySide6.QtCore import QObject, QThread, Signal, Slot
 
 
 class PromptWorker(QObject):
@@ -55,17 +55,23 @@ class Model(QObject):
 
     @Slot(str)
     def get_user_prompt_slot(self, prompt):
-        """Slot
-        Connected to one signal:
-            - controller.user_prompt_to_model
+        self.worker_thread = QThread()
+        self.worker = PromptWorker(self.manager, prompt.lower())
+        self.worker.moveToThread(self.worker_thread)
 
-        Get the user prompt and stops the event loop.
+        self.worker_thread.started.connect(self.worker.process)
+        self.worker.finished.connect(self.handle_worker_finished)
+        self.worker.error.connect(self.handle_worker_error)
 
-        When triggered, it stores the user prompt (converted to lowercase) 
-        and exits the event loop, allowing the model to process the prompt.
-        """
-        self.prompt = prompt.lower()
-        self.event_loop.exit()
+        self.worker.finished.connect(self.worker_thread.quit)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.worker_thread.finished.connect(self.worker_thread.deleteLater)
+
+        self.worker_thread.start()
+
+    @Slot(str)
+    def handle_worker_error(self, error_message):
+        self.generic_error_to_controller.emit(error_message)
 
     def check_for_updates(self):
         """Check for updates in the GitHub repository.
