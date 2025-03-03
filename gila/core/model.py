@@ -50,9 +50,6 @@ class Model(QObject):
             else:
                 self.generic_error_to_controller.emit(response_message)
 
-    def stop(self):
-        self.start_chat_to_controller.emit()
-
     @Slot(str)
     def get_user_prompt_slot(self, prompt):
         self.worker_thread = QThread()
