@@ -13,11 +13,10 @@ class Controller(QObject):
     api_key_is_valid_to_view = Signal(bool)
     loading_saved_chat_id_to_manager = Signal(str)
 
-    def __init__(self, model, view, thread):
+    def __init__(self, model, view):
         super().__init__()
         self.model = model
         self.view = view
-        self.main_thread = thread
         self.connect_model()
         self.connect_view()
         # self.model.check_for_updates()

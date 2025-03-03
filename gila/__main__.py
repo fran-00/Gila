@@ -3,7 +3,7 @@ import time
 
 from PySide6.QtWidgets import QApplication
 
-from gila.core.model import Model, MainThread
+from gila.core.model import Model
 from gila.ui.view import View, LoadingScreen
 from gila.core.controller import Controller
 from gila.ai.manager import AIManager
@@ -19,8 +19,7 @@ def main():
     manager = AIManager()
     view = View()
     model = Model(manager)
-    thread = MainThread(model)
-    controller = Controller(model, view, thread)
+    controller = Controller(model, view)
     view.show()
 
     splash.finish(view)
