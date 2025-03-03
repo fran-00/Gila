@@ -72,7 +72,7 @@ class Controller(QObject):
         self.view.window_closed_signal_to_controller.connect(
             self.window_was_closed_slot)
         self.view.sidebar.change_settings.new_settings_to_controller.connect(
-            self.new_settings_to_manager)
+            self.settings_changed_from_sidebar_slot)
         self.view.sidebar.stop_chat_to_controller.connect(
             self.chat_stopped_from_sidebar_slot)
         self.view.sidebar.stored_chats.loading_saved_chat_id_to_controller.connect(
@@ -157,16 +157,7 @@ class Controller(QObject):
         self.user_prompt_to_model.emit(user_prompt)
 
     @Slot(str, float, int, str, str, str, int)
-    def settings_changed_from_sidebar_slot(
-        self,
-        new_client,
-        new_temperature,
-        new_max_tokens,
-        new_system_message,
-        new_image_size,
-        new_image_quality,
-        new_image_quantity
-    ):
+    def settings_changed_from_sidebar_slot(self, *args):
         """ Slot
         Connected to new settings sidebar signal
         - view.sidebar.new_settings_to_controller
@@ -187,16 +178,8 @@ class Controller(QObject):
             new_image_quality (str): The new image quality setting.
             new_image_quantity (int): The new image quantity setting.
         """
-        self.new_settings_to_manager.emit(
-            new_client,
-            new_temperature,
-            new_max_tokens,
-            new_system_message,
-            new_image_size,
-            new_image_quality,
-            new_image_quantity
-        )
-        self.update_status_bar.emit(f"You have selected {new_client}.")
+        self.new_settings_to_manager.emit(*args)
+        self.update_status_bar.emit(f"You have selected {args[0]}.")
 
     @Slot()
     def chat_stopped_from_sidebar_slot(self):
