@@ -6,6 +6,14 @@ body {
     font-size: 14px;
 }
 
+a {
+    color: #f1bc2e;
+}
+
+a:hover {
+    color: #fde9b0;
+}
+
 .user-wrapper {
     margin-left: 30%;
     background-color: #585858;
@@ -65,7 +73,7 @@ body {
 }
 
 .spinner-wrapper {
-    padding-top: 50px;
+    margin: 50px 0;
     display: flex;
     justify-content: center;
 }
@@ -162,10 +170,10 @@ td {
 
 .hljs-deletion {
     background: #d54e53;
-    color: #ffffff;
+    color: #000000;
 }
 
 .hljs-addition {
     background: #ddff00;
-    color: #ffffff;
+    color: #000000;
 }
