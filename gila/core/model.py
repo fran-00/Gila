@@ -30,7 +30,6 @@ class PromptWorker(QObject):
 class Model(QObject):
     response_message_signal_to_controller = Signal(str)
     response_info_signal_to_controller = Signal(dict)
-    start_chat_to_controller = Signal()
     connection_error_to_controller = Signal()
     generic_error_to_controller = Signal(str)
     update_found_to_controller = Signal()

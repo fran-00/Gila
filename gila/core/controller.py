@@ -39,8 +39,6 @@ class Controller(QObject):
             self.response_message_slot)
         self.model.response_info_signal_to_controller.connect(
             self.response_info_slot)
-        self.model.start_chat_to_controller.connect(
-            self.chat_started_slot)
         self.model.connection_error_to_controller.connect(
             self.connection_error_slot)
         self.model.generic_error_to_controller.connect(
@@ -216,7 +214,6 @@ class Controller(QObject):
         """ Slot
         Connected to two signals:
         - view.chat.start_new_chat_to_controller
-        - model.start_chat_to_controller
         Checks API Key and emits two signals:
         - update_status_bar (view.status_bar.on_status_update_slot)
         - missing_api_key_to_view (view.add_api_key_modal_slot)
