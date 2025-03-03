@@ -166,7 +166,7 @@ class Controller(QObject):
             new_image_quantity (int): The new image quantity setting.
         """
         self.new_settings_to_manager.emit(*args)
-        self.update_status_bar.emit(f"You have selected {args[0]}.")
+        self.update_status_bar.emit(f"{args[0]} model selected.")
 
     @Slot()
     def chat_stopped_from_sidebar_slot(self):
