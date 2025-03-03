@@ -28,25 +28,38 @@ class Controller(QObject):
         the controller and the model.
         """
         # Connect CONTROLLER's signals to MODEL's slots
-        self.user_prompt_to_model.connect(self.model.get_user_prompt_slot)
+        self.user_prompt_to_model.connect(
+            self.model.get_user_prompt_slot
+        )
         self.new_settings_to_manager.connect(
-            self.model.manager.set_new_settings_slot)
-        self.api_key_to_manager.connect(self.model.manager.api_key_slot)
-        self.loading_saved_chat_id_to_manager.connect(self.model.manager.restore_chat_from_id_slot)
+            self.model.manager.set_new_settings_slot
+        )
+        self.api_key_to_manager.connect(
+            self.model.manager.api_key_slot
+        )
+        self.loading_saved_chat_id_to_manager.connect(
+            self.model.manager.restore_chat_from_id_slot
+        )
 
         # Connect MODEL's signals to CONTROLLER's slots
         self.model.response_message_signal_to_controller.connect(
-            self.response_message_slot)
+            self.response_message_slot
+        )
         self.model.response_info_signal_to_controller.connect(
-            self.response_info_slot)
+            self.response_info_slot
+        )
         self.model.connection_error_to_controller.connect(
-            self.connection_error_slot)
+            self.connection_error_slot
+        )
         self.model.generic_error_to_controller.connect(
-            self.generic_error_slot)
+            self.generic_error_slot
+        )
         self.model.update_found_to_controller.connect(
-            self.update_found_slot)
+            self.update_found_slot
+        )
         self.model.manager.api_key_is_valid_to_controller.connect(
-            self.api_key_is_valid_slot)
+            self.api_key_is_valid_slot
+        )
 
     def connect_view(self):
         """Connect the controller's signals to the view's slots and vice versa.
@@ -56,35 +69,48 @@ class Controller(QObject):
         """
         # Connect CONTROLLER's signals to VIEW's slots
         self.response_message_to_chatlog.connect(
-            self.view.chat.get_response_message_slot)
+            self.view.chat.get_response_message_slot
+        )
         self.response_info_to_chatlog.connect(
-            self.view.chat.get_response_info_slot)
+            self.view.chat.get_response_info_slot
+        )
         self.update_status_bar.connect(
-            self.view.status_bar.on_status_update_slot)
+            self.view.status_bar.on_status_update_slot
+        )
         self.missing_api_key_to_view.connect(
-            self.view.add_api_key_modal_slot)
+            self.view.add_api_key_modal_slot
+        )
         self.api_key_is_valid_to_view.connect(
-            self.view.add_api_key_modal.on_api_key_validation_slot)
+            self.view.add_api_key_modal.on_api_key_validation_slot
+        )
 
         # Connect VIEW's signals to CONTROLLER's slots
         self.view.window_closed_signal_to_controller.connect(
-            self.window_was_closed_slot)
+            self.window_was_closed_slot
+        )
         self.view.sidebar.change_settings.new_settings_to_controller.connect(
-            self.settings_changed_from_sidebar_slot)
+            self.settings_changed_from_sidebar_slot
+        )
         self.view.sidebar.stop_chat_to_controller.connect(
-            self.chat_stopped_from_sidebar_slot)
+            self.chat_stopped_from_sidebar_slot
+        )
         self.view.sidebar.stored_chats.loading_saved_chat_id_to_controller.connect(
-            self.loading_saved_chat_id_slot)
+            self.loading_saved_chat_id_slot
+        )
         self.view.chat.user_prompt_signal_to_controller.connect(
-            self.user_prompt_slot)
+            self.user_prompt_slot
+        )
         self.view.chat.start_new_chat_to_controller.connect(
-            self.chat_started_slot)
+            self.chat_started_slot
+        )
         self.view.add_api_key_modal.api_key_to_controller.connect(
-            self.api_key_from_modal_slot)
+            self.api_key_from_modal_slot
+        )
 
         # Connect ChatLog to Status Bar
         self.view.chat.update_status_bar_from_chatlog.connect(
-            self.view.status_bar.on_status_update_slot)
+            self.view.status_bar.on_status_update_slot
+        )
 
     @Slot(str)
     def response_message_slot(self, response_message):
@@ -104,7 +130,8 @@ class Controller(QObject):
         """
         self.response_message_to_chatlog.emit(response_message)
         self.update_status_bar.emit(
-            "Response received. Waiting for a new message...")
+            "Response received. Waiting for a new message..."
+        )
 
     @Slot(dict)
     def response_info_slot(self, response_info):
@@ -112,7 +139,7 @@ class Controller(QObject):
         Connected to one signal:
         - model.response_info_signal_to_controller
         Emits two signals:
-        - response_info_to_chatlog (view.chat.get_response_message_slot) 
+        - response_info_to_chatlog (view.chat.get_response_message_slot)
 
         Handles the reception of response information from the model.
         Upon receiving response information, it emits the data to the sidebar
@@ -135,8 +162,9 @@ class Controller(QObject):
 
         Handle the reception of a user prompt from the chat view.
 
-        Upon receiving a user prompt, it emits the prompt to the model for processing 
-        and updates the status bar to say that a new user prompt has been received.
+        Upon receiving a user prompt, it emits the prompt to the model for
+        processing and updates the status bar to say that a new user prompt
+        has been received.
 
         Parameters:
             user_prompt (str): The user prompt inputted in the chat.
@@ -187,8 +215,12 @@ class Controller(QObject):
         if self.view.chat.chatlog_has_changed(self.model.manager.client.chat_id) and self.view.chat.chatlog_has_text():
             self.model.manager.save_current_chat()
             # Adds a new saved_chat_button passing chat_id as argument
-            self.view.sidebar.stored_chats.add_stored_chat_button(self.model.manager.client.chat_id)
-            self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
+            self.view.sidebar.stored_chats.add_stored_chat_button(
+                self.model.manager.client.chat_id
+            )
+            self.view.chat.add_log_to_saved_chat_data(
+                self.model.manager.client.chat_id
+            )
         self.view.chat.chat_html_logs = []
         self.view.chat.generate_chat_html()
         self.model.manager.client.on_chat_reset()
@@ -224,7 +256,8 @@ class Controller(QObject):
 
         # Update settings label on the sidebar
         self.view.sidebar.current_settings.update_settings_label(
-            self.model.manager.on_current_settings())
+            self.model.manager.on_current_settings()
+        )
         # Set current settings on saved_settings.json
         self.model.manager.update_saved_settings()
         # Update settings tab values on the sidebar
@@ -281,7 +314,6 @@ class Controller(QObject):
             self.model.manager.client.image_size = self.model.manager.next_image_size
             self.model.manager.client.image_quality = self.model.manager.next_image_quality
             self.model.manager.client.image_quantity = self.model.manager.next_image_quantity
-            # TODO: check if this is needed
             self.model.manager.client.on_chat_reset()
             self.model.manager.next_client = None
         # If chat is new we need to call set_chat_history to set system message
@@ -297,14 +329,16 @@ class Controller(QObject):
 
         Handle the reception of an API key from the modal dialog.
 
-        This slot is connected to the view's api_key_to_controller signal. 
+        This slot is connected to the view's api_key_to_controller signal.
         It receives the API key and the associated company name. If the company
-        name is provided, the method sends the API key to the model's manager
-        for the specified company; otherwise, it sends the API key to the current client.
+        name is provided, the method sends the API key to the model's
+        manager for the specified company; otherwise, it sends the API key to
+        the current client.
 
         Parameters:
             api_key (str): The API key to be processed.
-            company_name (str): The name of the company associated with the API key.
+            company_name (str): The name of the company associated with the API
+                                key.
         """
         self.api_key_to_manager.emit(api_key, company_name)
 
@@ -335,13 +369,16 @@ class Controller(QObject):
 
         Handle the event of a connection error.
 
-        This slot is connected to the model's connection_error_to_controller signal. 
-        When triggered, it emits a warning message to the chat log indicating that 
-        there is no internet connection, updates the status bar with the same message, 
-        and displays WarningLabel to inform the user about the connectivity issue.
+        This slot is connected to the model's connection_error_to_controller
+        signal. When triggered, it emits a warning message to the chat log
+        indicating that there is no internet connection, updates the status bar
+        with the same message, and displays WarningLabel to inform the user
+        about the connectivity issue.
         """
-        self.response_message_to_chatlog.emit("<span style='color:#f00'>Nessuna connessione a internet!</span>")
-        self.update_status_bar.emit("Nessuna connessione a internet.")
+        self.response_message_to_chatlog.emit(
+            "<span style='color:#f00'>No internet connection.</span>"
+        )
+        self.update_status_bar.emit("No internet connection.")
         self.view.warning_modal.on_no_internet_connection_label()
         self.view.warning_modal.exec_()
 
@@ -353,15 +390,17 @@ class Controller(QObject):
 
         Handle the event of a generic error.
 
-        When triggered, it emits a warning message to the chat log indicating that 
-        an error has occurred and updates the status bar with the same message. 
-        WarningLabel is displayed with the provided error message to inform 
+        When triggered, it emits a warning message to the chat log indicating
+        that an error has occurred and updates the status bar with the same message.
+        WarningLabel is displayed with the provided error message to inform
         the user about the issue.
 
         Parameters:
             error (str): A description of the error that occurred.
         """
-        self.response_message_to_chatlog.emit("<span style='color:#f00'>An error has occurred! Try again!</span>")
+        self.response_message_to_chatlog.emit(
+            "<span style='color:#f00'>An error has occurred! Try again!</span>"
+        )
         self.update_status_bar.emit("An error has occurred.")
         self.view.warning_modal.on_label(error)
         self.view.warning_modal.exec_()
@@ -377,7 +416,7 @@ class Controller(QObject):
         When triggered, it stops the current chat, sends the chat ID to the
         model's manager, updates the chat logs in the view, and emits the last
         response information to the chat log. Finally, it starts the chat with
-        the loaded data. 
+        the loaded data.
 
         Parameters:
             chat_id (str): The unique identifier of the chat to be loaded.
@@ -414,7 +453,7 @@ class Controller(QObject):
         This slot is triggered when an update is detected. It emits a status bar
         update message indicating that an update has been found and displays a
         modal dialog to inform the user about the available update.
-        
+
         Not yet implemented
         """
         self.update_status_bar.emit("Update found.")
