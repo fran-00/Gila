@@ -20,6 +20,7 @@ class UpdateFoundModal(Modal):
         self.on_confirm_button()
         self.on_dismiss_button()
         self.dismiss_button.setText("Close")
+        self.window.set_cursor_pointer_for_buttons(self)
 
     def on_confirm_button(self):
         self.modal_button = QPushButton("Download", self)

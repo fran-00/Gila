@@ -15,6 +15,7 @@ class WarningModal(Modal):
         self.modal_layout = QVBoxLayout(self)
         self.on_modal_text()
         self.on_dismiss_button()
+        self.window.set_cursor_pointer_for_buttons(self)
 
     def on_label(self, message):
         self.modal_text.setText(message)

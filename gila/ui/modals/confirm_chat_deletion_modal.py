@@ -20,6 +20,7 @@ class ConfirmChatDeletionModal(Modal):
         self.modal_layout.addLayout(self.buttons_layout)
         self.on_confirm_button()
         self.on_refuse_button()
+        self.window.set_cursor_pointer_for_buttons(self)
 
     def on_confirm_button(self):
         self.modal_button = QPushButton("Yes, delete it!", self)

@@ -21,6 +21,7 @@ class AddAPIKeyModal(Modal):
         self.on_modal_entry_line()
         self.on_modal_button()
         self.on_modal_wait_label()
+        self.window.set_cursor_pointer_for_buttons(self)
 
     def on_modal_entry_line(self):
         """ Add instructions text and an entry line """

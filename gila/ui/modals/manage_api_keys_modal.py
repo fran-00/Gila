@@ -32,6 +32,7 @@ class ManageAPIKeysModal(Modal):
         self.set_icons()
         for key in self.api_keys.keys():
             self.on_client_list_row(key)
+        self.window.set_cursor_pointer_for_buttons(self)
 
     def on_stored_api_keys(self):
         load_dotenv()

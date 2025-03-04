@@ -18,6 +18,7 @@ class RenameChatModal(Modal):
         self.modal_text.setText("Enter a new name for the saved chat.")
         self.on_new_name_entry()
         self.on_confirm_button()
+        self.window.set_cursor_pointer_for_buttons(self)
 
     def on_confirm_button(self):
         self.modal_button = QPushButton("Ok", self)
