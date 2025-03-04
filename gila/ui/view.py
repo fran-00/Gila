@@ -1,5 +1,5 @@
 from PySide6.QtCore import Signal, Slot
-from PySide6.QtGui import QFontDatabase, QIcon, QPixmap
+from PySide6.QtGui import QFontDatabase, QIcon, QPixmap, Qt
 from PySide6.QtWidgets import (
     QGridLayout, 
     QMainWindow,
@@ -68,6 +68,7 @@ class View(QMainWindow):
         main_layout.addWidget(self.sidebar.widget_container, 0, 0)
         main_layout.addWidget(self.on_toggle_sidebar_button(), 0, 1)
         main_layout.addWidget(self.chat.widget_container, 0, 2, 1, 3)
+        self.set_cursor_pointer_for_buttons(self)
         self.on_hide_chatlog_and_prompt_line()
 
     def on_toggle_sidebar_button(self):
@@ -168,3 +169,11 @@ class View(QMainWindow):
         """Load custom fonts into the application's font database."""
         QFontDatabase.addApplicationFont("storage/assets/fonts/BrunoAceSC-Regular.ttf")
         QFontDatabase.addApplicationFont("storage/assets/fonts/Geologica-VariableFont.ttf")
+
+    def set_cursor_pointer_for_buttons(self, parent):
+        """Set cursor pointer for all buttons.
+        
+        Takes parent as argument because it is called also by modals.
+        """
+        for btn in parent.findChildren(QPushButton):
+            btn.setCursor(Qt.PointingHandCursor)
