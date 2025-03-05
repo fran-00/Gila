@@ -1,7 +1,8 @@
-# GILA - AI Chatbot
+# Gila - AI Chat Client
 
-Gila is AI chatbot client made with Python and PySide6.
-Currently supported large language models:
+Gila is a Python application built with PySide6 that connects to the REST APIs of AI service providers. It allows users to interact with several large language models, store chat histories, and customize chat parameters.
+
+## Currently supported models
 
 - GPT-4o mini
 - GPT-4o
@@ -30,22 +31,20 @@ Currently supported large language models:
 - Claude 3.5 Haiku
 - Claude 3 Opus
 
-Currently supported text-to-image models:
+## Currently supported text-to-image models
 
 - DALL-E 2
 - DALL-E 3
 
-We will use [PyInstaller](https://pyinstaller.org/en/stable/operating-mode.html) to create an executable file that will allow us to start the client without having to deal with the source code. The executable file that **PyInstaller** will create depends on the operating system: this guide refers specifically to **Windows** but the steps for Linux and MacOs are practically the same. For the same reason I chose [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html) as the virtual environment manager to run **Gila**: it allows you to specify a Python version and is easy to use on Windows, Linux and MacOs, but you can use any manager of your choice depending on the operating system you are on.
+## Setup and Running Instructions
 
-## How to set up development environment
-
-To run from source, you'll need **Conda** and **Git** installed in your system. You'll also need some API Keys, but we'll cover it up later. Clone this project:
+To run Gila from source, you'll need **Conda** and **Git** installed in your system, along with the necessary API keys. Below are the steps to set up the development environment and run the application:
 
 ```shell
 git clone https://github.com/fran-00/gila.git
 ```
 
-Create a new virtual environment with *Python 3.13.2* using **conda** and activate it:
+Create a new virtual environment with *Python 3.13.2* using **Conda** and activate it:
 
 ```shell
 conda create --name gila python=3.13.2
@@ -66,7 +65,7 @@ python -m gila
 
 ## API Keys
 
-When you select an LLM from the settings and start a new chat, if you have not set the API Key required to use that LLM, a window will appear asking you to enter it. Depending on the LLM you have chosen, you will need to obtain an API key from a specific platform. Below are links to the pages where you can create API keys for the models used in Gila: to access these pages you must have an account first. Please note that in some cases there are costs associated with using API keys, although some platforms offer free plans to try out their services.
+When selecting an LLM and starting a new chat, if you haven't set the necessary API key, a window will prompt you to enter it. Below are links to where you can obtain API keys for the models used in Gila (an account may be required). Please note that some platforms may charge for API usage, although free plans are also available for testing purposes.
 
 - [OpenAI](https://platform.openai.com/settings/organization/general): GPT-4o mini, GPT-4o, GPT-4, GPT-4 Turbo, DALL-E 2, DALL-E 3
 - [Google](https://aistudio.google.com/app/apikey): Gemini 2.0 Flash, Gemini 1.5 Flash, Gemini 1.5 Pro
@@ -76,14 +75,14 @@ When you select an LLM from the settings and start a new chat, if you have not s
 - [Cohere](https://dashboard.cohere.com/api-keys): Command R7B, Command R+, Command R, Command, Aya Expanse 8B, Aya Expanse 32B
 - [Anthropic](https://console.anthropic.com/settings/keys): Claude 3.7 Sonnet, Claude 3.5 Sonnet v2, Claude 3.5 Haiku, Claude 3 Opus
 
-If valid, the entered API keys will be saved in a **.env** file in the root of the project and will be read by Gila as environmental variables.
+If valid, the API keys will be saved in a **.env** file in the project root directory, and Gila will read them as environmental variables
 
-## How to build the .exe file
+## Build the Executable
 
-On the root directory (with the virtual environment activated and PyInstaller installed):
+To create a standalone executable file, make sure the virtual environment is activated and PyInstaller is installed, then run the following command in the root directory:
 
 ```shell
 pyinstaller build.spec
 ```
 
-You will find **gila.exe** executable file inside *dist* directory: remember to copy *storage* folder there before distributing it!
+This will create a gila.exe file in the *dist* directory. Remember to copy the **storage** folder into the same directory as the executable before distributing it.
