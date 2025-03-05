@@ -30,7 +30,7 @@ CLASS_MAP = {
 }
 
 COMPANIES = {
-    "ANTHROPIC": AnthropicClient("claude-3-sonnet-20240229"),
+    "ANTHROPIC": AnthropicClient("claude-3-5-sonnet-latest"),
     "ARLI": ArliClient("Llama-3.3-70B-Instruct"),
     "COHERE": CohereClient("command"),
     "DEEPSEEK": DeepSeekClient("deepseek-chat"),
