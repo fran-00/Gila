@@ -38,30 +38,32 @@ Gila is a Python application built with PySide6 that connects to the REST APIs o
 
 ## Setup and Running Instructions
 
-To run Gila from source, you'll need **Conda** and **Git** installed in your system, along with the necessary API keys. Below are the steps to set up the development environment and run the application:
+To run Gila from source, you'll need **Conda** and **Git** installed in your system, along with the necessary **API keys.**. Below are the steps to set up the development environment and run the application:
 
-```shell
-git clone https://github.com/fran-00/gila.git
-```
+1. Clone the repository:
 
-Create a new virtual environment with *Python 3.13.2* using **Conda** and activate it:
+    ```shell
+    git clone https://github.com/fran-00/gila.git
+    ```
 
-```shell
-conda create --name gila python=3.13.2
-conda activate gila
-```
+2. Create a new virtual environment with *Python 3.13.2* using **Conda** and activate it:
 
-Install project's required packages via pip:
+    ```shell
+    conda create --name gila python=3.13.2
+    conda activate gila
+    ```
 
-```shell
-pip install -r requirements.txt
-```
+3. Install the required packages via pip:
 
-Now you can run Gila:
+    ```shell
+    pip install -r requirements.txt
+    ```
 
-```shell
-python -m gila
-```
+4. Run Gila:
+
+    ```shell
+    python -m gila
+    ```
 
 ## API Keys
 
@@ -75,7 +77,7 @@ When selecting an LLM and starting a new chat, if you haven't set the necessary 
 - [Cohere](https://dashboard.cohere.com/api-keys): Command R7B, Command R+, Command R, Command, Aya Expanse 8B, Aya Expanse 32B
 - [Anthropic](https://console.anthropic.com/settings/keys): Claude 3.7 Sonnet, Claude 3.5 Sonnet v2, Claude 3.5 Haiku, Claude 3 Opus
 
-If valid, the API keys will be saved in a **.env** file in the project root directory, and Gila will read them as environmental variables
+If valid, the API keys will be saved in a **.env** file in the project root directory, and Gila will read them as environmental variables.
 
 ## Build the Executable
 
