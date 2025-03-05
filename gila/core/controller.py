@@ -23,9 +23,6 @@ class Controller(QObject):
 
     def connect_model(self):
         """Connect the controller's signals to the model's slots and vice versa.
-
-        This method establishes the necessary signal-slot connections between
-        the controller and the model.
         """
         # Connect CONTROLLER's signals to MODEL's slots
         self.user_prompt_to_model.connect(
@@ -63,9 +60,6 @@ class Controller(QObject):
 
     def connect_view(self):
         """Connect the controller's signals to the view's slots and vice versa.
-
-        This method establishes the necessary signal-slot connections between
-        the controller and the view components.
         """
         # Connect CONTROLLER's signals to VIEW's slots
         self.response_message_to_chatlog.connect(
@@ -120,6 +114,8 @@ class Controller(QObject):
         Emits:
         - response_message_to_chatlog (view.chat.get_response_message_slot)
         - update_status_bar (view.status_bar.on_status_update_slot)
+        
+        Handle the reception of a response from the model.
 
         Upon receiving an AI response, it emits the response to the chat log and
         updates the status bar to indicate that a response has been received and
@@ -141,7 +137,8 @@ class Controller(QObject):
         Emits two signals:
         - response_info_to_chatlog (view.chat.get_response_message_slot)
 
-        Handles the reception of response information from the model.
+        Handle the reception of response information from the model.
+
         Upon receiving response information, it emits the data to the sidebar
         for display.
 

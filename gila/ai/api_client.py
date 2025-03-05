@@ -31,10 +31,9 @@ class APIClient(ABC):
         """Check for the presence of an API key in the .env file for the
         specified company.
 
-        This method loads the environment variables from the .env file and
-        retrieves the API key associated with the given company name. If an API
-        key is found, it assigns the key to the instance variable and returns
-        True; otherwise, it returns False.
+        Loads the environment variables from the .env file and retrieves the API
+        key associated with the given company name. If an API key is found, it
+        assigns the key to the instance variable and returns a boolean value.
 
         Parameters:
             company_name (str): The name of the company for which to check the API key.
@@ -59,9 +58,9 @@ class APIClient(ABC):
     def generate_chat_id(self):
         """Generate a unique chat ID consisting of random alphanumeric characters.
 
-        This method creates a chat ID by randomly selecting 10 characters from 
-        the set of ASCII letters and digits. The generated ID is assigned to 
-        the instance's chat_id attribute.
+        Creates a chat ID by randomly selecting 10 characters from the set of
+        ASCII letters and digits. The generated ID is assigned to the instance's
+        chat_id.
         """
         self.chat_id = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
 
@@ -118,8 +117,8 @@ class APIClient(ABC):
         """Create and return the default request headers.
 
         Constructs a dictionary of HTTP headers to be used in requests. 
-        By default, it includes the content type as "application/json" and 
-        an authorization header that contains the API key.
+        By default, it includes the content type as "application/json" and an
+        authorization header that contains the API key.
 
         Returns:
             dict: A dictionary containing the default request headers with the keys:
@@ -251,8 +250,7 @@ class APIClient(ABC):
             return False, str(e), None
 
     def _format_user_message(self, prompt):
-        """
-        Defines how the user message should be formatted for API submission.
+        """Define how the user message should be formatted for API submission.
 
         Formats the user's prompt into a dictionary with the appropriate structure
         for the API request. This method can be overridden to customize the
@@ -269,12 +267,11 @@ class APIClient(ABC):
         return {"role": "user", "content": prompt}
 
     def _format_ai_message(self, ai_response):
-        """
-        Defines how the AI response should be formatted for API submission.
+        """Define how the AI response should be formatted for API submission.
 
-        Formats the AI's response into a dictionary with the appropriate structure
-        for the API request. This method can be overridden to customize the
-        formatting as needed.
+        Formats the AI's response into a dictionary with the appropriate
+        structure for the API request. This method can be overridden to customize
+        the formatting as needed.
 
         Parameters:
             ai_response (str): The AI's response to be formatted.
