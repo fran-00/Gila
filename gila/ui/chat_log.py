@@ -47,6 +47,7 @@ class Chat(QObject):
         the chat log widget for display.
         """
         chat_content = "".join(self.chat_html_logs)
+        start_msg = "<div class'start_msg'>Send a message to start the conversation.</div>" if not chat_content else ""
 
         css_content = FH.load_file("storage/assets/css/chatlog-styles.css", encoding="utf-8")
         spinner_css = FH.load_file("storage/assets/css/spinner.css", encoding="utf-8")
@@ -64,6 +65,7 @@ class Chat(QObject):
                     {spinner_css}
                 </style>
                 <body>
+                    {start_msg}
                     {chat_content}
                     <script>
                         {js_content}
