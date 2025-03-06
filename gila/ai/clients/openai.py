@@ -42,10 +42,9 @@ class OClient(OpenAIClient):
         return []
 
 
-class OpenAIDalleClient(APIClient):
+class DALLEClient(OpenAIClient):
     def __init__(self, llm):
         super().__init__(llm)
-        self.company = "OPENAI"
 
     def _get_endpoint(self):
         return "https://api.openai.com/v1/images/generations"
