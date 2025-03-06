@@ -205,14 +205,14 @@
     "DALL-E 2": {
       "limits": [4096, 1],
       "client": {
-        "class": "OpenAIDalleClient",
+        "class": "DALLEClient",
         "model": ["dall-e-2"]
       }
     },
     "DALL-E 3": {
       "limits": [4096, 1],
       "client": {
-        "class": "OpenAIDalleClient",
+        "class": "DALLEClient",
         "model": ["dall-e-3"]
       }
     }
