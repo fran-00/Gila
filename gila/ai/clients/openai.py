@@ -37,10 +37,6 @@ class OClient(OpenAIClient):
             "max_completion_tokens": self.max_completion_tokens
         }
 
-    def _set_system_message(self):
-        """System message is not supported with o-series models"""
-        return []
-
 
 class DALLEClient(OpenAIClient):
     def __init__(self, llm):
