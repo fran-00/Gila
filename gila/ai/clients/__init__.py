@@ -4,4 +4,4 @@ from .cohere import CohereClient
 from .deepseek import DeepSeekClient
 from .google import GoogleClient
 from .mistral import MistralClient
-from .openai import OpenAIClient, OpenAIDalleClient
+from .openai import GPTClient, OClient, DALLEClient
