@@ -10,9 +10,36 @@ class OpenAIClient(APIClient):
     def _get_endpoint(self):
         return "https://api.openai.com/v1/chat/completions"
 
+
+class GPTClient(OpenAIClient):
+
+    def __init__(self, llm):
+        super().__init__(llm)
+
     def _set_system_message(self):
         """Required role for system message is <developer>"""
-        return [{"role": "developer", "content": self.system_message}]
+        return [{"role": "developer", "content": self.system_message}] if self.system_message else []
+
+
+class OClient(OpenAIClient):
+
+    def __init__(self, llm):
+        super().__init__(llm)
+        self.reasoning_effort = "low"
+        self.max_completion_tokens = 1000
+
+    def _build_default_request_data(self):
+        """Max tokens and temperature are not supported with o-series models"""
+        return {
+            "model": self.llm,
+            "reasoning_effort": self.reasoning_effort,
+            "messages": self.chat_history,
+            "max_completion_tokens": self.max_completion_tokens
+        }
+
+    def _set_system_message(self):
+        """System message is not supported with o-series models"""
+        return []
 
 
 class OpenAIDalleClient(APIClient):
