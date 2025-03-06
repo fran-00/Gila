@@ -1,4 +1,25 @@
 {
+    "o3-mini": {
+      "limits": [100000, 2],
+      "client": {
+        "class": "OClient",
+        "model": ["o3-mini"]
+      }
+    },
+    "o1-mini": {
+      "limits": [65536, 2],
+      "client": {
+        "class": "OClient",
+        "model": ["o1-mini"]
+      }
+    },
+    "o1": {
+      "limits": [100000, 2],
+      "client": {
+        "class": "OClient",
+        "model": ["o1"]
+      }
+    },
     "GPT-4o mini": {
       "limits": [16384, 2],
       "client": {
