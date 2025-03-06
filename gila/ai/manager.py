@@ -13,20 +13,22 @@ from .clients import (
     DeepSeekClient,
     GoogleClient,
     MistralClient,
-    OpenAIClient,
-    OpenAIDalleClient
+    GPTClient,
+    OClient,
+    DALLEClient
 )
 
 
 CLASS_MAP = {
-    "OpenAIClient": OpenAIClient,
+    "GPTClient": GPTClient,
+    "OClient": OClient,
     "GoogleClient": GoogleClient,
     "AnthropicClient": AnthropicClient,
     "ArliClient": ArliClient,
     "CohereClient": CohereClient,
     "DeepSeekClient": DeepSeekClient,
     "MistralClient": MistralClient,
-    "OpenAIDalleClient": OpenAIDalleClient
+    "DALLEClient": DALLEClient
 }
 
 COMPANIES = {
@@ -36,7 +38,7 @@ COMPANIES = {
     "DEEPSEEK": DeepSeekClient("deepseek-chat"),
     "GOOGLE": GoogleClient("gemini-2.0-flash"),
     "MISTRAL": MistralClient("mistral-small-latest"),
-    "OPENAI": OpenAIClient("gpt-4o-mini"),
+    "OPENAI": GPTClient("gpt-4o-mini"),
 }
 
 def load_available_models_from_json():
