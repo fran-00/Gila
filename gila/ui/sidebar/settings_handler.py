@@ -123,9 +123,9 @@ class SettingsHandler(QObject):
         max_tokens_inner_layout = QVBoxLayout(self.max_tokens_inner_widget)
         max_tokens_inner_layout.setContentsMargins(0, 0, 0, 0)
         # Create max_tokens label
-        select_tokens_label = QLabel("Max Tokens")
-        self.parent_class.window.assign_css_class(select_tokens_label, "setting_name")
-        select_tokens_label.setAlignment(Qt.Alignment.AlignCenter)
+        self.select_tokens_label = QLabel("Max Tokens")
+        self.parent_class.window.assign_css_class(self.select_tokens_label, "setting_name")
+        self.select_tokens_label.setAlignment(Qt.Alignment.AlignCenter)
         # Create widgets and slider's sub-layout
         tokens_slider_sub_layout = QHBoxLayout()
         min_tokens_label = QLabel("150")
@@ -154,7 +154,7 @@ class SettingsHandler(QObject):
         tokens_slider_sub_layout.addWidget(self.tokens_slider)
         tokens_slider_sub_layout.addWidget(self.max_tokens_label)
         # Add label, slider sub layout and current value to max tokens inner layout
-        max_tokens_inner_layout.addWidget(select_tokens_label)
+        max_tokens_inner_layout.addWidget(self.select_tokens_label)
         max_tokens_inner_layout.addLayout(tokens_slider_sub_layout)
         max_tokens_inner_layout.addWidget(self.max_tokens_current_value_label)
         # Add temperture inner widget to main layout
