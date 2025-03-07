@@ -41,6 +41,7 @@ class SettingsHandler(QObject):
         self.on_llms_settings()
         self.add_line_separator(self.change_settings_layout)
         self.on_temperature_settings()
+        self.on_reasoning_settings()
         self.on_image_size_settings()
         self.add_line_separator(self.change_settings_layout)
         self.on_max_tokens_settings()
@@ -53,6 +54,7 @@ class SettingsHandler(QObject):
         self.load_settings_from_json()
 
         self.check_if_image()
+        self.check_if_reasoner()
 
     def on_llms_settings(self):
         """ Creates ComboBox with llms list """
@@ -406,6 +408,15 @@ class SettingsHandler(QObject):
             self.checkbox_hd.show()
             if selected_size_button in [self.checkbox_256x256, self.checkbox_512x512]:
                 self.checkbox_1024x1024.setChecked(True)
+
+    def check_if_reasoner(self):
+        if self.selected_llm in ["o1", "o1-mini", "o3-mini"]:
+            # TODO: default value for reasoning token
+            self.on_show_advanced_settings()
+            self.select_tokens_label.setText("Max Completion Tokens")
+        else:
+            self.on_hide_advanced_settings()
+            self.select_tokens_label.setText("Max Tokens")
 
     def load_settings_from_json(self):
         """Load the saved settings from the JSON file and sets values"""
