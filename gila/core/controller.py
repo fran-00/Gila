@@ -5,7 +5,7 @@ class Controller(QObject):
     user_prompt_to_model = Signal(str)
     response_message_to_chatlog = Signal(str)
     response_info_to_chatlog = Signal(dict)
-    new_settings_to_manager = Signal(str, float, int, str, str, str, int)
+    new_settings_to_manager = Signal(str, float, int, str, str, str, int, str)
     new_chat_started_to_model = Signal()
     update_status_bar = Signal(str)
     missing_api_key_to_view = Signal(str)
@@ -168,7 +168,7 @@ class Controller(QObject):
         """
         self.user_prompt_to_model.emit(user_prompt)
 
-    @Slot(str, float, int, str, str, str, int)
+    @Slot(str, float, int, str, str, str, int, str)
     def settings_changed_from_sidebar_slot(self, *args):
         """Slot
         Connected to new settings sidebar signal
@@ -188,6 +188,7 @@ class Controller(QObject):
             new_image_size (str): The new image size setting.
             new_image_quality (str): The new image quality setting.
             new_image_quantity (int): The new image quantity setting.
+            new_reasoning_effort (str): The new reasoning effort quantity setting.
         """
         self.new_settings_to_manager.emit(*args)
 
@@ -311,6 +312,7 @@ class Controller(QObject):
             self.model.manager.client.image_size = self.model.manager.next_image_size
             self.model.manager.client.image_quality = self.model.manager.next_image_quality
             self.model.manager.client.image_quantity = self.model.manager.next_image_quantity
+            self.model.manager.client.reasoning_effort = self.model.manager.next_reasoning_effort
             self.model.manager.client.on_chat_reset()
             self.model.manager.next_client = None
         # If chat is new we need to call set_chat_history to set system message
