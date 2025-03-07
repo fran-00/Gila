@@ -335,6 +335,14 @@ class SettingsHandler(QObject):
         self.max_tokens_inner_widget.show()
         self.system_message_inner_widget.show()
 
+    def on_show_advanced_settings(self):
+        self.temperature_inner_widget.hide()
+        self.reasoning_inner_widget.show()
+
+    def on_hide_advanced_settings(self):
+        self.temperature_inner_widget.show()
+        self.reasoning_inner_widget.hide()
+
     def send_new_settings_to_controller(self):
         """ Sends new settings to controller: signal is triggered when
             Confirm Button is pressed
