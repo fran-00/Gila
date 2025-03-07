@@ -96,6 +96,7 @@ class AIManager(QObject):
         self.next_image_size = None
         self.next_image_quality = None
         self.next_image_quantity = None
+        self.next_reasoning_effort = None
         self.get_saved_settings()
 
     def get_saved_settings(self):
@@ -115,6 +116,7 @@ class AIManager(QObject):
             - image_size: The desired size for generated images.
             - image_quality: The quality setting for generated images.
             - image_quantity: The number of images to generate.
+            - reasoning_effort: How many reasoning tokens model should generate
 
         Raises:
             FileNotFoundError: If the settings file cannot be created.
@@ -130,6 +132,7 @@ class AIManager(QObject):
                 "image_size": "1024x1024",
                 "image_quality": "standard",
                 "image_quantity": 1,
+                "reasoning_effort": "medium"
             }
             with open(file_path, "w") as f:
                 json.dump(default_data, f)
@@ -145,6 +148,7 @@ class AIManager(QObject):
             self.client.image_size = data.get("image_size")
             self.client.image_quality = data.get("image_quality")
             self.client.image_quantity = data.get("image_quantity")
+            self.client.reasoning_effort = data.get("reasoning_effort")
 
         self.client.generate_chat_id()
 
@@ -164,6 +168,7 @@ class AIManager(QObject):
             - image_size: The desired size for generated images.
             - image_quality: The quality setting for generated images.
             - image_quantity: The number of images to generate.
+            - reasoning_effort: How many reasoning tokens model should generate
 
         Raises:
             FileNotFoundError: If the settings file does not exist.
@@ -178,6 +183,7 @@ class AIManager(QObject):
             data["image_size"] = self.client.image_size
             data["image_quality"] = self.client.image_quality
             data["image_quantity"] = self.client.image_quantity
+            data["reasoning_effort"] = self.client.reasoning_effort
 
         with open("storage/saved_settings.json", "w") as file:
             json.dump(data, file, indent=4)
@@ -198,7 +204,7 @@ class AIManager(QObject):
             return True
         return False
 
-    @Slot(str, float, int, str, str, str, int)
+    @Slot(str, float, int, str, str, str, int, str)
     def set_new_settings_slot(
         self,
         new_llm,
@@ -207,7 +213,8 @@ class AIManager(QObject):
         new_system_message,
         new_image_size,
         new_image_quality,
-        new_image_quantity
+        new_image_quantity,
+        new_reasoning_effort
     ):
         """Slot 
         Connected to one signal:
@@ -228,6 +235,7 @@ class AIManager(QObject):
             new_image_size (str): The new desired size for generated images.
             new_image_quality (str): The new quality setting for generated images.
             new_image_quantity (int): The new number of images to generate.
+            new_reasoning_effort (str): The new amount of reasoning tokens to generate.
         """
         selected_llm = AVAILABLE_MODELS.get(new_llm)
         self.next_client = selected_llm, new_llm
@@ -237,6 +245,7 @@ class AIManager(QObject):
         self.next_image_size = new_image_size
         self.next_image_quality = new_image_quality
         self.next_image_quantity = new_image_quantity
+        self.new_reasoning_effort = new_reasoning_effort
 
     @Slot(str)
     def api_key_slot(self, api_key, company_name):
@@ -300,6 +309,7 @@ class AIManager(QObject):
         self.client.image_size = chat["image_size"]
         self.client.image_quality = chat["image_quality"]
         self.client.image_quantity = chat["image_quantity"]
+        self.client.reasoning_effort = chat["reasoning_effort"]
 
     def on_current_settings(self):
         """Return the current settings of the client.
@@ -319,6 +329,7 @@ class AIManager(QObject):
                 - image_size (str): The size of generated images.
                 - image_quality (str): The quality setting for generated images.
                 - image_quantity (int): The number of images to generate.
+                - reasoning_effort (str): The amount of reasoning tokens generate.
         """
         return (
             self.client.chat_id,
@@ -387,6 +398,7 @@ class AIManager(QObject):
                 "image_size": self.client.image_size,
                 "image_quality": self.client.image_quality,
                 "image_quantity": self.client.image_quantity,
+                "reasoning_effort": self.client.reasoning_effort,
             }
         }
         with open(f"storage/saved_data/{self.client.chat_id}.pk", "wb") as file:
