@@ -326,6 +326,7 @@ class SettingsHandler(QObject):
         self.image_quality_inner_widget.show()
         self.image_quantity_inner_widget.show()
         self.temperature_inner_widget.hide()
+        self.reasoning_inner_widget.hide()
         self.max_tokens_inner_widget.hide()
         self.system_message_inner_widget.hide()
 
