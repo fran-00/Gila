@@ -26,6 +26,8 @@ class APIClient(ABC):
         self.image_size = None
         self.image_quality = None
         self.image_quantity = None
+        # For o-series models
+        self.reasoning_effort = None
 
     def check_if_api_key(self, company_name):
         """Check for the presence of an API key in the .env file for the
