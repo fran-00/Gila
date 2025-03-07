@@ -20,7 +20,7 @@ from ..utils import FileHandler as FH
 
 
 class SettingsHandler(QObject):
-    new_settings_to_controller = Signal(str, float, int, str, str, str, int)
+    new_settings_to_controller = Signal(str, float, int, str, str, str, int, str)
 
     def __init__(self, parent_class, current_settings):
         super().__init__()
@@ -352,6 +352,7 @@ class SettingsHandler(QObject):
         """
         selected_llm = self.llms_combobox.currentText()
         selected_temperature = self.temperature_slider.value()
+        selected_reasoning_effort = self.reasoning_group.checkedButton().text() if self.reasoning_group.checkedButton() else None
         selected_max_tokens = self.tokens_slider.value()
         selected_system_message = self.system_message_input.toPlainText()
         selected_image_size = self.size_group.checkedButton().text() if self.size_group.checkedButton() else None
@@ -360,6 +361,7 @@ class SettingsHandler(QObject):
         self.new_settings_to_controller.emit(
             selected_llm,
             selected_temperature,
+            selected_reasoning_effort,
             selected_max_tokens,
             selected_system_message,
             selected_image_size,
@@ -454,5 +456,6 @@ class SettingsHandler(QObject):
         self.tokens_slider.valueChanged.connect(self.send_new_settings_to_controller)
         self.system_message_input.textChanged.connect(self.send_new_settings_to_controller)
         self.size_group.buttonClicked.connect(self.send_new_settings_to_controller)
+        self.reasoning_group.buttonClicked.connect(self.send_new_settings_to_controller)
         self.quality_group.buttonClicked.connect(self.send_new_settings_to_controller)
         self.image_quantity_slider.valueChanged.connect(self.send_new_settings_to_controller)
