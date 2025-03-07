@@ -284,6 +284,33 @@ class SettingsHandler(QObject):
     def on_image_quantity_settings_changed(self):
         self.max_image_quantity_current_value_label.setText(str(self.image_quantity_slider.value()))
 
+    def on_reasoning_settings(self):
+        """ Widget to adjust reasoning effort settings """
+        # Create inner widget and layout to contain reasoning effort settings
+        self.reasoning_inner_widget = QWidget()
+        reasoning_inner_layout = QVBoxLayout(self.reasoning_inner_widget)
+        reasoning_inner_layout.setContentsMargins(0, 0, 0, 0)
+        # Create reasoning effort label
+        select_reasoning_label = QLabel("Reasoning Effort")
+        self.parent_class.window.assign_css_class(select_reasoning_label, "setting_name")
+        select_reasoning_label.setAlignment(Qt.Alignment.AlignCenter)
+        # Create widget's button group with checkboxes
+        self.reasoning_group = QButtonGroup(self)
+        self.reasoning_group.setExclusive(True)
+        self.checkbox_low = QCheckBox("Low")
+        self.checkbox_medium = QCheckBox("Medium")
+        self.checkbox_high = QCheckBox("High")
+        self.reasoning_group.addButton(self.checkbox_low)
+        self.reasoning_group.addButton(self.checkbox_medium)
+        self.reasoning_group.addButton(self.checkbox_high)
+        # Add label and checkboxes to reasoning effort inner layout
+        reasoning_inner_layout.addWidget(select_reasoning_label)
+        reasoning_inner_layout.addWidget(self.checkbox_low)
+        reasoning_inner_layout.addWidget(self.checkbox_medium)
+        reasoning_inner_layout.addWidget(self.checkbox_high)
+        # Add reasoning effort inner widget to main layout
+        self.change_settings_layout.addWidget(self.reasoning_inner_widget)
+
     def add_line_separator(self, layout):
         line = QFrame()
         line.setFrameShape(QFrame.HLine)
