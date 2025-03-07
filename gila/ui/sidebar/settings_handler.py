@@ -374,6 +374,7 @@ class SettingsHandler(QObject):
         default_tokens = [4096, 1]
         max_tokens, max_temp = limits.get(self.selected_llm, default_tokens)
         self.check_if_image()
+        self.check_if_reasoner()
         self.tokens_slider.setMaximum(max_tokens)
         self.max_tokens_label.setText(str(max_tokens))
         self.temperature_slider.setMaximum(20 if max_temp == 2 else 10)
