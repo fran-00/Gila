@@ -361,12 +361,12 @@ class SettingsHandler(QObject):
         self.new_settings_to_controller.emit(
             selected_llm,
             selected_temperature,
-            selected_reasoning_effort,
             selected_max_tokens,
             selected_system_message,
             selected_image_size,
             selected_image_quality,
-            selected_image_quantity
+            selected_image_quantity,
+            selected_reasoning_effort,
         )
 
     def change_needed_settings(self):
