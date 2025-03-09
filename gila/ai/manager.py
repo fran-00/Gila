@@ -245,7 +245,7 @@ class AIManager(QObject):
         self.next_image_size = new_image_size
         self.next_image_quality = new_image_quality
         self.next_image_quantity = new_image_quantity
-        self.new_reasoning_effort = new_reasoning_effort
+        self.next_reasoning_effort = new_reasoning_effort
 
     @Slot(str)
     def api_key_slot(self, api_key, company_name):
@@ -342,6 +342,7 @@ class AIManager(QObject):
             self.client.image_size,
             self.client.image_quality,
             self.client.image_quantity,
+            self.client.reasoning_effort,
         )
 
     def save_api_key(self, api_key, company_name):
