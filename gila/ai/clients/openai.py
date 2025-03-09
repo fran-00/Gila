@@ -36,6 +36,13 @@ class OClient(OpenAIClient):
             "max_completion_tokens": self.max_completion_tokens
         }
 
+    def _set_system_message(self):
+        """o1-mini model currently doesn't support developer message"""
+        if self.llm not in ["o1-mini"]:
+            return [{"role": "developer", "content": self.system_message}] if self.system_message else []
+        else:
+            return []
+
 
 class DALLEClient(OpenAIClient):
     def __init__(self, llm):
