@@ -31,7 +31,7 @@ class OClient(OpenAIClient):
         """Max tokens and temperature are not supported with o-series models"""
         return {
             "model": self.llm,
-            "reasoning_effort": self.reasoning_effort,
+            "reasoning_effort": self.reasoning_effort.lower(),
             "messages": self.chat_history,
             "max_completion_tokens": self.max_completion_tokens
         }
