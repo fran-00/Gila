@@ -34,29 +34,46 @@ class CurrentSettings(QObject):
         self.current_image_size = settings[7]
         self.current_image_quality = settings[8]
         self.current_image_quantity = settings[9]
+        self.current_reasoning_effort = settings[10]
 
-        common = (
-            f"<b>ID</b>: {self.chat_id}<br>"
-            f"<b>Name</b>: {self.chat_custom_name or 'Name not set'}<br>"
-            f"<b>Model</b>: {self.current_llm}<br>"
-        )
+        self.current_settings_label.setText(self.build_settings_str())
 
-        if self.current_llm not in ["DALL-E 2", "DALL-E 3"]:
-            extra = (
-                f"<b>Temperature</b>: {self.current_temperature}<br>"
-                f"<b>Max tokens</b>: {self.current_max_tokens}<br>"
-            )
-        else:
+    def build_settings_str(self):
+        """Generates the HTML representation of the current settings."""
+        
+        def is_image_model():
+            return self.current_llm in {"DALL-E 2", "DALL-E 3"}
+        
+        settings_str = [
+            f"<b>ID</b>: {self.chat_id}<br>",
+            f"<b>Name</b>: {self.chat_custom_name or 'Name not set'}<br>",
+            f"<b>Model</b>: {self.current_llm}<br>",
+        ]
+
+        # Reasoning effort (only for o-series models)
+        if self.current_llm in {"o1", "o1-mini", "o3-mini"}:
+            settings_str.append(f"<b>Reasoning effort</b>: {self.current_reasoning_effort}<br>")
+
+        if is_image_model():
             num_images = 1 if self.current_llm == "DALL-E 3" else self.current_image_quantity
-            extra = (
-                f"<b>Size</b>: {self.current_image_size}<br>"
-                f"<b>Quality</b>: {self.current_image_quality}<br>"
+            settings_str.extend([
+                f"<b>Size</b>: {self.current_image_size}<br>",
                 f"<b>N. of images</b>: {num_images}<br>"
-            )
+            ])
+            # Quality (only for Dall-e-3)
+            if self.current_llm == "DALL-E 3":
+                settings_str.append(f"<b>Quality</b>: {self.current_image_quality}<br>")
+        
+        else:
+            settings_str.extend([
+                f"<b>Temperature</b>: {self.current_temperature}<br>",
+                f"<b>Max tokens</b>: {self.current_max_tokens}<br>"
+            ])
 
-        last_message = f"<b>Last message</b>: {self.current_chat_date or 'Just created'}"
-        settings_string = f"<div>{common}{extra}{last_message}</div>"
-        self.current_settings_label.setText(settings_string)
+        # Last message
+        settings_str.append(f"<b>Last message</b>: {self.current_chat_date or 'Just created'}")
+        
+        return f"<div>{''.join(settings_str)}</div>"
 
     def on_show_sidebar_settings_label(self):
         """ Shows settings label on call """
