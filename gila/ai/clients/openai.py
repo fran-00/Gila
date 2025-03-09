@@ -25,8 +25,7 @@ class OClient(OpenAIClient):
 
     def __init__(self, llm):
         super().__init__(llm)
-        self.reasoning_effort = "low"
-        self.max_completion_tokens = 1000
+        self.max_completion_tokens = self.max_tokens
 
     def _build_default_request_data(self):
         """Max tokens and temperature are not supported with o-series models"""
