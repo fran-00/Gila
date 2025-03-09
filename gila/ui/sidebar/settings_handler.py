@@ -415,7 +415,6 @@ class SettingsHandler(QObject):
 
     def check_if_reasoner(self):
         if self.selected_llm in ["o1", "o1-mini", "o3-mini"]:
-            # TODO: default value for reasoning token
             self.on_show_advanced_settings()
             self.select_tokens_label.setText("Max Completion Tokens")
         else:
