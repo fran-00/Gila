@@ -420,6 +420,10 @@ class SettingsHandler(QObject):
         else:
             self.on_hide_advanced_settings()
             self.select_tokens_label.setText("Max Tokens")
+        # o1-mini model currently doesn't support system message
+        if self.selected_llm == "o1-mini":
+            self.system_message_inner_widget.hide()
+            
 
     def load_settings_from_json(self):
         """Load the saved settings from the JSON file and sets values"""
