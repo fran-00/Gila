@@ -437,8 +437,9 @@ class SettingsHandler(QObject):
         self.system_message_input.setText(settings["system_message"])
         # Sets reasoning_effort
         reasoning_effort = settings.get("reasoning_effort", "")
-        for button in self.reasoning_group.buttons(): 
-            if button.text() == reasoning_effort:
+        for button in self.reasoning_group.buttons():
+            # Note: reasoning str is lowercase in the client
+            if button.text() == reasoning_effort.capitalize():
                 button.setChecked(True)
                 break
         # Sets image_size
