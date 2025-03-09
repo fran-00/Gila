@@ -433,14 +433,21 @@ class SettingsHandler(QObject):
         # Sets temperature e max_tokens
         self.temperature_slider.setValue(int(settings["temperature"] * 10))
         self.tokens_slider.setValue(int(settings["max_tokens"]))
-        # # Sets system_message
+        # Sets system_message
         self.system_message_input.setText(settings["system_message"])
-
+        # Sets reasoning_effort
+        reasoning_effort = settings.get("reasoning_effort", "")
+        for button in self.reasoning_group.buttons(): 
+            if button.text() == reasoning_effort:
+                button.setChecked(True)
+                break
+        # Sets image_size
         image_size = settings.get("image_size", "")
         for button in self.size_group.buttons(): 
             if button.text() == image_size:
                 button.setChecked(True)
                 break
+        # Sets image_quality
         image_quality = settings.get("image_quality", "")
         for button in self.quality_group.buttons(): 
             if button.text() == image_quality:
