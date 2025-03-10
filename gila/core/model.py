@@ -55,8 +55,9 @@ class Model(QObject):
     update_found_to_controller = Signal()
 
     def __init__(self, manager):
-        self.manager = manager
         super().__init__()
+        self.manager = manager
+        self.thread_pool = QThreadPool.globalInstance()
 
     @Slot(bool, str, dict)
     def handle_worker_finished(self, no_errors, response_message, response_info):
