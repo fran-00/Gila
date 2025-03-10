@@ -6,6 +6,7 @@ from PySide6.QtCore import QObject, QRunnable, QThreadPool, Signal, Slot
 
 
 class WorkerSignals(QObject):
+    """Signals for worker threads to communicate with the main thread."""
     finished = Signal(bool, str, dict)
     error = Signal(str)
 
@@ -20,11 +21,11 @@ class PromptWorker(QRunnable):
 
     @Slot()
     def run(self):
-        """Process the assigned prompt by submitting it to the manager's client
-        and emit the result through signals.
-
-        Retrieves the client from the manager, submits the prompt for processing
-        and expects a response in the format of a tuple containing:
+        """Execute the prompt submission in a separate thread.
+        
+        Processes the assigned prompt by submitting it to the manager's client
+        and emit the result through signals expecting a response in the format
+        of a tuple containing:
 
         - A boolean indicating if there were no errors.
         - A message with the response content.
@@ -35,8 +36,10 @@ class PromptWorker(QRunnable):
         the `error` signal is emitted with the error message.
 
         Raises:
-            Exception: Any exceptions raised during the prompt submission are
-            caught and emitted via the error signal.
+            ConnectionError: If there is a network connection issue.
+            TimeoutError: If the request times out.
+            Exception: I there is an unexpected error raised during the prompt
+                       submission.
         """
         try:
             client = self.manager.client
@@ -90,8 +93,9 @@ class Model(QObject):
         """Handle the reception of the user prompt and initiates processing in
         a separate worker thread.
 
-        Takes a user-provided prompt, creates a new worker thread, and sets up
-        the prompt worker to operate within the thread.
+        Initialize a PromptWorker with the provided prompt and connects its
+        signals to the corresponding slot methods for handling the results and
+        errors. The worker is then started in the thread pool.
 
         Parameters:
             prompt (str): The user prompt to process.
