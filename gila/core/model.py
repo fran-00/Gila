@@ -19,7 +19,7 @@ class PromptWorker(QRunnable):
         self.signals = WorkerSignals()
 
     @Slot()
-    def process(self):
+    def run(self):
         """Process the assigned prompt by submitting it to the manager's client
         and emit the result through signals.
 
@@ -41,12 +41,10 @@ class PromptWorker(QRunnable):
         try:
             client = self.manager.client
             ai_response = client.submit_prompt(self.prompt)
-            no_errors = ai_response[0]
-            response_message = ai_response[1]
-            response_info = ai_response[2]
-            self.finished.emit(no_errors, response_message, response_info)
+            no_errors, response_message, response_info = ai_response
+            self.signals.finished.emit(no_errors, response_message, response_info)
         except Exception as e:
-            self.error.emit(str(e))
+            self.signals.error.emit(str(e))
 
 
 class Model(QObject):
