@@ -59,70 +59,76 @@
         <h2>How to use Gila?</h2>
         <h3>API Keys</h3>
         <p>
-            In order to use the program, you need to obtain at least an <b>API key</b>: this is a unique code that is assigned to an application or web service to allow access and interaction with the provider. Once you have entered an API key into the program, you can start a new conversation with one of the available language models.
-            Using some services involves costs.
+            To use Gila, you need an <b>API key</b>, a unique code that grants access to AI providers. Once entered, you can start a conversation with an available model. Some services may involve costs.
         </p>
         <h3>Tokens</h3>
         <p>
-            <b>Tokens</b> are minimal units of character sequences in a text. A language model is an AI system trained to understand and generate text based on patterns in language: they analyze a text by dividing it into tokens and produce a coherent text in response based on the statistical relationships that exist between that sequences of characters. <b>In English a token is equivalent to about 4 characters.</b>
+            <b>Tokens</b> are the smallest text units AI models process. A model analyzes input by splitting it into tokens and generates output based on learned patterns. <b>In English, one token is about four characters.</b>
             <br><br>
-            Before sending a message, the program will show you an estimate of the number of tokens you are about to add with your message below the prompt box, but this may not be accurate because the division of words into tokens varies depending on the model. Anyway, the program will also show the exact number of tokens used for a given conversation, updating it after each response: how many tokens the last prompt and response consist of, and the total number of tokens.
+            Gila estimates token usage before sending a message, but the count varies by model. The exact token usage is updated in real time after each response.
         </p>
         <h3>The Sidebar</h3>
         <p>
-            From the sidebar you can see two tabs: <b>Saved Chats</b> and <b>Settings</b>.
+            The sidebar contains two tabs: <b>Saved Chats</b> and <b>Settings</b>.
         </p>
         <h4>
             Saved Chats
         </h4>
         <p>
-            Conversations are automatically saved in the sidebar: the name assigned is a simple 10-letter ID that serves to uniquely identify the conversation, but it is possible to rename them to distinguish them more easily. You can also delete them.
+            Conversations are automatically saved and assigned a unique 10-character ID, which can be renamed or deleted.
         </p>
         <h4>
             Settings
         </h4>
         <p>
-            You can change conversation settings such as model, temperature, maximum tokens and system message. The settings will automatically be applied every time you start a new chat.
+            You can configure model selection, temperature, max tokens, and system messages. These settings apply to new conversations.
         </p>
         <ul>
-            <li><b>Model</b> - Here you can choose the language model to chat with from a drop-down menu. If you select a model that depends on a service for which you have not entered an API key, the program will ask you to enter one when you start a new conversation.</li>
-            <li><b>Temperature</b> - Represents the model's degree of <b>creativity</b>: a higher temperature means more creative and unpredictable responses. Setting high values for this parameter can give strange results...</li>
-            <li><b>Max Tokens</b> - The maximum number of tokens to generate before stopping. Any model can stop before reaching this maximum number and decides autonomously how many tokens to use. Different models have different maximum values for this parameter: the upper value of the bar will automatically change every time you select a new model.</li>
-            <li><b>System Message</b> - An optional instruction that guides the AI's behavior and context to make the output more effective. With this message you can define AI's personality, set rules and restrictions, provide task guidelines... For example, you might ask to roleplay a character from a book or to only talk in rhymes. You could achieve the same results with a simple direct request in the chat, but a system message is usually more effective.</li>
+            <li><b>Model</b> - Select a language model from the dropdown. If an API key is missing for a model, Gila will prompt you to enter one.</li>
+            <li><b>Temperature</b> - Controls response randomness: higher values yield more creative but unpredictable outputs.</li>
+            <li><b>Max Tokens</b> - Sets the upper limit of generated tokens. Models may stop earlier based on their internal logic.</li>
+            <li><b>System Message</b> - A predefined instruction guiding AI behavior and context, useful for defining tone, rules, or specific tasks.</li>
         </ul>
         <p>
-            When you select a model to generate images, you will have other settings:
+            Advanced reasoning models (e.g., OpenAI’s o-series) use different parameters:
         </p>
         <ul>
-            <li><b>Size</b> - The width and height of the image you want to generate. Available dimensions depend on the selected model.</li>
-            <li><b>Quality</b> - The quality of the image you want to generate. DALL-E 2 generates only standard quality images, while DALL-E 3 can also generate HD images.</li>
-            <li><b>N. of images</b> - The number of image variations you want to generate with the same prompt. This option is only available for DALL-E 2.</li>
+            <li><b>Reasoning effort</b> - Determines how many reasoning tokens the model uses before generating a response. Higher values improve problem-solving but increase latency and cost.</li>
+            <li><b>Max Completion Tokens</b> - Limits the combined total of reasoning and response tokens.</li>
         </ul>
         <p>
-            <b>The links sent by the models that generate the images have an expiration date!</b> If you return to the chat after a certain amount of time, the generated images will no longer be available, so remember to save the ones you want to keep right away! You can do this by right-clicking on the image.
+            For image generation, other parameters are available:
+        </p>
+        <ul>
+            <li><b>Size</b> - Defines image dimensions, which vary by model.</li>
+            <li><b>Quality</b> - The quality of the image you want to generate. Higher quality (HD) is available with DALL-E 3.</li>
+            <li><b>N. of images</b> - Controls the number of variations (only for DALL-E 2).</li>
+        </ul>
+        <p>
+            <b>Note:</b> Image links generated by AI models expire over time. Save them immediately by right-clicking on the image.
         </p>
         <p>
-            Additionally, while OpenAI supports generating up to 10 images with DALL-E 2, the actual limit of images you can generate in one run depends on your account or organization’s rate limits. For example, if your account is in the Free tier or Tier 1, you cannot exceed 5 images per minute. See the rate limits section below for more information.
+            While OpenAI allows generating up to 10 images with DALL-E 2, actual limits depend on your account’s rate restrictions.
         </p>
         <h3>The toolbar</h3>
         <p>
-            From the toolbar you can perform these actions:
+            The toolbar allows you to:
         </p>
         <ol>
-            <li>Export the current conversation as a <i>.txt</i>, <i>.pdf</i> or <i>.docx</i> file.</li>
-            <li>Add <b>API keys</b> to communicate with services.</li>
-            <li>Open this window with program information.</li>
+            <li>Export conversations as <i>.txt</i>, <i>.pdf</i>, or <i>.docx</i>.</li>
+            <li>Manage <b>API keys</b>.</li>
+            <li>Access this help window.</li>
         </ol>
     </div>
     <hr>
     <div>
         <h2>Rate Limits</h2>
         <p>
-            Rate limits are restrictions that APIs impose on the number of requests that can be made to their services within a given period of time. Each service has its own limits. These limits can vary based on how much you have used the services since you signed up (this is the case with OpenAI) or be fixed and depend only on whether you are using the service on a free trial or a paid basis. You can check the limits on the platforms where you can get API keys. Gila will not have this information: the limits also depend on the model used and can vary over time based on the decisions of individual companies. If you were to exceed the limits using a language model, a popup will appear to warn you.
+            API providers impose rate limits on requests based on usage tier. Limits vary by model and service provider. Gila does not track these limits, but a popup will notify you if a request exceeds them.
         </p>
         <h2>Issues</h2>
         <p>
-            It may happen that the program crashes, especially due to connection problems with the web services needed for it to work: in this case, just close Gila and restart it.
+            Connection failures or service disruptions may cause crashes. Restart Gila if needed.
         </p>
     </div>
 </body>
