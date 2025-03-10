@@ -2,17 +2,21 @@ import json
 import re
 import subprocess
 
-from PySide6.QtCore import QObject, QThread, Signal, Slot
+from PySide6.QtCore import QObject, QRunnable, QThreadPool, Signal, Slot
 
 
-class PromptWorker(QObject):
+class WorkerSignals(QObject):
     finished = Signal(bool, str, dict)
     error = Signal(str)
+
+
+class PromptWorker(QRunnable):
 
     def __init__(self, manager, prompt):
         super().__init__()
         self.manager = manager
         self.prompt = prompt
+        self.signals = WorkerSignals()
 
     @Slot()
     def process(self):
