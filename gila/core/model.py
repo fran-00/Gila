@@ -92,19 +92,10 @@ class Model(QObject):
         Parameters:
             prompt (str): The user prompt to process.
         """
-        self.worker_thread = QThread()
-        self.worker = PromptWorker(self.manager, prompt)
-        self.worker.moveToThread(self.worker_thread)
-
-        self.worker_thread.started.connect(self.worker.process)
-        self.worker.finished.connect(self.handle_worker_finished)
-        self.worker.error.connect(self.handle_worker_error)
-
-        self.worker.finished.connect(self.worker_thread.quit)
-        self.worker.finished.connect(self.worker.deleteLater)
-        self.worker_thread.finished.connect(self.worker_thread.deleteLater)
-
-        self.worker_thread.start()
+        worker = PromptWorker(self.manager, prompt)
+        worker.signals.finished.connect(self.handle_worker_finished)
+        worker.signals.error.connect(self.handle_worker_error)
+        self.thread_pool.start(worker)
 
     @Slot(str)
     def handle_worker_error(self, error_message):
