@@ -43,8 +43,12 @@ class PromptWorker(QRunnable):
             ai_response = client.submit_prompt(self.prompt)
             no_errors, response_message, response_info = ai_response
             self.signals.finished.emit(no_errors, response_message, response_info)
+        except (ConnectionError, TimeoutError) as e:
+            self.signals.error.emit(f"Network error: {str(e)}")
         except Exception as e:
-            self.signals.error.emit(str(e))
+            import traceback
+            self.signals.error.emit("Unexpected error occurred.")
+            print(traceback.format_exc())
 
 
 class Model(QObject):
