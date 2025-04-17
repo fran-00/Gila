@@ -4,6 +4,7 @@ Gila is a Python application built with PySide6 that connects to the REST APIs o
 
 ## Currently supported models
 
+- o4-mini
 - o3-mini
 - o1-mini
 - o1
