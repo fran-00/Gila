@@ -17,7 +17,9 @@ Gila is a Python application built with PySide6 that connects to the REST APIs o
 - o3-mini
 - o1-mini
 - o1
+- Gemini 2.5 Flash Preview 04-17
 - Gemini 2.0 Flash
+- Gemini 2.0 Flash-Lite
 - Gemini 1.5 Flash
 - Gemini 1.5 Pro
 - DeepSeek-V3

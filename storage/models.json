@@ -90,11 +90,25 @@
       "model": ["o1"]
     }
   },
+  "Gemini 2.5 Flash Preview 04-17": {
+    "limits": [65536, 2],
+    "client": {
+      "class": "GoogleClient",
+      "model": ["gemini-2.5-flash-preview-04-17"]
+    }
+  },
   "Gemini 2.0 Flash": {
     "limits": [8192, 2],
     "client": {
       "class": "GoogleClient",
       "model": ["gemini-2.0-flash"]
+    }
+  },
+  "Gemini 2.0 Flash-Lite": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "GoogleClient",
+      "model": ["gemini-2.0-flash-lite"]
     }
   },
   "Gemini 1.5 Flash": {
