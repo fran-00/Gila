@@ -167,6 +167,13 @@
       "model": ["open-codestral-mamba"]
     }
   },
+  "Command A": {
+    "limits": [8000, 1],
+    "client": {
+      "class": "CohereClient",
+      "model": ["command-a-03-2025"]
+    }
+  },
   "Command R7B": {
     "limits": [4000, 1],
     "client": {

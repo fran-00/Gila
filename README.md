@@ -30,6 +30,7 @@ Gila is a Python application built with PySide6 that connects to the REST APIs o
 - Codestral Mamba
 - Llama70B
 - Qwen2.5-32B
+- Command A
 - Command R7B
 - Command R+
 - Command R
