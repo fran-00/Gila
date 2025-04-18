@@ -38,10 +38,9 @@ class OClient(OpenAIClient):
 
     def _set_system_message(self):
         """o1-mini model currently doesn't support developer message"""
-        if self.llm not in ["o1-mini"]:
-            return [{"role": "developer", "content": self.system_message}] if self.system_message else []
-        else:
+        if self.llm in ["o1-mini"]:
             return []
+        return [{"role": "developer", "content": self.system_message}] if self.system_message else []
 
 
 class DALLEClient(OpenAIClient):
