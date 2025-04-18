@@ -417,13 +417,11 @@ class SettingsHandler(QObject):
         if self.selected_llm in ["o1", "o1-mini", "o3-mini", "o4-mini"]:
             self.on_show_advanced_settings()
             self.select_tokens_label.setText("Max Completion Tokens")
+        elif self.selected_llm in ["DALL-E 2", "DALL-E 3"]:
+            pass
         else:
             self.on_hide_advanced_settings()
             self.select_tokens_label.setText("Max Tokens")
-        # o1-mini model currently doesn't support system message
-        if self.selected_llm == "o1-mini":
-            self.system_message_inner_widget.hide()
-            
 
     def load_settings_from_json(self):
         """Load the saved settings from the JSON file and sets values"""
