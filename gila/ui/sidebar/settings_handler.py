@@ -414,7 +414,7 @@ class SettingsHandler(QObject):
                 self.checkbox_1024x1024.setChecked(True)
 
     def check_if_reasoner(self):
-        if self.selected_llm in ["o1", "o1-mini", "o3-mini"]:
+        if self.selected_llm in ["o1", "o1-mini", "o3-mini", "o4-mini"]:
             self.on_show_advanced_settings()
             self.select_tokens_label.setText("Max Completion Tokens")
         else:
