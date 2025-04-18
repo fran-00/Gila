@@ -40,13 +40,21 @@ class OClient(OpenAIClient):
         self.max_completion_tokens = self.max_tokens
 
     def _build_default_request_data(self):
-        """Max tokens and temperature are not supported with o-series models"""
-        return {
+        """Max tokens and temperature are not supported with o-series models
+
+        NOTE: o1-mini model currently doesn't support reasoning_effort parameter
+        either, so this is a temporary tweak to chat with o1-mini anyway
+        """
+        request_data = {
             "model": self.llm,
-            "reasoning_effort": self.reasoning_effort.lower(),
             "messages": self.chat_history,
             "max_completion_tokens": self.max_completion_tokens
         }
+
+        if self.llm not in ["o1-mini"]:
+            request_data["reasoning_effort"] = self.reasoning_effort.lower()
+
+        return request_data
 
     def _set_system_message(self):
         """o1-mini model currently doesn't support developer message"""
