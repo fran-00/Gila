@@ -341,6 +341,10 @@ class SettingsHandler(QObject):
     def on_show_advanced_settings(self):
         self.temperature_inner_widget.hide()
         self.reasoning_inner_widget.show()
+        # o1-mini model currently doesn't support reasoning_effort and system message
+        if self.selected_llm == "o1-mini":
+            self.reasoning_inner_widget.hide()
+            self.system_message_inner_widget.hide()
 
     def on_hide_advanced_settings(self):
         self.temperature_inner_widget.show()
