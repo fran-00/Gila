@@ -125,6 +125,48 @@
       "model": ["gemini-1.5-pro"]
     }
   },
+  "Gemma 2 9B": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["gemma2-9b-it"]
+    }
+  },
+  "Llama 3.3 70B versatile": {
+    "limits": [32768, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["llama-3.3-70b-versatile"]
+    }
+  },
+  "Llama 3.1 8B instant": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["llama-3.1-8b-instant"]
+    }
+  },
+  "Llama Guard 3 8B": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["llama-guard-3-8b"]
+    }
+  },
+  "Llama 3 70B": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["llama3-70b-8192"]
+    }
+  },
+  "Llama 3 8B": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["llama3-8b-8192"]
+    }
+  },
   "DeepSeek-V3": {
     "limits": [8192, 2],
     "client": {
