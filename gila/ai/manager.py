@@ -12,6 +12,7 @@ from .clients import (
     CohereClient,
     DeepSeekClient,
     GoogleClient,
+    GroqClient,
     MistralClient,
     GPTClient,
     OClient,
@@ -23,6 +24,7 @@ CLASS_MAP = {
     "GPTClient": GPTClient,
     "OClient": OClient,
     "GoogleClient": GoogleClient,
+    "GroqClient": GroqClient,
     "AnthropicClient": AnthropicClient,
     "ArliClient": ArliClient,
     "CohereClient": CohereClient,
@@ -37,6 +39,7 @@ COMPANIES = {
     "COHERE": CohereClient("command"),
     "DEEPSEEK": DeepSeekClient("deepseek-chat"),
     "GOOGLE": GoogleClient("gemini-2.0-flash"),
+    "GROQ": GroqClient("gemma2-9b-it"),
     "MISTRAL": MistralClient("mistral-small-latest"),
     "OPENAI": GPTClient("gpt-4o-mini"),
 }
