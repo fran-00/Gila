@@ -181,6 +181,20 @@
       "model": ["llama3-8b-8192"]
     }
   },
+  "PlayAI Dialog": {
+    "limits": [10000, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["playai-tts"]
+    }
+  },
+  "Qwen/QwQ 32B": {
+    "limits": [128000, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["qwen-qwq-32b"]
+    }
+  },
   "DeepSeek-V3": {
     "limits": [8192, 2],
     "client": {
