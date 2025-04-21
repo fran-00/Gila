@@ -1,4 +1,116 @@
 {
+  "Aya Expanse 32B": {
+    "limits": [4000, 1],
+    "client": {
+      "class": "CohereClient",
+      "model": ["c4ai-aya-expanse-32b"]
+    }
+  },
+  "Aya Expanse 8B": {
+    "limits": [4000, 1],
+    "client": {
+      "class": "CohereClient",
+      "model": ["c4ai-aya-expanse-8b"]
+    }
+  },
+  "Claude 3 Opus": {
+    "limits": [4096, 1],
+    "client": {
+      "class": "AnthropicClient",
+      "model": ["claude-3-opus-latest"]
+    }
+  },
+  "Claude 3.5 Haiku": {
+    "limits": [8192, 1],
+    "client": {
+      "class": "AnthropicClient",
+      "model": ["claude-3-5-haiku-latest"]
+    }
+  },
+  "Claude 3.5 Sonnet v2": {
+    "limits": [8192, 1],
+    "client": {
+      "class": "AnthropicClient",
+      "model": ["claude-3-5-sonnet-latest"]
+    }
+  },
+  "Claude 3.7 Sonnet": {
+    "limits": [8192, 1],
+    "client": {
+      "class": "AnthropicClient",
+      "model": ["claude-3-7-sonnet-latest"]
+    }
+  },
+  "Codestral Mamba": {
+    "limits": [256000, 1],
+    "client": {
+      "class": "MistralClient",
+      "model": ["open-codestral-mamba"]
+    }
+  },
+  "Command": {
+    "limits": [4000, 1],
+    "client": {
+      "class": "CohereClient",
+      "model": ["command"]
+    }
+  },
+  "Command A": {
+    "limits": [8000, 1],
+    "client": {
+      "class": "CohereClient",
+      "model": ["command-a-03-2025"]
+    }
+  },
+  "Command R": {
+    "limits": [4000, 1],
+    "client": {
+      "class": "CohereClient",
+      "model": ["command-r"]
+    }
+  },
+  "Command R+": {
+    "limits": [4000, 1],
+    "client": {
+      "class": "CohereClient",
+      "model": ["command-r-plus"]
+    }
+  },
+  "Command R7B": {
+    "limits": [4000, 1],
+    "client": {
+      "class": "CohereClient",
+      "model": ["command-r7b-12-2024"]
+    }
+  },
+  "DALL-E 2": {
+    "limits": [4096, 1],
+    "client": {
+      "class": "DALLEClient",
+      "model": ["dall-e-2"]
+    }
+  },
+  "DALL-E 3": {
+    "limits": [4096, 1],
+    "client": {
+      "class": "DALLEClient",
+      "model": ["dall-e-3"]
+    }
+  },
+  "DeepSeek-R1": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "DeepSeekClient",
+      "model": ["deepseek-reasoner"]
+    }
+  },
+  "DeepSeek-V3": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "DeepSeekClient",
+      "model": ["deepseek-chat"]
+    }
+  },
   "GPT-3.5 Turbo": {
     "limits": [16385, 2],
     "client": {
@@ -62,39 +174,18 @@
       "model": ["gpt-4o-mini"]
     }
   },
-  "o4-mini": {
-    "limits": [100000, 2],
-    "client": {
-      "class": "OClient",
-      "model": ["o4-mini"]
-    }
-  },
-  "o3-mini": {
-    "limits": [100000, 2],
-    "client": {
-      "class": "OClient",
-      "model": ["o3-mini"]
-    }
-  },
-  "o1-mini": {
-    "limits": [65536, 2],
-    "client": {
-      "class": "OClient",
-      "model": ["o1-mini"]
-    }
-  },
-  "o1": {
-    "limits": [100000, 2],
-    "client": {
-      "class": "OClient",
-      "model": ["o1"]
-    }
-  },
-  "Gemini 2.5 Flash Preview 04-17": {
-    "limits": [65536, 2],
+  "Gemini 1.5 Flash": {
+    "limits": [8192, 2],
     "client": {
       "class": "GoogleClient",
-      "model": ["gemini-2.5-flash-preview-04-17"]
+      "model": ["gemini-1.5-flash"]
+    }
+  },
+  "Gemini 1.5 Pro": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "GoogleClient",
+      "model": ["gemini-1.5-pro"]
     }
   },
   "Gemini 2.0 Flash": {
@@ -111,18 +202,11 @@
       "model": ["gemini-2.0-flash-lite"]
     }
   },
-  "Gemini 1.5 Flash": {
-    "limits": [8192, 2],
+  "Gemini 2.5 Flash Preview 04-17": {
+    "limits": [65536, 2],
     "client": {
       "class": "GoogleClient",
-      "model": ["gemini-1.5-flash"]
-    }
-  },
-  "Gemini 1.5 Pro": {
-    "limits": [8192, 2],
-    "client": {
-      "class": "GoogleClient",
-      "model": ["gemini-1.5-pro"]
+      "model": ["gemini-2.5-flash-preview-04-17"]
     }
   },
   "Gemma 2 9B": {
@@ -130,41 +214,6 @@
     "client": {
       "class": "GroqClient",
       "model": ["gemma2-9b-it"]
-    }
-  },
-  "Llama 4 Maverick 17B": {
-    "limits": [8192, 2],
-    "client": {
-      "class": "GroqClient",
-      "model": ["meta-llama/llama-4-maverick-17b-128e-instruct"]
-    }
-  },
-  "Llama 4 Scout 17B": {
-    "limits": [8192, 2],
-    "client": {
-      "class": "GroqClient",
-      "model": ["meta-llama/llama-4-scout-17b-16e-instruct"]
-    }
-  },
-  "Llama 3.3 70B versatile": {
-    "limits": [32768, 2],
-    "client": {
-      "class": "GroqClient",
-      "model": ["llama-3.3-70b-versatile"]
-    }
-  },
-  "Llama 3.1 8B instant": {
-    "limits": [8192, 2],
-    "client": {
-      "class": "GroqClient",
-      "model": ["llama-3.1-8b-instant"]
-    }
-  },
-  "Llama Guard 3 8B": {
-    "limits": [8192, 2],
-    "client": {
-      "class": "GroqClient",
-      "model": ["llama-guard-3-8b"]
     }
   },
   "Llama 3 70B": {
@@ -181,109 +230,11 @@
       "model": ["llama3-8b-8192"]
     }
   },
-  "PlayAI Dialog": {
-    "limits": [10000, 2],
-    "client": {
-      "class": "GroqClient",
-      "model": ["playai-tts"]
-    }
-  },
-  "Qwen/QwQ 32B": {
-    "limits": [128000, 2],
-    "client": {
-      "class": "GroqClient",
-      "model": ["qwen-qwq-32b"]
-    }
-  },
-  "DeepSeek-V3": {
+  "Llama 3.1 8B instant": {
     "limits": [8192, 2],
     "client": {
-      "class": "DeepSeekClient",
-      "model": ["deepseek-chat"]
-    }
-  },
-  "DeepSeek-R1": {
-    "limits": [8192, 2],
-    "client": {
-      "class": "DeepSeekClient",
-      "model": ["deepseek-reasoner"]
-    }
-  },
-  "Mistral Small": {
-    "limits": [32000, 1],
-    "client": {
-      "class": "MistralClient",
-      "model": ["mistral-small-latest"]
-    }
-  },
-  "Mistral Nemo": {
-    "limits": [131000, 1],
-    "client": {
-      "class": "MistralClient",
-      "model": ["open-mistral-nemo"]
-    }
-  },
-  "Pixtral": {
-    "limits": [131000, 1],
-    "client": {
-      "class": "MistralClient",
-      "model": ["pixtral-12b-2409"]
-    }
-  },
-  "Codestral Mamba": {
-    "limits": [256000, 1],
-    "client": {
-      "class": "MistralClient",
-      "model": ["open-codestral-mamba"]
-    }
-  },
-  "Command A": {
-    "limits": [8000, 1],
-    "client": {
-      "class": "CohereClient",
-      "model": ["command-a-03-2025"]
-    }
-  },
-  "Command R7B": {
-    "limits": [4000, 1],
-    "client": {
-      "class": "CohereClient",
-      "model": ["command-r7b-12-2024"]
-    }
-  },
-  "Command R+": {
-    "limits": [4000, 1],
-    "client": {
-      "class": "CohereClient",
-      "model": ["command-r-plus"]
-    }
-  },
-  "Command R": {
-    "limits": [4000, 1],
-    "client": {
-      "class": "CohereClient",
-      "model": ["command-r"]
-    }
-  },
-  "Command": {
-    "limits": [4000, 1],
-    "client": {
-      "class": "CohereClient",
-      "model": ["command"]
-    }
-  },
-  "Aya Expanse 8B": {
-    "limits": [4000, 1],
-    "client": {
-      "class": "CohereClient",
-      "model": ["c4ai-aya-expanse-8b"]
-    }
-  },
-  "Aya Expanse 32B": {
-    "limits": [4000, 1],
-    "client": {
-      "class": "CohereClient",
-      "model": ["c4ai-aya-expanse-32b"]
+      "class": "GroqClient",
+      "model": ["llama-3.1-8b-instant"]
     }
   },
   "Llama 3.3 70B (Arli AI)": {
@@ -293,6 +244,90 @@
       "model": ["Llama-3.3-70B-Instruct"]
     }
   },
+  "Llama 3.3 70B versatile": {
+    "limits": [32768, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["llama-3.3-70b-versatile"]
+    }
+  },
+  "Llama 4 Maverick 17B": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["meta-llama/llama-4-maverick-17b-128e-instruct"]
+    }
+  },
+  "Llama 4 Scout 17B": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["meta-llama/llama-4-scout-17b-16e-instruct"]
+    }
+  },
+  "Llama Guard 3 8B": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["llama-guard-3-8b"]
+    }
+  },
+  "Mistral Nemo": {
+    "limits": [131000, 1],
+    "client": {
+      "class": "MistralClient",
+      "model": ["open-mistral-nemo"]
+    }
+  },
+  "Mistral Small": {
+    "limits": [32000, 1],
+    "client": {
+      "class": "MistralClient",
+      "model": ["mistral-small-latest"]
+    }
+  },
+  "o1": {
+    "limits": [100000, 2],
+    "client": {
+      "class": "OClient",
+      "model": ["o1"]
+    }
+  },
+  "o1-mini": {
+    "limits": [65536, 2],
+    "client": {
+      "class": "OClient",
+      "model": ["o1-mini"]
+    }
+  },
+  "o3-mini": {
+    "limits": [100000, 2],
+    "client": {
+      "class": "OClient",
+      "model": ["o3-mini"]
+    }
+  },
+  "o4-mini": {
+    "limits": [100000, 2],
+    "client": {
+      "class": "OClient",
+      "model": ["o4-mini"]
+    }
+  },
+  "Pixtral": {
+    "limits": [131000, 1],
+    "client": {
+      "class": "MistralClient",
+      "model": ["pixtral-12b-2409"]
+    }
+  },
+  "PlayAI Dialog": {
+    "limits": [10000, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["playai-tts"]
+    }
+  },
   "Qwen 2.5 32B (Arli AI)": {
     "limits": [8000, 1],
     "client": {
@@ -300,46 +335,11 @@
       "model": ["Qwen2.5-32B-Instruct"]
     }
   },
-  "Claude 3.7 Sonnet": {
-    "limits": [8192, 1],
+  "Qwen/QwQ 32B": {
+    "limits": [128000, 2],
     "client": {
-      "class": "AnthropicClient",
-      "model": ["claude-3-7-sonnet-latest"]
-    }
-  },
-  "Claude 3.5 Sonnet v2": {
-    "limits": [8192, 1],
-    "client": {
-      "class": "AnthropicClient",
-      "model": ["claude-3-5-sonnet-latest"]
-    }
-  },
-  "Claude 3.5 Haiku": {
-    "limits": [8192, 1],
-    "client": {
-      "class": "AnthropicClient",
-      "model": ["claude-3-5-haiku-latest"]
-    }
-  },
-  "Claude 3 Opus": {
-    "limits": [4096, 1],
-    "client": {
-      "class": "AnthropicClient",
-      "model": ["claude-3-opus-latest"]
-    }
-  },
-  "DALL-E 2": {
-    "limits": [4096, 1],
-    "client": {
-      "class": "DALLEClient",
-      "model": ["dall-e-2"]
-    }
-  },
-  "DALL-E 3": {
-    "limits": [4096, 1],
-    "client": {
-      "class": "DALLEClient",
-      "model": ["dall-e-3"]
+      "class": "GroqClient",
+      "model": ["qwen-qwq-32b"]
     }
   }
 }
