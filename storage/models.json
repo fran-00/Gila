@@ -132,6 +132,20 @@
       "model": ["gemma2-9b-it"]
     }
   },
+  "Llama 4 Maverick 17B": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["meta-llama/llama-4-maverick-17b-128e-instruct"]
+    }
+  },
+  "Llama 4 Scout 17B": {
+    "limits": [8192, 2],
+    "client": {
+      "class": "GroqClient",
+      "model": ["meta-llama/llama-4-scout-17b-16e-instruct"]
+    }
+  },
   "Llama 3.3 70B versatile": {
     "limits": [32768, 2],
     "client": {
