@@ -20,6 +20,7 @@ class ManageAPIKeysModal(Modal):
             "Mistral": False,
             "Anthropic": False,
             "Arli": False,
+            "Groq": False,
         }
         self.on_modal_layout()
 
