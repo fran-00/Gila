@@ -216,14 +216,14 @@
       "model": ["c4ai-aya-expanse-32b"]
     }
   },
-  "Llama70B": {
+  "Llama 3.3 70B (Arli AI)": {
     "limits": [8196, 1],
     "client": {
       "class": "ArliClient",
       "model": ["Llama-3.3-70B-Instruct"]
     }
   },
-  "Qwen2.5-32B": {
+  "Qwen 2.5 32B (Arli AI)": {
     "limits": [8000, 1],
     "client": {
       "class": "ArliClient",
