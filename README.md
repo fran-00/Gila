@@ -4,6 +4,26 @@ Gila is a Python application built with PySide6 that connects to the REST APIs o
 
 ## Currently supported models
 
+- Aya Expanse 32B
+- Aya Expanse 8B
+- Claude 3 Opus
+- Claude 3.5 Haiku
+- Claude 3.5 Sonnet v2
+- Claude 3.7 Sonnet
+- Codestral Mamba
+- Command
+- Command A
+- Command R
+- Command R+
+- Command R7B
+- DeepSeek-R1
+- DeepSeek-V3
+- Gemini 1.5 Flash
+- Gemini 1.5 Pro
+- Gemini 2.0 Flash
+- Gemini 2.0 Flash-Lite
+- Gemini 2.5 Flash Preview 04-17
+- Gemma 2 9B
 - GPT-3.5 Turbo
 - GPT-4
 - GPT-4 Turbo
@@ -13,34 +33,24 @@ Gila is a Python application built with PySide6 that connects to the REST APIs o
 - GPT-4.5 preview
 - GPT-4o
 - GPT-4o mini
-- o4-mini
-- o3-mini
-- o1-mini
-- o1
-- Gemini 2.5 Flash Preview 04-17
-- Gemini 2.0 Flash
-- Gemini 2.0 Flash-Lite
-- Gemini 1.5 Flash
-- Gemini 1.5 Pro
-- DeepSeek-V3
-- DeepSeek-R1
-- Mistral Small
+- Llama 3 70B
+- Llama 3 8B
+- Llama 3.1 8B instant
+- Llama 3.3 70B versatile
+- Llama 3.3 70B (Arli AI)
+- Llama 4 Maverick 17B
+- Llama 4 Scout 17B
+- Llama Guard 3 8B
 - Mistral Nemo
+- Mistral Small
+- o1
+- o1-mini
+- o3-mini
+- o4-mini
 - Pixtral
-- Codestral Mamba
-- Llama70B
-- Qwen2.5-32B
-- Command A
-- Command R7B
-- Command R+
-- Command R
-- Command
-- Aya Expanse 8B
-- Aya Expanse 32B
-- Claude 3.7 Sonnet
-- Claude 3.5 Sonnet v2
-- Claude 3.5 Haiku
-- Claude 3 Opus
+- PlayAI Dialog
+- Qwen 2.5 32B (Arli AI)
+- Qwen/QwQ 32B
 
 ## Currently supported text-to-image models
 
@@ -80,13 +90,14 @@ To run Gila from source, you'll need **Conda** and **Git** installed in your sys
 
 When selecting an LLM and starting a new chat, if you haven't set the necessary API key, a window will prompt you to enter it. Below are links to where you can obtain API keys for the models used in Gila (an account may be required). Please note that some platforms may charge for API usage, although free plans are also available for testing purposes.
 
-- [OpenAI](https://platform.openai.com/settings/organization/general): GPT-4o mini, GPT-4o, GPT-4, GPT-4 Turbo, DALL-E 2, DALL-E 3
-- [Google](https://aistudio.google.com/app/apikey): Gemini 2.0 Flash, Gemini 1.5 Flash, Gemini 1.5 Pro
-- [DeepSeek](https://platform.deepseek.com/api_keys): DeepSeek-V3, DeepSeek-R1
-- [Mistral](https://console.mistral.ai/api-keys): Mistral Small, Mistral Nemo, Pixtral, Codestral Mamba
-- [Arli AI](https://www.arliai.com/account): Llama70B, Qwen2.5-32B
-- [Cohere](https://dashboard.cohere.com/api-keys): Command R7B, Command R+, Command R, Command, Aya Expanse 8B, Aya Expanse 32B
-- [Anthropic](https://console.anthropic.com/settings/keys): Claude 3.7 Sonnet, Claude 3.5 Sonnet v2, Claude 3.5 Haiku, Claude 3 Opus
+- [Anthropic](https://console.anthropic.com/settings/keys): Claude 3 Opus, Claude 3.5 Haiku, Claude 3.5 Sonnet v2, Claude 3.7 Sonnet
+- [Arli AI](https://www.arliai.com/account): Llama 70B, Qwen 2.5 32B
+- [Cohere](https://dashboard.cohere.com/api-keys): Aya Expanse 8B, Aya Expanse 32B, Command, Command A, Command R, Command R, Command R7B
+- [DeepSeek](https://platform.deepseek.com/api_keys): DeepSeek-R1, DeepSeek-V3
+- [Google](https://aistudio.google.com/app/apikey): Gemini 1.5 Flash, Gemini 1.5 Pro, Gemini 2.0 Flash, Gemini 2.0 Flash-Lite, Gemini 2.5 Flash Preview 04-17
+- [Groq](https://console.groq.com/home): Gemma 2 9B, Llama 3 70B, Llama 3 8B, Llama 3.1 8B instant, Llama 3.3 70B versatile, Llama 4 Maverick 17B, Llama 4 Scout 17B, Llama Guard 3 8B, PlayAI Dialog, Qwen/QwQ 32B
+- [Mistral](https://console.mistral.ai/api-keys): Codestral Mamba, Mistral Nemo, Mistral Small, Pixtral
+- [OpenAI](https://platform.openai.com/settings/organization/general): DALL-E 2, DALL-E 3, GPT-3.5 Turbo, GPT-4, GPT-4 Turbo, GPT-4.1, GPT-4.1 mini, GPT-4.1 nano, GPT-4.5 preview, GPT-4o, GPT-4o mini, o1, o1-mini, o3-mini, o4-mini
 
 If valid, the API keys will be saved in a **.env** file in the project root directory, and Gila will read them as environmental variables.
 
