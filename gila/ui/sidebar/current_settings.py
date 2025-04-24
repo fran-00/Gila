@@ -51,7 +51,7 @@ class CurrentSettings(QObject):
         ]
 
         # Reasoning effort (only for o-series models)
-        if self.current_llm in {"o1", "o1-mini", "o3-mini"}:
+        if self.current_llm in {"o1", "o1-mini", "o3-mini", "o4-mini"}:
             settings_str.append(f"<b>Reasoning effort</b>: {self.current_reasoning_effort}<br>")
 
         if is_image_model():
