@@ -6,6 +6,7 @@ from ..utils import FileHandler as FH
 
 class Modal(QDialog):
     api_key_to_controller = Signal(str, str)
+    download_update_requested = Signal()
 
     def __init__(self, window):
         super().__init__()
