@@ -1,7 +1,3 @@
-import json
-import re
-import subprocess
-
 from PySide6.QtCore import QObject, QRunnable, QThreadPool, Signal, Slot
 
 
@@ -59,7 +55,6 @@ class Model(QObject):
     response_info_signal_to_controller = Signal(dict)
     connection_error_to_controller = Signal()
     generic_error_to_controller = Signal(str)
-    update_found_to_controller = Signal()
 
     def __init__(self, manager):
         super().__init__()
@@ -114,27 +109,3 @@ class Model(QObject):
             error_message (str): The message detailing the error encountered during worker processing.
         """
         self.generic_error_to_controller.emit(error_message)
-
-    def check_for_updates(self):
-        """Check for updates in the GitHub repository.
-
-        Compares the local SHA of the repository with the remote SHA
-        obtained from the GitHub repository. It reads the local SHA from a JSON
-        file and uses a subprocess to execute a `git ls-remote` command to fetch
-        the remote SHA. If the local SHA does not match the remote SHA, it emits
-        a signal indicating that an update has been found.
-
-        Notes:
-            - Not yet implemented.
-        """
-        repo_url = "https://github.com/fran-00/gila.git"
-        with open("storage/local_sha.json", "r") as f:
-            data = json.load(f)
-        local_sha = data["local_sha"]
-        process = subprocess.Popen(["git", "ls-remote", repo_url], stdout=subprocess.PIPE)
-        stdout, stderr = process.communicate()
-        remote_sha = re.split(r"\t+", stdout.decode("ascii"))[0]
-        process.kill()
-        process.wait()
-        if local_sha != remote_sha:
-            self.update_found_to_controller.emit()
