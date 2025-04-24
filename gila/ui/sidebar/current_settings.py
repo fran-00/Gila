@@ -42,40 +42,36 @@ class CurrentSettings(QObject):
 
     def build_settings_str(self):
         """Generates the HTML representation of the current settings."""
-        
-        def is_image_model():
+
+        def is_o_series():
+            return re.match(r"^o\d+(-\w+)?$", self.current_llm)
+
+        def is_dalle_model():
             return re.match(r"^DALL-E \d+", self.current_llm)
-        
-        settings_str = [
-            f"<b>ID</b>: {self.chat_id}<br>",
-            f"<b>Name</b>: {self.chat_custom_name or 'Name not set'}<br>",
-            f"<b>Model</b>: {self.current_llm}<br>",
-        ]
 
-        # Reasoning effort (only for o-series models)
-        if re.match(r"^o\d+(-\w+)?$", self.current_llm):
-            settings_str.append(f"<b>Reasoning effort</b>: {self.current_reasoning_effort}<br>")
+        settings = {
+            "ID": self.chat_id,
+            "Name": self.chat_custom_name or "Name not set",
+            "Model": self.current_llm,
+        }
 
-        if is_image_model():
+        if is_o_series():
+            settings["Reasoning effort"] = self.current_reasoning_effort
+
+        if is_dalle_model():
             num_images = 1 if self.current_llm == "DALL-E 3" else self.current_image_quantity
-            settings_str.extend([
-                f"<b>Size</b>: {self.current_image_size}<br>",
-                f"<b>N. of images</b>: {num_images}<br>"
-            ])
-            # Quality (only for Dall-e-3)
+            settings["Size"] = self.current_image_size
+            settings["N. of images"] = num_images
             if self.current_llm == "DALL-E 3":
-                settings_str.append(f"<b>Quality</b>: {self.current_image_quality}<br>")
-        
+                settings["Quality"] = self.current_image_quality
         else:
-            settings_str.extend([
-                f"<b>Temperature</b>: {self.current_temperature}<br>",
-                f"<b>Max tokens</b>: {self.current_max_tokens}<br>"
-            ])
+            settings["Temperature"] = self.current_temperature
+            settings["Max tokens"] = self.current_max_tokens
 
-        # Last message
-        settings_str.append(f"<b>Last message</b>: {self.current_chat_date or 'Just created'}")
-        
-        return f"<div>{''.join(settings_str)}</div>"
+        settings["Last message"] = self.current_chat_date or "Just created"
+
+        settings_lines = [f"<b>{key}</b>: {value}" for key, value in settings.items()]
+        return f"<div>{'<br>'.join(settings_lines)}</div>"
 
     def on_show_sidebar_settings_label(self):
         """ Shows settings label on call """
