@@ -133,5 +133,5 @@ cython_debug/
 /drafts/
 
 *.pk
-local_sha.json
+local_version.json
 saved_settings.json
