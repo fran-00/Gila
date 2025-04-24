@@ -1,4 +1,6 @@
-from PySide6.QtCore import QObject, Signal, Slot
+from PySide6.QtCore import QObject, QTimer, Signal, Slot
+
+from .updater import Updater
 
 
 class Controller(QObject):
@@ -17,9 +19,16 @@ class Controller(QObject):
         super().__init__()
         self.model = model
         self.view = view
+        self.updater = Updater()
         self.connect_model()
         self.connect_view()
-        # self.model.check_for_updates()
+        self.connect_updater()
+        QTimer.singleShot(0, self.updater.check_for_updates)
+
+    def connect_updater(self):
+        self.updater.update_found_to_controller.connect(
+            self.update_found_slot
+        )
 
     def connect_model(self):
         """Connect the controller's signals to the model's slots and vice versa.
@@ -50,9 +59,6 @@ class Controller(QObject):
         )
         self.model.generic_error_to_controller.connect(
             self.generic_error_slot
-        )
-        self.model.update_found_to_controller.connect(
-            self.update_found_slot
         )
         self.model.manager.api_key_is_valid_to_controller.connect(
             self.api_key_is_valid_slot
