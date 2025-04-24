@@ -1,4 +1,4 @@
-import json
+import re
 
 from PySide6.QtCore import QObject, Signal
 from PySide6.QtGui import Qt
@@ -391,7 +391,7 @@ class SettingsHandler(QObject):
         return {model_name: data["limits"] for model_name, data in models_data.items()} if models_data else {}
 
     def check_if_image(self):
-        if self.selected_llm in ["DALL-E 2", "DALL-E 3"]:
+        if re.match(r"^DALL-E \d+", self.selected_llm):
             self.on_show_image_settings()
         else:
             self.on_hide_image_settings()
@@ -418,10 +418,10 @@ class SettingsHandler(QObject):
                 self.checkbox_1024x1024.setChecked(True)
 
     def check_if_reasoner(self):
-        if self.selected_llm in ["o1", "o1-mini", "o3-mini", "o4-mini"]:
+        if re.match(r"^o\d+(-\w+)?$", self.selected_llm):
             self.on_show_advanced_settings()
             self.select_tokens_label.setText("Max Completion Tokens")
-        elif self.selected_llm in ["DALL-E 2", "DALL-E 3"]:
+        elif re.match(r"^DALL-E \d+", self.selected_llm):
             pass
         else:
             self.on_hide_advanced_settings()
