@@ -1,3 +1,5 @@
+import re
+
 from PySide6.QtCore import QObject
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
 
@@ -42,7 +44,7 @@ class CurrentSettings(QObject):
         """Generates the HTML representation of the current settings."""
         
         def is_image_model():
-            return self.current_llm in {"DALL-E 2", "DALL-E 3"}
+            return re.match(r"^DALL-E \d+", self.current_llm)
         
         settings_str = [
             f"<b>ID</b>: {self.chat_id}<br>",
@@ -51,7 +53,7 @@ class CurrentSettings(QObject):
         ]
 
         # Reasoning effort (only for o-series models)
-        if self.current_llm in {"o1", "o1-mini", "o3-mini", "o4-mini"}:
+        if re.match(r"^o\d+(-\w+)?$", self.current_llm):
             settings_str.append(f"<b>Reasoning effort</b>: {self.current_reasoning_effort}<br>")
 
         if is_image_model():
