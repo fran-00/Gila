@@ -1,7 +1,7 @@
 import json
 import requests
 
-from PySide6.QtCore import QObject, Signal
+from PySide6.QtCore import QObject, QThreadPool, Signal
 
 
 class Updater(QObject):
@@ -38,3 +38,7 @@ class Updater(QObject):
 
         if local_version != latest_version:
             self.update_found_to_controller.emit()
+
+    def download_update(self):
+        # TODO:
+        print("downloading update...")
