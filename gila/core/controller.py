@@ -106,6 +106,9 @@ class Controller(QObject):
         self.view.add_api_key_modal.api_key_to_controller.connect(
             self.api_key_from_modal_slot
         )
+        self.view.update_found_modal.download_update_requested.connect(
+            self.download_update_requested_slot
+        )
 
         # Connect ChatLog to Status Bar
         self.view.chat.update_status_bar_from_chatlog.connect(
@@ -463,3 +466,9 @@ class Controller(QObject):
         """
         self.update_status_bar.emit("Update found.")
         self.view.update_found_modal.exec_()
+
+    @Slot()
+    def download_update_requested_slot(self):
+        """Handle update download
+        """
+        self.updater.download_update()
