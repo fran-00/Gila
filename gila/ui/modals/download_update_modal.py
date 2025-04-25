@@ -1,4 +1,4 @@
-from PySide6.QtCore import Slot
+from PySide6.QtCore import Slot, Qt
 from PySide6.QtWidgets import QProgressBar, QPushButton, QVBoxLayout
 
 from .parent_modal import Modal
@@ -10,12 +10,16 @@ class DownloadUpdateModal(Modal):
         super().__init__(window)
         self.setWindowTitle("Download Update")
         self.on_modal_layout()
+        self.in_progress = True
 
     def on_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.on_modal_text()
         self.modal_text.setText("Downloading Update...")
+
+        flags = self.windowFlags()
+        self.setWindowFlags(flags & ~Qt.WindowCloseButtonHint)
 
         self.progress_bar = QProgressBar(self)
         self.progress_bar.setRange(0, 100)
@@ -66,3 +70,12 @@ class DownloadUpdateModal(Modal):
         flags = self.windowFlags()
         self.setWindowFlags(flags | Qt.WindowCloseButtonHint)
         self.show()
+
+    def closeEvent(self, event):
+        """If the dialog receives a close attempt (Alt+F4) while the download is
+        in progress, ignore it; otherwise let it run.
+        """
+        if self.in_progress:
+            event.ignore()
+        else:
+            super().closeEvent(event)
