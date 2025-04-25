@@ -1,5 +1,7 @@
 import json
+import os
 import requests
+import sys
 
 from PySide6.QtCore import QObject, QThreadPool, Signal
 
@@ -41,5 +43,26 @@ class Updater(QObject):
             self.update_found_to_controller.emit()
 
     def download_update(self):
-        # TODO:
-        print("downloading update...")
+        assets = self.latest_version.get("assets", [])
+        download_url = None
+        file_name = None
+
+        for a in assets:
+            name = a.get("name", "")
+            if name.lower().endswith(".zip"):
+                download_url = a["browser_download_url"]
+                file_name = name
+                break
+
+        if not download_url:
+            download_url = self.latest_version.get("zipball_url")
+            tag = self.latest_version.get("tag_name", "latest")
+            file_name = f"gila-{tag}.zip"
+
+        if getattr(sys, "frozen", False):
+            base_dir = os.path.dirname(sys.executable)
+        else:
+            base_dir = os.getcwd()
+
+        target_path = os.path.join(base_dir, file_name)
+        print(target_path)
