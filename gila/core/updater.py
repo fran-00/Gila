@@ -3,7 +3,44 @@ import os
 import requests
 import sys
 
-from PySide6.QtCore import QObject, QThreadPool, Signal
+from PySide6.QtCore import QObject, QRunnable, QThreadPool, Signal, Slot
+
+
+class DownloadSignals(QObject):
+    progress = Signal(int)
+    finished = Signal(str)
+    error = Signal(str)
+
+
+class DownloadWorker(QRunnable):
+    def __init__(self, url: str, target_path: str):
+        super().__init__()
+        self.url = url
+        self.target_path = target_path
+        self.signals = DownloadSignals()
+
+    @Slot()
+    def run(self):
+        try:
+            response = requests.get(self.url, stream=True, timeout=10)
+            response.raise_for_status()
+            total = int(response.headers.get("Content-Length", 0))
+            downloaded = 0
+
+            with open(self.target_path, "wb") as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    if not chunk:
+                        continue
+                    f.write(chunk)
+                    downloaded += len(chunk)
+                    if total:
+                        percent = int(downloaded * 100 / total)
+                        self.signals.progress.emit(percent)
+
+            self.signals.finished.emit(self.target_path)
+
+        except Exception as e:
+            self.signals.error.emit(str(e))
 
 
 class Updater(QObject):
