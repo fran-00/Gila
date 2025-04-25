@@ -26,6 +26,11 @@ class DownloadUpdateModal(Modal):
         self.progress_bar.setValue(0)
         self.modal_layout.addWidget(self.progress_bar)
 
+        self.install_button = QPushButton("Install", self)
+        self.install_button.hide()
+        self.install_button.clicked.connect(lambda: self.request_update_installation())
+        self.modal_layout.addWidget(self.install_button)
+
         self.dismiss_button = QPushButton("Close", self)
         self.dismiss_button.hide()
         self.dismiss_button.clicked.connect(lambda: self.accept())
@@ -63,10 +68,12 @@ class DownloadUpdateModal(Modal):
 
         if not error:
             self.progress_bar.hide()
+            self.install_button.show()
+            self.dismiss_button.show()
         else:
             self.progress_bar.setEnabled(False)
+            self.dismiss_button.show()
 
-        self.dismiss_button.show()
         flags = self.windowFlags()
         self.setWindowFlags(flags | Qt.WindowCloseButtonHint)
         self.show()
