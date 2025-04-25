@@ -14,6 +14,9 @@ class Controller(QObject):
     api_key_to_manager = Signal(str, str)
     api_key_is_valid_to_view = Signal(bool)
     loading_saved_chat_id_to_manager = Signal(str)
+    download_progress_to_view = Signal(int)
+    download_finished_to_view = Signal(str)
+    download_error_to_view = Signal(str)
 
     def __init__(self, model, view):
         super().__init__()
@@ -28,6 +31,15 @@ class Controller(QObject):
     def connect_updater(self):
         self.updater.update_found_to_controller.connect(
             self.update_found_slot
+        )
+        self.updater.download_progress.connect(
+            self.download_progress_slot
+        )
+        self.updater.download_finished.connect(
+            self.download_finished_slot
+        )
+        self.updater.download_error.connect(
+            self.download_error_slot
         )
 
     def connect_model(self):
@@ -480,3 +492,29 @@ class Controller(QObject):
         Handle update download
         """
         self.updater.download_update()
+
+    @Slot(int)
+    def download_progress_slot(self, percent):
+        """Slot
+        Connected to one signal:
+        - updater.download_progress
+        """
+        self.download_progress_to_view.emit(percent)
+        print(percent)
+
+    @Slot(str)
+    def download_finished_slot(self, downloaded_path):
+        """Slot
+        Connected to one signal:
+        - updater.download_finished
+        """
+        self.download_finished_to_view.emit(downloaded_path)
+        print(downloaded_path)
+
+    @Slot(str)
+    def download_error_slot(self, error_msg):
+        """Slot
+        Connected to one signal:
+        - updater.download_error
+        """
+        self.download_error_to_view.emit(error_msg)
