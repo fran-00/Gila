@@ -31,3 +31,6 @@ class WarningModal(Modal):
 
     def on_deleting_current_chat_label(self):
         self.modal_text.setText("You can't delete an ongoing chat!\nStart a new conversation or load another one and try again.")
+
+    def on_update_not_fount_label(self):
+        self.modal_text.setText("You already have the most up-to-date version of Gila.")
