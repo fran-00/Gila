@@ -34,7 +34,7 @@ class DownloadUpdateModal(Modal):
         Connected to one signal:
             - controller.download_progress_to_view
         """
-        pass
+        self.progress_bar.setValue(percent)
 
     @Slot(str)
     def on_show_download_finished_slot(self, downloaded_path):
