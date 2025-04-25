@@ -24,19 +24,19 @@ class Updater(QObject):
             response = requests.get(self.api_url, timeout=5)
             response.raise_for_status()
             latest = response.json()
-            latest_version = latest["tag_name"]
+            latest_version_tag = latest["tag_name"]
         except (requests.RequestException, KeyError, ValueError):
             return
 
         try:
             with open("storage/local_version.json", "r") as f:
                 data = json.load(f)
-            local_version = data.get("local_version")
+            local_version_tag = data.get("local_version")
         except (IOError, ValueError):
             # If we can't read local info, assume update available
-            local_version = None
+            local_version_tag = None
 
-        if local_version != latest_version:
+        if local_version_tag != latest_version_tag:
             self.update_found_to_controller.emit()
 
     def download_update(self):
