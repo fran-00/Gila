@@ -228,3 +228,12 @@ QProgressBar::chunk {
     background-color: #b38d24;
     border-radius: 2px;
 }
+
+QProgressBar:disabled {
+    background-color: #570000;
+}
+
+QProgressBar::chunk:disabled {
+    background-color: #990000;
+    border-radius: 2px;
+}
