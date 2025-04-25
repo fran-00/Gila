@@ -58,9 +58,9 @@ class DownloadWorker(QRunnable):
 
 class Updater(QObject):
     update_found_to_controller = Signal(bool)
-    download_progress = Signal(int)
-    download_finished = Signal(str)
-    download_error = Signal(str)
+    download_progress_to_controller = Signal(int)
+    download_finished_to_controller = Signal(str)
+    download_error_to_controller = Signal(str)
 
     def __init__(self):
         super().__init__()
@@ -121,9 +121,9 @@ class Updater(QObject):
         target_path = os.path.join(base_dir, file_name)
 
         self.worker = DownloadWorker(download_url, target_path)
-        self.worker.signals.progress.connect(self.download_progress)
-        self.worker.signals.finished.connect(self.download_finished)
-        self.worker.signals.error.connect(self.download_error)
+        self.worker.signals.progress.connect(self.download_progress_to_controller)
+        self.worker.signals.finished.connect(self.download_finished_to_controller)
+        self.worker.signals.error.connect(self.download_error_to_controller)
 
         QThreadPool.globalInstance().start(self.worker)
 

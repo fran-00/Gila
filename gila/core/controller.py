@@ -38,13 +38,13 @@ class Controller(QObject):
         self.updater.update_found_to_controller.connect(
             self.update_found_slot
         )
-        self.updater.download_progress.connect(
+        self.updater.download_progress_to_controller.connect(
             self.download_progress_slot
         )
-        self.updater.download_finished.connect(
+        self.updater.download_finished_to_controller.connect(
             self.download_finished_slot
         )
-        self.updater.download_error.connect(
+        self.updater.download_error_to_controller.connect(
             self.download_error_slot
         )
 
@@ -528,7 +528,7 @@ class Controller(QObject):
     def download_progress_slot(self, percent):
         """Slot
         Connected to one signal:
-        - updater.download_progress
+        - updater.download_progress_to_controller
         """
         self.download_progress_to_view.emit(percent)
 
@@ -536,7 +536,7 @@ class Controller(QObject):
     def download_finished_slot(self, downloaded_path):
         """Slot
         Connected to one signal:
-        - updater.download_finished
+        - updater.download_finished_to_controller
         """
         self.download_finished_to_view.emit(downloaded_path)
 
@@ -544,7 +544,7 @@ class Controller(QObject):
     def download_error_slot(self, error_msg):
         """Slot
         Connected to one signal:
-        - updater.download_error
+        - updater.download_error_to_controller
         """
         self.download_error_to_view.emit(error_msg)
 
