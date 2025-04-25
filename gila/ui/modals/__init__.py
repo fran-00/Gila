@@ -1,6 +1,7 @@
 from .about_gila_modal import AboutGilaModal
 from .add_api_key_modal import AddAPIKeyModal
 from .confirm_chat_deletion_modal import ConfirmChatDeletionModal
+from .download_update_modal import DownloadUpdateModal
 from .manage_api_keys_modal import ManageAPIKeysModal
 from .rename_chat_modal import RenameChatModal
 from .update_found_modal import UpdateFoundModal
