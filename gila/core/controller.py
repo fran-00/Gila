@@ -456,7 +456,11 @@ class Controller(QObject):
 
     @Slot()
     def update_found_slot(self):
-        """Handle the event when an update is found.
+        """Slot
+        Conncted to one signal:
+        - updater.update_found_to_controller
+        
+        Handle the event when an update is found.
 
         This slot is triggered when an update is detected. It emits a status bar
         update message indicating that an update has been found and displays a
