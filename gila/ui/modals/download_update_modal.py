@@ -1,5 +1,5 @@
 from PySide6.QtCore import Slot
-from PySide6.QtWidgets import QVBoxLayout, QPushButton
+from PySide6.QtWidgets import QProgressBar, QPushButton, QVBoxLayout
 
 from .parent_modal import Modal
 
@@ -10,6 +10,23 @@ class DownloadUpdateModal(Modal):
         super().__init__(window)
         self.setWindowTitle("Download Update")
         self.on_modal_layout()
+
+    def on_modal_layout(self):
+        """ Creates modal layout and calls methods that adds widgets """
+        self.modal_layout = QVBoxLayout(self)
+        self.on_modal_text()
+        self.modal_text.setText("Downloading Update...")
+
+        self.progress_bar = QProgressBar(self)
+        self.progress_bar.setRange(0, 100)
+        self.progress_bar.setValue(0)
+        self.modal_layout.addWidget(self.progress_bar)
+
+        self.dismiss_button = QPushButton("Cancel", self)
+        self.dismiss_button.clicked.connect(self.reject)
+        self.modal_layout.addWidget(self.dismiss_button)
+
+        self.window.set_cursor_pointer_for_buttons(self)
 
     @Slot(int)
     def on_show_download_progress_slot(self, percent):
