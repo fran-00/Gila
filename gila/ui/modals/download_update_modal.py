@@ -53,5 +53,16 @@ class DownloadUpdateModal(Modal):
         """
         pass
 
-    def request_to_cancel_download(self):
-        self.cancel_download_requested_to_controller.emit()
+    def on_download_finished(self, message: str, error: bool = False):
+        self.in_progress = False
+        self.modal_text.setText(message)
+
+        if not error:
+            self.progress_bar.hide()
+        else:
+            self.progress_bar.setEnabled(False)
+
+        self.dismiss_button.show()
+        flags = self.windowFlags()
+        self.setWindowFlags(flags | Qt.WindowCloseButtonHint)
+        self.show()
