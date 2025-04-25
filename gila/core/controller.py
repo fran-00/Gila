@@ -500,6 +500,7 @@ class Controller(QObject):
         
         Handle update download
         """
+        self.view.download_update_modal.show()
         self.updater.download_update()
 
     @Slot(int)
