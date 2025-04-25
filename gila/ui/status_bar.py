@@ -1,5 +1,7 @@
 from PySide6.QtCore import Slot
-from PySide6.QtWidgets import QStatusBar
+from PySide6.QtWidgets import QLabel, QStatusBar
+
+from .utils import FileHandler as FH
 
 
 class StatusBar(QStatusBar):
@@ -8,6 +10,15 @@ class StatusBar(QStatusBar):
         super().__init__()
         self.window = window
         self.messages_history = []
+
+        self.version_label = QLabel(f"v1.0.0", objectName="version_label")
+        self.addPermanentWidget(self.version_label)
+        self.set_version()
+
+    def set_version(self):
+        data = FH.load_file("storage/local_version.json")
+        version = data.get("local_version")
+        self.version_label.setText(f"{version}")
 
     @Slot(str)
     def on_status_update_slot(self, status):
