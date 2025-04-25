@@ -17,6 +17,7 @@ class Controller(QObject):
     download_progress_to_view = Signal(int)
     download_finished_to_view = Signal(str)
     download_error_to_view = Signal(str)
+    cancel_download_to_updater = Signal()
 
     def __init__(self, model, view):
         super().__init__()
@@ -29,6 +30,11 @@ class Controller(QObject):
         QTimer.singleShot(0, self.updater.check_for_updates)
 
     def connect_updater(self):
+        # Connect CONTROLLER's signals to UPDATER's slots
+        self.cancel_download_to_updater.connect(
+            self.updater.cancel_download_slot
+        )
+        # Connect UPDATER's signals to CONTROLLER's slots
         self.updater.update_found_to_controller.connect(
             self.update_found_slot
         )
