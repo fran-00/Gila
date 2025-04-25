@@ -13,6 +13,7 @@ class ToolBar(QToolBar):
         self.set_icons()
         self.on_save_chatlog_action()
         self.on_manage_api_keys_action()
+        self.on_update_check_action()
         self.on_open_info_modal_action()
 
     def on_save_chatlog_action(self):
@@ -27,6 +28,12 @@ class ToolBar(QToolBar):
         api_keys_action.setStatusTip('Manage API Keys')
         api_keys_action.triggered.connect(self.open_api_keys_modal)
         self.addAction(api_keys_action)
+
+    def on_update_check_action(self):
+        update_action = QAction(self.update_icon, "&Update Check", self)
+        update_action.setStatusTip('Update Check')
+        update_action.triggered.connect(self.update_check)
+        self.addAction(update_action)
 
     def on_open_info_modal_action(self):
         info_action = QAction(self.info_icon, "&About Gila", self)
@@ -103,3 +110,6 @@ class ToolBar(QToolBar):
 
     def open_info_modal(self):
         self.window.about_gila_modal.exec_()
+
+    def update_check(self):
+        self.window.request_update_check_to_controller.emit()
