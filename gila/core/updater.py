@@ -61,6 +61,7 @@ class Updater(QObject):
     download_progress_to_controller = Signal(int)
     download_finished_to_controller = Signal(str)
     download_error_to_controller = Signal(str)
+    update_ready_to_install_to_controller = Signal()
 
     def __init__(self):
         super().__init__()
@@ -75,6 +76,7 @@ class Updater(QObject):
         version, compare the two and emit update_found_to_controller signal if
         they're different.
         """
+        # Get the latest release from GitHub
         try:
             response = requests.get(self.api_url, timeout=5)
             response.raise_for_status()
@@ -83,18 +85,47 @@ class Updater(QObject):
         except (requests.RequestException, KeyError, ValueError):
             return
 
+        # Read the local version
         try:
             with open("storage/local_version.json", "r") as f:
                 data = json.load(f)
             local_version_tag = data.get("local_version")
         except (IOError, ValueError):
-            # If we can't read local info, assume update available
+            # If can't read local info, assume update available
             local_version_tag = None
 
-        if local_version_tag != latest_version_tag:
+        # There is no new version, send the signal only if the user has searched
+        # for updates from the toolbar
+        if local_version_tag == latest_version_tag:
+            if not on_startup:
+                self.update_found_to_controller.emit(False)
+            return
+
+        # There is a new version: calculate zip name
+        assets = self.latest_version.get("assets", [])
+        zip_name = None
+        for a in assets:
+            nm = a.get("name", "")
+            if nm.lower().endswith(".zip"):
+                zip_name = nm
+                break
+        if not zip_name:
+            zip_name = f"gila-{latest_version_tag}.zip"
+
+        # Get executable folder path
+        if getattr(sys, "frozen", False):
+            base_dir = os.path.dirname(sys.executable)
+        else:
+            base_dir = os.getcwd()
+        zip_path = os.path.join(base_dir, zip_name)
+
+        # 6) Emit a signal
+        if os.path.isfile(zip_path):
+            # Zip file with the update already exists
+            self.update_ready_to_install_to_controller.emit()
+        else:
+            # Zip file is not there, ask user to download it
             self.update_found_to_controller.emit(True)
-        elif not on_startup:
-            self.update_found_to_controller.emit(False)
 
     def download_update(self):
         assets = self.latest_version.get("assets", [])
