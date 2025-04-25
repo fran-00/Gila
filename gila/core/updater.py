@@ -33,6 +33,8 @@ class DownloadWorker(QRunnable):
 
             with open(self.target_path, "wb") as f:
                 for chunk in response.iter_content(chunk_size=8192):
+                    if self.is_cancelled:
+                        break
                     if not chunk:
                         continue
                     f.write(chunk)
@@ -40,6 +42,13 @@ class DownloadWorker(QRunnable):
                     if total:
                         percent = int(downloaded * 100 / total)
                         self.signals.progress.emit(percent)
+
+            if self.is_cancelled:
+                try:
+                    os.remove(self.target_path)
+                except Exception:
+                    pass
+                return
 
             self.signals.finished.emit(self.target_path)
 
@@ -57,6 +66,7 @@ class Updater(QObject):
         super().__init__()
         self.api_url = f"https://api.github.com/repos/fran-00/gila/releases/latest"
         self.latest_version = None
+        self.worker = None
 
     def check_for_updates(self):
         """Check for a newer GitHub release and emit a signal if found.
@@ -108,9 +118,18 @@ class Updater(QObject):
 
         target_path = os.path.join(base_dir, file_name)
 
-        worker = DownloadWorker(download_url, target_path)
-        worker.signals.progress.connect(self.download_progress)
-        worker.signals.finished.connect(self.download_finished)
-        worker.signals.error.connect(self.download_error)
+        self.worker = DownloadWorker(download_url, target_path)
+        self.worker.signals.progress.connect(self.download_progress)
+        self.worker.signals.finished.connect(self.download_finished)
+        self.worker.signals.error.connect(self.download_error)
 
-        QThreadPool.globalInstance().start(worker)
+        QThreadPool.globalInstance().start(self.worker)
+
+    @Slot()
+    def cancel_download_slot(self):
+        """Slot
+        Connected to one signal:
+        - controller.cancel_download_to_updater
+        """
+        if self.worker:
+            self.worker.cancel()
