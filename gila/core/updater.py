@@ -8,7 +8,7 @@ from PySide6.QtCore import QObject, QRunnable, QThreadPool, Signal, Slot
 
 class DownloadSignals(QObject):
     progress = Signal(int)
-    finished = Signal(str)
+    finished = Signal()
     error = Signal(str)
 
 
@@ -50,7 +50,7 @@ class DownloadWorker(QRunnable):
                     pass
                 return
 
-            self.signals.finished.emit(self.target_path)
+            self.signals.finished.emit()
 
         except Exception as e:
             self.signals.error.emit(str(e))
@@ -59,7 +59,7 @@ class DownloadWorker(QRunnable):
 class Updater(QObject):
     update_found_to_controller = Signal(bool)
     download_progress_to_controller = Signal(int)
-    download_finished_to_controller = Signal(str)
+    download_finished_to_controller = Signal()
     download_error_to_controller = Signal(str)
     update_ready_to_install_to_controller = Signal()
 

@@ -46,8 +46,8 @@ class DownloadUpdateModal(Modal):
         """
         self.progress_bar.setValue(percent)
 
-    @Slot(str)
-    def on_show_download_finished_slot(self, downloaded_path):
+    @Slot()
+    def on_show_download_finished_slot(self):
         """ Slot
         Connected to one signal:
             - controller.download_finished_to_view

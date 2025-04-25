@@ -15,7 +15,7 @@ class Controller(QObject):
     api_key_is_valid_to_view = Signal(bool)
     loading_saved_chat_id_to_manager = Signal(str)
     download_progress_to_view = Signal(int)
-    download_finished_to_view = Signal(str)
+    download_finished_to_view = Signal()
     download_error_to_view = Signal(str)
     cancel_download_to_updater = Signal()
     install_update_to_updater = Signal()
@@ -539,13 +539,13 @@ class Controller(QObject):
         """
         self.download_progress_to_view.emit(percent)
 
-    @Slot(str)
-    def download_finished_slot(self, downloaded_path):
+    @Slot()
+    def download_finished_slot(self):
         """Slot
         Connected to one signal:
         - updater.download_finished_to_controller
         """
-        self.download_finished_to_view.emit(downloaded_path)
+        self.download_finished_to_view.emit()
 
     @Slot(str)
     def download_error_slot(self, error_msg):
