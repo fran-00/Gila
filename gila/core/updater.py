@@ -18,6 +18,10 @@ class DownloadWorker(QRunnable):
         self.url = url
         self.target_path = target_path
         self.signals = DownloadSignals()
+        self.is_cancelled = False
+
+    def cancel(self):
+        self.is_cancelled = True
 
     @Slot()
     def run(self):
