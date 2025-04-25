@@ -135,3 +135,11 @@ class Updater(QObject):
         """
         if self.worker:
             self.worker.cancel()
+
+    @Slot()
+    def install_update_slot(self):
+        """Slot
+        Connected to one signal:
+        - controller.install_update_to_updater
+        """
+        pass
