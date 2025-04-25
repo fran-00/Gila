@@ -26,9 +26,9 @@ class DownloadUpdateModal(Modal):
         self.progress_bar.setValue(0)
         self.modal_layout.addWidget(self.progress_bar)
 
-        self.dismiss_button = QPushButton("Cancel", self)
-        # self.dismiss_button.clicked.connect(self.reject)
-        self.dismiss_button.clicked.connect(lambda: self.request_to_cancel_download())
+        self.dismiss_button = QPushButton("Close", self)
+        self.dismiss_button.hide()
+        self.dismiss_button.clicked.connect(lambda: self.accept())
         self.modal_layout.addWidget(self.dismiss_button)
 
         self.window.set_cursor_pointer_for_buttons(self)
