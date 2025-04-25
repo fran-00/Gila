@@ -22,8 +22,8 @@ class UpdateFoundModal(Modal):
 
     def on_confirm_button(self):
         self.modal_button = QPushButton("Download", self)
-        self.modal_button.clicked.connect(lambda: self.download_update())
         self.modal_button.clicked.connect(self.accept)
+        self.modal_button.clicked.connect(lambda: self.download_update())
         self.modal_layout.addWidget(self.modal_button)
 
     def download_update(self):
