@@ -115,6 +115,9 @@ class Controller(QObject):
         self.view.window_closed_signal_to_controller.connect(
             self.window_was_closed_slot
         )
+        self.view.request_update_check_to_controller.connect(
+            self.requested_update_check_slot
+        )
         self.view.sidebar.change_settings.new_settings_to_controller.connect(
             self.settings_changed_from_sidebar_slot
         )
@@ -483,6 +486,10 @@ class Controller(QObject):
         if self.view.chat.chatlog_has_text():
             self.model.manager.save_current_chat()
             self.view.chat.add_log_to_saved_chat_data(self.model.manager.client.chat_id)
+
+    @Slot()
+    def requested_update_check_slot(self):
+        self.updater.check_for_updates()
 
     @Slot()
     def update_found_slot(self):
