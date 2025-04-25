@@ -8,6 +8,7 @@ class Modal(QDialog):
     api_key_to_controller = Signal(str, str)
     download_update_requested = Signal()
     cancel_download_requested_to_controller = Signal()
+    install_update_requested_to_controller = Signal()
 
     def __init__(self, window):
         super().__init__()
