@@ -47,7 +47,7 @@ class DownloadUpdateModal(Modal):
         Connected to one signal:
             - controller.download_finished_to_view
         """
-        pass
+        self.on_download_finished("Download completed!")
 
     @Slot(str)
     def on_show_download_error_slot(self, error_msg):
@@ -55,7 +55,7 @@ class DownloadUpdateModal(Modal):
         Connected to one signal:
             - controller.download_error_to_view
         """
-        pass
+        self.on_download_finished(f"Error:\n{error_msg}", error=True)
 
     def on_download_finished(self, message: str, error: bool = False):
         self.in_progress = False
