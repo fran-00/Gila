@@ -469,6 +469,10 @@ class Controller(QObject):
 
     @Slot()
     def download_update_requested_slot(self):
-        """Handle update download
+        """Slot
+        Connected to one signal:
+        - view.update_found_modal.download_update_requested
+        
+        Handle update download
         """
         self.updater.download_update()
