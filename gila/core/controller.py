@@ -136,6 +136,9 @@ class Controller(QObject):
         self.view.update_found_modal.download_update_requested.connect(
             self.download_update_requested_slot
         )
+        self.view.download_update_modal.cancel_download_requested_to_controller.connect(
+            self.cancel_download_requested_slot
+        )
 
         # Connect ChatLog to Status Bar
         self.view.chat.update_status_bar_from_chatlog.connect(
@@ -532,3 +535,11 @@ class Controller(QObject):
         - updater.download_error
         """
         self.download_error_to_view.emit(error_msg)
+
+    @Slot()
+    def cancel_download_requested_slot(self):
+        """Slot
+        Connected to one signal:
+        - view.download_update_modal.cancel_download_requested_to_controller
+        """
+        self.cancel_download_to_updater.emit()
