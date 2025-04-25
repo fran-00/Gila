@@ -12,7 +12,7 @@ class Modal(QDialog):
     def __init__(self, window):
         super().__init__()
         self.window = window
-        self.resize(400, 150)
+        self.resize(430, 200)
         self.setStyleSheet(self.load_css_file())
 
     def load_css_file(self):
@@ -21,6 +21,7 @@ class Modal(QDialog):
 
     def on_modal_text(self):
         self.modal_text = QLabel("Message to overwrite.", objectName="modal_text")
+        self.modal_text.setMaximumWidth(400)
         self.modal_text.setWordWrap(True)
         self.modal_layout.addWidget(self.modal_text)
 
