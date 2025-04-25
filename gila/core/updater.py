@@ -57,7 +57,7 @@ class DownloadWorker(QRunnable):
 
 
 class Updater(QObject):
-    update_found_to_controller = Signal()
+    update_found_to_controller = Signal(bool)
     download_progress = Signal(int)
     download_finished = Signal(str)
     download_error = Signal(str)
@@ -68,7 +68,7 @@ class Updater(QObject):
         self.latest_version = None
         self.worker = None
 
-    def check_for_updates(self):
+    def check_for_updates(self, on_startup: bool = True):
         """Check for a newer GitHub release and emit a signal if found.
 
         Fetchs latest release info from GitHub, reads the locally stored
@@ -92,7 +92,9 @@ class Updater(QObject):
             local_version_tag = None
 
         if local_version_tag != latest_version_tag:
-            self.update_found_to_controller.emit()
+            self.update_found_to_controller.emit(True)
+        elif not on_startup:
+            self.update_found_to_controller.emit(False)
 
     def download_update(self):
         assets = self.latest_version.get("assets", [])
