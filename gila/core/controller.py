@@ -42,6 +42,9 @@ class Controller(QObject):
         self.updater.update_found_to_controller.connect(
             self.update_found_slot
         )
+        self.updater.update_ready_to_install_to_controller.connect(
+            self.update_ready_to_install_slot
+        )
         self.updater.download_progress_to_controller.connect(
             self.download_progress_slot
         )
@@ -519,6 +522,10 @@ class Controller(QObject):
             self.update_status_bar.emit("Update not found.")
             self.view.warning_modal.on_update_not_fount_label()
             self.view.warning_modal.exec_()
+
+    @Slot()
+    def update_ready_to_install_slot(self):
+        self.download_finished_to_view.emit()
 
     @Slot()
     def download_update_requested_slot(self):
