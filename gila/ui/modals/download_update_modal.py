@@ -79,3 +79,6 @@ class DownloadUpdateModal(Modal):
             event.ignore()
         else:
             super().closeEvent(event)
+
+    def request_update_installation(self):
+        self.install_update_requested_to_controller.emit()
