@@ -12,6 +12,7 @@ class Updater(QObject):
         self.api_url = (
             f"https://api.github.com/repos/fran-00/gila/releases/latest"
         )
+        self.latest_version = None
 
     def check_for_updates(self):
         """Check for a newer GitHub release and emit a signal if found.
@@ -23,8 +24,8 @@ class Updater(QObject):
         try:
             response = requests.get(self.api_url, timeout=5)
             response.raise_for_status()
-            latest = response.json()
-            latest_version_tag = latest["tag_name"]
+            self.latest_version = response.json()
+            latest_version_tag = self.latest_version["tag_name"]
         except (requests.RequestException, KeyError, ValueError):
             return
 
