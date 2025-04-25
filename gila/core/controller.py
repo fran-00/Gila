@@ -489,10 +489,10 @@ class Controller(QObject):
 
     @Slot()
     def requested_update_check_slot(self):
-        self.updater.check_for_updates()
+        self.updater.check_for_updates(on_startup=False)
 
-    @Slot()
-    def update_found_slot(self):
+    @Slot(bool)
+    def update_found_slot(self, is_found):
         """Slot
         Conncted to one signal:
         - updater.update_found_to_controller
@@ -505,8 +505,13 @@ class Controller(QObject):
 
         Not yet implemented
         """
-        self.update_status_bar.emit("Update found.")
-        self.view.update_found_modal.exec_()
+        if is_found:
+            self.update_status_bar.emit("Update found.")
+            self.view.update_found_modal.exec_()
+        else:
+            self.update_status_bar.emit("Update not found.")
+            self.view.warning_modal.on_update_not_fount_label()
+            self.view.warning_modal.exec_()
 
     @Slot()
     def download_update_requested_slot(self):
