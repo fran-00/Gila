@@ -32,6 +32,7 @@ class LoadingScreen(QSplashScreen):
 
 class View(QMainWindow):
     window_closed_signal_to_controller = Signal()
+    request_update_check_to_controller = Signal()
 
     def __init__(self):
         super().__init__()
