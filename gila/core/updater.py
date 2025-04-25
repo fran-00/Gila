@@ -45,17 +45,18 @@ class DownloadWorker(QRunnable):
 
 class Updater(QObject):
     update_found_to_controller = Signal()
+    download_progress = Signal(int)
+    download_finished = Signal(str)
+    download_error = Signal(str)
 
     def __init__(self):
         super().__init__()
-        self.api_url = (
-            f"https://api.github.com/repos/fran-00/gila/releases/latest"
-        )
+        self.api_url = f"https://api.github.com/repos/fran-00/gila/releases/latest"
         self.latest_version = None
 
     def check_for_updates(self):
         """Check for a newer GitHub release and emit a signal if found.
-        
+
         Fetchs latest release info from GitHub, reads the locally stored
         version, compare the two and emit update_found_to_controller signal if
         they're different.
@@ -102,4 +103,10 @@ class Updater(QObject):
             base_dir = os.getcwd()
 
         target_path = os.path.join(base_dir, file_name)
-        print(target_path)
+
+        worker = DownloadWorker(download_url, target_path)
+        worker.signals.progress.connect(self.download_progress)
+        worker.signals.finished.connect(self.download_finished)
+        worker.signals.error.connect(self.download_error)
+
+        QThreadPool.globalInstance().start(worker)
