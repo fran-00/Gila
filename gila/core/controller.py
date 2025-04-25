@@ -95,6 +95,15 @@ class Controller(QObject):
         self.api_key_is_valid_to_view.connect(
             self.view.add_api_key_modal.on_api_key_validation_slot
         )
+        self.download_progress_to_view.connect(
+            self.view.download_update_modal.on_show_download_progress_slot
+        )
+        self.download_finished_to_view.connect(
+            self.view.download_update_modal.on_show_download_finished_slot
+        )
+        self.download_error_to_view.connect(
+            self.view.download_update_modal.on_show_download_error_slot
+        )
 
         # Connect VIEW's signals to CONTROLLER's slots
         self.view.window_closed_signal_to_controller.connect(
@@ -500,7 +509,6 @@ class Controller(QObject):
         - updater.download_progress
         """
         self.download_progress_to_view.emit(percent)
-        print(percent)
 
     @Slot(str)
     def download_finished_slot(self, downloaded_path):
@@ -509,7 +517,6 @@ class Controller(QObject):
         - updater.download_finished
         """
         self.download_finished_to_view.emit(downloaded_path)
-        print(downloaded_path)
 
     @Slot(str)
     def download_error_slot(self, error_msg):
