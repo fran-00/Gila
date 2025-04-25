@@ -66,10 +66,10 @@ class Controller(QObject):
         )
 
         # Connect MODEL's signals to CONTROLLER's slots
-        self.model.response_message_signal_to_controller.connect(
+        self.model.response_message_to_controller.connect(
             self.response_message_slot
         )
-        self.model.response_info_signal_to_controller.connect(
+        self.model.response_info_to_controller.connect(
             self.response_info_slot
         )
         self.model.connection_error_to_controller.connect(
@@ -152,7 +152,7 @@ class Controller(QObject):
     def response_message_slot(self, response_message):
         """Slot
         Connected to one signal:
-        - model.response_message_signal_to_controller
+        - model.response_message_to_controller
         Emits:
         - response_message_to_chatlog (view.chat.get_response_message_slot)
         - update_status_bar (view.status_bar.on_status_update_slot)
@@ -175,7 +175,7 @@ class Controller(QObject):
     def response_info_slot(self, response_info):
         """Slot
         Connected to one signal:
-        - model.response_info_signal_to_controller
+        - model.response_info_to_controller
         Emits two signals:
         - response_info_to_chatlog (view.chat.get_response_message_slot)
 

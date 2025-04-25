@@ -51,8 +51,8 @@ class PromptWorker(QRunnable):
 
 
 class Model(QObject):
-    response_message_signal_to_controller = Signal(str)
-    response_info_signal_to_controller = Signal(dict)
+    response_message_to_controller = Signal(str)
+    response_info_to_controller = Signal(dict)
     connection_error_to_controller = Signal()
     generic_error_to_controller = Signal(str)
 
@@ -75,8 +75,8 @@ class Model(QObject):
                                   the response.
         """
         if no_errors:
-            self.response_message_signal_to_controller.emit(response_message)
-            self.response_info_signal_to_controller.emit(response_info)
+            self.response_message_to_controller.emit(response_message)
+            self.response_info_to_controller.emit(response_info)
         else:
             if "Connection" in response_message:
                 self.connection_error_to_controller.emit()
