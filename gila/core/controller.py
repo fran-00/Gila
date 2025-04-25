@@ -18,6 +18,7 @@ class Controller(QObject):
     download_finished_to_view = Signal(str)
     download_error_to_view = Signal(str)
     cancel_download_to_updater = Signal()
+    install_update_to_updater = Signal()
 
     def __init__(self, model, view):
         super().__init__()
@@ -33,6 +34,9 @@ class Controller(QObject):
         # Connect CONTROLLER's signals to UPDATER's slots
         self.cancel_download_to_updater.connect(
             self.updater.cancel_download_slot
+        )
+        self.install_update_to_updater.connect(
+            self.updater.install_update_slot
         )
         # Connect UPDATER's signals to CONTROLLER's slots
         self.updater.update_found_to_controller.connect(
@@ -141,6 +145,9 @@ class Controller(QObject):
         )
         self.view.download_update_modal.cancel_download_requested_to_controller.connect(
             self.cancel_download_requested_slot
+        )
+        self.view.download_update_modal.install_update_requested_to_controller.connect(
+            self.install_update_requested_slot
         )
 
         # Connect ChatLog to Status Bar
@@ -555,3 +562,11 @@ class Controller(QObject):
         - view.download_update_modal.cancel_download_requested_to_controller
         """
         self.cancel_download_to_updater.emit()
+
+    @Slot()
+    def install_update_requested_slot(self):
+        """Slot
+        Connected to one signal:
+        - view.download_update_modal.install_update_requested_to_controller
+        """
+        self.install_update_to_updater.emit()
