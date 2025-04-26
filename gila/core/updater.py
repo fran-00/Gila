@@ -82,7 +82,7 @@ class Updater(QObject):
             response = requests.get(self.api_url, timeout=5)
             response.raise_for_status()
             self.latest_version = response.json()
-            latest_version_tag = self.latest_version["tag_name"]
+            latest_tag = self.latest_version["tag_name"]
         except (requests.RequestException, KeyError, ValueError):
             return
 
@@ -90,14 +90,14 @@ class Updater(QObject):
         try:
             with open("storage/local_version.json", "r") as f:
                 data = json.load(f)
-            local_version_tag = data.get("local_version")
+            local_tag = data.get("local_version")
         except (IOError, ValueError):
             # If can't read local info, assume update available
-            local_version_tag = None
+            local_tag = None
 
         # There is no new version, send the signal only if the user has searched
         # for updates from the toolbar
-        if local_version_tag == latest_version_tag:
+        if local_tag == latest_tag:
             if not on_startup:
                 self.update_found_to_controller.emit(False)
             return
@@ -111,7 +111,7 @@ class Updater(QObject):
                 zip_name = nm
                 break
         if not zip_name:
-            zip_name = f"gila-{latest_version_tag}.zip"
+            zip_name = f"gila-{latest_tag}.zip"
 
         # Get executable folder path
         if getattr(sys, "frozen", False):
