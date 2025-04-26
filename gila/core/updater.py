@@ -81,18 +81,13 @@ class Updater(QObject):
         try:
             self.latest_version = self._get_latest_release()
             latest_tag = self.latest_version["tag_name"]
+            local_tag = self._read_local_version()
         except (requests.RequestException, KeyError, ValueError) as e:
             self._emit_error(f"Update check failed: {str(e)}")
             return
-
-        # Read the local version
-        try:
-            with open("storage/local_version.json", "r") as f:
-                data = json.load(f)
-            local_tag = data.get("local_version")
-        except (IOError, ValueError):
-            # If can't read local info, assume update available
-            local_tag = None
+        except OSError as e:
+            self._emit_error(f"Could not read local version: {e}")
+            return
 
         # There is no new version, send the signal only if the user has searched
         # for updates from the toolbar
@@ -134,6 +129,11 @@ class Updater(QObject):
         if "tag_name" not in data:
             raise ValueError("Invalid release data: missing 'tag_name'")
         return data
+
+    def _read_local_version(self):
+        with open("storage/local_version.json", "r") as f:
+            info = json.load(f)
+        return info.get("local_version")
 
     def download_update(self):
         assets = self.latest_version.get("assets", [])
