@@ -115,6 +115,19 @@ class Updater(QObject):
             # Zip file is not there, ask user to download it
             self.update_found_to_controller.emit(True)
 
+    def download_update(self):
+        assets = self.latest_version.get("assets", [])
+        tag = self.latest_version.get("tag_name", "latest")
+        asset_name, download_url = self._select_asset(assets, tag)
+        target_path = os.path.join(self._get_base_dir(), asset_name)
+
+        self.worker = DownloadWorker(download_url, target_path)
+        self.worker.signals.progress.connect(self.download_progress_to_controller)
+        self.worker.signals.finished.connect(self.download_finished_to_controller)
+        self.worker.signals.error.connect(self.updater_error_to_controller)
+
+        QThreadPool.globalInstance().start(self.worker)
+
     def _get_latest_release(self):
         response = requests.get(self.api_url, timeout=5)
         response.raise_for_status()
@@ -146,37 +159,6 @@ class Updater(QObject):
         if getattr(sys, "frozen", False):
             return os.path.dirname(sys.executable)
         return os.getcwd()
-
-    def download_update(self):
-        assets = self.latest_version.get("assets", [])
-        download_url = None
-        file_name = None
-
-        for a in assets:
-            name = a.get("name", "")
-            if name.lower().endswith(".zip"):
-                download_url = a["browser_download_url"]
-                file_name = name
-                break
-
-        if not download_url:
-            download_url = self.latest_version.get("zipball_url")
-            tag = self.latest_version.get("tag_name", "latest")
-            file_name = f"gila-{tag}.zip"
-
-        if getattr(sys, "frozen", False):
-            base_dir = os.path.dirname(sys.executable)
-        else:
-            base_dir = os.getcwd()
-
-        target_path = os.path.join(base_dir, file_name)
-
-        self.worker = DownloadWorker(download_url, target_path)
-        self.worker.signals.progress.connect(self.download_progress_to_controller)
-        self.worker.signals.finished.connect(self.download_finished_to_controller)
-        self.worker.signals.error.connect(self.updater_error_to_controller)
-
-        QThreadPool.globalInstance().start(self.worker)
 
     def _emit_error(self, msg: str):
         """Emit a download/install error to the UI."""
