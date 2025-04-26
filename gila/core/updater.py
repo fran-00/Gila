@@ -2,6 +2,8 @@ import json
 import os
 import requests
 import sys
+import tempfile
+import zipfile
 
 from PySide6.QtCore import QObject, QRunnable, QThreadPool, Signal, Slot
 
@@ -178,4 +180,29 @@ class Updater(QObject):
         Connected to one signal:
         - controller.install_update_to_updater
         """
-        pass
+        # Only Windows, for now
+        if os.name != "nt":
+            return self._emit_error("Automatic installation is currently only available on Windows")
+
+        # Zip must exist
+        if not self.zip_path or not os.path.isfile(self.zip_path):
+            return self._emit_error("Install: zip not found.")
+
+        try:
+            # extract the executable
+            tmpdir, extracted_exe = self._extract_executable_from_zip("gila.exe")
+            # determine install folder and target path
+            base_dir = self._get_base_dir()
+            target_exe = os.path.join(base_dir, os.path.basename(extracted_exe))
+            # TODO:
+        except Exception as e:
+            self._emit_error(f"Install error: {e}")
+
+    def _extract_executable_from_zip(self, exe_name: str):
+        tmpdir = tempfile.mkdtemp(prefix="gila_upd_")
+        with zipfile.ZipFile(self.zip_path, "r") as z:
+            for member in z.namelist():
+                if member.lower().endswith(exe_name.lower()):
+                    z.extract(member, tmpdir)
+                    return tmpdir, os.path.join(tmpdir, member)
+        raise FileNotFoundError(f"{exe_name} not found in {self.zip_path}")
