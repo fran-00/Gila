@@ -33,3 +33,11 @@ class FileHandler():
             print(e)
         except Exception as e:
             print(f"An error occurred: {e}")
+
+    @staticmethod
+    def build_asset_path(relative_path):
+        try:
+            base_path = sys._MEIPASS
+        except AttributeError:
+            base_path = os.path.abspath(".")
+        return os.path.join(base_path, relative_path)
