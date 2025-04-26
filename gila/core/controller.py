@@ -51,8 +51,8 @@ class Controller(QObject):
         self.updater.download_finished_to_controller.connect(
             self.download_finished_slot
         )
-        self.updater.download_error_to_controller.connect(
-            self.download_error_slot
+        self.updater.updater_error_to_controller.connect(
+            self.updater_error_slot
         )
 
     def connect_model(self):
@@ -555,10 +555,10 @@ class Controller(QObject):
         self.download_finished_to_view.emit()
 
     @Slot(str)
-    def download_error_slot(self, error_msg):
+    def updater_error_slot(self, error_msg):
         """Slot
         Connected to one signal:
-        - updater.download_error_to_controller
+        - updater.updater_error_to_controller
         """
         self.download_error_to_view.emit(error_msg)
 

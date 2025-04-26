@@ -60,7 +60,7 @@ class Updater(QObject):
     update_found_to_controller = Signal(bool)
     download_progress_to_controller = Signal(int)
     download_finished_to_controller = Signal()
-    download_error_to_controller = Signal(str)
+    updater_error_to_controller = Signal(str)
     update_ready_to_install_to_controller = Signal()
 
     def __init__(self):
@@ -155,7 +155,7 @@ class Updater(QObject):
         self.worker = DownloadWorker(download_url, target_path)
         self.worker.signals.progress.connect(self.download_progress_to_controller)
         self.worker.signals.finished.connect(self.download_finished_to_controller)
-        self.worker.signals.error.connect(self.download_error_to_controller)
+        self.worker.signals.error.connect(self.updater_error_to_controller)
 
         QThreadPool.globalInstance().start(self.worker)
 
