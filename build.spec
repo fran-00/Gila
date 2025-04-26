@@ -1,11 +1,21 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+import os
+
+def collect_assets(directory):
+    datas = []
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            full_path = os.path.join(root, file)
+            relative_path = os.path.relpath(full_path, '.')
+            datas.append((full_path, os.path.dirname(relative_path)))
+    return datas
 
 a = Analysis(
     ['cli.py'],
     pathex=[],
     binaries=[],
-    datas=[('storage/saved_settings.json', '.'), ('storage/assets', '.')],
+    datas=collect_assets('storage/assets'),
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
