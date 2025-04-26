@@ -66,8 +66,10 @@ class Updater(QObject):
     def __init__(self):
         super().__init__()
         self.api_url = f"https://api.github.com/repos/fran-00/gila/releases/latest"
-        self.latest_version = None
         self.worker = None
+        self.latest_version = None
+        self.asset_name = None
+        self.asset_url = None
         self.zip_path = None
 
     def check_for_updates(self, on_startup: bool = True):
@@ -97,16 +99,16 @@ class Updater(QObject):
             return
 
         # New update is available
-        asset_name, asset_url = self._select_asset(
+        self.asset_name, self.asset_url = self._select_asset(
             self.latest_version.get("assets", []),
             latest_tag,
             self.latest_version.get("zipball_url")
         )
-        if not asset_url:
+        if not self.asset_url:
             self._emit_error("No downloadable asset found for the update.")
             return
-        
-        self.zip_path = os.path.join(self._get_base_dir(), asset_name)
+
+        self.zip_path = os.path.join(self._get_base_dir(), self.asset_name)
 
         if os.path.isfile(self.zip_path):
             # Zip file with the update already exists
@@ -116,12 +118,9 @@ class Updater(QObject):
             self.update_found_to_controller.emit(True)
 
     def download_update(self):
-        assets = self.latest_version.get("assets", [])
-        tag = self.latest_version.get("tag_name", "latest")
-        asset_name, download_url = self._select_asset(assets, tag)
-        target_path = os.path.join(self._get_base_dir(), asset_name)
+        target_path = os.path.join(self._get_base_dir(), self.asset_name)
 
-        self.worker = DownloadWorker(download_url, target_path)
+        self.worker = DownloadWorker(self.asset_url, target_path)
         self.worker.signals.progress.connect(self.download_progress_to_controller)
         self.worker.signals.finished.connect(self.download_finished_to_controller)
         self.worker.signals.error.connect(self.updater_error_to_controller)
