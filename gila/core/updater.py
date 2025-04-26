@@ -79,11 +79,10 @@ class Updater(QObject):
         """
         # Get the latest release from GitHub
         try:
-            response = requests.get(self.api_url, timeout=5)
-            response.raise_for_status()
-            self.latest_version = response.json()
+            self.latest_version = self._get_latest_release()
             latest_tag = self.latest_version["tag_name"]
-        except (requests.RequestException, KeyError, ValueError):
+        except (requests.RequestException, KeyError, ValueError) as e:
+            self._emit_error(f"Update check failed: {str(e)}")
             return
 
         # Read the local version
@@ -127,6 +126,14 @@ class Updater(QObject):
         else:
             # Zip file is not there, ask user to download it
             self.update_found_to_controller.emit(True)
+
+    def _get_latest_release(self):
+        response = requests.get(self.api_url, timeout=5)
+        response.raise_for_status()
+        data = response.json()
+        if "tag_name" not in data:
+            raise ValueError("Invalid release data: missing 'tag_name'")
+        return data
 
     def download_update(self):
         assets = self.latest_version.get("assets", [])
