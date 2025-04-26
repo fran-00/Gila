@@ -9,7 +9,11 @@ class FileHandler():
     @staticmethod
     def load_file(relative_path, mode="r", encoding=None):
         try:
-            base_path = sys._MEIPASS
+            filename = os.path.basename(relative_path)
+            if not (relative_path.endswith(".pk") or filename == "saved_settings.json"):
+                base_path = sys._MEIPASS
+            else:
+                base_path = os.path.abspath(".")
         except Exception:
             base_path = os.path.abspath(".")
 
