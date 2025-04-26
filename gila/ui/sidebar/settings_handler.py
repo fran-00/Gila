@@ -387,7 +387,7 @@ class SettingsHandler(QObject):
         self.max_temperature_label.setText(str(max_temp))
 
     def get_limits_from_json(self):
-        models_data = FH.load_file("storage/models.json")
+        models_data = FH.load_file("storage/assets/json/models.json")
         return {model_name: data["limits"] for model_name, data in models_data.items()} if models_data else {}
 
     def check_if_image(self):

@@ -70,7 +70,7 @@ def load_available_models_from_json():
         base_path = sys._MEIPASS
     except Exception:
         base_path = os.path.abspath(".")
-    relative_path = "storage/models.json"
+    relative_path = "storage/assets/json/models.json"
     file_path = os.path.join(base_path, relative_path)
 
     with open(file_path, 'r') as file:

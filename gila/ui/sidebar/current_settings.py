@@ -17,7 +17,7 @@ class CurrentSettings(QObject):
         self.on_current_settings_layout()
 
     def get_models_from_json(self):
-        return list(FH.load_file("storage/models.json").keys())
+        return list(FH.load_file("storage/assets/json/models.json").keys())
 
     def on_current_settings_layout(self):
         current_settings_layout = QVBoxLayout(self.widget_container)
