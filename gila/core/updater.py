@@ -68,6 +68,7 @@ class Updater(QObject):
         self.api_url = f"https://api.github.com/repos/fran-00/gila/releases/latest"
         self.latest_version = None
         self.worker = None
+        self.zip_path = None
 
     def check_for_updates(self, on_startup: bool = True):
         """Check for a newer GitHub release and emit a signal if found.
@@ -117,10 +118,10 @@ class Updater(QObject):
             base_dir = os.path.dirname(sys.executable)
         else:
             base_dir = os.getcwd()
-        zip_path = os.path.join(base_dir, zip_name)
+        self.zip_path = os.path.join(base_dir, zip_name)
 
         # 6) Emit a signal
-        if os.path.isfile(zip_path):
+        if os.path.isfile(self.zip_path):
             # Zip file with the update already exists
             self.update_ready_to_install_to_controller.emit()
         else:
