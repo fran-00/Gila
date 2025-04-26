@@ -135,6 +135,7 @@ class AIManager(QObject):
         """
         file_path = "storage/saved_settings.json"
         if not os.path.exists(file_path):
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
             default_data = {
                 "llm_name": "GPT-4o mini",
                 "temperature": 1.0,
