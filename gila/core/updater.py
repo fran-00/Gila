@@ -159,6 +159,10 @@ class Updater(QObject):
 
         QThreadPool.globalInstance().start(self.worker)
 
+    def _emit_error(self, msg: str):
+        """Emit a download/install error to the UI."""
+        self.updater_error_to_controller.emit(msg)
+
     @Slot()
     def cancel_download_slot(self):
         """Slot
