@@ -15,7 +15,7 @@ def main():
 
     required_files = [
         "storage/models.json",
-        "storage/about.html",
+        "storage/assets/html/about.html",
         "storage/assets/css/chatlog-styles.css",
         "storage/assets/css/spinner.css",
         "storage/assets/css/styles.css",
