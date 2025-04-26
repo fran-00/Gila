@@ -89,32 +89,25 @@ class Updater(QObject):
             self._emit_error(f"Could not read local version: {e}")
             return
 
-        # There is no new version, send the signal only if the user has searched
+        # New update is unavailable, send the signal only if the user has searched
         # for updates from the toolbar
         if local_tag == latest_tag:
             if not on_startup:
                 self.update_found_to_controller.emit(False)
             return
 
-        # There is a new version: calculate zip name
-        assets = self.latest_version.get("assets", [])
-        zip_name = None
-        for a in assets:
-            nm = a.get("name", "")
-            if nm.lower().endswith(".zip"):
-                zip_name = nm
-                break
-        if not zip_name:
-            zip_name = f"gila-{latest_tag}.zip"
+        # New update is available
+        asset_name, asset_url = self._select_asset(
+            self.latest_version.get("assets", []),
+            latest_tag,
+            self.latest_version.get("zipball_url")
+        )
+        if not asset_url:
+            self._emit_error("No downloadable asset found for the update.")
+            return
+        
+        self.zip_path = os.path.join(self._get_base_dir(), asset_name)
 
-        # Get executable folder path
-        if getattr(sys, "frozen", False):
-            base_dir = os.path.dirname(sys.executable)
-        else:
-            base_dir = os.getcwd()
-        self.zip_path = os.path.join(base_dir, zip_name)
-
-        # 6) Emit a signal
         if os.path.isfile(self.zip_path):
             # Zip file with the update already exists
             self.update_ready_to_install_to_controller.emit()
@@ -134,6 +127,25 @@ class Updater(QObject):
         with open("storage/local_version.json", "r") as f:
             info = json.load(f)
         return info.get("local_version")
+
+    def _select_asset(self, assets, tag, fallback_url):
+        for asset in assets:
+            name = asset.get("name", "")
+            url  = asset.get("browser_download_url")
+            if name.lower().endswith(".zip") and url:
+                return name, url
+
+        # fallback: use GitHub zipball
+        if fallback_url:
+            fallback_name = f"gila-{tag}.zip"
+            return fallback_name, fallback_url
+
+        return None, None
+
+    def _get_base_dir(self):
+        if getattr(sys, "frozen", False):
+            return os.path.dirname(sys.executable)
+        return os.getcwd()
 
     def download_update(self):
         assets = self.latest_version.get("assets", [])
