@@ -94,7 +94,7 @@ class Chat(QObject):
         start_inner_layout = QVBoxLayout(self.start_inner_widget)
         gila_title = QLabel("GILA", objectName="gila_title")
         gila_image = QLabel(objectName="start_image")
-        gila_image.setPixmap(QPixmap("storage/assets/icons/gila_logo.svg"))
+        gila_image.setPixmap(QPixmap(FH.build_asset_path("storage/assets/icons/gila_logo.svg")))
         start_chat_button = QPushButton("New Chat")
         start_chat_button.clicked.connect(
             lambda: self.on_starting_a_new_chat()
@@ -420,7 +420,7 @@ class Prompt:
         prompt_layout.addWidget(self.prompt_box)
         # Adds send button
         self.send_button = QPushButton(objectName="enter_button")
-        pixmap = QPixmap("storage/assets/icons/send-message.png")
+        pixmap = QPixmap(FH.build_asset_path("storage/assets/icons/send-message.png"))
         pixmap = pixmap.scaled(QSize(30, 30))
         send_icon = QIcon(pixmap)
         self.send_button.setIcon(send_icon)

@@ -5,6 +5,7 @@ from PySide6.QtGui import Qt, QPixmap
 from PySide6.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QPushButton
 
 from .parent_modal import Modal
+from ..utils import FileHandler as FH
 
 
 class ManageAPIKeysModal(Modal):
@@ -60,8 +61,8 @@ class ManageAPIKeysModal(Modal):
         self.modal_layout.addLayout(row_layout)
 
     def set_icons(self):
-        red_icon_path = "storage/assets/icons/red-circle.svg"
-        green_icon_path = "storage/assets/icons/green-circle.svg"
+        red_icon_path = FH.build_asset_path("storage/assets/icons/red-circle.svg")
+        green_icon_path = FH.build_asset_path("storage/assets/icons/green-circle.svg")
         self.red_icon = QPixmap(red_icon_path)
         self.green_icon = QPixmap(green_icon_path)
 

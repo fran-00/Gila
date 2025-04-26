@@ -27,7 +27,7 @@ from .utils import FileHandler as FH
 class LoadingScreen(QSplashScreen):
     def __init__(self):
         super().__init__()
-        self.setPixmap(QPixmap("storage/assets/img/loading_screen.png"))
+        self.setPixmap(QPixmap(FH.build_asset_path("storage/assets/img/loading_screen.png")))
 
 
 class View(QMainWindow):
@@ -37,7 +37,7 @@ class View(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Gila")
-        self.setWindowIcon(QIcon("storage/assets/icons/gila_logo.svg"))
+        self.setWindowIcon(QIcon(FH.build_asset_path("storage/assets/icons/gila_logo.svg")))
         self.resize(1024, 768)
         self.load_custom_fonts()
         self.setStyleSheet(self.load_css_file())
@@ -170,8 +170,8 @@ class View(QMainWindow):
 
     def load_custom_fonts(self):
         """Load custom fonts into the application's font database."""
-        QFontDatabase.addApplicationFont("storage/assets/fonts/BrunoAceSC-Regular.ttf")
-        QFontDatabase.addApplicationFont("storage/assets/fonts/Geologica-VariableFont.ttf")
+        QFontDatabase.addApplicationFont(FH.build_asset_path("storage/assets/fonts/BrunoAceSC-Regular.ttf"))
+        QFontDatabase.addApplicationFont(FH.build_asset_path("storage/assets/fonts/Geologica-VariableFont.ttf"))
 
     def set_cursor_pointer_for_buttons(self, parent):
         """Set cursor pointer for all buttons.

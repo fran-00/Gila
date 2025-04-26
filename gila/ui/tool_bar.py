@@ -4,6 +4,8 @@ from PySide6.QtWidgets import QToolBar, QFileDialog
 from bs4 import BeautifulSoup
 from docx import Document
 
+from .utils import FileHandler as FH
+
 
 class ToolBar(QToolBar):
 
@@ -42,16 +44,16 @@ class ToolBar(QToolBar):
         self.addAction(info_action)
 
     def set_icons(self):
-        save_icon_path = "storage/assets/icons/floppy.svg"
+        save_icon_path = FH.build_asset_path("storage/assets/icons/floppy.svg")
         self.save_icon = QIcon()
         self.save_icon.addFile(save_icon_path)
-        key_icon_path = "storage/assets/icons/key.svg"
+        key_icon_path = FH.build_asset_path("storage/assets/icons/key.svg")
         self.key_icon = QIcon()
         self.key_icon.addFile(key_icon_path)
-        update_icon_path = "storage/assets/icons/update.svg"
+        update_icon_path = FH.build_asset_path("storage/assets/icons/update.svg")
         self.update_icon = QIcon()
         self.update_icon.addFile(update_icon_path)
-        info_icon_path = "storage/assets/icons/info.svg"
+        info_icon_path = FH.build_asset_path("storage/assets/icons/info.svg")
         self.info_icon = QIcon()
         self.info_icon.addFile(info_icon_path)
 
