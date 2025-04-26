@@ -16,7 +16,7 @@ class Controller(QObject):
     loading_saved_chat_id_to_manager = Signal(str)
     download_progress_to_view = Signal(int)
     download_finished_to_view = Signal()
-    download_error_to_view = Signal(str)
+    updater_error_to_view = Signal(str)
     cancel_download_to_updater = Signal()
     install_update_to_updater = Signal()
 
@@ -114,8 +114,8 @@ class Controller(QObject):
         self.download_finished_to_view.connect(
             self.view.download_update_modal.on_show_download_finished_slot
         )
-        self.download_error_to_view.connect(
-            self.view.download_update_modal.on_show_download_error_slot
+        self.updater_error_to_view.connect(
+            self.view.download_update_modal.on_show_updater_error_slot
         )
 
         # Connect VIEW's signals to CONTROLLER's slots
@@ -560,7 +560,7 @@ class Controller(QObject):
         Connected to one signal:
         - updater.updater_error_to_controller
         """
-        self.download_error_to_view.emit(error_msg)
+        self.updater_error_to_view.emit(error_msg)
 
     @Slot()
     def cancel_download_requested_slot(self):

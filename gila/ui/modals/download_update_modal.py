@@ -55,10 +55,10 @@ class DownloadUpdateModal(Modal):
         self.on_download_finished("The latest version has been downloaded. Do you want to install it?")
 
     @Slot(str)
-    def on_show_download_error_slot(self, error_msg):
+    def on_show_updater_error_slot(self, error_msg):
         """ Slot
         Connected to one signal:
-            - controller.download_error_to_view
+            - controller.updater_error_to_view
         """
         self.on_download_finished(f"Error:\n{error_msg}", error=True)
 
