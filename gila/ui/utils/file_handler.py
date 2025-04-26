@@ -1,12 +1,19 @@
 import json
-import pickle
 import os
+import pickle
+import sys
 
 
 class FileHandler():
 
     @staticmethod
-    def load_file(file_path, mode="r", encoding=None):
+    def load_file(relative_path, mode="r", encoding=None):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+
+        file_path = os.path.join(base_path, relative_path)
         try:
             if not os.path.exists(file_path):
                 raise FileNotFoundError(f"File '{file_path}' not found.")

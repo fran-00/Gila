@@ -2,6 +2,7 @@ import os
 import json
 import pickle
 import requests
+import sys
 from datetime import datetime
 
 from PySide6.QtCore import QObject, Slot, Signal
@@ -65,7 +66,14 @@ def load_available_models_from_json():
         are the corresponding client instances. If the JSON file is not found,
         an empty dictionary is returned.
     """
-    with open('storage/models.json', 'r') as file:
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    relative_path = "storage/models.json"
+    file_path = os.path.join(base_path, relative_path)
+
+    with open(file_path, 'r') as file:
         models_data = json.load(file)
 
     available_models = {}
