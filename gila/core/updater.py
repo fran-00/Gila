@@ -1,6 +1,7 @@
 import json
 import os
 import requests
+import subprocess
 import sys
 import tempfile
 import zipfile
@@ -194,7 +195,9 @@ class Updater(QObject):
             # determine install folder and target path
             base_dir = self._get_base_dir()
             target_exe = os.path.join(base_dir, os.path.basename(extracted_exe))
-            # TODO:
+            # create and run updater batch
+            bat_path = self._write_update_batch(tmpdir, extracted_exe, target_exe)
+            self._run_batch_and_exit(bat_path)
         except Exception as e:
             self._emit_error(f"Install error: {e}")
 
@@ -206,3 +209,25 @@ class Updater(QObject):
                     z.extract(member, tmpdir)
                     return tmpdir, os.path.join(tmpdir, member)
         raise FileNotFoundError(f"{exe_name} not found in {self.zip_path}")
+
+    def _write_update_batch(self, tmpdir: str, src_exe: str, target_exe: str) -> str:
+        bat_path = os.path.join(tmpdir, "updater.bat")
+        script = f"""@echo off
+            ping 127.0.0.1 -n 2 >nul
+            copy /Y "{src_exe}" "{target_exe}" >nul
+            start "" "{target_exe}"
+            del "%~f0"
+        """
+        with open(bat_path, "w", encoding="utf-8") as f:
+            f.write(script)
+        return bat_path
+
+    def _run_batch_and_exit(self, bat_path: str):
+        """
+        Launch the updater batch in a new console and exit current process.
+        """
+        subprocess.Popen(
+            ["cmd", "/c", bat_path],
+            creationflags=subprocess.CREATE_NEW_CONSOLE
+        )
+        sys.exit(0)
