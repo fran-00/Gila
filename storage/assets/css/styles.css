@@ -141,12 +141,12 @@ QComboBox {
     border-radius: 2px;
 }
 
-QComboBox::drop-down {
+/* QComboBox::drop-down {
     width: 25px;
     padding: 2px;
     border: none;
     background: url(storage/assets/icons/down-arrow.svg) no-repeat center center;
-}
+} */
 
 /* QCheckBox */
 QCheckBox {
