@@ -16,7 +16,7 @@ class StatusBar(QStatusBar):
         self.set_version()
 
     def set_version(self):
-        data = FH.load_file("storage/local_version.json")
+        data = FH.load_file("storage/assets/json/local_version.json")
         version = data.get("local_version")
         self.version_label.setText(f"{version}")
 

@@ -139,7 +139,13 @@ class Updater(QObject):
         return data
 
     def _read_local_version(self):
-        with open("storage/local_version.json", "r") as f:
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+        relative_path = "storage/assets/json/local_version.json"
+        file_path = os.path.join(base_path, relative_path)
+        with open(file_path, "r") as f:
             info = json.load(f)
         return info.get("local_version")
 
