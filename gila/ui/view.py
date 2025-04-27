@@ -1,11 +1,10 @@
 from PySide6.QtCore import Signal, Slot
-from PySide6.QtGui import QFontDatabase, QIcon, QPixmap, Qt
+from PySide6.QtGui import QFontDatabase, QIcon, Qt
 from PySide6.QtWidgets import (
     QGridLayout, 
     QMainWindow,
     QPushButton,
     QSizePolicy,
-    QSplashScreen,
     QWidget,
 )
 
@@ -22,12 +21,6 @@ from .modals import (
     WarningModal,
 )
 from .utils import FileHandler as FH
-
-
-class LoadingScreen(QSplashScreen):
-    def __init__(self):
-        super().__init__()
-        self.setPixmap(QPixmap(FH.build_asset_path("storage/assets/img/loading_screen.png")))
 
 
 class View(QMainWindow):
