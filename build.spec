@@ -2,6 +2,9 @@
 
 import os
 
+# =====================================================
+# Collect asset files
+# =====================================================
 def collect_assets(directory):
     datas = []
     for root, dirs, files in os.walk(directory):
@@ -11,6 +14,9 @@ def collect_assets(directory):
             datas.append((full_path, os.path.dirname(relative_path)))
     return datas
 
+# =====================================================
+# Build the Analysis object and create the PYZ archive
+# =====================================================
 a = Analysis(
     ['cli.py'],
     pathex=[],
@@ -25,6 +31,9 @@ a = Analysis(
 )
 pyz = PYZ(a.pure)
 
+# =====================================================
+# Create the final executable
+# =====================================================
 exe = EXE(
     pyz,
     a.scripts,
