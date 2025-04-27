@@ -109,4 +109,4 @@ To create a standalone executable file, make sure the virtual environment is act
 pyinstaller build.spec
 ```
 
-This will create a gila.exe file in the *dist* directory. Remember to copy the **storage** folder into the same directory as the executable before distributing it.
+This will create a gila.exe file in the *dist* directory. A folder called **storage** will be created in the same directory that contains the executable to hold saved chats and settings.
