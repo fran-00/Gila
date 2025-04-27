@@ -1,6 +1,4 @@
 import sys
-import os
-import time
 
 from PySide6.QtWidgets import QApplication
 
@@ -13,11 +11,23 @@ from gila.ai.manager import AIManager
 def main():
     app = QApplication(sys.argv)
 
+    if getattr(sys, 'frozen', False):
+        try:
+            import pyi_splash # type: ignore
+        except ModuleNotFoundError:
+            pass
+
+
     manager = AIManager()
     view = View()
     model = Model(manager)
     controller = Controller(model, view)
     view.show()
+
+    try:
+        pyi_splash.close()
+    except NameError:
+        pass
 
     sys.exit(app.exec())
 
