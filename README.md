@@ -45,6 +45,7 @@ Gila is a Python application built with PySide6 that connects to the REST APIs o
 - Mistral Small
 - o1
 - o1-mini
+- o3
 - o3-mini
 - o4-mini
 - Pixtral
@@ -97,7 +98,7 @@ When selecting an LLM and starting a new chat, if you haven't set the necessary 
 - [Google](https://aistudio.google.com/app/apikey): Gemini 1.5 Flash, Gemini 1.5 Pro, Gemini 2.0 Flash, Gemini 2.0 Flash-Lite, Gemini 2.5 Flash Preview 04-17
 - [Groq](https://console.groq.com/home): Gemma 2 9B, Llama 3 70B, Llama 3 8B, Llama 3.1 8B instant, Llama 3.3 70B versatile, Llama 4 Maverick 17B, Llama 4 Scout 17B, Llama Guard 3 8B, PlayAI Dialog, Qwen/QwQ 32B
 - [Mistral](https://console.mistral.ai/api-keys): Codestral Mamba, Mistral Nemo, Mistral Small, Pixtral
-- [OpenAI](https://platform.openai.com/settings/organization/general): DALL-E 2, DALL-E 3, GPT-3.5 Turbo, GPT-4, GPT-4 Turbo, GPT-4.1, GPT-4.1 mini, GPT-4.1 nano, GPT-4.5 preview, GPT-4o, GPT-4o mini, o1, o1-mini, o3-mini, o4-mini
+- [OpenAI](https://platform.openai.com/settings/organization/general): DALL-E 2, DALL-E 3, GPT-3.5 Turbo, GPT-4, GPT-4 Turbo, GPT-4.1, GPT-4.1 mini, GPT-4.1 nano, GPT-4.5 preview, GPT-4o, GPT-4o mini, o1, o1-mini, o3, o3-mini, o4-mini
 
 If valid, the API keys will be saved in a **.env** file in the project root directory, and Gila will read them as environmental variables.
 
