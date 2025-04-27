@@ -300,6 +300,13 @@
       "model": ["o1-mini"]
     }
   },
+  "o3": {
+    "limits": [100000, 2],
+    "client": {
+      "class": "OClient",
+      "model": ["o3"]
+    }
+  },
   "o3-mini": {
     "limits": [100000, 2],
     "client": {
