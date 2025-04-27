@@ -1,6 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 import os
+from PyInstaller.building.build_main import Splash
 
 # =====================================================
 # Collect asset files
@@ -32,11 +33,22 @@ a = Analysis(
 pyz = PYZ(a.pure)
 
 # =====================================================
+# Create the Splash screen target
+# =====================================================
+splash = Splash(
+    'storage/assets/img/loading_screen.png',
+    binaries=a.binaries,
+    datas=a.datas
+)
+
+# =====================================================
 # Create the final executable
 # =====================================================
 exe = EXE(
     pyz,
     a.scripts,
+    splash,
+    splash.binaries,
     a.binaries,
     a.datas,
     [],
