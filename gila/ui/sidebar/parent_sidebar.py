@@ -19,9 +19,9 @@ class Sidebar(QObject):
         self.current_settings = CurrentSettings(self.widget_container)
         self.change_settings = SettingsHandler(self, self.current_settings)
 
-        self.on_sidebar_container()
+        self._build_sidebar_container()
 
-    def on_sidebar_container(self):
+    def _build_sidebar_container(self):
         """Create sidebar layout using QTabWidget to manage tabs"""
         sidebar_layout = QVBoxLayout(self.widget_container)
 
@@ -31,13 +31,13 @@ class Sidebar(QObject):
         sidebar_layout.addWidget(self.tab_widget)
 
         sidebar_layout.addWidget(self.current_settings.widget_container)
-        sidebar_layout.addWidget(self.on_new_chat_button())
+        sidebar_layout.addWidget(self._build_new_chat_button())
 
         self.current_settings.on_hide_sidebar_settings_label()
         # Hide sidebar's new_chat button cause on startup there's the main start button insead
         self.on_hide_sidebar_new_chat_button()
 
-    def on_new_chat_button(self):
+    def _build_new_chat_button(self):
         """Creates a button to start a new chat"""
         self.new_chat_button = QPushButton("New Chat")
         self.new_chat_button.clicked.connect(self.send_stop_chat_to_controller)

@@ -27,36 +27,36 @@ class SettingsHandler(QObject):
         self.parent_class = parent_class
         self.current_settings = current_settings
         self.widget_container = QWidget(objectName="change_settings_widget")
-        self.on_scroll_area()
-        self.on_change_settings_layout()
+        self._build_scroll_area()
+        self._build_change_settings_layout()
 
-    def on_scroll_area(self):
+    def _build_scroll_area(self):
         self.scroll_area = QScrollArea()
         self.scroll_area.setWidget(self.widget_container)
         self.scroll_area.setWidgetResizable(True)
 
-    def on_change_settings_layout(self):
+    def _build_change_settings_layout(self):
         self.change_settings_layout = QVBoxLayout(self.widget_container)
         self.change_settings_layout.setAlignment(Qt.Alignment.AlignTop)
-        self.on_llms_settings()
+        self._build_llms_settings()
         self.add_line_separator(self.change_settings_layout)
-        self.on_temperature_settings()
-        self.on_reasoning_settings()
-        self.on_image_size_settings()
+        self._build_temperature_settings()
+        self._build_reasoning_settings()
+        self._build_image_size_settings()
         self.add_line_separator(self.change_settings_layout)
-        self.on_max_tokens_settings()
-        self.on_image_quality_settings()
-        self.on_image_quantity_settings()
+        self._build_max_tokens_settings()
+        self._build_image_quality_settings()
+        self._build_image_quantity_settings()
         self.add_line_separator(self.change_settings_layout)
-        self.on_system_message_settings()
-        self.llms_combobox.currentTextChanged.connect(self.change_needed_settings)
-        self.on_settings_changed()
+        self._build_system_message_settings()
+        self.llms_combobox.currentTextChanged.connect(self._change_needed_settings)
+        self._on_settings_changed()
         self.load_settings_from_json()
 
-        self.check_if_image()
-        self.check_if_reasoner()
+        self._check_if_image()
+        self._check_if_reasoner()
 
-    def on_llms_settings(self):
+    def _build_llms_settings(self):
         """ Creates ComboBox with llms list """
         select_llm_label = QLabel("Model")
         self.parent_class.window.assign_css_class(select_llm_label, "setting_name")
@@ -68,7 +68,7 @@ class SettingsHandler(QObject):
         self.change_settings_layout.addWidget(select_llm_label)
         self.change_settings_layout.addWidget(self.llms_combobox)
 
-    def on_temperature_settings(self):
+    def _build_temperature_settings(self):
         """ Widget to adjust temperature settings """
         # Create inner widget and layout to contain temperature settings
         self.temperature_inner_widget = QWidget()
@@ -100,7 +100,7 @@ class SettingsHandler(QObject):
         self.temperature_slider.setMaximum(10)
         self.temperature_slider.setTickInterval(1)
         self.temperature_slider.setSingleStep(1)
-        self.temperature_slider.valueChanged.connect(self.on_temperature_settings_changed)
+        self.temperature_slider.valueChanged.connect(self._on_temperature_settings_changed)
         # Add widgets and slider to temperature slider sub layout
         temperature_slider_sub_layout.addWidget(min_temperature_label)
         temperature_slider_sub_layout.addWidget(self.temperature_slider)
@@ -112,11 +112,11 @@ class SettingsHandler(QObject):
         # Add temperture inner widget to main layout
         self.change_settings_layout.addWidget(self.temperature_inner_widget)
 
-    def on_temperature_settings_changed(self):
+    def _on_temperature_settings_changed(self):
         selected_temperature_value = self.temperature_slider.value() / 10
         self.temperature_current_value_label.setText(str(selected_temperature_value))
 
-    def on_max_tokens_settings(self):
+    def _build_max_tokens_settings(self):
         """ Widget to adjust max tokens settings """
         # Create inner widget and layout to contain max tokens settings
         self.max_tokens_inner_widget = QWidget()
@@ -148,7 +148,7 @@ class SettingsHandler(QObject):
         self.tokens_slider.setMaximum(4096)
         self.tokens_slider.setTickInterval(100)
         self.tokens_slider.setSingleStep(100)
-        self.tokens_slider.valueChanged.connect(self.on_max_tokens_settings_changed)
+        self.tokens_slider.valueChanged.connect(self._on_max_tokens_settings_changed)
         # Add widgets and slider to max_tokens slider sub layout
         tokens_slider_sub_layout.addWidget(min_tokens_label)
         tokens_slider_sub_layout.addWidget(self.tokens_slider)
@@ -160,11 +160,11 @@ class SettingsHandler(QObject):
         # Add temperture inner widget to main layout
         self.change_settings_layout.addWidget(self.max_tokens_inner_widget)
 
-    def on_max_tokens_settings_changed(self):
+    def _on_max_tokens_settings_changed(self):
         selected_max_tokens_value = self.tokens_slider.value()
         self.max_tokens_current_value_label.setText(str(selected_max_tokens_value))
 
-    def on_system_message_settings(self):
+    def _build_system_message_settings(self):
         """ Widget to adjust system message setting """
         # Create inner widget and layout to contain system message
         self.system_message_inner_widget = QWidget()
@@ -182,7 +182,7 @@ class SettingsHandler(QObject):
         # Add system message inner widget to main layout
         self.change_settings_layout.addWidget(self.system_message_inner_widget)
 
-    def on_image_size_settings(self):
+    def _build_image_size_settings(self):
         """ Widget to adjust image size settings """
         # Create inner widget and layout to contain image size settings
         self.image_size_inner_widget = QWidget()
@@ -215,7 +215,7 @@ class SettingsHandler(QObject):
         # Add image size inner widget to main layout
         self.change_settings_layout.addWidget(self.image_size_inner_widget)
 
-    def on_image_quality_settings(self):
+    def _build_image_quality_settings(self):
         """ Widget to adjust image quality settings """
         # Create inner widget and layout to contain image quality settings
         self.image_quality_inner_widget = QWidget()
@@ -239,7 +239,7 @@ class SettingsHandler(QObject):
         # Add image quality inner widget to main layout
         self.change_settings_layout.addWidget(self.image_quality_inner_widget)
 
-    def on_image_quantity_settings(self):
+    def _build_image_quantity_settings(self):
         """ Widget to adjust image quantity settings """
         # Create inner widget and layout to contain max tokens settings
         self.image_quantity_inner_widget = QWidget()
@@ -271,7 +271,7 @@ class SettingsHandler(QObject):
         self.image_quantity_slider.setMaximum(10)
         self.image_quantity_slider.setTickInterval(1)
         self.image_quantity_slider.setSingleStep(1)
-        self.image_quantity_slider.valueChanged.connect(self.on_image_quantity_settings_changed)
+        self.image_quantity_slider.valueChanged.connect(self._on_image_quantity_settings_changed)
         # Add widgets and slider to image quantity slider sub layout
         image_quantity_slider_sub_layout.addWidget(min_image_quantity_label)
         image_quantity_slider_sub_layout.addWidget(self.image_quantity_slider)
@@ -283,10 +283,10 @@ class SettingsHandler(QObject):
         # Add temperture inner widget to main layout
         self.change_settings_layout.addWidget(self.image_quantity_inner_widget)
 
-    def on_image_quantity_settings_changed(self):
+    def _on_image_quantity_settings_changed(self):
         self.max_image_quantity_current_value_label.setText(str(self.image_quantity_slider.value()))
 
-    def on_reasoning_settings(self):
+    def _build_reasoning_settings(self):
         """ Widget to adjust reasoning effort settings """
         # Create inner widget and layout to contain reasoning effort settings
         self.reasoning_inner_widget = QWidget()
@@ -321,7 +321,7 @@ class SettingsHandler(QObject):
         self.parent_class.window.assign_css_class(line, "line_separator")
         layout.addWidget(line)
 
-    def on_show_image_settings(self):
+    def _show_image_settings(self):
         self.image_size_inner_widget.show()
         self.image_quality_inner_widget.show()
         self.image_quantity_inner_widget.show()
@@ -330,7 +330,7 @@ class SettingsHandler(QObject):
         self.max_tokens_inner_widget.hide()
         self.system_message_inner_widget.hide()
 
-    def on_hide_image_settings(self):
+    def _hide_image_settings(self):
         self.image_size_inner_widget.hide()
         self.image_quality_inner_widget.hide()
         self.image_quantity_inner_widget.hide()
@@ -338,7 +338,7 @@ class SettingsHandler(QObject):
         self.max_tokens_inner_widget.show()
         self.system_message_inner_widget.show()
 
-    def on_show_advanced_settings(self):
+    def _show_advanced_settings(self):
         self.temperature_inner_widget.hide()
         self.reasoning_inner_widget.show()
         # o1-mini model currently doesn't support reasoning_effort and system message
@@ -346,7 +346,7 @@ class SettingsHandler(QObject):
             self.reasoning_inner_widget.hide()
             self.system_message_inner_widget.hide()
 
-    def on_hide_advanced_settings(self):
+    def _hide_advanced_settings(self):
         self.temperature_inner_widget.show()
         self.reasoning_inner_widget.hide()
 
@@ -373,28 +373,28 @@ class SettingsHandler(QObject):
             selected_reasoning_effort,
         )
 
-    def change_needed_settings(self):
+    def _change_needed_settings(self):
         """ Adjusts token limits and temperature range, based on a given model. """
         self.selected_llm = self.llms_combobox.currentText()
-        limits = self.get_limits_from_json()
+        limits = self._get_limits_from_json()
         default_tokens = [4096, 1]
         max_tokens, max_temp = limits.get(self.selected_llm, default_tokens)
-        self.check_if_image()
-        self.check_if_reasoner()
+        self._check_if_image()
+        self._check_if_reasoner()
         self.tokens_slider.setMaximum(max_tokens)
         self.max_tokens_label.setText(str(max_tokens))
         self.temperature_slider.setMaximum(20 if max_temp == 2 else 10)
         self.max_temperature_label.setText(str(max_temp))
 
-    def get_limits_from_json(self):
+    def _get_limits_from_json(self):
         models_data = FH.load_file("storage/assets/json/models.json")
         return {model_name: data["limits"] for model_name, data in models_data.items()} if models_data else {}
 
-    def check_if_image(self):
+    def _check_if_image(self):
         if re.match(r"^DALL-E \d+", self.selected_llm):
-            self.on_show_image_settings()
+            self._show_image_settings()
         else:
-            self.on_hide_image_settings()
+            self._hide_image_settings()
 
         selected_size_button = self.size_group.checkedButton()
         if self.selected_llm in ["DALL-E 2"]:
@@ -417,14 +417,14 @@ class SettingsHandler(QObject):
             if selected_size_button in [self.checkbox_256x256, self.checkbox_512x512]:
                 self.checkbox_1024x1024.setChecked(True)
 
-    def check_if_reasoner(self):
+    def _check_if_reasoner(self):
         if re.match(r"^o\d+(-\w+)?$", self.selected_llm):
-            self.on_show_advanced_settings()
+            self._show_advanced_settings()
             self.select_tokens_label.setText("Max Completion Tokens")
         elif re.match(r"^DALL-E \d+", self.selected_llm):
             pass
         else:
-            self.on_hide_advanced_settings()
+            self._hide_advanced_settings()
             self.select_tokens_label.setText("Max Tokens")
 
     def load_settings_from_json(self):
@@ -460,9 +460,9 @@ class SettingsHandler(QObject):
                 button.setChecked(True)
                 break
         # Update parameter limits based on the selected model
-        self.change_needed_settings()
+        self._change_needed_settings()
 
-    def on_settings_changed(self):
+    def _on_settings_changed(self):
         """Connects settings widgets to send_new_settings_to_controller signal"""
         self.llms_combobox.currentIndexChanged.connect(self.send_new_settings_to_controller)
         self.temperature_slider.valueChanged.connect(self.send_new_settings_to_controller)

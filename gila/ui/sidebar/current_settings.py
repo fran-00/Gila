@@ -12,14 +12,14 @@ class CurrentSettings(QObject):
         super().__init__()
         self.parent_widget = parent_widget
         self.current_llm = None
-        self.llms = self.get_models_from_json()
+        self.llms = self._get_models_from_json()
         self.widget_container = QWidget(objectName="current_settings_widget")
-        self.on_current_settings_layout()
+        self._build_current_settings_layout()
 
-    def get_models_from_json(self):
+    def _get_models_from_json(self):
         return list(FH.load_file("storage/assets/json/models.json").keys())
 
-    def on_current_settings_layout(self):
+    def _build_current_settings_layout(self):
         current_settings_layout = QVBoxLayout(self.widget_container)
         self.current_settings_label = QLabel("", objectName="settings_label")
         current_settings_layout.addWidget(self.current_settings_label)
@@ -38,9 +38,9 @@ class CurrentSettings(QObject):
         self.current_image_quantity = settings[9]
         self.current_reasoning_effort = settings[10]
 
-        self.current_settings_label.setText(self.build_settings_str())
+        self.current_settings_label.setText(self._build_settings_str())
 
-    def build_settings_str(self):
+    def _build_settings_str(self):
         """Generates the HTML representation of the current settings."""
 
         def is_o_series():
