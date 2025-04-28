@@ -200,7 +200,7 @@ class AIManager(QObject):
         with open("storage/saved_settings.json", "w") as file:
             json.dump(data, file, indent=4)
 
-    def on_api_key(self):
+    def check_api_key(self):
         """Check if the API key for the specified company is present in the
         storage/api_keys.json file.
 
@@ -323,7 +323,7 @@ class AIManager(QObject):
         self.client.image_quantity = chat["image_quantity"]
         self.client.reasoning_effort = chat["reasoning_effort"]
 
-    def on_current_settings(self):
+    def get_current_settings(self):
         """Return the current settings of the client.
 
         Retrieves and returns a tuple containing various attributes of the

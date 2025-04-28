@@ -107,8 +107,8 @@ class View(QMainWindow):
         This method is called to hide both the chat log and the prompt layout in
         the user interface.
         """
-        self.chat.on_hide_chatlog()
-        self.chat.prompt_layout.on_hide_prompt_layout()
+        self.chat.hide_chatlog()
+        self.chat.prompt_layout.hide_prompt_layout()
 
     def show_chatlog_and_prompt_line(self):
         """Show the chat log and prompt box.
@@ -116,8 +116,8 @@ class View(QMainWindow):
         This method is called to display both the chat log and the prompt layout in the 
         user interface
         """
-        self.chat.on_show_chatlog()
-        self.chat.prompt_layout.on_show_prompt_layout()
+        self.chat.show_chatlog()
+        self.chat.prompt_layout.show_prompt_layout()
 
     @Slot(str)
     def add_api_key_modal_slot(self, client_name):

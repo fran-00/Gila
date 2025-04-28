@@ -53,7 +53,7 @@ class AddAPIKeyModal(Modal):
             self.modal_entry_line.clear()
 
     @Slot(bool)
-    def on_api_key_validation_slot(self, is_key_valid):
+    def check_api_key_validation_slot(self, is_key_valid):
         """ Slot
         Connected to one signal:
             - controller.api_key_is_valid_to_view

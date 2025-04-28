@@ -36,7 +36,7 @@ class ManageAPIKeysModal(Modal):
             self._build_client_list_row(key)
         self.window.set_cursor_pointer_for_buttons(self)
 
-    def on_stored_api_keys(self):
+    def get_stored_api_keys(self):
         load_dotenv()
         for key in self.api_keys.keys():
             self.api_keys[f"{key}"] = bool(os.getenv(f"{key.upper()}_API_KEY"))

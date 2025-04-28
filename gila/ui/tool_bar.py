@@ -106,7 +106,7 @@ class ToolBar(QToolBar):
         )
 
     def open_api_keys_modal(self):
-        self.window.manage_api_keys_modal.on_stored_api_keys()
+        self.window.manage_api_keys_modal.get_stored_api_keys()
         self.window.manage_api_keys_modal.update_labels()
         self.window.manage_api_keys_modal.exec_()
 

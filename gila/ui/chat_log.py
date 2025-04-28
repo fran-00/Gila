@@ -97,7 +97,7 @@ class Chat(QObject):
         gila_image.setPixmap(QPixmap(FH.build_asset_path("storage/assets/icons/gila_logo.svg")))
         start_chat_button = QPushButton("New Chat")
         start_chat_button.clicked.connect(
-            lambda: self.on_starting_a_new_chat()
+            lambda: self.start_new_chat()
         )
         start_inner_layout.addWidget(gila_title, alignment=Qt.AlignmentFlag.AlignCenter, stretch=1)
         start_inner_layout.addWidget(gila_image, alignment=Qt.AlignmentFlag.AlignCenter, stretch=1000)
@@ -227,7 +227,7 @@ class Chat(QObject):
         with open(f'storage/saved_data/{chat_id}.pk', 'wb') as file:
             pickle.dump(saved_data, file)
 
-    def on_show_chatlog(self):
+    def show_chatlog(self):
         """Display the chat widget and the start chat button.
     
         Called to reveal the chat interface components:
@@ -246,7 +246,7 @@ class Chat(QObject):
         self.num_of_tokens.show()
         self.start_inner_widget.hide()
 
-    def on_hide_chatlog(self):
+    def hide_chatlog(self):
         """Hide the chat widget and displays the start chat button.
     
         Called to conceal the chat interface components:
@@ -353,7 +353,7 @@ class Chat(QObject):
         for i, (key, value) in enumerate(response_info.items()):
             self.chatlog_info_labels[i].setText(f"{key}: {value}")
 
-    def on_response_info_labels_reset(self):
+    def reset_response_info_labels(self):
         """Reset the chat log information labels to empty text.
 
         Iterates through the chat log information labels and sets their text to
@@ -391,7 +391,7 @@ class Chat(QObject):
         """Return all current chat text"""
         return self.chat_html_logs
 
-    def on_starting_a_new_chat(self):
+    def start_new_chat(self):
         """Send a signal to controller to start a new chat"""
         self.start_new_chat_to_controller.emit()
 
@@ -462,12 +462,12 @@ class Prompt:
         self.prompt_box.clear()
         self.prompt_box.setFocus()
 
-    def on_show_prompt_layout(self):
+    def show_prompt_layout(self):
         """Show prompt layout and send button"""
         self.prompt_box.show()
         self.send_button.show()
 
-    def on_hide_prompt_layout(self):
+    def hide_prompt_layout(self):
         """Hide prompt layout and send button"""
         self.prompt_box.hide()
         self.send_button.hide()

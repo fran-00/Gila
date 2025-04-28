@@ -73,10 +73,10 @@ class CurrentSettings(QObject):
         settings_lines = [f"<b>{key}</b>: {value}" for key, value in settings.items()]
         return f"<div>{'<br>'.join(settings_lines)}</div>"
 
-    def on_show_sidebar_settings_label(self):
+    def show_sidebar_settings_label(self):
         """ Shows settings label on call """
         self.widget_container.show()
 
-    def on_hide_sidebar_settings_label(self):
+    def hide_sidebar_settings_label(self):
         """ Hides settings label on call """
         self.widget_container.hide()

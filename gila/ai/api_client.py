@@ -294,7 +294,7 @@ class APIClient(ABC):
         """
         self.chat_history = self._set_system_message()
 
-    def on_chat_reset(self):
+    def reset_chat(self):
         """Reset the chat state when a chat is interrupted.
 
         Called by the controller whenever a chat is interrupted, either by

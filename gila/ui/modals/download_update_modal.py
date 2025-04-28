@@ -39,7 +39,7 @@ class DownloadUpdateModal(Modal):
         self.window.set_cursor_pointer_for_buttons(self)
 
     @Slot(int)
-    def on_show_download_progress_slot(self, percent):
+    def show_download_progress_slot(self, percent):
         """ Slot
         Connected to one signal:
             - controller.download_progress_to_view
@@ -47,22 +47,22 @@ class DownloadUpdateModal(Modal):
         self.progress_bar.setValue(percent)
 
     @Slot()
-    def on_show_download_finished_slot(self):
+    def show_download_finished_slot(self):
         """ Slot
         Connected to one signal:
             - controller.download_finished_to_view
         """
-        self._on_download_finished("The latest version has been downloaded. Do you want to install it?")
+        self._download_finished("The latest version has been downloaded. Do you want to install it?")
 
     @Slot(str)
-    def on_show_updater_error_slot(self, error_msg):
+    def show_updater_error_slot(self, error_msg):
         """ Slot
         Connected to one signal:
             - controller.updater_error_to_view
         """
-        self._on_download_finished(f"Error:\n{error_msg}", error=True)
+        self._download_finished(f"Error:\n{error_msg}", error=True)
 
-    def _on_download_finished(self, message: str, error: bool = False):
+    def _download_finished(self, message: str, error: bool = False):
         self.in_progress = False
         self.modal_text.setText(message)
 

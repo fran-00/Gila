@@ -81,16 +81,16 @@ class Controller(QObject):
             self.view.add_api_key_modal_slot
         )
         self.api_key_is_valid_to_view.connect(
-            self.view.add_api_key_modal.on_api_key_validation_slot
+            self.view.add_api_key_modal.check_api_key_validation_slot
         )
         self.download_progress_to_view.connect(
-            self.view.download_update_modal.on_show_download_progress_slot
+            self.view.download_update_modal.show_download_progress_slot
         )
         self.download_finished_to_view.connect(
-            self.view.download_update_modal.on_show_download_finished_slot
+            self.view.download_update_modal.show_download_finished_slot
         )
         self.updater_error_to_view.connect(
-            self.view.download_update_modal.on_show_updater_error_slot
+            self.view.download_update_modal.show_updater_error_slot
         )
 
         # Connect VIEW's signals to CONTROLLER's slots
@@ -273,7 +273,7 @@ class Controller(QObject):
             )
         self.view.chat.chat_html_logs = []
         self.view.chat.generate_chat_html()
-        self.model.manager.client.on_chat_reset()
+        self.model.manager.client.reset_chat()
         # Starts a new chat
         self.update_status_bar.emit("New conversation started.")
         self.chat_started_slot()
@@ -291,8 +291,8 @@ class Controller(QObject):
 
         Checks if the API key is valid and emits signals to update the status
         bar or prompt the user for an API key if necessary. If a loaded chat is
-        present, it calls the on_loaded_chat method; otherwise, it initializes
-        a new chat with on_new_chat. Updates settings labels, saves current
+        present, it calls the _chat_loaded method; otherwise, it initializes
+        a new chat with _initialize_new_chat. Updates settings labels, saves current
         settings, and checks internet connectivity before starting the chat.
 
         If there is no internet connection, a warning modal is displayed to the
@@ -300,13 +300,13 @@ class Controller(QObject):
         the connection status.
         """
         if self.model.manager.client.is_loaded:
-            self.on_loaded_chat()
+            self._chat_loaded()
         else:
-            self.on_new_chat()
+            self._initialize_new_chat()
 
         # Update settings label on the sidebar
         self.view.sidebar.current_settings.update_settings_label(
-            self.model.manager.on_current_settings()
+            self.model.manager.get_current_settings()
         )
         # Set current settings on saved_settings.json
         self.model.manager.update_saved_settings()
@@ -320,26 +320,26 @@ class Controller(QObject):
         if self.model.manager.check_internet_connection():
             self.model.manager.stream_stopped = False
             # Check if API Key is valid. if it is, show chatlog and run the thread
-            if self.model.manager.on_api_key() is False:
+            if self.model.manager.check_api_key() is False:
                 self.missing_api_key_to_view.emit(self.model.manager.client.company)
             else:
                 self.view.show_chatlog_and_prompt_line()
-                self.view.sidebar.current_settings.on_show_sidebar_settings_label()
-                self.view.sidebar.on_show_sidebar_new_chat_button()
+                self.view.sidebar.current_settings.show_sidebar_settings_label()
+                self.view.sidebar.show_sidebar_new_chat_button()
             return
         # Open a modal that warns user about the lack of connection
         self.update_status_bar.emit("No internet connection.")
         # Hide UI elements
         self.view.hide_chatlog_and_prompt_line()
-        self.view.sidebar.on_hide_sidebar_new_chat_button()
-        self.view.sidebar.current_settings.on_hide_sidebar_settings_label()
+        self.view.sidebar.hide_sidebar_new_chat_button()
+        self.view.sidebar.current_settings.hide_sidebar_settings_label()
         self.view.warning_modal.on_no_internet_connection_label()
         self.view.warning_modal.exec_()
 
-    def on_loaded_chat(self):
+    def _chat_loaded(self):
         self.update_status_bar.emit("Saved conversation loaded.")
 
-    def on_new_chat(self):
+    def _initialize_new_chat(self):
         """Initialize a new chat session and updates settings if the client has
         changed.
 
@@ -353,7 +353,7 @@ class Controller(QObject):
         include the system message.
         """
         # Get saved response info to show them if chat is loaded
-        self.view.chat.on_response_info_labels_reset()
+        self.view.chat.reset_response_info_labels()
         # Set the new client, if user has chosen a new one
         if self.model.manager.next_client:
             self.model.manager.client = self.model.manager.next_client[0]
@@ -365,7 +365,7 @@ class Controller(QObject):
             self.model.manager.client.image_quality = self.model.manager.next_image_quality
             self.model.manager.client.image_quantity = self.model.manager.next_image_quantity
             self.model.manager.client.reasoning_effort = self.model.manager.next_reasoning_effort
-            self.model.manager.client.on_chat_reset()
+            self.model.manager.client.reset_chat()
             self.model.manager.next_client = None
         # If chat is new we need to call set_chat_history to set system message
         self.model.manager.client.set_chat_history()
@@ -399,7 +399,7 @@ class Controller(QObject):
         Connected to one signal:
         - model.manager.api_key_is_valid_to_controller
         Emits one signal:
-        - api_key_is_valid_to_view (view.modal.on_api_key_validation_slot)
+        - api_key_is_valid_to_view (view.modal.check_api_key_validation_slot)
 
         Handle the validation status of an API key.
 
