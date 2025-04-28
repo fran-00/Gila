@@ -31,9 +31,9 @@ class StoredChats(QObject):
         self.confirm_modal = ConfirmChatDeletionModal(self.parent_class.window, self)
         self.chat_marked_for_renaming = None
         self.chat_marked_for_deletion = None
-        self.on_stored_chats_layout()
+        self._build_stored_chats_layout()
 
-    def on_stored_chats_layout(self):
+    def _build_stored_chats_layout(self):
         self.stored_chats_layout = QVBoxLayout(self.widget_container)
         self.stored_chats_layout.setAlignment(Qt.Alignment.AlignTop)
         self.placeholder_label = QLabel("Saved chats will appear here.", objectName="placeholder_label")
@@ -41,7 +41,7 @@ class StoredChats(QObject):
         self.scroll_area = QScrollArea()
         self.scroll_area.setWidget(self.widget_container)
         self.scroll_area.setWidgetResizable(True)
-        self.create_chats_list()
+        self._create_chats_list()
 
     def on_placeholder_label(self):
         chats = os.listdir("storage/saved_data")
@@ -50,7 +50,7 @@ class StoredChats(QObject):
         else:
             self.placeholder_label.hide()
 
-    def create_chats_list(self):
+    def _create_chats_list(self):
         os.makedirs("storage/saved_data", exist_ok=True)
         chats = os.listdir("storage/saved_data")
         # Create a list of tuples (file, data_creazione)
@@ -85,19 +85,19 @@ class StoredChats(QObject):
         rename_button = QPushButton(objectName=f"rename_button")
         rename_icon = QIcon(FH.build_asset_path("storage/assets/icons/pen.svg"))
         rename_button.setIcon(rename_icon)
-        rename_button.clicked.connect(lambda: self.open_rename_chat_modal(chat_id))
+        rename_button.clicked.connect(lambda: self._open_rename_chat_modal(chat_id))
         delete_button = QPushButton(objectName=f"delete_button")
         delete_icon = QIcon(FH.build_asset_path("storage/assets/icons/trash-bin.svg"))
         delete_button.setIcon(delete_icon)
-        button.clicked.connect(lambda: self.on_load_saved_chat(chat_id))
-        delete_button.clicked.connect(lambda: self.open_confirm_chat_deletion_modal(chat_id))
+        button.clicked.connect(lambda: self._load_saved_chat(chat_id))
+        delete_button.clicked.connect(lambda: self._open_confirm_chat_deletion_modal(chat_id))
         stored_chat_row.addWidget(button, 8)
         stored_chat_row.addWidget(rename_button, 1)
         stored_chat_row.addWidget(delete_button, 1)
         self.on_placeholder_label()
         self.stored_chats_layout.insertLayout(0, stored_chat_row)
 
-    def on_load_saved_chat(self, chat_id):
+    def _load_saved_chat(self, chat_id):
         """ MUST ONLY restore chatlog, other data must be parsed directly from manager on signal receiving
             otherwise they won't fit in a single signal if sent from here
         """
@@ -110,7 +110,7 @@ class StoredChats(QObject):
             self.current_chat_id = chat_id
             self.loading_saved_chat_id_to_controller.emit(chat_id)
 
-    def open_rename_chat_modal(self, chat_id):
+    def _open_rename_chat_modal(self, chat_id):
         """Triggers a modal that asks to insert a new name for the chat """
         self.chat_marked_for_renaming = chat_id
         self.rename_modal.exec_()
@@ -128,7 +128,7 @@ class StoredChats(QObject):
         with open(file_path, 'wb') as file:
             pickle.dump(saved_data, file)
 
-    def open_confirm_chat_deletion_modal(self, chat_id):
+    def _open_confirm_chat_deletion_modal(self, chat_id):
         """Triggers a modal that asks to confirm before deleting """
         self.chat_marked_for_deletion = chat_id
         if self.chat_marked_for_deletion == self.current_chat_id:
