@@ -23,9 +23,9 @@ class ManageAPIKeysModal(Modal):
             "Arli": False,
             "Groq": False,
         }
-        self.on_modal_layout()
+        self._build_modal_layout()
 
-    def on_modal_layout(self):
+    def _build_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.on_modal_text()

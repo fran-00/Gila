@@ -10,10 +10,10 @@ class AboutGilaModal(Modal):
     def __init__(self, window):
         super().__init__(window)
         self.setWindowTitle("About Gila")
-        self.on_modal_layout()
+        self._build_modal_layout()
         self.resize(800, 600)
 
-    def on_modal_layout(self):
+    def _build_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.on_about_text()

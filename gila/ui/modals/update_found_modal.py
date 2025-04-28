@@ -8,9 +8,9 @@ class UpdateFoundModal(Modal):
     def __init__(self, window):
         super().__init__(window)
         self.setWindowTitle("Update found!")
-        self.on_modal_layout()
+        self._build_modal_layout()
 
-    def on_modal_layout(self):
+    def _build_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
         self.on_modal_text()
