@@ -28,12 +28,12 @@ class ManageAPIKeysModal(Modal):
     def _build_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
-        self.on_modal_text()
+        self._build_modal_text_label()
         self.modal_text.setText("Edit saved API Keys (green dot) or add missing ones (red dot).")
         self.add_line_separator(self.modal_layout)
-        self.set_icons()
+        self._set_icons()
         for key in self.api_keys.keys():
-            self.on_client_list_row(key)
+            self._build_client_list_row(key)
         self.window.set_cursor_pointer_for_buttons(self)
 
     def on_stored_api_keys(self):
@@ -41,7 +41,7 @@ class ManageAPIKeysModal(Modal):
         for key in self.api_keys.keys():
             self.api_keys[f"{key}"] = bool(os.getenv(f"{key.upper()}_API_KEY"))
 
-    def on_client_list_row(self, client_name):
+    def _build_client_list_row(self, client_name):
         row_layout = QHBoxLayout()
         label = QLabel(client_name)
         row_layout.addWidget(label)
@@ -60,7 +60,7 @@ class ManageAPIKeysModal(Modal):
         row_layout.addWidget(modify_button)
         self.modal_layout.addLayout(row_layout)
 
-    def set_icons(self):
+    def _set_icons(self):
         red_icon_path = FH.build_asset_path("storage/assets/icons/red-circle.svg")
         green_icon_path = FH.build_asset_path("storage/assets/icons/green-circle.svg")
         self.red_icon = QPixmap(red_icon_path)

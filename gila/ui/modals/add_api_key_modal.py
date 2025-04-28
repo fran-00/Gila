@@ -15,15 +15,15 @@ class AddAPIKeyModal(Modal):
     def _build_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
-        self.on_modal_text()
+        self._build_modal_text_label()
         self.modal_text.setText(f"Enter {self.client_name} API Key, it will be sent for verification.")
         self.add_line_separator(self.modal_layout)
-        self.on_modal_entry_line()
-        self.on_modal_button()
-        self.on_modal_wait_label()
+        self._build_modal_entry_line()
+        self._build_modal_button()
+        self._build_modal_wait_label()
         self.window.set_cursor_pointer_for_buttons(self)
 
-    def on_modal_entry_line(self):
+    def _build_modal_entry_line(self):
         """ Add instructions text and an entry line """
         self.modal_entry_line = QLineEdit(self)
         self.modal_layout.addWidget(self.modal_entry_line)
@@ -31,20 +31,20 @@ class AddAPIKeyModal(Modal):
     def update_modal_labels(self):
         self.modal_text.setText(f"Enter {self.client_name} API Key, it will be sent for verification.")
 
-    def on_modal_button(self):
+    def _build_modal_button(self):
         """ Add a button so send API Key """
         self.modal_button = QPushButton("Submit", self)
-        self.modal_button.clicked.connect(self.process_api_key)
+        self.modal_button.clicked.connect(self._process_api_key)
         # modal_button.clicked.connect(self.accept)
         self.modal_layout.addWidget(self.modal_button)
 
-    def on_modal_wait_label(self):
+    def _build_modal_wait_label(self):
         """ Add a label when user must wait for API response """
         self.wait_label = QLabel('Wait...')
         self.wait_label.hide()
         self.modal_layout.addWidget(self.wait_label)
 
-    def process_api_key(self):
+    def _process_api_key(self):
         """ Gets API key and sends it as a Signal """
         api_key = self.modal_entry_line.text().strip()
         if api_key != "":

@@ -14,19 +14,19 @@ class Modal(QDialog):
         super().__init__()
         self.window = window
         self.resize(430, 200)
-        self.setStyleSheet(self.load_css_file())
+        self.setStyleSheet(self._load_css_file())
 
-    def load_css_file(self):
+    def _load_css_file(self):
         """ Loads CSS File to apply style to Modal Window """
         return FH.load_file("storage/assets/css/styles.css", encoding="utf-8")
 
-    def on_modal_text(self):
+    def _build_modal_text_label(self):
         self.modal_text = QLabel("Message to overwrite.", objectName="modal_text")
         self.modal_text.setMaximumWidth(400)
         self.modal_text.setWordWrap(True)
         self.modal_layout.addWidget(self.modal_text)
 
-    def on_dismiss_button(self):
+    def _build_dismiss_button(self):
         self.dismiss_button = QPushButton("OK", self)
         self.dismiss_button.clicked.connect(self.accept)
         self.modal_layout.addWidget(self.dismiss_button)

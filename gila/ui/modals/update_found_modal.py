@@ -13,14 +13,14 @@ class UpdateFoundModal(Modal):
     def _build_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
-        self.on_modal_text()
+        self._build_modal_text_label()
         self.modal_text.setText("A new update is available, do you want to download it?")
-        self.on_confirm_button()
-        self.on_dismiss_button()
+        self._build_confirm_button()
+        self._build_dismiss_button()
         self.dismiss_button.setText("Close")
         self.window.set_cursor_pointer_for_buttons(self)
 
-    def on_confirm_button(self):
+    def _build_confirm_button(self):
         self.modal_button = QPushButton("Download", self)
         self.modal_button.clicked.connect(self.accept)
         self.modal_button.clicked.connect(lambda: self.download_update())

@@ -15,7 +15,7 @@ class DownloadUpdateModal(Modal):
     def _build_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
-        self.on_modal_text()
+        self._build_modal_text_label()
         self.modal_text.setText("Downloading Update...")
 
         flags = self.windowFlags()
@@ -52,7 +52,7 @@ class DownloadUpdateModal(Modal):
         Connected to one signal:
             - controller.download_finished_to_view
         """
-        self.on_download_finished("The latest version has been downloaded. Do you want to install it?")
+        self._on_download_finished("The latest version has been downloaded. Do you want to install it?")
 
     @Slot(str)
     def on_show_updater_error_slot(self, error_msg):
@@ -60,9 +60,9 @@ class DownloadUpdateModal(Modal):
         Connected to one signal:
             - controller.updater_error_to_view
         """
-        self.on_download_finished(f"Error:\n{error_msg}", error=True)
+        self._on_download_finished(f"Error:\n{error_msg}", error=True)
 
-    def on_download_finished(self, message: str, error: bool = False):
+    def _on_download_finished(self, message: str, error: bool = False):
         self.in_progress = False
         self.modal_text.setText(message)
 

@@ -13,8 +13,8 @@ class WarningModal(Modal):
     def _build_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
-        self.on_modal_text()
-        self.on_dismiss_button()
+        self._build_modal_text_label()
+        self._build_dismiss_button()
         self.window.set_cursor_pointer_for_buttons(self)
 
     def on_label(self, message):

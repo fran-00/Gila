@@ -14,21 +14,21 @@ class ConfirmChatDeletionModal(Modal):
     def _build_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
         self.modal_layout = QVBoxLayout(self)
-        self.on_modal_text()
+        self._build_modal_text_label()
         self.modal_text.setText("Are you sure you want to delete this chat?")
         self.buttons_layout = QHBoxLayout()
         self.modal_layout.addLayout(self.buttons_layout)
-        self.on_confirm_button()
-        self.on_refuse_button()
+        self._build_confirm_button()
+        self._build_refuse_button()
         self.window.set_cursor_pointer_for_buttons(self)
 
-    def on_confirm_button(self):
+    def _build_confirm_button(self):
         self.modal_button = QPushButton("Yes, delete it!", self)
         self.modal_button.clicked.connect(lambda: self.parent_class.delete_stored_chat_by_name())
         self.modal_button.clicked.connect(self.accept)
         self.buttons_layout.addWidget(self.modal_button)
 
-    def on_refuse_button(self):
+    def _build_refuse_button(self):
         self.modal_button = QPushButton("No, cancel.", self)
         self.modal_button.clicked.connect(self.accept)
         self.buttons_layout.addWidget(self.modal_button)
