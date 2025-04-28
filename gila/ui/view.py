@@ -34,9 +34,9 @@ class View(QMainWindow):
         self.resize(1024, 768)
         self.load_custom_fonts()
         self.setStyleSheet(self.load_css_file())
-        self.create_layout()
+        self._build_main_layout()
 
-    def create_layout(self):
+    def _build_main_layout(self):
         """Create the layout for the main window and composes the user interface.
 
         This method initializes the central widget and sets up various UI components 
@@ -62,12 +62,12 @@ class View(QMainWindow):
         self.setStatusBar(self.status_bar)
         main_layout = QGridLayout(central_widget)
         main_layout.addWidget(self.sidebar.widget_container, 0, 0)
-        main_layout.addWidget(self.on_toggle_sidebar_button(), 0, 1)
+        main_layout.addWidget(self._build_toggle_sidebar_button(), 0, 1)
         main_layout.addWidget(self.chat.widget_container, 0, 2, 1, 3)
         self.set_cursor_pointer_for_buttons(self)
         self.on_hide_chatlog_and_prompt_line()
 
-    def on_toggle_sidebar_button(self):
+    def _build_toggle_sidebar_button(self):
         """Create and configure the button for toggling the sidebar.
 
         Initializes a QPushButton with a left arrow icon to indicate the action
@@ -77,10 +77,10 @@ class View(QMainWindow):
         self.toggle_sidebar_button = QPushButton("‹", objectName="toggle_sidebar_button")
         self.toggle_sidebar_button.setFixedWidth(10)
         self.toggle_sidebar_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.toggle_sidebar_button.clicked.connect(self.toggle_sidebar)
+        self.toggle_sidebar_button.clicked.connect(self._toggle_sidebar)
         return self.toggle_sidebar_button
 
-    def toggle_sidebar(self):
+    def _toggle_sidebar(self):
         """Toggle the visibility of the sidebar.
 
         This method checks the current visibility state of the sidebar's widget

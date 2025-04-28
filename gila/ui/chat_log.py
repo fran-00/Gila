@@ -34,7 +34,7 @@ class Chat(QObject):
         self.prompt_layout = Prompt(self)
         self.tokenizer = Tokenizer()
 
-        self.on_chat_container()
+        self._build_chat_container()
 
     def generate_chat_html(self):
         """Generate an HTML page to update the chat log, including chat history 
@@ -75,19 +75,19 @@ class Chat(QObject):
         """
         self.log_widget.setHtml(html_template)
 
-    def on_chat_container(self):
+    def _build_chat_container(self):
         """Create the chat layout and adds various widgets to the chat interface."""
         chat_layout = QVBoxLayout(self.widget_container)
         self.title = QLabel("GILA", objectName="chat_title_label")
         self.title.setAlignment(Qt.AlignCenter)
         chat_layout.addWidget(self.title)
-        chat_layout.addLayout(self.on_chatlog_info_layout())
+        chat_layout.addLayout(self._build_chatlog_info_layout())
         chat_layout.addWidget(self.log_widget, stretch=8)
-        chat_layout.addLayout(self.prompt_layout.on_prompt_layout(), stretch=2)
-        chat_layout.addLayout(self.on_prompt_info_layout())
-        chat_layout.addLayout(self.on_start_layout(), stretch=1000)
+        chat_layout.addLayout(self.prompt_layout.build_prompt_layout(), stretch=2)
+        chat_layout.addLayout(self._build_prompt_info_layout())
+        chat_layout.addLayout(self._build_start_layout(), stretch=1000)
 
-    def on_start_layout(self):
+    def _build_start_layout(self):
         """Create the start layout with a button to initiate a new chat."""
         start_layout = QVBoxLayout()
         self.start_inner_widget = QWidget()
@@ -109,7 +109,7 @@ class Chat(QObject):
         """Update the chat title to reflect the currently selected LLM setting."""
         self.title.setText(f"{self.window.sidebar.current_settings.current_llm}")
 
-    def on_prompt_info_layout(self):
+    def _build_prompt_info_layout(self):
         """Create a horizontal layout for displaying prompt information."""
         self.prompt_info_layout = QHBoxLayout()
         self.num_of_words = QLabel("Words: 0")
@@ -120,7 +120,7 @@ class Chat(QObject):
         self.prompt_info_layout.addWidget(self.num_of_tokens)
         return self.prompt_info_layout
 
-    def on_chatlog_info_layout(self):
+    def _build_chatlog_info_layout(self):
         """Create a horizontal layout for displaying chat log information labels."""
         self.chatlog_info_layout = QHBoxLayout()
         self.first_label = QLabel("")
@@ -196,13 +196,13 @@ class Chat(QObject):
             # Send the signal with user prompt with a delay of 0.1 seconds
             self.timer = QTimer()
             self.timer.setSingleShot(True)
-            self.timer.timeout.connect(lambda: self._send_delayed_prompt_signal(prompt))
+            self.timer.timeout.connect(lambda: self.send_delayed_prompt_signal(prompt))
             self.timer.start(100)
         else:
             self.update_status_bar_from_chatlog.emit(
                 "It is not possible to send an empty message.")
 
-    def _send_delayed_prompt_signal(self, prompt):
+    def send_delayed_prompt_signal(self, prompt):
         """Emit the user prompt signal to the controller.
 
         Private method called after a delay to send the processed user 
@@ -223,7 +223,7 @@ class Chat(QObject):
         """
         file_path = f"storage/saved_data/{chat_id}.pk"
         saved_data = FH.load_file(file_path, mode="rb")
-        saved_data[chat_id]["chat_log"] = self.get_chat_log()
+        saved_data[chat_id]["chat_log"] = self._get_chat_log()
         with open(f'storage/saved_data/{chat_id}.pk', 'wb') as file:
             pickle.dump(saved_data, file)
 
@@ -262,7 +262,7 @@ class Chat(QObject):
         self.num_of_tokens.hide()
         self.start_inner_widget.show()
 
-    def convert_markdown_to_html(self, md_text):
+    def _convert_markdown_to_html(self, md_text):
         """Convert Markdown text to HTML.
 
         Takes a string containing Markdown-formatted text and converts it to HTML
@@ -307,7 +307,7 @@ class Chat(QObject):
         self.prompt_layout.prompt_box.set_return_blocked(False)
 
         self.chat_html_logs = [msg for msg in self.chat_html_logs if "spinner-wrapper" not in msg]
-        formatted_response = self.convert_markdown_to_html(response)
+        formatted_response = self._convert_markdown_to_html(response)
         if self.window.sidebar.current_settings.current_llm in ["DALL-E 2", "DALL-E 3"] and not "error" in response.lower():
             urls = response.split(", ")
             if len(urls) > 1:
@@ -387,7 +387,7 @@ class Chat(QObject):
             return self.chat_html_logs != saved_chat_html_logs
         return True
 
-    def get_chat_log(self):
+    def _get_chat_log(self):
         """Return all current chat text"""
         return self.chat_html_logs
 
@@ -404,7 +404,7 @@ class Prompt:
         self.prompt_box.textChanged.connect(self.chatlog.words_counter)
         self.prompt_box.textChanged.connect(self.chatlog.tokens_counter)
 
-    def on_prompt_layout(self):
+    def build_prompt_layout(self):
         """Create the layout for the prompt input area.
 
         This method initializes a horizontal box layout that contains a prompt
@@ -440,7 +440,7 @@ class Prompt:
         uses the text from the prompt box; otherwise, it uses the provided 
         `user_prompt`.
         
-        The comparison to "none" is intentional because `on_prompt_layout`
+        The comparison to "none" is intentional because `build_prompt_layout`
         method connects the prompt box's return key press and the send button's
         click event to this method, passing "none" as the argument.
         This means that when the button is clicked OR the return key is pressed,
@@ -454,10 +454,10 @@ class Prompt:
             user_prompt (str): An optional prompt string to be processed.
         """
         prompt = self.prompt_box.toPlainText().rstrip() if user_prompt == "none" else user_prompt
-        self.clear_prompt_box()
+        self._clear_prompt_box()
         return self.chatlog.process_prompt(prompt)
 
-    def clear_prompt_box(self):
+    def _clear_prompt_box(self):
         """Clear prompt layout"""
         self.prompt_box.clear()
         self.prompt_box.setFocus()

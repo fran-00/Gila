@@ -13,9 +13,9 @@ class StatusBar(QStatusBar):
 
         self.version_label = QLabel(f"v1.0.0", objectName="version_label")
         self.addPermanentWidget(self.version_label)
-        self.set_version()
+        self._set_version()
 
-    def set_version(self):
+    def _set_version(self):
         data = FH.load_file("storage/assets/json/local_version.json")
         version = data.get("local_version")
         self.version_label.setText(f"{version}")
