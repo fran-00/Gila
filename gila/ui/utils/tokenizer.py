@@ -53,5 +53,8 @@ class Tokenizer:
 
         return tokens
 
-    def get_num_of_tokens(self, text):
-        pass
+    def get_num_of_tokens(self, text: str) -> int:
+        """
+        Return approximate token count.
+        """
+        return len(self._encode(text))
