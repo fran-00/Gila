@@ -108,9 +108,9 @@ class AIManager(QObject):
         self.next_image_quality = None
         self.next_image_quantity = None
         self.next_reasoning_effort = None
-        self.get_saved_settings()
+        self._get_saved_settings()
 
-    def get_saved_settings(self):
+    def _get_saved_settings(self):
         """Load saved settings from a JSON file, creating default settings if
         the file does not exist.
 
@@ -269,7 +269,7 @@ class AIManager(QObject):
         company_name is None, it sends the new API key to the current client; 
         otherwise, it sends it to the client associated with the specified
         company name. Then emits a boolean signal indicating whether the API
-        key is valid. If the key is valid, it calls the save_api_key method to
+        key is valid. If the key is valid, it calls the _save_api_key method to
         store it. If the company_name is not found, defaults to using the
         currently selected client.
 
@@ -283,7 +283,7 @@ class AIManager(QObject):
         validated = client.validate_api_key(api_key)
         if validated is True:
             self.api_key_is_valid_to_controller.emit(True)
-            self.save_api_key(api_key, company_name)
+            self._save_api_key(api_key, company_name)
         else:
             self.api_key_is_valid_to_controller.emit(False)
 
@@ -357,7 +357,7 @@ class AIManager(QObject):
             self.client.reasoning_effort,
         )
 
-    def save_api_key(self, api_key, company_name):
+    def _save_api_key(self, api_key, company_name):
         """Save the validated API key to the .env file.
 
         Appends the API key for the specified company name to the .env file

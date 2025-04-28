@@ -25,37 +25,12 @@ class Controller(QObject):
         self.model = model
         self.view = view
         self.updater = Updater()
-        self.connect_model()
-        self.connect_view()
-        self.connect_updater()
+        self._connect_model()
+        self._connect_view()
+        self._connect_updater()
         QTimer.singleShot(0, self.updater.check_for_updates)
 
-    def connect_updater(self):
-        # Connect CONTROLLER's signals to UPDATER's slots
-        self.cancel_download_to_updater.connect(
-            self.updater.cancel_download_slot
-        )
-        self.install_update_to_updater.connect(
-            self.updater.install_update_slot
-        )
-        # Connect UPDATER's signals to CONTROLLER's slots
-        self.updater.update_found_to_controller.connect(
-            self.update_found_slot
-        )
-        self.updater.update_ready_to_install_to_controller.connect(
-            self.update_ready_to_install_slot
-        )
-        self.updater.download_progress_to_controller.connect(
-            self.download_progress_slot
-        )
-        self.updater.download_finished_to_controller.connect(
-            self.download_finished_slot
-        )
-        self.updater.updater_error_to_controller.connect(
-            self.updater_error_slot
-        )
-
-    def connect_model(self):
+    def _connect_model(self):
         """Connect the controller's signals to the model's slots and vice versa.
         """
         # Connect CONTROLLER's signals to MODEL's slots
@@ -89,7 +64,7 @@ class Controller(QObject):
             self.api_key_is_valid_slot
         )
 
-    def connect_view(self):
+    def _connect_view(self):
         """Connect the controller's signals to the view's slots and vice versa.
         """
         # Connect CONTROLLER's signals to VIEW's slots
@@ -156,6 +131,31 @@ class Controller(QObject):
         # Connect ChatLog to Status Bar
         self.view.chat.update_status_bar_from_chatlog.connect(
             self.view.status_bar.on_status_update_slot
+        )
+
+    def _connect_updater(self):
+        # Connect CONTROLLER's signals to UPDATER's slots
+        self.cancel_download_to_updater.connect(
+            self.updater.cancel_download_slot
+        )
+        self.install_update_to_updater.connect(
+            self.updater.install_update_slot
+        )
+        # Connect UPDATER's signals to CONTROLLER's slots
+        self.updater.update_found_to_controller.connect(
+            self.update_found_slot
+        )
+        self.updater.update_ready_to_install_to_controller.connect(
+            self.update_ready_to_install_slot
+        )
+        self.updater.download_progress_to_controller.connect(
+            self.download_progress_slot
+        )
+        self.updater.download_finished_to_controller.connect(
+            self.download_finished_slot
+        )
+        self.updater.updater_error_to_controller.connect(
+            self.updater_error_slot
         )
 
     @Slot(str)
