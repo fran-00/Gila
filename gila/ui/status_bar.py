@@ -21,7 +21,7 @@ class StatusBar(QStatusBar):
         self.version_label.setText(f"{version}")
 
     @Slot(str)
-    def on_status_update_slot(self, status):
+    def update_msg_slot(self, status):
         """ Slot
         Connected to one signal:
             - controller.update_status_bar

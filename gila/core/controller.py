@@ -75,7 +75,7 @@ class Controller(QObject):
             self.view.chat.get_response_info_slot
         )
         self.update_status_bar.connect(
-            self.view.status_bar.on_status_update_slot
+            self.view.status_bar.update_msg_slot
         )
         self.missing_api_key_to_view.connect(
             self.view.add_api_key_modal_slot
@@ -130,7 +130,7 @@ class Controller(QObject):
 
         # Connect ChatLog to Status Bar
         self.view.chat.update_status_bar_from_chatlog.connect(
-            self.view.status_bar.on_status_update_slot
+            self.view.status_bar.update_msg_slot
         )
 
     def _connect_updater(self):
@@ -165,7 +165,7 @@ class Controller(QObject):
         - model.response_message_to_controller
         Emits:
         - response_message_to_chatlog (view.chat.get_response_message_slot)
-        - update_status_bar (view.status_bar.on_status_update_slot)
+        - update_status_bar (view.status_bar.update_msg_slot)
         
         Handle the reception of a response from the model.
 
@@ -207,7 +207,7 @@ class Controller(QObject):
         - view.chat.user_prompt_signal_to_controller
         Emits:
         - user_prompt_to_model (model.get_user_prompt_slot)
-        - update_status_bar (view.status_bar.on_status_update_slot)
+        - update_status_bar (view.status_bar.update_msg_slot)
 
         Handle the reception of a user prompt from the chat view.
 
@@ -251,7 +251,7 @@ class Controller(QObject):
         - view.sidebar.stop_chat_to_controller
         Saves current chat, cleans log, resets chat and emits two signals:
         - chat_stopped_to_model (model.chat_stopped_slot)
-        - update_status_bar (view.status_bar.on_status_update_slot)
+        - update_status_bar (view.status_bar.update_msg_slot)
 
         Handle the stopping of a chat from the sidebar.
 
@@ -284,7 +284,7 @@ class Controller(QObject):
         Connected to two signals:
         - view.chat.start_new_chat_to_controller
         Checks API Key and emits two signals:
-        - update_status_bar (view.status_bar.on_status_update_slot)
+        - update_status_bar (view.status_bar.update_msg_slot)
         - missing_api_key_to_view (view.add_api_key_modal_slot)
 
         Handle the event when a new chat is started.
