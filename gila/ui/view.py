@@ -33,7 +33,7 @@ class View(QMainWindow):
         self.setWindowIcon(QIcon(FH.build_asset_path("storage/assets/icons/gila_logo.svg")))
         self.resize(1024, 768)
         self.load_custom_fonts()
-        self.setStyleSheet(self.load_css_file())
+        self.setStyleSheet(self._load_css_file())
         self._build_main_layout()
 
     def _build_main_layout(self):
@@ -65,7 +65,7 @@ class View(QMainWindow):
         main_layout.addWidget(self._build_toggle_sidebar_button(), 0, 1)
         main_layout.addWidget(self.chat.widget_container, 0, 2, 1, 3)
         self.set_cursor_pointer_for_buttons(self)
-        self.on_hide_chatlog_and_prompt_line()
+        self.hide_chatlog_and_prompt_line()
 
     def _build_toggle_sidebar_button(self):
         """Create and configure the button for toggling the sidebar.
@@ -93,7 +93,7 @@ class View(QMainWindow):
         else:
             self.toggle_sidebar_button.setText("›")
 
-    def load_css_file(self):
+    def _load_css_file(self):
         """Load CSS file to apply styles to the window.
 
         Returns:
@@ -101,7 +101,7 @@ class View(QMainWindow):
         """
         return FH.load_file("storage/assets/css/styles.css", encoding="utf-8")
 
-    def on_hide_chatlog_and_prompt_line(self):
+    def hide_chatlog_and_prompt_line(self):
         """Hide the chat log and prompt box.
 
         This method is called to hide both the chat log and the prompt layout in
@@ -110,7 +110,7 @@ class View(QMainWindow):
         self.chat.on_hide_chatlog()
         self.chat.prompt_layout.on_hide_prompt_layout()
 
-    def on_show_chatlog_and_prompt_line(self):
+    def show_chatlog_and_prompt_line(self):
         """Show the chat log and prompt box.
 
         This method is called to display both the chat log and the prompt layout in the 

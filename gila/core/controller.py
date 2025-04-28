@@ -323,14 +323,14 @@ class Controller(QObject):
             if self.model.manager.on_api_key() is False:
                 self.missing_api_key_to_view.emit(self.model.manager.client.company)
             else:
-                self.view.on_show_chatlog_and_prompt_line()
+                self.view.show_chatlog_and_prompt_line()
                 self.view.sidebar.current_settings.on_show_sidebar_settings_label()
                 self.view.sidebar.on_show_sidebar_new_chat_button()
             return
         # Open a modal that warns user about the lack of connection
         self.update_status_bar.emit("No internet connection.")
         # Hide UI elements
-        self.view.on_hide_chatlog_and_prompt_line()
+        self.view.hide_chatlog_and_prompt_line()
         self.view.sidebar.on_hide_sidebar_new_chat_button()
         self.view.sidebar.current_settings.on_hide_sidebar_settings_label()
         self.view.warning_modal.on_no_internet_connection_label()
