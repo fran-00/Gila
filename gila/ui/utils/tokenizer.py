@@ -4,6 +4,24 @@ import re
 
 class Tokenizer:
 
+    _PATTERN = re.compile(
+        r"""
+            # Number: 123, 3.14, 2,718 optionally followed by unit/currency
+            \d+(?:[.,]\d+)*(?:°|º|%|‰|€|\$|£)?
+            | # Word: letters (incl. accented) + any combining marks
+            [A-Za-zÀ-ÖØ-öø-ÿ]+(?:[\u0300-\u036f]+[A-Za-zÀ-ÖØ-öø-ÿ]+)*
+            | # Apostrophes (straight or curly)
+            [’']
+            | # Hyphens and dashes
+            [-–—]
+            | # Any other single symbol or punctuation (incl. emojis)
+            [^\w\s]
+            | # Whitespace
+            \s+
+        """,
+        re.UNICODE | re.VERBOSE,
+    )
+
     def __init__(self, avg_chars_per_token: float = 4.2, word_threshold: int = 6):
         self.avg_chars_per_token = avg_chars_per_token
         self.word_threshold = word_threshold
