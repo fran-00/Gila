@@ -202,8 +202,8 @@ class Updater(QObject):
             base_dir = self._get_base_dir()
             target_exe = os.path.join(base_dir, os.path.basename(extracted_exe))
             # create and run updater batch
-            bat_path = self._write_update_batch(tmpdir, extracted_exe, target_exe)
-            self._run_batch_and_exit(bat_path)
+            # bat_path = self._write_update_batch(tmpdir, extracted_exe, target_exe)
+            # self._run_batch_and_exit(bat_path)
         except Exception as e:
             self._emit_error(f"Install error: {e}")
 
