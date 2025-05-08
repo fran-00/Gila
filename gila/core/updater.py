@@ -219,10 +219,17 @@ class Updater(QObject):
     def _write_update_batch(self, tmpdir: str, src_exe: str, target_exe: str) -> str:
         bat_path = os.path.join(tmpdir, "updater.bat")
         script = f"""@echo off
-            ping 127.0.0.1 -n 2 >nul
+            setlocal
+            :waitloop
+            tasklist | findstr /I "gila.exe" >nul
+            if %errorlevel%==0 (
+                ping 127.0.0.1 -n 2 >nul
+                goto waitloop
+            )
             copy /Y "{src_exe}" "{target_exe}" >nul
             start "" "{target_exe}"
             del "%~f0"
+            endlocal
         """
         with open(bat_path, "w", encoding="utf-8") as f:
             f.write(script)
