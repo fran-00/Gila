@@ -26,10 +26,10 @@ class DownloadUpdateModal(Modal):
         self.progress_bar.setValue(0)
         self.modal_layout.addWidget(self.progress_bar)
 
-        self.install_button = QPushButton("Install", self)
-        self.install_button.hide()
-        self.install_button.clicked.connect(lambda: self.request_update_installation())
-        self.modal_layout.addWidget(self.install_button)
+        # self.install_button = QPushButton("Install", self)
+        # self.install_button.hide()
+        # self.install_button.clicked.connect(lambda: self.request_update_installation())
+        # self.modal_layout.addWidget(self.install_button)
 
         self.dismiss_button = QPushButton("Close", self)
         self.dismiss_button.hide()
@@ -52,7 +52,9 @@ class DownloadUpdateModal(Modal):
         Connected to one signal:
             - controller.download_finished_to_view
         """
-        self._download_finished("The latest version has been downloaded. Do you want to install it?")
+        self._download_finished(
+            "The latest version has been downloaded. Please close this window and manually replace the executable. Automatic installation is currently under development."
+        )
 
     @Slot(str)
     def show_updater_error_slot(self, error_msg):
@@ -68,7 +70,7 @@ class DownloadUpdateModal(Modal):
 
         if not error:
             self.progress_bar.hide()
-            self.install_button.show()
+            # self.install_button.show()
             self.dismiss_button.show()
         else:
             self.progress_bar.setEnabled(False)
