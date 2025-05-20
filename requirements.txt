@@ -17,7 +17,7 @@ python-docx==1.1.2
 python-dotenv==1.1.0
 pywin32-ctypes==0.2.3
 requests==2.32.3
-setuptools==75.8.0
+setuptools==80.7.1
 shiboken6==6.9.0
 soupsieve==2.7
 typing_extensions==4.13.2
