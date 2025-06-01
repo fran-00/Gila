@@ -57,8 +57,8 @@ class CurrentSettings(QObject):
 
         if is_o_series():
             settings["Reasoning effort"] = self.current_reasoning_effort
-
-        if is_dalle_model():
+            settings["Max Completion tokens"] = self.current_max_tokens
+        elif is_dalle_model():
             num_images = 1 if self.current_llm == "DALL-E 3" else self.current_image_quantity
             settings["Size"] = self.current_image_size
             settings["N. of images"] = num_images
