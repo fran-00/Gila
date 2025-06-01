@@ -1,1 +1,2 @@
 from .image_settings_widget import ImageSettingsWidget
+from .llm_settings_widget import LLMSettingsWidget
