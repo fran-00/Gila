@@ -9,8 +9,9 @@ class LLMSettingsWidget(QWidget):
 
     settings_changed = Signal()
 
-    def __init__(self, parent):
-        super().__init__(parent)
+    def __init__(self, parent_cls):
+        super().__init__(parent_cls)
+        self.parent_cls = parent_cls
         self._build_ui()
 
     def _build_layout(self):

@@ -5,11 +5,11 @@ from .parent_modal import Modal
 
 class RenameChatModal(Modal):
 
-    def __init__(self, window, parent_class):
+    def __init__(self, window, parent_cls):
         super().__init__(window)
         self.setWindowTitle("Rename Chat")
         self._build_modal_layout()
-        self.parent_class = parent_class
+        self.parent_cls = parent_cls
 
     def _build_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
@@ -22,7 +22,7 @@ class RenameChatModal(Modal):
 
     def _build_confirm_button(self):
         self.modal_button = QPushButton("Ok", self)
-        self.modal_button.clicked.connect(lambda: self.parent_class.rename_stored_chat(self.new_name_entry.text()))
+        self.modal_button.clicked.connect(lambda: self.parent_cls.rename_stored_chat(self.new_name_entry.text()))
         self.modal_button.clicked.connect(self.accept)
         self.modal_layout.addWidget(self.modal_button)
 

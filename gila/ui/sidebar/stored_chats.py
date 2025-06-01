@@ -21,14 +21,14 @@ from ..utils import FileHandler as FH
 class StoredChats(QObject):
     loading_saved_chat_id_to_controller = Signal(str)
 
-    def __init__(self, parent_class):
+    def __init__(self, parent_cls):
         super().__init__()
-        self.parent_class = parent_class
+        self.parent_cls = parent_cls
         self.widget_container = QWidget(objectName="stored_chats_widget")
         self.chatlog = None
         self.current_chat_id = None
-        self.rename_modal = RenameChatModal(self.parent_class.window, self)
-        self.confirm_modal = ConfirmChatDeletionModal(self.parent_class.window, self)
+        self.rename_modal = RenameChatModal(self.parent_cls.window, self)
+        self.confirm_modal = ConfirmChatDeletionModal(self.parent_cls.window, self)
         self.chat_marked_for_renaming = None
         self.chat_marked_for_deletion = None
         self._build_stored_chats_layout()
@@ -132,8 +132,8 @@ class StoredChats(QObject):
         """Triggers a modal that asks to confirm before deleting """
         self.chat_marked_for_deletion = chat_id
         if self.chat_marked_for_deletion == self.current_chat_id:
-            self.parent_class.window.warning_modal.on_deleting_current_chat_label()
-            self.parent_class.window.warning_modal.exec_()
+            self.parent_cls.window.warning_modal.on_deleting_current_chat_label()
+            self.parent_cls.window.warning_modal.exec_()
             return
         self.confirm_modal.exec_()
 

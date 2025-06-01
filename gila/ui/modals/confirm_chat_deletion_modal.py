@@ -5,11 +5,11 @@ from .parent_modal import Modal
 
 class ConfirmChatDeletionModal(Modal):
 
-    def __init__(self, window, parent_class):
+    def __init__(self, window, parent_cls):
         super().__init__(window)
         self.setWindowTitle("Delete saved chat")
         self._build_modal_layout()
-        self.parent_class = parent_class
+        self.parent_cls = parent_cls
 
     def _build_modal_layout(self):
         """ Creates modal layout and calls methods that adds widgets """
@@ -24,7 +24,7 @@ class ConfirmChatDeletionModal(Modal):
 
     def _build_confirm_button(self):
         self.modal_button = QPushButton("Yes, delete it!", self)
-        self.modal_button.clicked.connect(lambda: self.parent_class.delete_stored_chat_by_name())
+        self.modal_button.clicked.connect(lambda: self.parent_cls.delete_stored_chat_by_name())
         self.modal_button.clicked.connect(self.accept)
         self.buttons_layout.addWidget(self.modal_button)
 

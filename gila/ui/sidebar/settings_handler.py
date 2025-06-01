@@ -22,9 +22,9 @@ from ..utils import FileHandler as FH
 class SettingsHandler(QObject):
     new_settings_to_controller = Signal(str, float, int, str, str, str, int, str)
 
-    def __init__(self, parent_class, current_settings):
+    def __init__(self, parent_cls, current_settings):
         super().__init__()
-        self.parent_class = parent_class
+        self.parent_cls = parent_cls
         self.current_settings = current_settings
         self.widget_container = QWidget(objectName="change_settings_widget")
         self._build_scroll_area()
@@ -59,7 +59,7 @@ class SettingsHandler(QObject):
     def _build_llms_settings(self):
         """ Creates ComboBox with llms list """
         select_llm_lbl = QLabel("Model")
-        self.parent_class.window.assign_css_class(select_llm_lbl, "setting_name")
+        self.parent_cls.window.assign_css_class(select_llm_lbl, "setting_name")
         select_llm_lbl.setAlignment(Qt.Alignment.AlignCenter)
         self.llms_combobox = QComboBox()
         for llm in self.current_settings.llms:
@@ -74,17 +74,20 @@ class SettingsHandler(QObject):
         self.temp_w = QWidget()
         box_v = QVBoxLayout(self.temp_w)
         box_v.setContentsMargins(0, 0, 0, 0)
+
         # Create temperature lbl
         temp_lbl = QLabel("Temperature")
-        self.parent_class.window.assign_css_class(temp_lbl, "setting_name")
+        self.parent_cls.window.assign_css_class(temp_lbl, "setting_name")
         temp_lbl.setAlignment(Qt.Alignment.AlignCenter)
+
         # Create widgets and slider's sub-layout
         temp_slider_sub_h = QHBoxLayout()
         min_temp_lbl = QLabel("0")
         self.max_temp_lbl = QLabel("1")
         self.temp_slider = QSlider(Qt.Horizontal)
         self.current_temp_lbl = QLabel("0")
-        self.parent_class.window.assign_css_class(self.current_temp_lbl, "current_value_lbl")
+        self.parent_cls.window.assign_css_class(self.current_temp_lbl, "current_value_lbl")
+
         # Adjust lbls settings and width
         self.current_temp_lbl.setAlignment(Qt.Alignment.AlignCenter)
         min_temp_lbl.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
@@ -93,22 +96,26 @@ class SettingsHandler(QObject):
         temp_slider_sub_h.setStretchFactor(min_temp_lbl, 0)
         temp_slider_sub_h.setStretchFactor(self.temp_slider, 1)
         temp_slider_sub_h.setStretchFactor(self.max_temp_lbl, 0)
-        self.parent_class.window.assign_css_class(min_temp_lbl, "slider_value_lbl")
-        self.parent_class.window.assign_css_class(self.max_temp_lbl, "slider_value_lbl")
+        self.parent_cls.window.assign_css_class(min_temp_lbl, "slider_value_lbl")
+        self.parent_cls.window.assign_css_class(self.max_temp_lbl, "slider_value_lbl")
+
         # Adjust slider's settings
         self.temp_slider.setMinimum(0)
         self.temp_slider.setMaximum(10)
         self.temp_slider.setTickInterval(1)
         self.temp_slider.setSingleStep(1)
         self.temp_slider.valueChanged.connect(self._on_temperature_settings_changed)
+
         # Add widgets and slider to temperature slider sub layout
         temp_slider_sub_h.addWidget(min_temp_lbl)
         temp_slider_sub_h.addWidget(self.temp_slider)
         temp_slider_sub_h.addWidget(self.max_temp_lbl)
+
         # Add lbl, slider sub layout and current value to temperature inner layout
         box_v.addWidget(temp_lbl)
         box_v.addLayout(temp_slider_sub_h)
         box_v.addWidget(self.current_temp_lbl)
+
         # Add temperture inner widget to main layout
         self.layout.addWidget(self.temp_w)
 
@@ -124,7 +131,7 @@ class SettingsHandler(QObject):
         box_v.setContentsMargins(0, 0, 0, 0)
         # Create max_tokens label
         self.select_tokens_lbl = QLabel("Max Tokens")
-        self.parent_class.window.assign_css_class(self.select_tokens_lbl, "setting_name")
+        self.parent_cls.window.assign_css_class(self.select_tokens_lbl, "setting_name")
         self.select_tokens_lbl.setAlignment(Qt.Alignment.AlignCenter)
         # Create widgets and slider's sub-layout
         tokens_slider_sub_h = QHBoxLayout()
@@ -132,7 +139,7 @@ class SettingsHandler(QObject):
         self.max_tokens_lbl = QLabel("4096")
         self.tokens_slider = QSlider(Qt.Horizontal)
         self.max_tokens_current_value_lbl = QLabel("1000")
-        self.parent_class.window.assign_css_class(self.max_tokens_current_value_lbl, "current_value_lbl")
+        self.parent_cls.window.assign_css_class(self.max_tokens_current_value_lbl, "current_value_lbl")
         # Adjust labels settings and width
         self.max_tokens_current_value_lbl.setAlignment(Qt.Alignment.AlignCenter)
         min_tokens_lbl.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
@@ -141,8 +148,8 @@ class SettingsHandler(QObject):
         tokens_slider_sub_h.setStretchFactor(min_tokens_lbl, 0)
         tokens_slider_sub_h.setStretchFactor(self.tokens_slider, 1)
         tokens_slider_sub_h.setStretchFactor(self.max_tokens_lbl, 0)
-        self.parent_class.window.assign_css_class(min_tokens_lbl, "slider_value_lbl")
-        self.parent_class.window.assign_css_class(self.max_tokens_lbl, "slider_value_lbl")
+        self.parent_cls.window.assign_css_class(min_tokens_lbl, "slider_value_lbl")
+        self.parent_cls.window.assign_css_class(self.max_tokens_lbl, "slider_value_lbl")
         # Adjust slider's settings
         self.tokens_slider.setMinimum(150)
         self.tokens_slider.setMaximum(4096)
@@ -172,7 +179,7 @@ class SettingsHandler(QObject):
         box_v.setContentsMargins(0, 0, 0, 0)
         # Create system message lbl
         sys_msg_lbl = QLabel("System Message")
-        self.parent_class.window.assign_css_class(sys_msg_lbl, "setting_name")
+        self.parent_cls.window.assign_css_class(sys_msg_lbl, "setting_name")
         sys_msg_lbl.setAlignment(Qt.Alignment.AlignCenter)
         # Create system message QTextEdit
         self.sys_msg_input = QTextEdit(objectName="sys_msg_widget")
@@ -190,7 +197,7 @@ class SettingsHandler(QObject):
         box_v.setContentsMargins(0, 0, 0, 0)
         # Create img size lbl
         select_img_size_lbl = QLabel("Image Size")
-        self.parent_class.window.assign_css_class(select_img_size_lbl, "setting_name")
+        self.parent_cls.window.assign_css_class(select_img_size_lbl, "setting_name")
         select_img_size_lbl.setAlignment(Qt.Alignment.AlignCenter)
         # Create widget's button group with all checkboxes
         self.size_group = QButtonGroup(self)
@@ -223,7 +230,7 @@ class SettingsHandler(QObject):
         box_v.setContentsMargins(0, 0, 0, 0)
         # Create img quality lbl
         select_img_quality_lbl = QLabel("Image Quality")
-        self.parent_class.window.assign_css_class(select_img_quality_lbl, "setting_name")
+        self.parent_cls.window.assign_css_class(select_img_quality_lbl, "setting_name")
         select_img_quality_lbl.setAlignment(Qt.Alignment.AlignCenter)
         # Create widget's button group with checkboxes
         self.quality_group = QButtonGroup(self)
@@ -247,7 +254,7 @@ class SettingsHandler(QObject):
         box_v.setContentsMargins(0, 0, 0, 0)
         # Create max_tokens lbl
         select_img_num_lbl = QLabel("Number of images")
-        self.parent_class.window.assign_css_class(select_img_num_lbl, "setting_name")
+        self.parent_cls.window.assign_css_class(select_img_num_lbl, "setting_name")
         select_img_num_lbl.setAlignment(Qt.Alignment.AlignCenter)
         # Create widgets and slider's sub-layout
         img_num_slider_sub_h = QHBoxLayout()
@@ -255,7 +262,7 @@ class SettingsHandler(QObject):
         max_img_num_lbl = QLabel("10")
         self.img_num_slider = QSlider(Qt.Horizontal)
         self.max_img_num_current_value_lbl = QLabel("1")
-        self.parent_class.window.assign_css_class(self.max_img_num_current_value_lbl, "current_value_lbl")
+        self.parent_cls.window.assign_css_class(self.max_img_num_current_value_lbl, "current_value_lbl")
         # Adjust lbls settings and width
         self.max_img_num_current_value_lbl.setAlignment(Qt.Alignment.AlignCenter)
         min_img_num_lbl.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
@@ -264,8 +271,8 @@ class SettingsHandler(QObject):
         img_num_slider_sub_h.setStretchFactor(min_img_num_lbl, 0)
         img_num_slider_sub_h.setStretchFactor(self.img_num_slider, 1)
         img_num_slider_sub_h.setStretchFactor(max_img_num_lbl, 0)
-        self.parent_class.window.assign_css_class(min_img_num_lbl, "slider_value_lbl")
-        self.parent_class.window.assign_css_class(max_img_num_lbl, "slider_value_lbl")
+        self.parent_cls.window.assign_css_class(min_img_num_lbl, "slider_value_lbl")
+        self.parent_cls.window.assign_css_class(max_img_num_lbl, "slider_value_lbl")
         # Adjust slider's settings
         self.img_num_slider.setMinimum(1)
         self.img_num_slider.setMaximum(10)
@@ -294,7 +301,7 @@ class SettingsHandler(QObject):
         box_v.setContentsMargins(0, 0, 0, 0)
         # Create reasoning effort lbl
         select_reasoning_lbl = QLabel("Reasoning Effort")
-        self.parent_class.window.assign_css_class(select_reasoning_lbl, "setting_name")
+        self.parent_cls.window.assign_css_class(select_reasoning_lbl, "setting_name")
         select_reasoning_lbl.setAlignment(Qt.Alignment.AlignCenter)
         # Create widget's button group with checkboxes
         self.reasoning_group = QButtonGroup(self)
@@ -318,7 +325,7 @@ class SettingsHandler(QObject):
         line.setFrameShape(QFrame.HLine)
         line.setFrameShadow(QFrame.Sunken)
         line.setMaximumHeight(1)
-        self.parent_class.window.assign_css_class(line, "line_separator")
+        self.parent_cls.window.assign_css_class(line, "line_separator")
         layout.addWidget(line)
 
     def _show_img_settings(self):
