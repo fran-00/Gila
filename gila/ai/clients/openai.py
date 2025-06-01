@@ -63,7 +63,7 @@ class OClient(OpenAIClient):
         return [{"role": "developer", "content": self.system_message}] if self.system_message else []
 
 
-class DALLEClient(OpenAIClient):
+class ImageGenClient(OpenAIClient):
     def __init__(self, llm):
         super().__init__(llm)
 

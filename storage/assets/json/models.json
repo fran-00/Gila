@@ -86,14 +86,14 @@
   "DALL-E 2": {
     "limits": [4096, 1],
     "client": {
-      "class": "DALLEClient",
+      "class": "ImageGenClient",
       "model": ["dall-e-2"]
     }
   },
   "DALL-E 3": {
     "limits": [4096, 1],
     "client": {
-      "class": "DALLEClient",
+      "class": "ImageGenClient",
       "model": ["dall-e-3"]
     }
   },
@@ -172,6 +172,13 @@
     "client": {
       "class": "GPTClient",
       "model": ["gpt-4o-mini"]
+    }
+  },
+  "GPT Image 1": {
+    "limits": [16384, 2],
+    "client": {
+      "class": "ImageGenClient",
+      "model": ["gpt-image-1"]
     }
   },
   "Gemini 1.5 Flash": {

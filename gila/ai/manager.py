@@ -17,7 +17,7 @@ from .clients import (
     MistralClient,
     GPTClient,
     OClient,
-    DALLEClient
+    ImageGenClient
 )
 
 
@@ -31,7 +31,7 @@ CLASS_MAP = {
     "CohereClient": CohereClient,
     "DeepSeekClient": DeepSeekClient,
     "MistralClient": MistralClient,
-    "DALLEClient": DALLEClient
+    "ImageGenClient": ImageGenClient
 }
 
 COMPANIES = {
