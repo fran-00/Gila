@@ -10,9 +10,9 @@ class LLMSettingsWidget(QWidget):
     settings_changed = Signal()
 
     def __init__(self, parent_cls):
-        super().__init__(parent_cls)
+        super().__init__()
         self.parent_cls = parent_cls
-        self._build_ui()
+        self._build_layout()
 
     def _build_layout(self):
         layout = QVBoxLayout(self)
