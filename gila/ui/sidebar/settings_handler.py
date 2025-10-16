@@ -44,7 +44,7 @@ class SettingsHandler(QObject):
         self.load_settings_from_json()
 
         self._check_if_img()
-        self._check_if_reasoner()
+        self.llm_setting_widget.check_if_reasoner()
 
     def add_line_separator(self, layout):
         line = QFrame()
@@ -61,18 +61,6 @@ class SettingsHandler(QObject):
     def _hide_img_settings(self):
         self.image_setting_widget.hide()
         self.llm_setting_widget.show()
-
-    def _show_advanced_settings(self):
-        self.llm_setting_widget.temp_w.hide()
-        self.llm_setting_widget.reasoning_w.show()
-        # o1-mini model currently doesn't support reasoning_effort and system message
-        if self.llm_setting_widget.selected_llm == "o1-mini":
-            self.llm_setting_widget.reasoning_w.hide()
-            self.llm_setting_widget.sys_msg_w.hide()
-
-    def _hide_advanced_settings(self):
-        self.llm_setting_widget.temp_w.show()
-        self.llm_setting_widget.reasoning_w.hide()
 
     def send_new_settings_to_controller(self):
         """ Sends new settings to controller: signal is triggered when
@@ -104,7 +92,7 @@ class SettingsHandler(QObject):
         default_tokens = [4096, 1]
         max_tokens, max_temp = limits.get(self.llm_setting_widget.selected_llm, default_tokens)
         self._check_if_img()
-        self._check_if_reasoner()
+        self.llm_setting_widget.check_if_reasoner()
         self.llm_setting_widget.tokens_slider.setMaximum(max_tokens)
         self.llm_setting_widget.max_tokens_lbl.setText(str(max_tokens))
         self.llm_setting_widget.temp_slider.setMaximum(20 if max_temp == 2 else 10)
@@ -140,16 +128,6 @@ class SettingsHandler(QObject):
             self.image_setting_widget.checkbox_hd.show()
             if selected_size_button in [self.image_setting_widget.checkbox_256x256, self.image_setting_widget.checkbox_512x512]:
                 self.image_setting_widget.checkbox_1024x1024.setChecked(True)
-
-    def _check_if_reasoner(self):
-        if re.match(r"^o\d+(-\w+)?$", self.llm_setting_widget.selected_llm):
-            self._show_advanced_settings()
-            self.llm_setting_widget.select_tokens_lbl.setText("Max Completion Tokens")
-        elif re.match(r"^DALL-E \d+", self.llm_setting_widget.selected_llm):
-            pass
-        else:
-            self._hide_advanced_settings()
-            self.llm_setting_widget.select_tokens_lbl.setText("Max Tokens")
 
     def load_settings_from_json(self):
         """Load the saved settings from the JSON file and sets values"""
