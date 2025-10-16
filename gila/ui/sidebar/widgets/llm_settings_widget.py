@@ -16,30 +16,30 @@ class LLMSettingsWidget(QWidget):
 
     settings_changed = Signal()
 
-    def __init__(self, parent_cls):
+    def __init__(self, parent_handler):
         super().__init__()
-        self.parent_cls = parent_cls
+        self.parent_handler = parent_handler
         self._build_layout()
 
     def _build_layout(self):
         self.layout = QVBoxLayout(self)
         self.layout.setAlignment(Qt.Alignment.AlignTop)
         self._build_llms_settings()
-        self.parent_cls.add_line_separator(self.layout)
+        self.parent_handler.add_line_separator(self.layout)
         self._build_temp_settings()
         self._build_reasoning_settings()
-        self.parent_cls.add_line_separator(self.layout)
+        self.parent_handler.add_line_separator(self.layout)
         self._build_max_tokens_settings()
-        self.parent_cls.add_line_separator(self.layout)
+        self.parent_handler.add_line_separator(self.layout)
         self._build_sys_msg_settings()
 
     def _build_llms_settings(self):
         """ Creates ComboBox with llms list """
         select_llm_lbl = QLabel("Model")
-        self.parent_cls.parent_cls.window.assign_css_class(select_llm_lbl, "setting_name")
+        self.parent_handler.parent_sidebar.window.assign_css_class(select_llm_lbl, "setting_name")
         select_llm_lbl.setAlignment(Qt.Alignment.AlignCenter)
         self.llms_combobox = QComboBox()
-        for llm in self.parent_cls.current_settings.llms:
+        for llm in self.parent_handler.current_settings.llms:
             self.llms_combobox.addItem(llm)
         self.llms_combobox.setCurrentIndex(-1)
         self.layout.addWidget(select_llm_lbl)
@@ -54,7 +54,7 @@ class LLMSettingsWidget(QWidget):
 
         # Create temperature lbl
         temp_lbl = QLabel("Temperature")
-        self.parent_cls.parent_cls.window.assign_css_class(temp_lbl, "setting_name")
+        self.parent_handler.parent_sidebar.window.assign_css_class(temp_lbl, "setting_name")
         temp_lbl.setAlignment(Qt.Alignment.AlignCenter)
 
         # Create widgets and slider's sub-layout
@@ -63,7 +63,7 @@ class LLMSettingsWidget(QWidget):
         self.max_temp_lbl = QLabel("1")
         self.temp_slider = QSlider(Qt.Horizontal)
         self.current_temp_lbl = QLabel("0")
-        self.parent_cls.parent_cls.window.assign_css_class(self.current_temp_lbl, "current_value_lbl")
+        self.parent_handler.parent_sidebar.window.assign_css_class(self.current_temp_lbl, "current_value_lbl")
 
         # Adjust lbls settings and width
         self.current_temp_lbl.setAlignment(Qt.Alignment.AlignCenter)
@@ -73,8 +73,8 @@ class LLMSettingsWidget(QWidget):
         temp_slider_sub_h.setStretchFactor(min_temp_lbl, 0)
         temp_slider_sub_h.setStretchFactor(self.temp_slider, 1)
         temp_slider_sub_h.setStretchFactor(self.max_temp_lbl, 0)
-        self.parent_cls.parent_cls.window.assign_css_class(min_temp_lbl, "slider_value_lbl")
-        self.parent_cls.parent_cls.window.assign_css_class(self.max_temp_lbl, "slider_value_lbl")
+        self.parent_handler.parent_sidebar.window.assign_css_class(min_temp_lbl, "slider_value_lbl")
+        self.parent_handler.parent_sidebar.window.assign_css_class(self.max_temp_lbl, "slider_value_lbl")
 
         # Adjust slider's settings
         self.temp_slider.setMinimum(0)
@@ -108,7 +108,7 @@ class LLMSettingsWidget(QWidget):
         box_v.setContentsMargins(0, 0, 0, 0)
         # Create max_tokens label
         self.select_tokens_lbl = QLabel("Max Tokens")
-        self.parent_cls.parent_cls.window.assign_css_class(self.select_tokens_lbl, "setting_name")
+        self.parent_handler.parent_sidebar.window.assign_css_class(self.select_tokens_lbl, "setting_name")
         self.select_tokens_lbl.setAlignment(Qt.Alignment.AlignCenter)
         # Create widgets and slider's sub-layout
         tokens_slider_sub_h = QHBoxLayout()
@@ -116,7 +116,7 @@ class LLMSettingsWidget(QWidget):
         self.max_tokens_lbl = QLabel("4096")
         self.tokens_slider = QSlider(Qt.Horizontal)
         self.max_tokens_current_value_lbl = QLabel("1000")
-        self.parent_cls.parent_cls.window.assign_css_class(self.max_tokens_current_value_lbl, "current_value_lbl")
+        self.parent_handler.parent_sidebar.window.assign_css_class(self.max_tokens_current_value_lbl, "current_value_lbl")
         # Adjust labels settings and width
         self.max_tokens_current_value_lbl.setAlignment(Qt.Alignment.AlignCenter)
         min_tokens_lbl.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
@@ -125,8 +125,8 @@ class LLMSettingsWidget(QWidget):
         tokens_slider_sub_h.setStretchFactor(min_tokens_lbl, 0)
         tokens_slider_sub_h.setStretchFactor(self.tokens_slider, 1)
         tokens_slider_sub_h.setStretchFactor(self.max_tokens_lbl, 0)
-        self.parent_cls.parent_cls.window.assign_css_class(min_tokens_lbl, "slider_value_lbl")
-        self.parent_cls.parent_cls.window.assign_css_class(self.max_tokens_lbl, "slider_value_lbl")
+        self.parent_handler.parent_sidebar.window.assign_css_class(min_tokens_lbl, "slider_value_lbl")
+        self.parent_handler.parent_sidebar.window.assign_css_class(self.max_tokens_lbl, "slider_value_lbl")
         # Adjust slider's settings
         self.tokens_slider.setMinimum(150)
         self.tokens_slider.setMaximum(4096)
@@ -156,7 +156,7 @@ class LLMSettingsWidget(QWidget):
         box_v.setContentsMargins(0, 0, 0, 0)
         # Create system message lbl
         sys_msg_lbl = QLabel("System Message")
-        self.parent_cls.parent_cls.window.assign_css_class(sys_msg_lbl, "setting_name")
+        self.parent_handler.parent_sidebar.window.assign_css_class(sys_msg_lbl, "setting_name")
         sys_msg_lbl.setAlignment(Qt.Alignment.AlignCenter)
         # Create system message QTextEdit
         self.sys_msg_input = QTextEdit(objectName="sys_msg_widget")
@@ -174,7 +174,7 @@ class LLMSettingsWidget(QWidget):
         box_v.setContentsMargins(0, 0, 0, 0)
         # Create reasoning effort lbl
         select_reasoning_lbl = QLabel("Reasoning Effort")
-        self.parent_cls.parent_cls.window.assign_css_class(select_reasoning_lbl, "setting_name")
+        self.parent_handler.parent_sidebar.window.assign_css_class(select_reasoning_lbl, "setting_name")
         select_reasoning_lbl.setAlignment(Qt.Alignment.AlignCenter)
         # Create widget's button group with checkboxes
         self.reasoning_group = QButtonGroup(self)
