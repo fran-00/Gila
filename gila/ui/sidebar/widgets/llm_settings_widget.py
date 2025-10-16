@@ -4,6 +4,7 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QSlider,
+    QTextEdit,
     QWidget,
     QVBoxLayout,
 )
@@ -26,6 +27,8 @@ class LLMSettingsWidget(QWidget):
         self._build_temp_settings()
         self.parent_cls.add_line_separator(self.layout)
         self._build_max_tokens_settings()
+        self.parent_cls.add_line_separator(self.layout)
+        self._build_sys_msg_settings()
 
     def _build_llms_settings(self):
         """ Creates ComboBox with llms list """
@@ -141,3 +144,21 @@ class LLMSettingsWidget(QWidget):
     def _on_max_tokens_settings_changed(self):
         selected_max_tokens_value = self.tokens_slider.value()
         self.max_tokens_current_value_lbl.setText(str(selected_max_tokens_value))
+
+    def _build_sys_msg_settings(self):
+        """ Widget to adjust system message setting """
+        # Create inner widget and layout to contain system message
+        self.sys_msg_w = QWidget()
+        box_v = QVBoxLayout(self.sys_msg_w)
+        box_v.setContentsMargins(0, 0, 0, 0)
+        # Create system message lbl
+        sys_msg_lbl = QLabel("System Message")
+        self.parent_cls.parent_cls.window.assign_css_class(sys_msg_lbl, "setting_name")
+        sys_msg_lbl.setAlignment(Qt.Alignment.AlignCenter)
+        # Create system message QTextEdit
+        self.sys_msg_input = QTextEdit(objectName="sys_msg_widget")
+        # Add lbl and QTextEdit widget to system message inner layout
+        box_v.addWidget(sys_msg_lbl)
+        box_v.addWidget(self.sys_msg_input)
+        # Add system message inner widget to main layout
+        self.layout.addWidget(self.sys_msg_w)
