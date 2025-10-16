@@ -103,10 +103,10 @@ class SettingsHandler(QObject):
 
     def _change_needed_settings(self):
         """ Adjusts token limits and temperature range, based on a given model. """
-        self.llm_setting_widget.selected_llm = self.llms_combobox.currentText()
+        self.selected_llm = self.llms_combobox.currentText()
         limits = self._get_limits_from_json()
         default_tokens = [4096, 1]
-        max_tokens, max_temp = limits.get(self.llm_setting_widget.selected_llm, default_tokens)
+        max_tokens, max_temp = limits.get(self.selected_llm, default_tokens)
         self._check_if_img()
         self.llm_setting_widget.check_if_reasoner()
         self.llm_setting_widget.tokens_slider.setMaximum(max_tokens)
@@ -119,13 +119,13 @@ class SettingsHandler(QObject):
         return {model_name: data["limits"] for model_name, data in models_data.items()} if models_data else {}
 
     def _check_if_img(self):
-        if re.match(r"^DALL-E \d+", self.llm_setting_widget.selected_llm):
+        if re.match(r"^DALL-E \d+", self.selected_llm):
             self._show_img_settings()
         else:
             self._hide_img_settings()
 
         selected_size_button = self.image_setting_widget.size_group.checkedButton()
-        if self.llm_setting_widget.selected_llm in ["DALL-E 2"]:
+        if self.selected_llm in ["DALL-E 2"]:
             self.image_setting_widget.img_num_w.show()
             self.image_setting_widget.checkbox_256x256.show()
             self.image_setting_widget.checkbox_512x512.show()
@@ -135,7 +135,7 @@ class SettingsHandler(QObject):
             if selected_size_button in [self.image_setting_widget.checkbox_1024x1792, self.image_setting_widget.checkbox_1792x1024]:
                 self.image_setting_widget.checkbox_1024x1024.setChecked(True)
 
-        elif self.llm_setting_widget.selected_llm in ["DALL-E 3"]:
+        elif self.selected_llm in ["DALL-E 3"]:
             self.image_setting_widget.img_num_w.hide()
             self.image_setting_widget.checkbox_256x256.hide()
             self.image_setting_widget.checkbox_512x512.hide()

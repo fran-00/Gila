@@ -182,10 +182,10 @@ class LLMSettingsWidget(QWidget):
         self.layout.addWidget(self.reasoning_w)
 
     def check_if_reasoner(self):
-        if re.match(r"^o\d+(-\w+)?$", self.selected_llm):
+        if re.match(r"^o\d+(-\w+)?$", self.parent_handler.selected_llm):
             self._show_advanced_settings()
             self.select_tokens_lbl.setText("Max Completion Tokens")
-        elif re.match(r"^DALL-E \d+", self.selected_llm):
+        elif re.match(r"^DALL-E \d+", self.parent_handler.selected_llm):
             pass
         else:
             self._hide_advanced_settings()
@@ -195,7 +195,7 @@ class LLMSettingsWidget(QWidget):
         self.temp_w.hide()
         self.reasoning_w.show()
         # o1-mini model currently doesn't support reasoning_effort and system message
-        if self.selected_llm == "o1-mini":
+        if self.parent_handler.selected_llm == "o1-mini":
             self.reasoning_w.hide()
             self.sys_msg_w.hide()
 
