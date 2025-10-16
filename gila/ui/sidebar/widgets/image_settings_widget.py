@@ -21,6 +21,8 @@ class ImageSettingsWidget(QWidget):
         self.layout = QVBoxLayout(self)
         self.layout.setAlignment(Qt.Alignment.AlignTop)
         self._build_img_size_settings()
+        self.parent_handler.add_line_separator(self.layout)
+        self._build_img_quality_settings()
 
     def _build_img_size_settings(self):
         """Widget to adjust img size settings"""
@@ -56,3 +58,29 @@ class ImageSettingsWidget(QWidget):
         box_v.addWidget(self.checkbox_1792x1024)
         # Add img size inner widget to main layout
         self.layout.addWidget(self.img_size_w)
+
+    def _build_img_quality_settings(self):
+        """ Widget to adjust img quality settings """
+        # Create inner widget and layout to contain img quality settings
+        self.img_quality_w = QWidget()
+        box_v = QVBoxLayout(self.img_quality_w)
+        box_v.setContentsMargins(0, 0, 0, 0)
+        # Create img quality lbl
+        select_img_quality_lbl = QLabel("Image Quality")
+        self.parent_handler.parent_sidebar.window.assign_css_class(
+            select_img_quality_lbl, "setting_name"
+        )
+        select_img_quality_lbl.setAlignment(Qt.Alignment.AlignCenter)
+        # Create widget's button group with checkboxes
+        self.quality_group = QButtonGroup(self)
+        self.quality_group.setExclusive(True)
+        self.checkbox_standard = QCheckBox("Standard")
+        self.checkbox_hd = QCheckBox("HD")
+        self.quality_group.addButton(self.checkbox_standard)
+        self.quality_group.addButton(self.checkbox_hd)
+        # Add lbl and checkboxes to img quality inner layout
+        box_v.addWidget(select_img_quality_lbl)
+        box_v.addWidget(self.checkbox_standard)
+        box_v.addWidget(self.checkbox_hd)
+        # Add img quality inner widget to main layout
+        self.layout.addWidget(self.img_quality_w)
