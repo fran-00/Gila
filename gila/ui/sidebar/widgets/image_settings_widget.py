@@ -142,3 +142,25 @@ class ImageSettingsWidget(QWidget):
 
     def _on_img_num_settings_changed(self):
         self.max_img_num_current_value_lbl.setText(str(self.img_num_slider.value()))
+
+    def update_settings_when_model_changes(self):
+        selected_size_button = self.size_group.checkedButton()
+        if self.parent_handler.selected_llm in ["DALL-E 2"]:
+            self.img_num_w.show()
+            self.checkbox_256x256.show()
+            self.checkbox_512x512.show()
+            self.checkbox_1024x1792.hide()
+            self.checkbox_1792x1024.hide()
+            self.img_quality_w.hide()
+            if selected_size_button in [self.checkbox_1024x1792, self.checkbox_1792x1024]:
+                self.checkbox_1024x1024.setChecked(True)
+
+        elif self.parent_handler.selected_llm in ["DALL-E 3"]:
+            self.img_num_w.hide()
+            self.checkbox_256x256.hide()
+            self.checkbox_512x512.hide()
+            self.checkbox_1024x1792.show()
+            self.checkbox_1792x1024.show()
+            self.checkbox_hd.show()
+            if selected_size_button in [self.checkbox_256x256, self.checkbox_512x512]:
+                self.checkbox_1024x1024.setChecked(True)

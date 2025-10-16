@@ -124,26 +124,7 @@ class SettingsHandler(QObject):
         else:
             self._hide_img_settings()
 
-        selected_size_button = self.image_setting_widget.size_group.checkedButton()
-        if self.selected_llm in ["DALL-E 2"]:
-            self.image_setting_widget.img_num_w.show()
-            self.image_setting_widget.checkbox_256x256.show()
-            self.image_setting_widget.checkbox_512x512.show()
-            self.image_setting_widget.checkbox_1024x1792.hide()
-            self.image_setting_widget.checkbox_1792x1024.hide()
-            self.image_setting_widget.img_quality_w.hide()
-            if selected_size_button in [self.image_setting_widget.checkbox_1024x1792, self.image_setting_widget.checkbox_1792x1024]:
-                self.image_setting_widget.checkbox_1024x1024.setChecked(True)
-
-        elif self.selected_llm in ["DALL-E 3"]:
-            self.image_setting_widget.img_num_w.hide()
-            self.image_setting_widget.checkbox_256x256.hide()
-            self.image_setting_widget.checkbox_512x512.hide()
-            self.image_setting_widget.checkbox_1024x1792.show()
-            self.image_setting_widget.checkbox_1792x1024.show()
-            self.image_setting_widget.checkbox_hd.show()
-            if selected_size_button in [self.image_setting_widget.checkbox_256x256, self.image_setting_widget.checkbox_512x512]:
-                self.image_setting_widget.checkbox_1024x1024.setChecked(True)
+        self.image_setting_widget.update_settings_when_model_changes()
 
     def load_settings_from_json(self):
         """Load the saved settings from the JSON file and sets values"""
