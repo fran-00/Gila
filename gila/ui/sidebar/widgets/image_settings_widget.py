@@ -1,4 +1,4 @@
-from PySide6.QtCore import Signal, Qt
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QButtonGroup,
     QCheckBox,
@@ -11,8 +11,6 @@ from PySide6.QtWidgets import (
 
 
 class ImageSettingsWidget(QWidget):
-
-    settings_changed_signal = Signal()
 
     def __init__(self, parent_handler):
         super().__init__()

@@ -1,10 +1,9 @@
 import re
 
-from PySide6.QtCore import Signal, Qt
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QButtonGroup,
     QCheckBox,
-    QComboBox,
     QHBoxLayout,
     QLabel,
     QSlider,
@@ -15,8 +14,6 @@ from PySide6.QtWidgets import (
 
 
 class LLMSettingsWidget(QWidget):
-
-    settings_changed = Signal()
 
     def __init__(self, parent_handler):
         super().__init__()
