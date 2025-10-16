@@ -9,8 +9,9 @@ class ImageSettingsWidget(QWidget):
 
     settings_changed_signal = Signal()
 
-    def __init__(self, parent):
-        super().__init__(parent)
+    def __init__(self, parent_handler):
+        super().__init__()
+        self.parent_handler = parent_handler
         self._build_layout()
 
     def _build_layout(self):
