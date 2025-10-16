@@ -161,6 +161,6 @@ class ImageSettingsWidget(QWidget):
             self.checkbox_512x512.hide()
             self.checkbox_1024x1792.show()
             self.checkbox_1792x1024.show()
-            self.checkbox_hd.show()
+            self.img_quality_w.show()
             if selected_size_button in [self.checkbox_256x256, self.checkbox_512x512]:
                 self.checkbox_1024x1024.setChecked(True)
