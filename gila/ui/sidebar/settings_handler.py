@@ -22,7 +22,7 @@ from ..utils import FileHandler as FH
 class SettingsHandler(QObject):
     new_settings_to_controller = Signal(str, float, int, str, str, str, int, str)
 
-    def __init__(self, parent_cls, current_settings):
+    def __init__(self, parent_sidebar, current_settings):
         super().__init__()
         self.parent_cls = parent_cls
         self.current_settings = current_settings
@@ -64,7 +64,7 @@ class SettingsHandler(QObject):
         box_v.setContentsMargins(0, 0, 0, 0)
         # Create img size lbl
         select_img_size_lbl = QLabel("Image Size")
-        self.parent_cls.window.assign_css_class(select_img_size_lbl, "setting_name")
+        self.parent_sidebar.window.assign_css_class(select_img_size_lbl, "setting_name")
         select_img_size_lbl.setAlignment(Qt.Alignment.AlignCenter)
         # Create widget's button group with all checkboxes
         self.size_group = QButtonGroup(self)
@@ -97,7 +97,7 @@ class SettingsHandler(QObject):
         box_v.setContentsMargins(0, 0, 0, 0)
         # Create img quality lbl
         select_img_quality_lbl = QLabel("Image Quality")
-        self.parent_cls.window.assign_css_class(select_img_quality_lbl, "setting_name")
+        self.parent_sidebar.window.assign_css_class(select_img_quality_lbl, "setting_name")
         select_img_quality_lbl.setAlignment(Qt.Alignment.AlignCenter)
         # Create widget's button group with checkboxes
         self.quality_group = QButtonGroup(self)
@@ -121,7 +121,7 @@ class SettingsHandler(QObject):
         box_v.setContentsMargins(0, 0, 0, 0)
         # Create max_tokens lbl
         select_img_num_lbl = QLabel("Number of images")
-        self.parent_cls.window.assign_css_class(select_img_num_lbl, "setting_name")
+        self.parent_sidebar.window.assign_css_class(select_img_num_lbl, "setting_name")
         select_img_num_lbl.setAlignment(Qt.Alignment.AlignCenter)
         # Create widgets and slider's sub-layout
         img_num_slider_sub_h = QHBoxLayout()
@@ -129,7 +129,7 @@ class SettingsHandler(QObject):
         max_img_num_lbl = QLabel("10")
         self.img_num_slider = QSlider(Qt.Horizontal)
         self.max_img_num_current_value_lbl = QLabel("1")
-        self.parent_cls.window.assign_css_class(self.max_img_num_current_value_lbl, "current_value_lbl")
+        self.parent_sidebar.window.assign_css_class(self.max_img_num_current_value_lbl, "current_value_lbl")
         # Adjust lbls settings and width
         self.max_img_num_current_value_lbl.setAlignment(Qt.Alignment.AlignCenter)
         min_img_num_lbl.setAlignment(Qt.Alignment.AlignRight | Qt.Alignment.AlignVCenter)
@@ -138,8 +138,8 @@ class SettingsHandler(QObject):
         img_num_slider_sub_h.setStretchFactor(min_img_num_lbl, 0)
         img_num_slider_sub_h.setStretchFactor(self.img_num_slider, 1)
         img_num_slider_sub_h.setStretchFactor(max_img_num_lbl, 0)
-        self.parent_cls.window.assign_css_class(min_img_num_lbl, "slider_value_lbl")
-        self.parent_cls.window.assign_css_class(max_img_num_lbl, "slider_value_lbl")
+        self.parent_sidebar.window.assign_css_class(min_img_num_lbl, "slider_value_lbl")
+        self.parent_sidebar.window.assign_css_class(max_img_num_lbl, "slider_value_lbl")
         # Adjust slider's settings
         self.img_num_slider.setMinimum(1)
         self.img_num_slider.setMaximum(10)
@@ -165,7 +165,7 @@ class SettingsHandler(QObject):
         line.setFrameShape(QFrame.HLine)
         line.setFrameShadow(QFrame.Sunken)
         line.setMaximumHeight(1)
-        self.parent_cls.window.assign_css_class(line, "line_separator")
+        self.parent_sidebar.window.assign_css_class(line, "line_separator")
         layout.addWidget(line)
 
     def _show_img_settings(self):
