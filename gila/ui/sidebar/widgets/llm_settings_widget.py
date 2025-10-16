@@ -26,26 +26,12 @@ class LLMSettingsWidget(QWidget):
     def _build_layout(self):
         self.layout = QVBoxLayout(self)
         self.layout.setAlignment(Qt.Alignment.AlignTop)
-        self._build_llms_settings()
-        self.parent_handler.add_line_separator(self.layout)
         self._build_temp_settings()
         self._build_reasoning_settings()
         self.parent_handler.add_line_separator(self.layout)
         self._build_max_tokens_settings()
         self.parent_handler.add_line_separator(self.layout)
         self._build_sys_msg_settings()
-
-    def _build_llms_settings(self):
-        """ Creates ComboBox with llms list """
-        select_llm_lbl = QLabel("Model")
-        self.parent_handler.parent_sidebar.window.assign_css_class(select_llm_lbl, "setting_name")
-        select_llm_lbl.setAlignment(Qt.Alignment.AlignCenter)
-        self.llms_combobox = QComboBox()
-        for llm in self.parent_handler.current_settings.llms:
-            self.llms_combobox.addItem(llm)
-        self.llms_combobox.setCurrentIndex(-1)
-        self.layout.addWidget(select_llm_lbl)
-        self.layout.addWidget(self.llms_combobox)
 
     def _build_temp_settings(self):
         """ Widget to adjust temperature settings """

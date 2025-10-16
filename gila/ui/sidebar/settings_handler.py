@@ -3,7 +3,9 @@ import re
 from PySide6.QtCore import QObject, Signal
 from PySide6.QtGui import Qt
 from PySide6.QtWidgets import (
+    QComboBox,
     QFrame,
+    QLabel,
     QScrollArea,
     QVBoxLayout,
     QWidget,
@@ -34,10 +36,12 @@ class SettingsHandler(QObject):
     def _build_layout(self):
         self.layout = QVBoxLayout(self.widget_container)
         self.layout.setAlignment(Qt.Alignment.AlignTop)
+        self._build_llms_settings()
+        self.add_line_separator(self.layout)
         self.layout.addWidget(self.llm_setting_widget)
         self.layout.addWidget(self.image_setting_widget)
 
-        self.llm_setting_widget.llms_combobox.currentTextChanged.connect(
+        self.llms_combobox.currentTextChanged.connect(
             self._change_needed_settings
         )
         self._on_settings_changed()
@@ -45,6 +49,18 @@ class SettingsHandler(QObject):
 
         self._check_if_img()
         self.llm_setting_widget.check_if_reasoner()
+
+    def _build_llms_settings(self):
+        """ Creates ComboBox with llms list """
+        select_llm_lbl = QLabel("Model")
+        self.parent_sidebar.window.assign_css_class(select_llm_lbl, "setting_name")
+        select_llm_lbl.setAlignment(Qt.Alignment.AlignCenter)
+        self.llms_combobox = QComboBox()
+        for llm in self.current_settings.llms:
+            self.llms_combobox.addItem(llm)
+        self.llms_combobox.setCurrentIndex(-1)
+        self.layout.addWidget(select_llm_lbl)
+        self.layout.addWidget(self.llms_combobox)
 
     def add_line_separator(self, layout):
         line = QFrame()
@@ -66,7 +82,7 @@ class SettingsHandler(QObject):
         """ Sends new settings to controller: signal is triggered when
             Confirm Button is pressed
         """
-        selected_llm = self.llm_setting_widget.llms_combobox.currentText()
+        selected_llm = self.llms_combobox.currentText()
         selected_temperature = self.llm_setting_widget.temp_slider.value()
         selected_reasoning_effort = self.llm_setting_widget.reasoning_group.checkedButton().text() if self.llm_setting_widget.reasoning_group.checkedButton() else None
         selected_max_tokens = self.llm_setting_widget.tokens_slider.value()
@@ -87,7 +103,7 @@ class SettingsHandler(QObject):
 
     def _change_needed_settings(self):
         """ Adjusts token limits and temperature range, based on a given model. """
-        self.llm_setting_widget.selected_llm = self.llm_setting_widget.llms_combobox.currentText()
+        self.llm_setting_widget.selected_llm = self.llms_combobox.currentText()
         limits = self._get_limits_from_json()
         default_tokens = [4096, 1]
         max_tokens, max_temp = limits.get(self.llm_setting_widget.selected_llm, default_tokens)
@@ -134,9 +150,9 @@ class SettingsHandler(QObject):
         settings = FH.load_file("storage/saved_settings.json")
 
         # Sets saved llm
-        index = self.llm_setting_widget.llms_combobox.findText(settings["llm_name"])
+        index = self.llms_combobox.findText(settings["llm_name"])
         if index != -1:
-            self.llm_setting_widget.llms_combobox.setCurrentIndex(index)
+            self.llms_combobox.setCurrentIndex(index)
         # Sets temperature e max_tokens
         self.llm_setting_widget.temp_slider.setValue(int(settings["temperature"] * 10))
         self.llm_setting_widget.tokens_slider.setValue(int(settings["max_tokens"]))
@@ -166,7 +182,7 @@ class SettingsHandler(QObject):
 
     def _on_settings_changed(self):
         """Connects settings widgets to send_new_settings_to_controller signal"""
-        self.llm_setting_widget.llms_combobox.currentIndexChanged.connect(self.send_new_settings_to_controller)
+        self.llms_combobox.currentIndexChanged.connect(self.send_new_settings_to_controller)
         self.llm_setting_widget.temp_slider.valueChanged.connect(self.send_new_settings_to_controller)
         self.llm_setting_widget.tokens_slider.valueChanged.connect(self.send_new_settings_to_controller)
         self.llm_setting_widget.sys_msg_input.textChanged.connect(self.send_new_settings_to_controller)
