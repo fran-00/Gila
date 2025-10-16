@@ -1,5 +1,7 @@
 from PySide6.QtCore import Signal, Qt
 from PySide6.QtWidgets import (
+    QButtonGroup,
+    QCheckBox,
     QComboBox,
     QHBoxLayout,
     QLabel,
@@ -25,6 +27,7 @@ class LLMSettingsWidget(QWidget):
         self._build_llms_settings()
         self.parent_cls.add_line_separator(self.layout)
         self._build_temp_settings()
+        self._build_reasoning_settings()
         self.parent_cls.add_line_separator(self.layout)
         self._build_max_tokens_settings()
         self.parent_cls.add_line_separator(self.layout)
@@ -162,3 +165,30 @@ class LLMSettingsWidget(QWidget):
         box_v.addWidget(self.sys_msg_input)
         # Add system message inner widget to main layout
         self.layout.addWidget(self.sys_msg_w)
+
+    def _build_reasoning_settings(self):
+        """ Widget to adjust reasoning effort settings """
+        # Create inner widget and layout to contain reasoning effort settings
+        self.reasoning_w = QWidget()
+        box_v = QVBoxLayout(self.reasoning_w)
+        box_v.setContentsMargins(0, 0, 0, 0)
+        # Create reasoning effort lbl
+        select_reasoning_lbl = QLabel("Reasoning Effort")
+        self.parent_cls.parent_cls.window.assign_css_class(select_reasoning_lbl, "setting_name")
+        select_reasoning_lbl.setAlignment(Qt.Alignment.AlignCenter)
+        # Create widget's button group with checkboxes
+        self.reasoning_group = QButtonGroup(self)
+        self.reasoning_group.setExclusive(True)
+        self.checkbox_low = QCheckBox("Low")
+        self.checkbox_medium = QCheckBox("Medium")
+        self.checkbox_high = QCheckBox("High")
+        self.reasoning_group.addButton(self.checkbox_low)
+        self.reasoning_group.addButton(self.checkbox_medium)
+        self.reasoning_group.addButton(self.checkbox_high)
+        # Add lbl and checkboxes to reasoning effort inner layout
+        box_v.addWidget(select_reasoning_lbl)
+        box_v.addWidget(self.checkbox_low)
+        box_v.addWidget(self.checkbox_medium)
+        box_v.addWidget(self.checkbox_high)
+        # Add reasoning effort inner widget to main layout
+        self.layout.addWidget(self.reasoning_w)
