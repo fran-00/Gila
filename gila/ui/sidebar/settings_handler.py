@@ -164,10 +164,10 @@ class SettingsHandler(QObject):
     def _on_settings_changed(self):
         """Connects settings widgets to send_new_settings_to_controller signal"""
         self.llms_combobox.currentIndexChanged.connect(self.send_new_settings_to_controller)
-        self.llm_setting_widget.temp_slider.valueChanged.connect(self.send_new_settings_to_controller)
-        self.llm_setting_widget.tokens_slider.valueChanged.connect(self.send_new_settings_to_controller)
+        self.llm_setting_widget.temp_slider.sliderReleased.connect(self.send_new_settings_to_controller)
+        self.llm_setting_widget.tokens_slider.sliderReleased.connect(self.send_new_settings_to_controller)
         self.llm_setting_widget.sys_msg_input.textChanged.connect(self.send_new_settings_to_controller)
         self.image_setting_widget.size_group.buttonClicked.connect(self.send_new_settings_to_controller)
         self.llm_setting_widget.reasoning_group.buttonClicked.connect(self.send_new_settings_to_controller)
         self.image_setting_widget.quality_group.buttonClicked.connect(self.send_new_settings_to_controller)
-        self.image_setting_widget.img_num_slider.valueChanged.connect(self.send_new_settings_to_controller)
+        self.image_setting_widget.img_num_slider.sliderReleased.connect(self.send_new_settings_to_controller)
