@@ -39,6 +39,43 @@ a:hover {
     overflow-x: auto;
 }
 
+.reasoning-wrapper .response {
+    color: #707070;
+}
+
+.reasoning-toggle {
+    margin-bottom: 10px;
+    background-color: #333333;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.reasoning-summary {
+    color: #b0b0b0;
+    font-style: italic;
+    cursor: pointer;
+    padding: 5px;
+    user-select: none;
+}
+
+.reasoning-summary:hover {
+    color: #d0d0d0;
+}
+
+.reasoning-content {
+    margin-top: 2px;
+}
+
+.reasoning {
+    color: #b0b0b0;
+    font-style: italic;
+    padding: 10px;
+    white-space: pre-wrap;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    overflow-x: auto;
+}
+
 .ai-wrapper .response {
     color: #ffffff;
 }
