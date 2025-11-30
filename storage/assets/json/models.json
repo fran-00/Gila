@@ -1,4 +1,11 @@
 {
+  "qwen3-4b-thinking-2507": {
+    "limits": [4000, 1],
+    "client": {
+      "class": "LMStudioClient",
+      "model": ["qwen/qwen3-4b-thinking-2507"]
+    }
+  },
   "Aya Expanse 32B": {
     "limits": [4000, 1],
     "client": {
