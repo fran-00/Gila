@@ -2,6 +2,7 @@ import os
 import pickle
 import html
 import bleach
+import re
 
 import markdown
 
@@ -290,12 +291,13 @@ class Chat(QObject):
         This method performs the following actions::
         - Enables the send button for the prompt layout.
         - Restores the cursor to its default state.
-        - Converts the response message from Markdown to HTML.
+        - Parses the response to separate reasoning (between <think> and </think>) from the actual response.
+        - Converts the reasoning and response from Markdown to HTML.
         - If the current LLM is DALL-E 2 or DALL-E 3 and the response does not
           contain an error, processes the response as image URLs.
         - Sanitizes the formatted response to allow only certain HTML tags and
           attributes.
-        - Appends the sanitized response to the chat log in HTML format.
+        - Appends the sanitized reasoning and response to the chat log in HTML format.
         - Updates the HTML page to reflect the new AI response.
 
         Args:
@@ -307,24 +309,52 @@ class Chat(QObject):
         self.prompt_layout.prompt_box.set_return_blocked(False)
 
         self.chat_html_logs = [msg for msg in self.chat_html_logs if "spinner-wrapper" not in msg]
-        formatted_response = self._convert_markdown_to_html(response)
-        if self.window.sidebar.current_settings.current_llm in ["DALL-E 2", "DALL-E 3"] and not "error" in response.lower():
-            urls = response.split(", ")
+
+        # Parse reasoning and actual response
+        reasoning_match = re.search(r'<think>(.*?)</think>', response, re.DOTALL)
+        if reasoning_match:
+            reasoning_text = reasoning_match.group(1).strip()
+            actual_response = response.replace(reasoning_match.group(0), '').strip()
+        else:
+            reasoning_text = None
+            actual_response = response
+
+        # Convert reasoning to HTML if present
+        if reasoning_text:
+            formatted_reasoning = self._convert_markdown_to_html(reasoning_text)
+        else:
+            formatted_reasoning = None
+
+        # Handle DALL-E case for actual response
+        if self.window.sidebar.current_settings.current_llm in ["DALL-E 2", "DALL-E 3"] and not "error" in actual_response.lower():
+            urls = actual_response.split(", ")
             if len(urls) > 1:
                 formatted_response = "<div class='img-grid'>" + "".join(
                     f"<div class='img-wrapper'><img src='{url}' class='img'></div>" for url in urls
                 ) + "</div>"
             else:
-                formatted_response = f"<div class='img-wrapper'><img src='{response}' class='img'></div>"
+                formatted_response = f"<div class='img-wrapper'><img src='{actual_response}' class='img'></div>"
+        else:
+            formatted_response = self._convert_markdown_to_html(actual_response)
 
+        # Sanitize both
         allowed_tags = [
             'b', 'i', 'u', 'em', 'strong', 'p', 'br', 'ul', 'ol', 'li',
             'span', 'div', 'code', 'pre', 'table', 'tr', 'th', 'td', 'thead',
             'tbody', 'tfoot', 'caption'
         ]
         allowed_attributes = {'a': ['href', 'title']}
+        if formatted_reasoning:
+            sanitized_reasoning = bleach.clean(formatted_reasoning, tags=allowed_tags, attributes=allowed_attributes, strip=True)
         sanitized_response = bleach.clean(formatted_response, tags=allowed_tags, attributes=allowed_attributes, strip=True)
 
+        # Append to chat logs
+        if sanitized_reasoning:
+            self.chat_html_logs.append(f"""
+                <div class='reasoning-wrapper'>
+                    <p class='reasoning'>{sanitized_reasoning}</p>
+                </div>
+            """)
         self.chat_html_logs.append(f"""
             <div class='ai-wrapper'>
                 <p class='response'>{sanitized_response}</p>
