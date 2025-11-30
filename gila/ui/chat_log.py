@@ -344,6 +344,7 @@ class Chat(QObject):
             'tbody', 'tfoot', 'caption'
         ]
         allowed_attributes = {'a': ['href', 'title']}
+        sanitized_reasoning = None
         if formatted_reasoning:
             sanitized_reasoning = bleach.clean(formatted_reasoning, tags=allowed_tags, attributes=allowed_attributes, strip=True)
         sanitized_response = bleach.clean(formatted_response, tags=allowed_tags, attributes=allowed_attributes, strip=True)
@@ -351,9 +352,12 @@ class Chat(QObject):
         # Append to chat logs
         if sanitized_reasoning:
             self.chat_html_logs.append(f"""
-                <div class='reasoning-wrapper'>
-                    <p class='reasoning'>{sanitized_reasoning}</p>
-                </div>
+                <details class='reasoning-toggle'>
+                    <summary class='reasoning-summary'>Reasoning</summary>
+                    <div class='reasoning-content'>
+                        <p class='reasoning'>{sanitized_reasoning}</p>
+                    </div>
+                </details>
             """)
         self.chat_html_logs.append(f"""
             <div class='ai-wrapper'>
