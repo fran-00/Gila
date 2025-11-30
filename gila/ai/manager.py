@@ -14,6 +14,7 @@ from .clients import (
     DeepSeekClient,
     GoogleClient,
     GroqClient,
+    LMStudioClient,
     MistralClient,
     GPTClient,
     OClient,
@@ -31,7 +32,8 @@ CLASS_MAP = {
     "CohereClient": CohereClient,
     "DeepSeekClient": DeepSeekClient,
     "MistralClient": MistralClient,
-    "ImageGenClient": ImageGenClient
+    "ImageGenClient": ImageGenClient,
+    "LMStudioClient": LMStudioClient
 }
 
 COMPANIES = {
@@ -43,6 +45,7 @@ COMPANIES = {
     "GROQ": GroqClient("gemma2-9b-it"),
     "MISTRAL": MistralClient("mistral-small-latest"),
     "OPENAI": GPTClient("gpt-4o-mini"),
+    "LMSTUDIO": LMStudioClient("qwen/qwen3-4b-thinking-2507"),
 }
 
 def load_available_models_from_json():
